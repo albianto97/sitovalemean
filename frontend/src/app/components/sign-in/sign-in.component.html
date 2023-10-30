@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <form [formGroup]="registrazioneForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" formControlName="email">
+        <div *ngIf="registrazioneForm.get('email')?.hasError('required') && registrazioneForm.get('email')?.touched" class="text-danger">
+          L'email è richiesta.
+        </div>
+        <div *ngIf="registrazioneForm.get('email')?.hasError('email') && registrazioneForm.get('email')?.touched" class="text-danger">
+          L'indirizzo email non è valido.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" formControlName="username">
+        <div *ngIf="registrazioneForm.get('username')?.hasError('required') && registrazioneForm.get('username')?.touched" class="text-danger">
+          Lo username è richiesto.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" formControlName="password">
+        <div *ngIf="registrazioneForm.get('password')?.hasError('required') && registrazioneForm.get('password')?.touched" class="text-danger">
+          La password è richiesta.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!registrazioneForm.valid">Registrati</button>
+    </form>
+  </div>
+  
