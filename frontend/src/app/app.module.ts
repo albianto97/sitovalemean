@@ -8,12 +8,14 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from  '@angular/common/http';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignInComponent
+    SignInComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
