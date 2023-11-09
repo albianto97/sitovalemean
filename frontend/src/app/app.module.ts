@@ -9,19 +9,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from  '@angular/common/http';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignInComponent,
-    UserListComponent
+    UserListComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

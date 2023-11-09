@@ -2,11 +2,16 @@ const Product = require("../models/product");
 
 const getProduct = async (req, res) => {
     // Logica per ottenere un utente
-    const products = await Product.find();
-    res.json(products);
-
+    try{
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        console.error('Errore nel recupero dei prodotti:', error);
+        res.status(500).json({ message: 'Errore del server' });
+    }
     //res.send(res.json);
 }
+
 const getSingleProduct = async (req, res) => {
     try {
         const productId = req.params.productId;
