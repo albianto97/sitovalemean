@@ -11,6 +11,7 @@ import { HttpClientModule } from  '@angular/common/http';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import {CommonModule} from "@angular/common";
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {CommonModule} from "@angular/common";
     LoginComponent,
     SignInComponent,
     UserListComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
