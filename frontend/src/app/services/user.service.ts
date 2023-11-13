@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import {Observable} from "rxjs";
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,4 +23,11 @@ export class UserService {
 
     return this.http.post(this.endPoint+"/create-user", user);
   }
+
+  //TODO: CAMBIARE CODICE UTENTE CON QUALCOSA DI GENERALE
+  public getProfile(): Observable<User[]> {
+    //return this.http.get<User[]>(this.endPoint);
+    return this.http.get<User[]>(this.endPoint+"/65402ce9e06d2d48ea85baf3");
+  }
+
 }
