@@ -23,6 +23,6 @@ export class AppRoutingModule { }
 
 
 // TODO: CRITTOGRAFARE PASSWORD;
-// TODO: SignIn controllo che non sia già presente nome ed email;
+// TODO: SignIn controllo che non sia già presente nome ed email;  // testare --> errore in console giusto?
 // TODO: Profile --> branch creato per singola persona;
 // TODO: CREARE PRODOTTO

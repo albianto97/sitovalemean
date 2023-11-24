@@ -12,6 +12,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import {CommonModule} from "@angular/common";
 import {ProfiloComponent} from "./components/profile/profile.component";
+import { ProductCreationComponent } from './components/product-creation/product-creation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {ProfiloComponent} from "./components/profile/profile.component";
     SignInComponent,
     UserListComponent,
     ProductListComponent,
-    ProfiloComponent
+    ProfiloComponent,
+    ProductCreationComponent
   ],
   imports: [
     BrowserModule,
