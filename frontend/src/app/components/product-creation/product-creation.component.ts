@@ -1,29 +1,42 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/models/product';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Product} from "../../models/product";
 
 @Component({
   selector: 'app-product-creation',
   templateUrl: './product-creation.component.html',
   styleUrls: ['./product-creation.component.css']
 })
-export class ProductCreationComponent {
-  newProduct: Product = new Product({ name: '', description: '', price: 0 });
+export class ProductCreationComponent implements OnInit{
 
-  constructor(private productService: ProductService) {}
+  productForm: FormGroup;
+  constructor(private productService: ProductService, private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [0 , Validators.required]
+    });
 
-  createProduct() {
+  }
+
+
+  onSubmit() {
     // Chiamare il servizio per creare il prodotto
-    this.productService.createProduct(this.newProduct).subscribe(
-      (result) => {
-        console.log('Prodotto creato con successo', result);
-        // Puoi aggiungere ulteriori azioni dopo la creazione del prodotto
-      },
-      (error) => {
-        console.error('Errore durante la creazione del prodotto', error);
-        // Puoi gestire l'errore in modo appropriato, ad esempio mostrando un messaggio all'utente
-      }
-    );
+    if (this.productForm.valid) {
+      // Puoi gestire l'invio del form qui
+      console.log('Dati inviati:', this.productForm.value);
+      var product = new Product(this.productForm.value);
+      console.log(product);
+      this.productService.createProduct(product)
+        .subscribe((result: any) => {
+          console.log(result);
+        })
+    }
+  }
+
+  ngOnInit(): void {
+    console.log("Creazione Componente");
   }
 }
 
