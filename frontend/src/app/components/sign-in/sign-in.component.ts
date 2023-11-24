@@ -11,8 +11,9 @@ import { User } from 'src/app/models/user';
 })
 export class SignInComponent implements OnInit {
   registrazioneForm: FormGroup;
+
   constructor(private userService: UserService,
-    private fb: FormBuilder) {
+              private fb: FormBuilder) {
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -32,11 +33,16 @@ export class SignInComponent implements OnInit {
       var user = new User(this.registrazioneForm.value);
       console.log(user);
       this.userService.createUser(user)
-        .subscribe((result: any) => {
-          console.log(result);
-        })
+        .subscribe(
+          (result: any) => {
+            console.log(result);
+          },
+          (error: any) => {
+            // Gestisci l'errore qui senza loggare in console
+            console.error("Errore durante la richiesta:", error);
+            // Puoi anche gestire l'errore in modo più specifico, ad esempio mostrando un messaggio all'utente.
+          }
+        );
     }
   }
 }
-
-

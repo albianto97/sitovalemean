@@ -23,11 +23,24 @@ const getSingleUser = async (req, res) => {
     }
 };
 const createUser = async (req, res) => {
-    console.log(req)
-    User.create(req.body)
-        .then(() => res.json({ msg: "Utente creato con successo!" }))
-        .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
-}
+    try {
+        const { username, email } = req.body;
+
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+
+        if (existingUser) {
+            return res.status(400).json({ message: 'Nome utente o email già registrati.', specificMessage: 'Errore nella creazione' });
+        }
+
+        const newUser = await User.create(req.body);
+        res.json({ msg: "Utente creato con successo!", user: newUser });
+    } catch (error) {
+        console.error('Errore nella creazione dell\'utente:', error);
+        res.status(500).json({ msg: "Errore nella creazione dell'utente." });
+    }
+};
+
+
 
 module.exports = {
     getUser,
