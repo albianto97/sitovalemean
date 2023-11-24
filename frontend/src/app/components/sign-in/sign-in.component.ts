@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Creazione Componente");
+    console.log("Creazione Componente Registrazione");
   }
 
   onSubmit() {
