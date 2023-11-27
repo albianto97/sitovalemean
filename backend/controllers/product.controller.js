@@ -32,6 +32,7 @@ const createProduct = async (req, res) => {
     Product.create(req.body)
         .then(() => res.json({ msg: "Utente creato con successo!" }))
         .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
+
 }
 
 module.exports = {

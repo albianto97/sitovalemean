@@ -1,0 +1,25 @@
+<div>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <label for="productName">Nome del prodotto:</label>
+    <input id= productName type="text" class="form-control" formControlName="name"/>
+    <div *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched" class="text-danger">
+      Il nome è richiesto.
+    </div>
+
+
+    <label for="productDescription">Descrizione:</label>
+    <input id= productDescription type="text" class="form-control" formControlName="description"/>
+    <div *ngIf="productForm.get('description')?.hasError('required') && productForm.get('description')?.touched" class="text-danger">
+      La descrizone è richiesta.
+    </div>
+
+    <label for="productPrice">Prezzo:</label>
+    <input id= productPrice type="text" class="form-control" formControlName="price"/>
+    <div *ngIf="productForm.get('price')?.hasError('required') && productForm.get('price')?.touched" class="text-danger">
+      Il nome è richiesto.
+    </div>
+
+
+  <button type = submit class="btn btn-primary">Crea Prodotto</button>
+  </form>
+</div>
