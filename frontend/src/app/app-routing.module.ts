@@ -7,6 +7,8 @@ import {UserListComponent} from "./components/user-list/user-list.component";
 import {ProductListComponent} from "./components/product-list/product-list.component";
 import {ProfiloComponent} from "./components/profile/profile.component";
 import {ProductCreationComponent} from "./components/product-creation/product-creation.component";
+import {SingleProductComponent} from "./components/single-product/single-product.component";
+
 
 const routes: Routes = [
   {path : 'login', component: LoginComponent},
@@ -14,6 +16,7 @@ const routes: Routes = [
   {path : 'userList', component: UserListComponent},
   {path : 'productList', component: ProductListComponent},
   {path : 'single', component: ProfiloComponent},
+  { path: 'single-product/:productId', component: SingleProductComponent },
   {path : 'create-product', component: ProductCreationComponent},
 ];
 
