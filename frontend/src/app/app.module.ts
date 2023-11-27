@@ -13,6 +13,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import {CommonModule} from "@angular/common";
 import {ProfiloComponent} from "./components/profile/profile.component";
 import { ProductCreationComponent } from './components/product-creation/product-creation.component';
+import { SingleProductComponent } from './components/single-product/single-product.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductCreationComponent } from './components/product-creation/product-
     UserListComponent,
     ProductListComponent,
     ProfiloComponent,
-    ProductCreationComponent
+    ProductCreationComponent,
+    SingleProductComponent
   ],
   imports: [
     BrowserModule,

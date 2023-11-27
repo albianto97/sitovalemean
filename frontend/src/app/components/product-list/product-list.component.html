@@ -1,13 +1,10 @@
-<!-- product-list.component.html -->
 <div class="product-list">
   <h1>Lista Prodotti</h1>
   <div class="product-container" *ngFor="let product of products">
     <div class="product-card">
-      <a [routerLink]="['/single-product', product.id]">
-        <h3>{{ product.name }}</h3>
-      </a>
+      <a [routerLink]="['/single-product', product.id]">Dettagli prodotto</a>
+      <h3>{{ product.name }}</h3>
       <p>{{ product.description }}</p>
     </div>
   </div>
 </div>
-
