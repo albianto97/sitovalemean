@@ -1,9 +1,13 @@
+<p>product-list works!</p>
 <!-- product-list.component.html -->
 <div class="product-list">
   <h1>Lista Prodotti</h1>
-  <div *ngFor="let product of products">
-    <div class="product">
-      <h3>{{ product.name }} </h3> - {{ product.description }} - {{ product.price }}
+  <div class="product-container" *ngFor="let product of products">
+    <div class="product-card">
+      <a [routerLink]="['/single-product', product.id]">
+        <h3>{{ product.name }}</h3>
+      </a>
+      <p>{{ product.description }}</p>
     </div>
   </div>
 </div>
