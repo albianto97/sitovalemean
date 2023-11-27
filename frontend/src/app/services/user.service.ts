@@ -18,9 +18,6 @@ export class UserService {
   }
 
   public createUser(user: User):any {
-  //   var body = JSON.stringify(user);
-  // console.log(user);
-
     return this.http.post(this.endPoint+"/create-user", user);
   }
 

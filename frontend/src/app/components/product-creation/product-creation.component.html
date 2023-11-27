@@ -7,13 +7,13 @@
     </div>
 
 
-    <label for="productDescription">Nome del prodotto:</label>
+    <label for="productDescription">Descrizione:</label>
     <input id= productDescription type="text" class="form-control" formControlName="description"/>
     <div *ngIf="productForm.get('description')?.hasError('required') && productForm.get('description')?.touched" class="text-danger">
       La descrizone è richiesta.
     </div>
 
-    <label for="productPrice">Nome del prodotto:</label>
+    <label for="productPrice">Prezzo:</label>
     <input id= productPrice type="text" class="form-control" formControlName="price"/>
     <div *ngIf="productForm.get('price')?.hasError('required') && productForm.get('price')?.touched" class="text-danger">
       Il nome è richiesto.

@@ -1,11 +1,9 @@
-<p>product-list works!</p>
 <!-- product-list.component.html -->
 <div class="product-list">
   <h1>Lista Prodotti</h1>
   <div *ngFor="let product of products">
     <div class="product">
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
+      <h3>{{ product.name }} </h3> - {{ product.description }} - {{ product.price }}
     </div>
   </div>
 </div>

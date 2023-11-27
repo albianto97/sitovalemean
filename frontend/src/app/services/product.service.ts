@@ -10,11 +10,12 @@ export class ProductService {
   endPoint = "http://localhost:3000/api/product";
 
   constructor(private http: HttpClient) { }
+
   public createProduct(product: Product):any {
     return this.http.post(this.endPoint + "/create-product", product);
   }
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.endPoint);
-  }
 
+  }
 }
