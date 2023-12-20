@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(6)]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     if (this.registrazioneForm.valid) {
-      var newUser = new User(this.registrazioneForm.value("email"), this.registrazioneForm.value("username"), this.registrazioneForm.value("password"));
+      var newUser = new User(this.registrazioneForm.value.email, this.registrazioneForm.value.username, this.registrazioneForm.value.password);
       this.userService.createUser(newUser).subscribe((response: any) => {
         console.log(response);
       });

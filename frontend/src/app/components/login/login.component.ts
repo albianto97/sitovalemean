@@ -27,7 +27,7 @@ export class LoginComponent {
     onSubmit() {
       
       if (this.loginForm.valid) {
-        var newUser = new User("atest@test.it", "username", "pddsw");
+        var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
         this.userService.login(newUser).subscribe((response: any) => {
           console.log(response);
         });
