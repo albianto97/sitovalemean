@@ -11,9 +11,9 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   public createUser(user: User):any {
-  //   var body = JSON.stringify(user);
-  // console.log(user);
-  
     return this.http.post(this.endPoint+"/create-user", user);
+  }
+  public login(user: User):any {
+    return this.http.post(this.endPoint+"/login", user);
   }
 }

@@ -6,5 +6,7 @@ const router = express.Router();
 router.get('/', userController.getUser);
 // Rotta per creare un utente
 router.post('/create-user', userController.createUser);
+// Rotta per effettuare il Login di un utente
+router.post('/login', userController.login);
 
 module.exports = router;
