@@ -17,6 +17,7 @@ import {ProfiloComponent} from "./components/profile/profile.component";
 import { ProductCreationComponent } from './components/product-creation/product-creation.component';
 import { SingleProductComponent } from './components/single-product/single-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductListComponent,
     ProfiloComponent,
     ProductCreationComponent,
-    SingleProductComponent
+    SingleProductComponent,
+    CreateOrderComponent
   ],
   imports: [
     BrowserModule,
