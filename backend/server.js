@@ -1,6 +1,7 @@
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/user.route');
 const productRoutes = require('./routes/product.route');
+const orderRoutes = require('./routes/order.route');
 const express = require('express');
 
 const bodyParser = require('body-parser');
@@ -26,6 +27,7 @@ const port = 3000;
 connectDB();
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
+app.use('/api/order', orderRoutes);
 
 
 app.listen(port, () => {
