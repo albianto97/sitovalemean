@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Lista Utenti</h2>
+
+  <!-- Lista degli utenti -->
+  <ul class="list-group">
+    <li *ngFor="let user of users" class="list-group-item">
+      {{ user.username }}
+    </li>
+  </ul>
+</div>
