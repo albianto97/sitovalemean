@@ -3,7 +3,7 @@ enum Ruolo {
     Utente = "utente"
 }
 export class User {
-    _id?: string;
+    id?: string;
     username: string;
     password: string;
     email: string;
