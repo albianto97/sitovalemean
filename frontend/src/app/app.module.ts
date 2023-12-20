@@ -36,7 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatIconModule
+    MatIconModule,
     HttpClientModule,
     CommonModule
   ],

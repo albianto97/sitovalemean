@@ -11,8 +11,9 @@ import {SingleProductComponent} from "./components/single-product/single-product
 
 
 const routes: Routes = [
+  {path : '', component: LoginComponent},
   {path : 'login', component: LoginComponent},
-  {path : 'signin', component: SignInComponent},
+  {path : 'sign-in', component: SignInComponent},
   {path : 'userList', component: UserListComponent},
   {path : 'productList', component: ProductListComponent},
   {path : 'single', component: ProfiloComponent},
