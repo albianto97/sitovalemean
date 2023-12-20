@@ -11,9 +11,7 @@ import { User } from 'src/app/models/user';
 })
 export class SignInComponent implements OnInit {
   registrazioneForm: FormGroup;
-
-  constructor(private userService: UserService,
-              private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder) {
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -23,26 +21,28 @@ export class SignInComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Creazione Componente Registrazione");
+    console.log("Creazione Componente");
   }
 
   onSubmit() {
     if (this.registrazioneForm.valid) {
-      // Puoi gestire l'invio del form qui
-      console.log('Dati inviati:', this.registrazioneForm.value);
-      var user = new User(this.registrazioneForm.value);
-      console.log(user);
-      this.userService.createUser(user)
-        .subscribe(
-          (result: any) => {
-            console.log(result);
-          },
-          (error: any) => {
-            // Gestisci l'errore qui senza loggare in console
-            console.error("Errore durante la richiesta:", error);
-            // Puoi anche gestire l'errore in modo più specifico, ad esempio mostrando un messaggio all'utente.
-          }
-        );
+      var newUser = new User("atest@test.it", "username", "psw");
+      this.userService.createUser(newUser).subscribe((response: any) => {
+        console.log(response);
+      });
     }
+    // if (this.registrazioneForm.valid) {
+    //   // Puoi gestire l'invio del form qui
+    //   console.log('Dati inviati:', this.registrazioneForm.value);
+    //   var user = new User(this.registrazioneForm.value);
+    //   console.log(user);
+    //   // this.userService.createUser(user)
+    //   //   .subscribe((result: any) => {
+    //   //     console.log(result);
+    //   //   })
+    // }
   }
+
+
+
 }
