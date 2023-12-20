@@ -11,7 +11,8 @@ import { User } from 'src/app/models/user';
 })
 export class SignInComponent implements OnInit {
   registrazioneForm: FormGroup;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService,
+    private fb: FormBuilder) {
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -21,7 +22,7 @@ export class SignInComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Creazione Componente");
+    console.log("Creazione Componente Registrazione");
   }
 
   onSubmit() {
@@ -42,7 +43,4 @@ export class SignInComponent implements OnInit {
     //   //   })
     // }
   }
-
-
-
 }
