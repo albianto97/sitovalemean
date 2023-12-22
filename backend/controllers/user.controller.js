@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require("../models/user");
+const jwt = require('jsonwebtoken');
 
 const getUser = async (req, res) => {
     // Logica per ottenere un utente
@@ -8,9 +9,10 @@ const getUser = async (req, res) => {
 
     //res.send(res.json);
 }
-const getSingleUser = async (req, res) => {
+const getProfile = async (req, res) => {
     try {
-        const userId = req.params.userId;
+        // Utilizza il middleware di autenticazione per ottenere l'ID dell'utente dal token
+        const userId = req.userId;
         const user = await User.findById(userId);
 
         if (!user) {
@@ -40,7 +42,6 @@ const createUser = async (req, res) => {
         res.status(500).json({ msg: "Errore nella creazione dell'utente." });
     }
 };
-
 const login = async (req, res) => {
     try {
         // Cerca l'utente nel database usando await
@@ -50,7 +51,11 @@ const login = async (req, res) => {
         if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(400).json({ isValid: false, message: "Incorrect password" });
         }
-        return res.status(200).json({ isValid: true, message: "Login successful" });
+
+        // Crea un token di gestione utente
+        const token = jwt.sign({ id: user._id }, 'A123B456C789', { expiresIn: '1h' });
+
+        return res.status(200).json({ isValid: true, message: "Login successful", token: token });
     } catch (err) {
         console.error(err);
         res.status(500).json({ isValid: false, message: err.message });
@@ -60,6 +65,6 @@ const login = async (req, res) => {
 module.exports = {
     getUser,
     createUser,
-    getSingleUser,
+    getProfile,
     login
 }
