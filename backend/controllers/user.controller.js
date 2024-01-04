@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 
 const getUser = async (req, res) => {
@@ -27,17 +28,20 @@ const createUser = async (req, res) => {
     try {
         const { username, email } = req.body;
 
-        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+        const existingUsername = await User.findOne({ username });
+        const existingEmail = await User.findOne({ email });
 
-        if (existingUser) {
-            return res.status(400).json({ message: 'Nome utente o email già registrati.', specificMessage: 'Errore nella creazione' });
+        if (existingUsername) {
+            return res.status(409).json({error: "Conflict",message: "L'username è già utilizzato"});
         }
-
+        if (existingEmail) {
+            return res.status(422).json({error: "Conflict",message: "L'email è già associata ad un altro utente"});
+        }
         const newUser = await User.create(req.body);
-        res.json({ msg: "Utente creato con successo!", user: newUser });
+        res.json({ message: "Utente creato con successo!", user: newUser });
     } catch (error) {
         console.error('Errore nella creazione dell\'utente:', error);
-        res.status(500).json({ msg: "Errore nella creazione dell'utente." });
+        res.status(500).json({ message: "Errore nella creazione dell'utente." });
     }
 };
 
@@ -50,7 +54,9 @@ const login = async (req, res) => {
         if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(400).json({ isValid: false, message: "Incorrect password" });
         }
-        return res.status(200).json({ isValid: true, message: "Login successful" });
+        const token = jwt.sign({ _id: user._id, username: user.username }, 'chiaveSegreta');
+        
+        return res.status(200).json({ isValid: true, message: "Login successful", token: token });
     } catch (err) {
         console.error(err);
         res.status(500).json({ isValid: false, message: err.message });

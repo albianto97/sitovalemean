@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 
@@ -13,7 +15,9 @@ export class LoginComponent {
   
     loginForm: FormGroup;
   
-    constructor(private userService: UserService, private fb: FormBuilder) {
+    constructor(private authService: AuthService,
+       private fb: FormBuilder,
+       private router: Router) {
       this.loginForm= this.fb.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]]
@@ -28,8 +32,8 @@ export class LoginComponent {
       
       if (this.loginForm.valid) {
         var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
-        this.userService.login(newUser).subscribe((response: any) => {
-          console.log(response);
+        this.authService.login(newUser).subscribe((response: any) => {
+          this.router.navigate(['']);
         });
       }
     }

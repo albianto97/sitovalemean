@@ -2,6 +2,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/user.route');
 const productRoutes = require('./routes/product.route');
 const orderRoutes = require('./routes/order.route');
+const token = require('./middlewares/token');
 const express = require('express');
 
 const bodyParser = require('body-parser');
@@ -28,6 +29,7 @@ connectDB();
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
+app.use(token.verifyToken);
 
 
 app.listen(port, () => {
