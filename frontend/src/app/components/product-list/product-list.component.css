@@ -34,3 +34,14 @@ p {
 h1 {
   color: #333;
 }
+mat-grid-tile {
+  background: lightblue;
+}
+
+section {
+  display: table;
+}
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}

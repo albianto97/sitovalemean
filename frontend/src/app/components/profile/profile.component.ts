@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import { UserService } from 'src/app/services/user.service';
+import {User} from "../../models/user";
+import {AuthService} from "../../services/auth.service";
 
 
 @Component({
@@ -11,14 +11,12 @@ import { UserService } from 'src/app/services/user.service';
 
 
 export class ProfiloComponent implements OnInit {
-  user: any; // Assicurati che il tipo sia appropriato
+  user: User | undefined;
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.userService.getProfile().subscribe((data) => {
-      this.user = data;
-    });
+    this.user = this.auth.getUserFromToken();
   }
 
 }

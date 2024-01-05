@@ -24,10 +24,6 @@ export class UserService {
     return this.http.post(this.endPoint+"/login", user);
   }
 
-  //TODO: CAMBIARE CODICE UTENTE CON QUALCOSA DI GENERALE --> dopo aver fatto il login mettere il nome
-  public getProfile(): Observable<User[]> {
-    //return this.http.get<User[]>(this.endPoint);
-    return this.http.get<User[]>(this.endPoint+"/65402ce9e06d2d48ea85baf3");
-  }
+
 
 }
