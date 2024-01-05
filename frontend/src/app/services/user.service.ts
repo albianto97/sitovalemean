@@ -20,26 +20,14 @@ export class UserService {
   public createUser(user: User):any {
     return this.http.post(this.endPoint+"/create-user", user);
   }
-  login(user: User): Observable<any> {
-    return this.http.post<any>(`${this.endPoint}/login`, user);
+  public login(user: User):any {
+    return this.http.post(this.endPoint+"/login", user);
   }
 
-  // Aggiungi un metodo per salvare e recuperare il token
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  // Aggiungi un metodo per ottenere il profilo dell'utente
-  getProfile(): Observable<any> {
-    // Utilizza il token per autenticare la richiesta
-    const token = this.getToken();
-    // Aggiungi il token all'header della richiesta
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<any>(`${this.endPoint}/profile`, { headers });
+  //TODO: CAMBIARE CODICE UTENTE CON QUALCOSA DI GENERALE --> dopo aver fatto il login mettere il nome
+  public getProfile(): Observable<User[]> {
+    //return this.http.get<User[]>(this.endPoint);
+    return this.http.get<User[]>(this.endPoint+"/65402ce9e06d2d48ea85baf3");
   }
 
 }

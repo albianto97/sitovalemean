@@ -32,10 +32,10 @@ const createUser = async (req, res) => {
         const existingEmail = await User.findOne({ email });
 
         if (existingUsername) {
-            return res.status(409).json({error: "Conflict",message: "L'username è già utilizzato"});
+            return res.status(409).json({ error: "Conflict", message: "L'username è già utilizzato" });
         }
         if (existingEmail) {
-            return res.status(422).json({error: "Conflict",message: "L'email è già associata ad un altro utente"});
+            return res.status(422).json({ error: "Conflict", message: "L'email è già associata ad un altro utente" });
         }
         const newUser = await User.create(req.body);
         res.json({ message: "Utente creato con successo!", user: newUser });

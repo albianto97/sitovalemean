@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +6,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  user: User | undefined;
-  constructor(private auth: AuthService){
-    
+ 
+  constructor(){
+  }
+  ordina(){
+
+    // va indirizzato nella lista degli articoli 
   }
   ngOnInit(): void {
-    this.user = this.auth.getUserFromToken();
   }
   
 }

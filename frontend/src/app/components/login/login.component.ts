@@ -12,9 +12,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  
     loginForm: FormGroup;
-
+  
     constructor(private authService: AuthService,
        private fb: FormBuilder,
        private router: Router) {
@@ -23,13 +23,13 @@ export class LoginComponent {
         password: ['', [Validators.required, Validators.minLength(6)]]
       });
     }
-
+  
     ngOnInit() {
-      console.log("Inizializzo: Log-In");
+      console.log("Inizializzo: Log-In");      
     }
-
+  
     onSubmit() {
-
+      
       if (this.loginForm.valid) {
         var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
         this.authService.login(newUser).subscribe((response: any) => {
@@ -38,4 +38,4 @@ export class LoginComponent {
       }
     }
   }
-
+  

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-user-info',
@@ -10,10 +12,12 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserInfoComponent implements OnInit {
   user: User | undefined;
   saluto: string = "";
-  constructor(private auth: AuthService) {
-
+  cart:any;
+  constructor(private auth: AuthService, private router: Router, private cartService: CartService){
+      cartService.initCart();
   }
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.cart = this.cartService.getCart();
     this.user = this.auth.getUserFromToken();
     this.calcolaSaluto();
   }
@@ -27,6 +31,10 @@ export class UserInfoComponent implements OnInit {
     } else {
       this.saluto = 'Buonasera, ' + this.user?.username + '!';
     }
+  }
+  
+  viewCart(){
+    this.router.navigate(['/view-cart']);
   }
   logOut(){
     this.auth.logout();
