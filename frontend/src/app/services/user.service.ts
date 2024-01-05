@@ -33,13 +33,6 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
-  // Aggiungi un metodo per ottenere il profilo dell'utente
-  getProfile(): Observable<any> {
-    // Utilizza il token per autenticare la richiesta
-    const token = this.getToken();
-    // Aggiungi il token all'header della richiesta
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<any>(`${this.endPoint}/profile`, { headers });
-  }
+
 
 }

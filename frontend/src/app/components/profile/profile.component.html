@@ -1,6 +1,6 @@
 <div>
-  <h2>Profilo Utente</h2>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Username:</strong> {{ user.username }}</p>
-  <p><strong>Password:</strong> {{ user.password }}</p>
+  <app-user-info></app-user-info>
+  <p><strong>Email:</strong> {{this.user?.username }}</p>
+  <p><strong>Username:</strong> {{ this.user?.email }}</p>
+  <p><strong>Password:</strong> {{ this.user?.password }}</p>
 </div>
