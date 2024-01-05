@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const User = require("../models/user");
 const jwt = require('jsonwebtoken');
+const User = require("../models/user");
 
 const getUser = async (req, res) => {
     // Logica per ottenere un utente
@@ -9,10 +9,9 @@ const getUser = async (req, res) => {
 
     //res.send(res.json);
 }
-const getProfile = async (req, res) => {
+const getSingleUser = async (req, res) => {
     try {
-        // Utilizza il middleware di autenticazione per ottenere l'ID dell'utente dal token
-        const userId = req.userId;
+        const userId = req.params.userId;
         const user = await User.findById(userId);
 
         if (!user) {
@@ -29,19 +28,23 @@ const createUser = async (req, res) => {
     try {
         const { username, email } = req.body;
 
-        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+        const existingUsername = await User.findOne({ username });
+        const existingEmail = await User.findOne({ email });
 
-        if (existingUser) {
-            return res.status(400).json({ message: 'Nome utente o email già registrati.', specificMessage: 'Errore nella creazione' });
+        if (existingUsername) {
+            return res.status(409).json({error: "Conflict",message: "L'username è già utilizzato"});
         }
-
+        if (existingEmail) {
+            return res.status(422).json({error: "Conflict",message: "L'email è già associata ad un altro utente"});
+        }
         const newUser = await User.create(req.body);
-        res.json({ msg: "Utente creato con successo!", user: newUser });
+        res.json({ message: "Utente creato con successo!", user: newUser });
     } catch (error) {
         console.error('Errore nella creazione dell\'utente:', error);
-        res.status(500).json({ msg: "Errore nella creazione dell'utente." });
+        res.status(500).json({ message: "Errore nella creazione dell'utente." });
     }
 };
+
 const login = async (req, res) => {
     try {
         // Cerca l'utente nel database usando await
@@ -51,9 +54,7 @@ const login = async (req, res) => {
         if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(400).json({ isValid: false, message: "Incorrect password" });
         }
-
-        // Crea un token di gestione utente
-        const token = jwt.sign({ id: user._id }, 'A123B456C789', { expiresIn: '1h' });
+        const token = jwt.sign({ _id: user._id, username: user.username }, 'chiaveSegreta');
 
         return res.status(200).json({ isValid: true, message: "Login successful", token: token });
     } catch (err) {
@@ -65,6 +66,6 @@ const login = async (req, res) => {
 module.exports = {
     getUser,
     createUser,
-    getProfile,
+    getSingleUser,
     login
 }

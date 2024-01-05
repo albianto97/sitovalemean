@@ -18,6 +18,8 @@ import { ProductCreationComponent } from './components/product/product-creation/
 import { SingleProductComponent } from './components/product/single-product/single-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
+import { HomeComponent } from './components/home/home.component';
+import { UserInfoComponent } from './components/structure/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CreateOrderComponent } from './components/order/create-order/create-ord
     ProfiloComponent,
     ProductCreationComponent,
     SingleProductComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    HomeComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,

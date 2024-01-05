@@ -32,7 +32,7 @@
               <div class="invalid-feedback">La password deve avere almeno 6 caratteri.</div>
             </div>
   
-            <button type="submit" class="btn btn-primary" [disabled]="registrazioneForm.invalid">Registrati</button>
+            <button type="submit" class="btn btn-primary" [disabled]="registrazioneForm.invalid || registrazioneForm.disabled">Registrati</button>
             <div >Sei registrato?<a [routerLink]="'/login'">Accedi</a></div>
           </form>
         </mat-card-content>
