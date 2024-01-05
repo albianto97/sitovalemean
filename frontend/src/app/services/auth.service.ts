@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
-  private endPoint = "http://localhost:3000/api/user";; // URL del tuo server Express.js
+  private endPoint = "http://localhost:3000/api/user"; // URL del tuo server Express.js
   private token: string | null = null;
   constructor(private http: HttpClient) { }
   login(user: User): Observable<any> {
@@ -28,7 +28,7 @@ export class AuthService {
   isAuthenticated(): boolean {
     // Implementa la logica per verificare se l'utente è autenticato
     var user = this.getUserFromToken();
-    console.log(user);    
+    console.log(user);
     return !!user;
   }
 
@@ -43,7 +43,7 @@ export class AuthService {
   saveTokenToLocalStorage(token: string): void {
     localStorage.setItem('authToken', token);
   }
-  
+
   getTokenFromLocalStorage(): string | null {
     return localStorage.getItem('authToken');
   }
