@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Order, OrderType } from 'src/app/models/order';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -7,28 +11,43 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./create-order.component.css']
 })
 export class CreateOrderComponent {
-  constructor(private orderService: OrderService) { }
+  productsInCart = [];
+  user: any | undefined;
+  order: Order | null = null;
+  // per creare dinamicamente la select della tipologia del'ordine
+  orderTypes = Object.entries(OrderType).map(([key, value]) => ({ key, value }));
+  selectedOrderType: string = 'ritiro';
+
+  note: string | null = null;
+  constructor(private orderService: OrderService, private cartService: CartService, private authService: AuthService) {
+    this.productsInCart = cartService.getCart().products;
+    this.user = this.authService.getUserFromToken();
+  }
+  // assegno il valore digitato nella text-area ad una variabile
+  handleInputTextArea(ev: any) {
+    this.note = ev.target.value
+  }
   creaOrdine() {
-    const order = {
-      creationDate: new Date(),
-      status: 'in attesa',
-      note: 'Questo è un ordine di prova',
-      orderType: 'domicilio',
-      products: [
-        {
-          productId: '6564af0c79c5b00a9e6c58cc', // Sostituisci con un ID di prodotto valido
-          quantity: 2
-        },
-        {
-          productId: '6564afdc595c21d4cf11fc5e', // Sostituisci con un ID di prodotto valido
-          quantity: 1
-        }
-      ],
-      user: '6583645f340b9b6eedd3a7f8' // Sostituisci con un ID utente valido
-    };
-    this.orderService.createOrder(order).subscribe(result => {
-      console.log(result);
+    console.log(this.user);
+    
+    if (this.user) {
+      const order = {
+        creationDate: new Date(),
+        status: 'inAttesa',
+        note: this.note,
+        orderType: this.selectedOrderType,
+        products: this.productsInCart,
+        user: this.user._id
+      };
+      console.log(order);
       
-    });
+      this.orderService.createOrder(order).subscribe(result => {
+        console.log(result, order);
+      });
+    } else {
+      // deve effettuare il login per poter effettuare l'ordine
+    }
+
+
   }
 }

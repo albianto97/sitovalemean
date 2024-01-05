@@ -8,18 +8,21 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './modules/material/material.module';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from  '@angular/common/http';
-import { UserListComponent } from './components/profile/user-list/user-list.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 import {CommonModule} from "@angular/common";
 import {ProfiloComponent} from "./components/profile/profile.component";
-import { ProductCreationComponent } from './components/product/product-creation/product-creation.component';
-import { SingleProductComponent } from './components/product/single-product/single-product.component';
+import { ProductCreationComponent } from './components/product-creation/product-creation.component';
+import { SingleProductComponent } from './components/single-product/single-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserInfoComponent } from './components/structure/user-info/user-info.component';
+import { CartComponent } from './components/cart/cart.component';
+import { OrdersComponent } from './components/order/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,13 @@ import { UserInfoComponent } from './components/structure/user-info/user-info.co
     SingleProductComponent,
     CreateOrderComponent,
     HomeComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    CartComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

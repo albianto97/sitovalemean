@@ -20,17 +20,8 @@ export class UserService {
   public createUser(user: User):any {
     return this.http.post(this.endPoint+"/create-user", user);
   }
-  login(user: User): Observable<any> {
-    return this.http.post<any>(`${this.endPoint}/login`, user);
-  }
-
-  // Aggiungi un metodo per salvare e recuperare il token
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  public login(user: User):any {
+    return this.http.post(this.endPoint+"/login", user);
   }
 
 
