@@ -1,2 +1,18 @@
-<p>create-order works!</p>
-<button (click)="creaOrdine()">cliccami</button>
+<div class="container-xl">
+    <p>FARE UN COMPONENTE LISTA DEGLI ARTICOLI NEL CARRELLO</p>
+    <div class="d-flex flex-column">
+        <mat-form-field class="w-50">
+            <mat-label>Tipologia Servizio</mat-label>
+            <mat-select [(ngModel)]="selectedOrderType">
+                <mat-option *ngFor="let orderType of orderTypes"
+                    [value]="orderType.key">{{orderType.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <mat-label>Lascia delle note per noi</mat-label>
+            <textarea matInput placeholder="Es. Preferirei il gusto cioccolato"
+                (input)="handleInputTextArea($event)"></textarea>
+        </mat-form-field>
+        <button class="btn btn-primary" (click)="creaOrdine()">Invia Ordine</button>
+    </div>
+</div>

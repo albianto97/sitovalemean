@@ -32,10 +32,10 @@ const createUser = async (req, res) => {
         const existingEmail = await User.findOne({ email });
 
         if (existingUsername) {
-            return res.status(409).json({error: "Conflict",message: "L'username è già utilizzato"});
+            return res.status(409).json({ error: "Conflict", message: "L'username è già utilizzato" });
         }
         if (existingEmail) {
-            return res.status(422).json({error: "Conflict",message: "L'email è già associata ad un altro utente"});
+            return res.status(422).json({ error: "Conflict", message: "L'email è già associata ad un altro utente" });
         }
         const newUser = await User.create(req.body);
         res.json({ message: "Utente creato con successo!", user: newUser });
@@ -55,7 +55,7 @@ const login = async (req, res) => {
             return res.status(400).json({ isValid: false, message: "Incorrect password" });
         }
         const token = jwt.sign({ _id: user._id, username: user.username }, 'chiaveSegreta');
-        
+
         return res.status(200).json({ isValid: true, message: "Login successful", token: token });
     } catch (err) {
         console.error(err);

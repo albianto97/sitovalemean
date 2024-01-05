@@ -8,6 +8,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './modules/material/material.module';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from  '@angular/common/http';
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -20,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserInfoComponent } from './components/structure/user-info/user-info.component';
+import { CartComponent } from './components/cart/cart.component';
+import { OrdersComponent } from './components/order/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +36,13 @@ import { UserInfoComponent } from './components/structure/user-info/user-info.co
     SingleProductComponent,
     CreateOrderComponent,
     HomeComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    CartComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

@@ -4,13 +4,13 @@ const orderSchema = new mongoose.Schema({
     creationDate: { type: Date, required: true },
     closingDate: { type: Date, required: false },
     shippingDate: { type: Date, required: false },
-    status:  {
+    status: {
         type: String,
-        enum: ['in attesa', 'rifiutato', 'accettato', 'lavorazione', 'terminato', 'consegnato'], // Specifica un elenco di valori validi
+        enum: ['inAttesa', 'rifiutato', 'accettato', 'lavorazione', 'terminato', 'consegnato'], // Specifica un elenco di valori validi
         required: true
-      },
-    note:{ type: String, required: false},
-    orderType:{ type: String,enum: ['domicilio', 'ritiro'], required: false},
+    },
+    note: { type: String, required: false },
+    orderType: { type: String, enum: ['domicilio', 'ritiro'], required: false },
     products: [{
         productId: { type: mongoose.Schema.Types.ObjectId, ref: 'products', required: true },
         quantity: { type: Number, required: true }

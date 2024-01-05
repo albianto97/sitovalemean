@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import {Observable} from "rxjs";
+import { GeneralService } from './-general.service';
 
 
 
@@ -11,9 +10,14 @@ import {Observable} from "rxjs";
 export class OrderService {
   endPoint = "http://localhost:3000/api/order";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private generalService: GeneralService) { }
+  getOrdersFromUser() {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(this.endPoint+'/getOrdersFromUser', { headers });
+  }
+
   createOrder(order: any) {
-    return this.http.post(this.endPoint+'/create-order', order);
+    return this.http.post(this.endPoint + '/create-order', order);
   }
 
 }
