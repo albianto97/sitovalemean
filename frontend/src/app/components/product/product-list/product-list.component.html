@@ -1,18 +1,11 @@
 <div class="product-list">
-  <h1>Lista Prodotti</h1>
-  <mat-grid-list cols="2">
-  <div class="product-container" *ngFor="let product of products">
-    <mat-grid-tile>
-    <div class="product-card">
-      <a [routerLink]="['/single-product', product._id]">
-        <h3>{{ product.name }}</h3>
-      </a>
-      <p>{{ product.description }}</p>
-    </div>
-    </mat-grid-tile>
+
+  <div class="example-button-row">
+    <button class="button-large">TORTA</button>
   </div>
-  </mat-grid-list>
+  <h1 class="text-center">Lista Prodotti</h1>
+  <div class="example-button-row">
+    <button class="button-large">GELATO</button>
+  </div>
+
 </div>
-
-
-
