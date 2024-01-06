@@ -1,23 +1,32 @@
 /* product-list.component.css */
-.example-button-row button {
-  margin: 5px; /* Aggiungi margine per spaziare i pulsanti */
-  font-size: 18px; /* Imposta la dimensione del carattere */
-  padding: 10px 20px; /* Imposta il padding per rendere il pulsante più grande */
-}
-
 .example-button-row button.large {
   font-size: 24px; /* Aumenta la dimensione del carattere per il pulsante selezionato */
 }
+/* Aggiungi stili per rendere i pulsanti più grandi */
+.example-button-row button {
+  margin: 5px;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+/* Aggiungi stili per rendere le mat-cards più visibili */
 .gusticard {
+  margin: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
   max-width: 400px;
 }
 
-.example-button-row button {
-  margin: 5px; /* Aggiungi margine per spaziare i pulsanti */
-  font-size: 18px; /* Imposta la dimensione del carattere */
-  padding: 10px 20px; /* Imposta il padding per rendere il pulsante più grande */
+.gusticard:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+/* product-list.component.css */
+.custom-grid {
+  max-width: 100%; /* Assicurati che la griglia non superi la larghezza massima disponibile */
 }
 
-.example-button-row button.large {
-  font-size: 24px; /* Aumenta la dimensione del carattere per il pulsante selezionato */
+.product-container {
+  width: 100%; /* Assicurati che ogni elemento nel container della griglia abbia larghezza del 100% */
+  box-sizing: border-box; /* Considera il padding e il bordo nella larghezza totale */
 }
