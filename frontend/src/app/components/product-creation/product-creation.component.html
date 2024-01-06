@@ -1,26 +1,41 @@
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="example-full-width">
     <mat-label for="productName">Nome del prodotto:</mat-label>
-    <input matInput id= productName type="text" class="form-control" formControlName="name"/>
+    <input matInput id="productName" type="text" class="form-control" formControlName="name"/>
     <div *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched" class="text-danger">
       Il nome è richiesto.
     </div>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-  <mat-label for="productDescription">Descrizione:</mat-label>
-  <input matInput productDescription type="text" class="form-control" formControlName="description"/>
-  <div *ngIf="productForm.get('description')?.hasError('required') && productForm.get('description')?.touched" class="text-danger">
-    La descrizone è richiesta.
-  </div>
+    <mat-label for="productDescription">Descrizione:</mat-label>
+    <input matInput id="productDescription" type="text" class="form-control" formControlName="description"/>
+    <div *ngIf="productForm.get('description')?.hasError('required') && productForm.get('description')?.touched" class="text-danger">
+      La descrizione è richiesta.
+    </div>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-  <mat-label for="productPrice">Prezzo:</mat-label>
-  <input matInput id= productPrice type="text" class="form-control" formControlName="price"/>
+    <mat-label for="productPrice">Prezzo:</mat-label>
+    <input matInput id="productPrice" type="text" class="form-control" formControlName="price"/>
     <div *ngIf="productForm.get('price')?.hasError('required') && productForm.get('price')?.touched" class="text-danger">
-      Il nome è richiesto.
+      Il prezzo è richiesto.
     </div>
   </mat-form-field>
-  <button type = submit class="btn btn-primary">Crea Prodotto</button>
+
+  <!-- Additional fields -->
+  <mat-form-field class="example-full-width">
+    <mat-label for="productDisponibilita">Disponibilità:</mat-label>
+    <input matInput id="productDisponibilita" type="number" class="form-control" formControlName="disponibilita"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label for="productType">Tipo:</mat-label>
+    <mat-select id="productType" formControlName="type">
+      <mat-option value="torta">Torta</mat-option>
+      <mat-option value="gelato">Gelato</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button type="submit" class="btn btn-primary">Crea Prodotto</button>
 </form>
