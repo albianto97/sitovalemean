@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const ProductTypeEnum = {
-    TORTA: 'torta',
-    GELATO: 'gelato',
+    TORTA: 'TORTA',
+    GELATO: 'GELATO',
 };
 
 const productSchema = new mongoose.Schema({

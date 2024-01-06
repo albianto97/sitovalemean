@@ -1,9 +1,7 @@
 // product-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../models/product";
-import {Observable} from "rxjs";
-
+import { ProductService } from "../../services/product.service";
+import { Product } from "../../models/product";
 
 @Component({
   selector: 'app-product-list',
@@ -18,16 +16,10 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    // Fetch products from your service
-    this.productService.getProducts().subscribe(
-      (data: Product[]) => {
-        this.products = data;
-        this.filteredProducts = this.products;
-      },
-      (error) => {
-        console.error('Error fetching products:', error);
-      }
-    );
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+      this.filteredProducts = this.products;
+    });
   }
 
   filterProducts(type: string): void {
