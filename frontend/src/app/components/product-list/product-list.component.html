@@ -1,27 +1,26 @@
 <div class="product-list">
   <section>
-  <div class="example-button-row">
-    <button class="button-large">TORTA</button>
-  </div>
-  <h1 class="text-center">Lista Prodotti</h1>
-  <div class="example-button-row">
-    <button class="button-large">GELATO</button>
-  </div>
-  </section>
-</div>
-<div>
-  <mat-grid-list cols="2" rowHeight="1:1">
-    <div class="product-container" *ngFor="let product of products">
-      <mat-grid-tile>
-        <div class="product-card">
-          <a [routerLink]="['/single-product', product._id]">
-            <h3>{{ product.name }}</h3>
-          </a>
-          <p>{{ product.description }}</p>
-        </div>
-      </mat-grid-tile>
+    <div class="example-button-row">
+      <button class="button-large" (click)="filterProducts('TORTA')">TORTA</button>
     </div>
-    <mat-grid-tile> TORTA </mat-grid-tile>
-  </mat-grid-list>
-</div>
+    <h1 class="text-center">Lista Prodotti</h1>
+    <div class="example-button-row">
+      <button class="button-large" (click)="filterProducts('gelato')">GELATO</button>
+    </div>
+  </section>
 
+  <div *ngIf="selectedType === 'TORTA' || selectedType === 'GELATO'">
+    <mat-grid-list cols="2" rowHeight="1:1">
+      <div class="product-container" *ngFor="let product of filteredProducts">
+        <mat-grid-tile>
+          <div class="product-card">
+            <a [routerLink]="['/single-product', product._id]">
+              <h3>{{ product.name }}</h3>
+            </a>
+            <p>{{ product.description }}</p>
+          </div>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+  </div>
+</div>
