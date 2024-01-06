@@ -8,3 +8,16 @@
 .example-button-row button.large {
   font-size: 24px; /* Aumenta la dimensione del carattere per il pulsante selezionato */
 }
+.gusticard {
+  max-width: 400px;
+}
+
+.example-button-row button {
+  margin: 5px; /* Aggiungi margine per spaziare i pulsanti */
+  font-size: 18px; /* Imposta la dimensione del carattere */
+  padding: 10px 20px; /* Imposta il padding per rendere il pulsante più grande */
+}
+
+.example-button-row button.large {
+  font-size: 24px; /* Aumenta la dimensione del carattere per il pulsante selezionato */
+}
