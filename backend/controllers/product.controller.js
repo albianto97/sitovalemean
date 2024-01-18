@@ -30,7 +30,7 @@ const getSingleProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     console.log(req)
     Product.create(req.body)
-        .then(() => res.json({ msg: "Utente creato con successo!" }))
+        .then(() => res.json({ msg: "Prodotto creato con successo!" }))
         .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
 
 }
