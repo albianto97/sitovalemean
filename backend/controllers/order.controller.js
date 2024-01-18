@@ -6,7 +6,7 @@ const getOrderOfUser =async (req, res) => {
     const token = authHeader && authHeader.split(' ')[1];
     var user =jwt.decode(token);
     try {        
-        const ordini = await Order.find({ user: user._id });
+        const ordini = await Order.find({ user: user._id }).sort({ creationDate: -1 });
         res.json(ordini);
     } catch (err) {
         res.status(500).json({ message: err.message });

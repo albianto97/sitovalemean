@@ -23,6 +23,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserInfoComponent } from './components/structure/user-info/user-info.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
+import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { OrdersComponent } from './components/order/orders/orders.component';
     HomeComponent,
     UserInfoComponent,
     CartComponent,
-    OrdersComponent
+    OrdersComponent,
+    StatusIconHtmlPipe
   ],
   imports: [
     BrowserModule,

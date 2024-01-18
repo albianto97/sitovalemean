@@ -43,6 +43,7 @@ export class CreateOrderComponent {
       
       this.orderService.createOrder(order).subscribe(result => {
         console.log(result, order);
+        this.cartService.emptyCart();
       });
     } else {
       // deve effettuare il login per poter effettuare l'ordine

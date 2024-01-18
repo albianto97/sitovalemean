@@ -10,8 +10,7 @@ export class CartService {
     var cart = { 
       products:[
         {productId: "6564af0c79c5b00a9e6c58cc", quantity: 3},
-        {productId: "6564afdc595c21d4cf11fc5e", quantity: 1},
-        {productId: "6565ff5e3a1c9a9986a93174", quantity: 5}
+        {productId: "6564afdc595c21d4cf11fc5e", quantity: 1}
       ]
     }
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -50,12 +49,8 @@ export class CartService {
 
   // Svuotare il carrello
   emptyCart() {
-    // Creare un nuovo carrello vuoto
-    var cart: any;
-    cart.products = [];
-
     // Salvare il carrello vuoto nel Local Storage
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.removeItem('cart');
   }
 
   // Recuperare il carrello dal Local Storage

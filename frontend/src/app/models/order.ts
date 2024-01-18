@@ -1,4 +1,4 @@
-enum Status {
+export enum Status {
     inAttesa = 'In Attesa',
     rifiutato = 'Rifiutato',
     accettato = 'Accettato',
@@ -23,6 +23,7 @@ class Product {
 }
 
 export class Order {
+    _id?: string;
     creationDate: Date;
     closingDate?: Date;
     shippingDate?: Date;
