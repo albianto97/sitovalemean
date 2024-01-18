@@ -14,7 +14,7 @@ export class UserInfoComponent implements OnInit {
   saluto: string = "";
   cart:any;
   constructor(private auth: AuthService, private router: Router, private cartService: CartService){
-      cartService.initCart();
+      //cartService.initCart();
   }
   ngOnInit(): void {    
     this.cart = this.cartService.getCart();

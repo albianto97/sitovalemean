@@ -24,6 +24,7 @@ import { UserInfoComponent } from './components/structure/user-info/user-info.co
 import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
 import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
+import { ProductComponent } from './components/product-list/product/product.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
     UserInfoComponent,
     CartComponent,
     OrdersComponent,
-    StatusIconHtmlPipe
+    StatusIconHtmlPipe,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

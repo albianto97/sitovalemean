@@ -6,11 +6,11 @@ import { Injectable } from '@angular/core';
 export class CartService {
 
   constructor() { }
-  initCart(){
-    var cart = { 
-      products:[
-        {productId: "6564af0c79c5b00a9e6c58cc", quantity: 3},
-        {productId: "6564afdc595c21d4cf11fc5e", quantity: 1}
+  initCart() {
+    var cart = {
+      products: [
+        { productId: "6564af0c79c5b00a9e6c58cc", quantity: 3 },
+        { productId: "6564afdc595c21d4cf11fc5e", quantity: 1 }
       ]
     }
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -19,6 +19,7 @@ export class CartService {
   addToCart(productId: any, quantity: any) {
     // Recuperare il carrello dal Local Storage
     var cart = this.getCart();
+    console.log(cart);
 
     // Verificare se il prodotto è già nel carrello
     var productExist = cart.products.find((p: { productId: any; }) => p.productId === productId);
@@ -28,7 +29,7 @@ export class CartService {
       productExist.quantity += quantity;
     } else {
       // Se il prodotto non esiste, aggiungerlo al carrello
-      cart.prodotti.push({ productId: productId, quantity: quantity });
+      cart.products.push({ productId: productId, quantity: quantity });
     }
 
     // Salvare il carrello nel Local Storage
@@ -56,6 +57,9 @@ export class CartService {
   // Recuperare il carrello dal Local Storage
   getCart() {
     var cart = localStorage.getItem('cart');
-    return cart ? JSON.parse(cart) : { prodotti: [] };
+    if(!cart){
+      cart = JSON.stringify({ products: [] });
+    }
+    return cart ? JSON.parse(cart) : { products: [] };
   }
 }

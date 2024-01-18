@@ -1,7 +1,8 @@
 // product-list.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/product";
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -9,16 +10,19 @@ import { Product } from "../../models/product";
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
+  
   products: Product[] = [];
   filteredProducts: Product[] = [];
   selectedType: string | null = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
 
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
+      console.log(this.products);
+
       this.filteredProducts = this.products;
     });
   }
@@ -31,4 +35,5 @@ export class ProductListComponent implements OnInit {
       this.filteredProducts = this.products;
     }
   }
+  
 }

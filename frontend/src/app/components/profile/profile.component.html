@@ -1,4 +1,5 @@
 <div>
   <app-user-info></app-user-info>
   <p><strong>Email:</strong> {{this.user?.username }}</p>
+  <app-product [products]="filteredProducts" [selectedType]="selectedType" [isViewCarrello]="true"></app-product>
 </div>
