@@ -14,7 +14,7 @@ import { Product } from 'src/app/models/product';
 
 export class ProfiloComponent implements OnInit {
   user: User | undefined;
-  
+
   constructor(private auth: AuthService,private productService: ProductService) { }
   products: Product[] = [];
   filteredProducts: Product[] = [];
@@ -22,8 +22,7 @@ export class ProfiloComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.auth.getUserFromToken();
 
-    
-    this.productService.getProducts().subscribe((data) => {
+    this.productService.getBestProducts().subscribe((data) => {
       this.products = data;
       console.log(this.products);
 
