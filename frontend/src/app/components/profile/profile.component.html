@@ -2,10 +2,13 @@
 <div>
   <app-user-info></app-user-info>
   <p><strong>Email:</strong> {{ user?.username }}</p>
-  <div *ngIf="filteredProducts.length > 0">
-    <h2>Prodotti:</h2>
-    <div *ngFor="let product of filteredProducts">
+
+  <div *ngIf="bestProducts.length > 0">
+    <h2>Migliori Prodotti:</h2>
+    <div *ngFor="let product of bestProducts">
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
+
+  <!-- Aggiungi qui la tua logica di gestione degli errori o di caricamento se necessario -->
 </div>

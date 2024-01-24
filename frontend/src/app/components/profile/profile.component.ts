@@ -11,23 +11,28 @@ import { Product } from 'src/app/models/product';
 })
 export class ProfiloComponent implements OnInit {
   user: User | undefined;
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-  selectedType: string | null = null;
+  bestProducts: Product[] = [];
 
   constructor(private auth: AuthService, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.user = this.auth.getUserFromToken();
 
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      console.log(this.products);
-
-      this.filteredProducts = this.products.slice(0, 3);
-
-    });
+    this.productService.getBestProducts().subscribe((data) => {
+        this.bestProducts = data;
+        console.log(this.bestProducts);
+      })
   }
-
-
 }
+
+/*this.user = this.auth.getUserFromToken();
+
+this.productService.getProducts().subscribe((data) => {
+  this.products = data;
+  console.log(this.products);
+
+  this.filteredProducts = this.products.slice(0, 3);
+
+});
+ */
+
