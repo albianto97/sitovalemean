@@ -11,4 +11,5 @@ router.post('/create-product', productController.createProduct);
 //Rotta per i migliori prodotti
 router.get('/getBestProduct', productController.getBestProducts);
 
+
 module.exports = router;

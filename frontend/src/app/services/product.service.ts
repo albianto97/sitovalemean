@@ -16,8 +16,8 @@ export class ProductService {
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.endPoint);
   }
-  public getBestProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.endPoint + "/getBestProducts");
+  public getBestProducts(): Observable<any> {
+    return this.http.get<any>(this.endPoint + "/getBestProducts");
   }
 
   // product.service.ts

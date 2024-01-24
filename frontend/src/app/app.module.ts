@@ -12,11 +12,11 @@ import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from  '@angular/common/http';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
 import {CommonModule} from "@angular/common";
 import {ProfiloComponent} from "./components/profile/profile.component";
-import { ProductCreationComponent } from './components/product-creation/product-creation.component';
-import { SingleProductComponent } from './components/single-product/single-product.component';
+import { ProductCreationComponent } from './components/product/product-creation/product-creation.component';
+import { SingleProductComponent } from './components/product/single-product/single-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,7 +24,7 @@ import { UserInfoComponent } from './components/structure/user-info/user-info.co
 import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
 import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
-import { ProductComponent } from './components/product-list/product/product.component';
+import { ProductCardComponent } from './components/product/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { ProductComponent } from './components/product-list/product/product.comp
     CartComponent,
     OrdersComponent,
     StatusIconHtmlPipe,
-    ProductComponent
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,11 @@
+<!-- profile.component.html -->
 <div>
   <app-user-info></app-user-info>
-  <p><strong>Email:</strong> {{this.user?.username }}</p>
-  <app-product [products]="filteredProducts" [selectedType]="selectedType" [isViewCarrello]="true"></app-product>
+  <p><strong>Email:</strong> {{ user?.username }}</p>
+  <div *ngIf="filteredProducts.length > 0">
+    <h2>Prodotti:</h2>
+    <div *ngFor="let product of filteredProducts">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
 </div>

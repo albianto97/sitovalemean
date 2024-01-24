@@ -1,8 +1,7 @@
 // product-list.component.ts
-import { Component, Input, OnInit } from '@angular/core';
-import { ProductService } from "../../services/product.service";
-import { Product } from "../../models/product";
-import { CartService } from 'src/app/services/cart.service';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from "../../../services/product.service";
+import { Product } from "../../../models/product";
 
 @Component({
   selector: 'app-product-list',
@@ -10,7 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  
+
   products: Product[] = [];
   filteredProducts: Product[] = [];
   selectedType: string | null = null;
@@ -35,5 +34,5 @@ export class ProductListComponent implements OnInit {
       this.filteredProducts = this.products;
     }
   }
-  
+
 }
