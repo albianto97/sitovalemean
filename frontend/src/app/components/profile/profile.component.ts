@@ -21,18 +21,19 @@ export class ProfiloComponent implements OnInit {
     this.productService.getBestProducts().subscribe((data) => {
         this.bestProducts = data;
         console.log(this.bestProducts);
-      })
+    });
+    /*this.user = this.auth.getUserFromToken();
+
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+      console.log(this.products);
+
+      this.filteredProducts = this.products.slice(0, 3);
+
+    });*/
   }
 }
 
-/*this.user = this.auth.getUserFromToken();
-
-this.productService.getProducts().subscribe((data) => {
-  this.products = data;
-  console.log(this.products);
-
-  this.filteredProducts = this.products.slice(0, 3);
-
-});
+/*
  */
 
