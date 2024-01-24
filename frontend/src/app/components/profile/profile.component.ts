@@ -22,7 +22,7 @@ export class ProfiloComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.auth.getUserFromToken();
 
-    this.productService.getBestProducts().subscribe((data) => {
+    this.productService.getProducts().subscribe((data) => {
       this.products = data;
       console.log(this.products);
 

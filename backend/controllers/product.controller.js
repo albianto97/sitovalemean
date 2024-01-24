@@ -44,7 +44,7 @@ const getBestProducts = async (req, res) => {
         // Trova tutti gli ordini dell'utente
         const orders = await Order.find({ user: user._id });
 
-        // Creare un oggetto per tenere traccia della quantità di ciascun prodotto acquistato
+        // Creare traccia della quantità di ciascun prodotto acquistato
         const productCounts = {};
 
         // Itera su tutti gli ordini
