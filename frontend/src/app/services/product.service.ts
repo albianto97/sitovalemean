@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Product} from "../models/product";
 import {Observable} from "rxjs";
+import {GeneralService} from "./-general.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {Observable} from "rxjs";
 export class ProductService {
   endPoint = "http://localhost:3000/api/product";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private generalService: GeneralService) { }
   public createProduct(product: Product):any {
     return this.http.post(this.endPoint + "/create-product", product);
   }
@@ -17,7 +18,8 @@ export class ProductService {
     return this.http.get<Product[]>(this.endPoint);
   }
   public getBestProducts(): Observable<any> {
-    return this.http.get<any>(this.endPoint + "/getBestProducts");
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<any>(this.endPoint + "/getBestProducts", { headers });
   }
 
   // product.service.ts

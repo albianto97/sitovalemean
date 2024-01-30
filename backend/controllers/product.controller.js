@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const jwt = require("jsonwebtoken");
+const Order = require("../models/order");
+const {query} = require("express");
 
 const getProduct = async (req, res) => {
     // Logica per ottenere un utente
@@ -35,7 +37,24 @@ const createProduct = async (req, res) => {
         .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
 
 }
-const getBestProducts = (req, res) => {
+
+
+
+const getBestProducts =async (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    var user =jwt.decode(token);
+    const pipeline = [
+        { $match: { user: mongoose.Types.ObjectId(userId) } }, // Filtra gli ordini per utente
+        { $unwind: "$products" }, // "Spiega" l'array dei prodotti
+        { $group: { _id: "$products", totalOrders: { $sum: 1 } } }, // Raggruppa per prodotto e conta le occorrenze
+        { $sort: { totalOrders: -1 } }, // Ordina in base al numero di ordini in ordine decrescente
+        { $limit: 3 }, // Limita a 3 risultati
+    ];
+
+    const result = await Order.aggregate(pipeline);
+}
+/*const getBestProducts = (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     const user = jwt.decode(token);
@@ -74,7 +93,7 @@ const getBestProducts = (req, res) => {
             console.error('Errore nel recupero dei prodotti:', err);
             res.status(500).json({ message: 'Errore del server' });
         });
-};
+};*/
 
 
 module.exports = {
