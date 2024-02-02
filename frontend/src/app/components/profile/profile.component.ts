@@ -13,12 +13,13 @@ import { Product } from 'src/app/models/product';
 
 
 export class ProfiloComponent implements OnInit {
-  user: User | undefined;
-  bestProducts: Product[] = [];
 
   constructor(private auth: AuthService,private productService: ProductService) { }
+  user: User | undefined;
+  bestProducts: Product[] = [];
   products: Product[] = [];
   filteredProducts: Product[] = [];
+  filteredBestProducts: Product[] = [];
   selectedType: string | null = null;
   ngOnInit(): void {
     this.user = this.auth.getUserFromToken();
@@ -27,12 +28,18 @@ export class ProfiloComponent implements OnInit {
       this.products = data;
       console.log(this.products);
 
-      this.filteredProducts = this.products.splice(0,3);
+      this.filteredProducts = this.products.slice(0, 3);
     });
-    /*this.productService.getBestProducts().subscribe((data: any) => {
-        this.bestProducts = data;
-        console.log(this.bestProducts);
-    });*/
 
+    this.productService.getBestProducts().subscribe((data) => {
+        this.bestProducts = data;
+      },
+        (error) => {
+          console.error('Errore nel recupero dei migliori prodotti:', error);
+        });
+      /*this.bestProducts = data;
+      console.log(this.bestProducts);
+      this.filteredBestProducts = this.bestProducts.slice(0, 3);*/
   }
+
 }

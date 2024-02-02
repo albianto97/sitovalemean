@@ -45,7 +45,7 @@ const getBestProducts =async (req, res) => {
     const token = authHeader && authHeader.split(' ')[1];
     var user =jwt.decode(token);
     const pipeline = [
-        { $match: { user: mongoose.Types.ObjectId(userId) } }, // Filtra gli ordini per utente
+        { $match: { user: mongoose.Types.ObjectId(user._id) } }, // Filtra gli ordini per utente
         { $unwind: "$products" }, // "Spiega" l'array dei prodotti
         { $group: { _id: "$products", totalOrders: { $sum: 1 } } }, // Raggruppa per prodotto e conta le occorrenze
         { $sort: { totalOrders: -1 } }, // Ordina in base al numero di ordini in ordine decrescente

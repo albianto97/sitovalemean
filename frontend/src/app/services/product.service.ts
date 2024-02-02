@@ -18,8 +18,8 @@ export class ProductService {
     return this.http.get<Product[]>(this.endPoint);
   }
   public getBestProducts(): Observable<any> {
-    const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<any>(this.endPoint + "/getBestProducts", { headers });
+    //const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<any>(this.endPoint + "/getBestProducts");
   }
 
   // product.service.ts
