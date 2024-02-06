@@ -17,9 +17,10 @@ export class ProductService {
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.endPoint);
   }
-  public getBestProducts(): Observable<any> {
-    //const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<any>(this.endPoint + "/getBestProducts");
+  public pippo2() {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(this.endPoint + "/pp", { headers });
+
   }
 
   // product.service.ts

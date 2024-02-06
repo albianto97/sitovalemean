@@ -13,7 +13,7 @@ export class OrdersComponent {
   orders: Order[] = [];
   user: any;
   constructor(private authService: AuthService, private orderService: OrderService) {
-    this.user = authService.getUserFromToken();
+    //this.user = authService.getUserFromToken();
     orderService.getOrdersFromUser().subscribe((oldOrders: any) => {
       console.log(oldOrders);
       this.orders = oldOrders;
