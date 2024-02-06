@@ -26,6 +26,7 @@ const routes: Routes = [
   { path: 'productList', component: ProductListComponent },
   { path: 'single', component: ProfiloComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
+  { path: 'pp', component: ProfiloComponent },
   { path: 'create-product', component: ProductCreationComponent },
 ];
 
