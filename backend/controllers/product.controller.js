@@ -4,15 +4,18 @@ const Order = require("../models/order");
 
 
 const getProduct = async (req, res) => {
-    // Logica per ottenere un utente
-    try{
-        const products = await Product.find();
-        res.json(products);
-    } catch (error) {
-        console.error('Errore nel recupero dei prodotti:', error);
-        res.status(500).json({ message: 'Errore del server' });
-    }
-    //res.send(res.json);
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    var user =jwt.decode(token);
+    const pipeline = [
+        { $match: { user: mongoose.Types.ObjectId(user._id) } }, // Filtra gli ordini per utente
+        { $unwind: "$products" }, // "Spiega" l'array dei prodotti
+        { $group: { _id: "$products", totalOrders: { $sum: 1 } } }, // Raggruppa per prodotto e conta le occorrenze
+        { $sort: { totalOrders: -1 } }, // Ordina in base al numero di ordini in ordine decrescente
+        { $limit: 3 }, // Limita a 3 risultati
+    ];
+
+    const result = await Order.aggregate(pipeline);
 }
 
 const getSingleProduct = async (req, res) => {
@@ -39,20 +42,6 @@ const createProduct = async (req, res) => {
         .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
 
 }
-const pippo = async (req, res) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    var user =jwt.decode(token);
-    try {
-        const ordini = await Order.find({ user: user._id }).sort({ creationDate: -1 });
-        res.json(ordini);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-
-
 
 module.exports = {
     getProduct,

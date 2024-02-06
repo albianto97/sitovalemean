@@ -22,19 +22,11 @@ export class ProfiloComponent implements OnInit {
   selectedType: string | null = null;
   constructor(private auth: AuthService, private productService: ProductService) {
 
-    /*this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      console.log(this.products);
-
-      this.filteredProducts = this.products.slice(0, 3);
-    });*/
-
-
-    this.productService.pippo2().subscribe((old: any) => {
-      console.log(old);
-      this.bestProducts = old;
-
+    this.productService.getProducts().subscribe((data) => {
+      this.bestProducts = data.splice(0,3);
     });
+
+
   }
   ngOnInit(): void {
     this.user = this.auth.getUserFromToken();

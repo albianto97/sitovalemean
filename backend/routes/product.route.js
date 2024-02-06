@@ -9,8 +9,6 @@ router.get('/', productController.getProduct);
 router.get('/:productId', productController.getSingleProduct);
 // Rotta per creare un prodotto
 router.post('/create-product', productController.createProduct);
-//Rotta per i migliori prodotti
-router.get('/pp', verifyToken,productController.pippo);
 
 
 module.exports = router;
