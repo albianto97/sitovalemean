@@ -1,19 +1,7 @@
-<p>orders works!</p>
-<div>
-  <app-user-info></app-user-info>
-  <p><strong>Email:</strong> {{ user?.username }}</p>
-  <div *ngIf="filteredProducts.length > 0">
-    <h2>Prodotti:</h2>
-    <div *ngFor="let product of filteredProducts">
+<div class="container-xl">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let product of bestProducts">
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
-</div>
-
-
-<div *ngFor="let product of orders">
-  <h3>{{ product.name }}</h3>
-  <h3>{{ product.description }}</h3>
-  <h3>{{ product.type }}</h3>
-  <!-- Altre informazioni aggiuntive possono essere visualizzate qui -->
 </div>

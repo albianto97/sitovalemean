@@ -21,9 +21,4 @@ export class OrdersComponent {
 
     })
   }
-  getStatusIcon(status:string): string {
-    let key = status as keyof typeof Status;
-    var val = Status[key];
-    return val;
-  }
 }

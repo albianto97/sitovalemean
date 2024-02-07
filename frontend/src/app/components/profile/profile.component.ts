@@ -17,25 +17,22 @@ export class ProfiloComponent implements OnInit {
 
   user: User | undefined;
   bestProducts: Product[] = [];
-  orders: Product[] = [];
   products: Product[] = [];
-  filteredProducts: Product[] = [];
-  filteredBestProducts: Product[] = [];
-  selectedType: string | null = null;
+  productCounts: any = {}; // Inizializza productCounts come un oggetto vuoto
   constructor(private auth: AuthService, private productService: ProductService, private orderService: OrderService) {
 
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      console.log(this.products);
 
-      this.filteredProducts = this.products.slice(0, 3);
+    /*orderService.getOrdersFromUser().subscribe((bestProducts: any) => {
+      console.log(bestProducts);
+      this.bestProducts = bestProducts.splice(0,3);
+
+    })*/
+
+    orderService.getOrdersFromUser().subscribe((response: any) => {
+      console.log(response);
+      this.bestProducts = response.splice(0, 3);
+      this.productCounts = response.productCounts;
     });
-
-    orderService.getOrdersFromUser().subscribe((oldOrders: any) => {
-      console.log(oldOrders);
-      this.orders = oldOrders.splice(0,3);
-
-    })
 
 
 
