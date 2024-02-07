@@ -5,6 +5,10 @@ import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import {OrderService} from "../../services/order.service";
 
+interface ProductWithCount {
+  product: Product; // Suppongo che Product sia l'interfaccia o la classe per i tuoi prodotti
+  count: number;
+}
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +19,10 @@ import {OrderService} from "../../services/order.service";
 
 export class ProfiloComponent implements OnInit {
 
+
   user: User | undefined;
-  bestProducts: Product[] = [];
+  bestProducts: ProductWithCount[] = [];
+  //bestProducts: Product[] = [];
   products: Product[] = [];
   productCounts: any = {}; // Inizializza productCounts come un oggetto vuoto
   constructor(private auth: AuthService, private productService: ProductService, private orderService: OrderService) {
@@ -30,8 +36,7 @@ export class ProfiloComponent implements OnInit {
 
     orderService.getOrdersFromUser().subscribe((response: any) => {
       console.log(response);
-      this.bestProducts = response.splice(0, 3);
-      this.productCounts = response.productCounts;
+      this.bestProducts = response.bestProducts;
     });
 
 

@@ -33,14 +33,23 @@ const getOrderOfUser = async (req, res) => {
         console.log(productCounts);
 
         // Ottieni i dettagli dei prodotti più acquistati
-        const bestProducts = await Product.find({ _id: { $in: sortedProducts } });
+        const bestProductsData = await Product.find({ _id: { $in: sortedProducts } });
 
-        res.json({ bestProducts, productCounts });
+        // Costruisci un array di oggetti per ciascun prodotto con il conteggio
+        const bestProducts = bestProductsData.map(product => {
+            return {
+                product: product,
+                count: productCounts[product._id]
+            };
+        });
+
+        res.json({ bestProducts });
     } catch (err) {
         console.error('Errore nel recupero dei prodotti:', err);
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+
 
 
 const createOrder = async (req, res) => {
