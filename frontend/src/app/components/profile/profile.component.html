@@ -1,16 +1,11 @@
-<p> works!</p>
-<div class="container-xl">
-  <div class="row">
-    <div *ngFor="let order of products;  let i = index " class="col-md-4">
-      <div class="custom-card">
-        <div class="d-flex justify-content-between">
-          <h2>Ordine {{products.length - i}}</h2>
-        </div>
-        <h5>numero: <em>{{order._id}}</em></h5>
-        <div>
-          <button class="btn btn-primary w-100">Visualizza</button>
-        </div>
-      </div>
+<p>orders works!</p>
+<div>
+  <app-user-info></app-user-info>
+  <p><strong>Email:</strong> {{ user?.username }}</p>
+  <div *ngIf="filteredProducts.length > 0">
+    <h2>Prodotti:</h2>
+    <div *ngFor="let product of filteredProducts">
+      <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
 </div>
