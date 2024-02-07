@@ -4,7 +4,7 @@ const { verifyToken } = require('../middlewares/token');
 const router = express.Router();
 
 // Rotta per ottenere tutti i prodotti
-router.get('/', verifyToken, productController.getProduct);
+router.get('/', productController.getProduct);
 // Rotta per ottenere singolo prodotto
 router.get('/:productId', productController.getSingleProduct);
 // Rotta per creare un prodotto
