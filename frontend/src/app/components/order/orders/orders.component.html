@@ -4,3 +4,25 @@
   <h3>{{ product.type }}</h3>
   <!-- Altre informazioni aggiuntive possono essere visualizzate qui -->
 </div>
+
+
+<!-- VECCHIO HTML ORDERS
+<p>orders works!</p>
+<div class="container-xl">
+    <div class="row">
+        <div *ngFor="let order of orders;  let i = index " class="col-md-4">
+            <div class="custom-card">
+                <div class="d-flex justify-content-between">
+                    <h2>Ordine {{orders.length - i}}</h2>
+                    <div [innerHTML]="getStatusIcon(order.status.toString()) | statusIconHtml">test</div>
+                </div>
+                <h5>numero: <em>{{order._id}}</em></h5>
+                <div>
+                    <p>Totale prodotti ordinati: <strong>{{order.products.length}}</strong></p>
+                    <button class="btn btn-primary w-100">Visualizza</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
