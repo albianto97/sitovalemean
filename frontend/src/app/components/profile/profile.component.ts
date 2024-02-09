@@ -31,7 +31,7 @@ export class ProfiloComponent implements OnInit {
 
     orderService.getOrdersFromUser().subscribe((response: any) => {
       console.log(response);
-      this.bestProducts = response.bestProducts;
+      this.bestProducts = response.bestProducts.splice(0,3);
     });
 
 
