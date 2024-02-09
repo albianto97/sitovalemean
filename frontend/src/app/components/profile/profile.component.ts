@@ -28,11 +28,6 @@ export class ProfiloComponent implements OnInit {
   constructor(private auth: AuthService, private productService: ProductService, private orderService: OrderService) {
 
 
-    /*orderService.getOrdersFromUser().subscribe((bestProducts: any) => {
-      console.log(bestProducts);
-      this.bestProducts = bestProducts.splice(0,3);
-
-    })*/
 
     orderService.getOrdersFromUser().subscribe((response: any) => {
       console.log(response);
