@@ -13,10 +13,38 @@
     <h3>{{ item.type }}</h3>
 </div>
 -->
-<div *ngFor="let product of bestProducts">
+<div class="container-xl">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let product of bestProducts">
+      <div class="container-xl">
+        <div class="row col-md">
+          <mat-card class="gusticard mb-3">
+            <mat-card-header>
+              <mat-card-subtitle>{{ product.product._id }}</mat-card-subtitle>
+              <mat-card-title>{{ product.product.name }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="text-break">{{ product.product.description }} </p>
+              <p>Acquistata {{ product.count }}</p>
+            </mat-card-content>
+
+            <!-- ... (Contenuto della card del prodotto) -->
+            <mat-card-footer>
+              <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<!--<div *ngFor="let product of bestProducts">
   <h3>Prodotto ID: {{ product.product._id }}</h3>
   <h3>Nome: {{ product.product.name }}</h3>
   <p>Descrizione: {{ product.product.description }}</p>
   <p>Quantità acquistata: {{ product.count }}</p>
-</div>
+</div>-->
 
