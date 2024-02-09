@@ -16,12 +16,11 @@ interface ProductWithCount {
   styleUrls: ['./profile.component.css']
 })
 
-
 export class ProfiloComponent implements OnInit {
 
 
   user: User | undefined;
-  bestProducts: ProductWithCount[] = [];
+  bestProducts: Product[] = [];
   //bestProducts: Product[] = [];
   products: Product[] = [];
   productCounts: any = {}; // Inizializza productCounts come un oggetto vuoto

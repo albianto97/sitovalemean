@@ -8,6 +8,7 @@
       <mat-card-content>
         <p class="text-break">{{ product.description }} </p>
         <p>Disponibili solo: {{ product.disponibilita }}</p>
+        <p *ngIf="product.count != undefined"> Conteggio : {{product.count}}</p>
       </mat-card-content>
 
         <!-- ... (Contenuto della card del prodotto) -->

@@ -37,10 +37,9 @@ const getOrderOfUser = async (req, res) => {
 
         // Costruisci un array di oggetti per ciascun prodotto con il conteggio
         const bestProducts = bestProductsData.map(product => {
-            return {
-                product: product,
-                count: productCounts[product._id]
-            };
+            let p = Object.assign(product._doc,{count:productCounts[product._id]});
+
+            return p
         });
 
         res.json({ bestProducts });
