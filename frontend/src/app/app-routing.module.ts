@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'userList', component: UserListComponent },
   { path: 'productList', component: ProductListComponent },
-  { path: 'single', component: ProfiloComponent },
+  { path: 'profilo', component: ProfiloComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },
 ];

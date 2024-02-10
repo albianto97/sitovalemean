@@ -1,14 +1,10 @@
+<h3>Questi i prodotti piu ordinati da te!!</h3>
 <div class="container-xl">
   <div class="row">
     <div class="col-md-4" *ngFor="let product of bestProducts">
-        <app-product-card [product]="product"></app-product-card>
-      </div>
+      <app-product-card [product]="product"></app-product-card>
+    </div>
   </div>
 </div>
-<!--<div *ngFor="let product of bestProducts">
-  <h3>Prodotto ID: {{ product.product._id }}</h3>
-  <h3>Nome: {{ product.product.name }}</h3>
-  <p>Descrizione: {{ product.product.description }}</p>
-  <p>Quantità acquistata: {{ product.count }}</p>
-</div>-->
-
+<h3> Mettili nel carello!!</h3>
+<app-user-info></app-user-info>
