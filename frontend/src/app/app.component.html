@@ -1,23 +1,16 @@
 <div>
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Gelateria</a>
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLink="userList" class="nav-link">Lista Utenti</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="productList" class="nav-link">Lista Prodotti</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="create-product" class="nav-link">Inserisci Prodotto</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="single" class="nav-link">Profilo</a>
-      </li>
-    </div>
-  </nav>
-  <div >
-    <router-outlet></router-outlet>
+  <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
+  <a href="#" class="navbar-brand">Gelateria</a>
+
+  <div>
+    <button mat-button color="primary" routerLink="userList">Lista Utenti</button>
+    <button mat-button color="primary" routerLink="productList">Lista Prodotti</button>
+    <button mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
+    <button mat-button color="primary" routerLink="single">Profilo</button>
   </div>
+  </mat-toolbar>
 </div>
-<!-- <app-create-order></app-create-order> -->
+<!-- Router Outlet -->
+<div>
+  <router-outlet></router-outlet>
+</div>

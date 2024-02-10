@@ -1,0 +1,8 @@
+.mat-button {
+  color: black; /* Imposta il colore del testo su nero */
+  background-color: yellow !important; /* Imposta il colore di sfondo su giallo */
+}
+
+.mat-button:hover {
+  background-color: #ffd700 !important; /* Cambia il colore di sfondo al passaggio del mouse */
+}
