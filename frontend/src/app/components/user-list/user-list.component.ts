@@ -10,6 +10,7 @@ import {User} from "../../models/user";
 })
 export class UserListComponent implements OnInit {
   users: User[] = []; // Qui puoi definire una classe interfaccia User se vuoi tipizzare i dati degli utenti
+  displayedColumns: string[] = ['name', 'email', 'numero ordini'];
 
   constructor(private userService: UserService) { }
 
