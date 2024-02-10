@@ -23,16 +23,11 @@ export class SingleProductComponent implements OnInit {
 
     // Chiamata al servizio per ottenere il singolo prodotto
     if (productId) {
-      try {
-        this.product = await new Promise((resolve, reject) => {
+        this.product = await new Promise((resolve) => {
           this.productService.getSingleProduct(productId).subscribe(
             (data) => resolve(data),
-            (error) => reject(error)
           );
         }) as Product;
-      } catch (error) {
-        console.error('Errore nel recupero del prodotto:', error);
-      }
     }
   }
 }

@@ -1,11 +1,12 @@
 <!-- single-product.component.html -->
-<div *ngIf="product">
-  <h1>{{ product.name }}</h1>
-  <p>{{ product.description }}</p>
-  <p>Prezzo: {{ product.price}}</p>
-  <!-- Altri dettagli del prodotto, se necessario -->
-</div>
-
 <div *ngIf="!product">
   <p>Caricamento in corso...</p>
+</div>
+
+<div class="container-xl">
+  <div class="row">
+    <div *ngIf="product">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
 </div>
