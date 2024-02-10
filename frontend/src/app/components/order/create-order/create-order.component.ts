@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-order',
@@ -19,7 +20,7 @@ export class CreateOrderComponent {
   selectedOrderType: string = 'ritiro';
 
   note: string | null = null;
-  constructor(private orderService: OrderService, private cartService: CartService, private authService: AuthService) {
+  constructor(private router: Router,private orderService: OrderService, private cartService: CartService, private authService: AuthService) {
     this.productsInCart = cartService.getCart().products;
     this.user = this.authService.getUserFromToken();
   }
@@ -29,7 +30,15 @@ export class CreateOrderComponent {
   }
   creaOrdine() {
     console.log(this.user);
-    
+
+    // Verifica se il carrello contiene almeno un prodotto
+    if (this.productsInCart.length === 0) {
+      // Messaggio di avviso o azione da eseguire quando il carrello è vuoto
+      console.log("Impossibile creare un ordine perché il carrello è vuoto.");
+      this.router.navigate(['productList']);
+      return;
+    }
+
     if (this.user) {
       const order = {
         creationDate: new Date(),
@@ -40,15 +49,13 @@ export class CreateOrderComponent {
         user: this.user._id
       };
       console.log(order);
-      
+
       this.orderService.createOrder(order).subscribe(result => {
         console.log(result, order);
         this.cartService.emptyCart();
       });
     } else {
-      // deve effettuare il login per poter effettuare l'ordine
+      // Deve effettuare il login per poter effettuare l'ordine
     }
-
-
   }
 }
