@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
+import {OrderService} from "../../services/order.service";
+import {Order} from "../../models/order";
 
 
 @Component({
@@ -11,12 +13,14 @@ import {User} from "../../models/user";
 export class UserListComponent implements OnInit {
   users: User[] = []; // Qui puoi definire una classe interfaccia User se vuoi tipizzare i dati degli utenti
   displayedColumns: string[] = ['name', 'email', 'numero ordini'];
+  orders: Order[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private orderService: OrderService) { }
 
   ngOnInit(): void {
     // Chiamata al servizio per ottenere la lista degli utenti al caricamento del componente
     this.getUsers();
+    this.getAllOrders();
 
   }
 
@@ -25,6 +29,12 @@ export class UserListComponent implements OnInit {
       this.users = users;
     });
   }
+  getAllOrders(): void {
+    this.orderService.getAllOrders().subscribe(orders => {
+      this.orders = orders;
+    });
+  }
+
 
 }
 

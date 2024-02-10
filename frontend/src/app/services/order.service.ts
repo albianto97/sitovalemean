@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GeneralService } from './-general.service';
+import {Observable} from "rxjs";
+import {User} from "../models/user";
+import {Order} from "../models/order";
 
 
 
@@ -25,4 +28,8 @@ export class OrderService {
     return this.http.post(this.endPoint + '/create-order', order);
   }
 
+
+  public getAllOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.endPoint+'/getAllOrders');
+  }
 }

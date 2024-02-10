@@ -1,7 +1,16 @@
 const Order = require("../models/order");
 const jwt = require('jsonwebtoken');
 const Product = require("../models/product");
+const User = require("../models/user");
 
+const getAllOrders = async (req, res) => {
+    // Logica per ottenere un utente
+    const orders = await Order.find();
+    console.log(orders);
+    res.json(orders);
+
+    //res.send(res.json);
+}
 const getOrderOfUserProduct = async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -74,5 +83,6 @@ const createOrder = async (req, res) => {
 module.exports = {
     createOrder,
     getOrderOfUserProduct,
-    getOrdersFromUser
+    getOrdersFromUser,
+    getAllOrders
 }
