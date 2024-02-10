@@ -1,4 +1,4 @@
-<h3>Questi i prodotti piu ordinati da te!!</h3>
+<h3>Questi i prodotti piu ordinati da te!!  Mettili nel carello!!</h3>
 <div class="container-xl">
   <div class="row">
     <div class="col-md-4" *ngFor="let product of bestProducts">
@@ -6,5 +6,11 @@
     </div>
   </div>
 </div>
-<h3> Mettili nel carello!!</h3>
 <app-user-info></app-user-info>
+<div class="container-xl">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let order of myOrders">
+      <app-orders [order]="order" ></app-orders>
+    </div>
+  </div>
+</div>

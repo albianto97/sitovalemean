@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { OrderService } from 'src/app/services/order.service';
-import {Product} from "../../../models/product";
+import { Component, Input } from '@angular/core';
+
 import {Order, Status} from "../../../models/order";
 
 @Component({
@@ -11,19 +9,10 @@ import {Order, Status} from "../../../models/order";
 })
 
 export class OrdersComponent {
-  orders: Order[] = [];
-  user: any;
-  constructor(private authService: AuthService, private orderService: OrderService) {
-    this.user = authService.getUserFromToken();
-    orderService.getOrdersFromUser().subscribe((oldOrders: any) => {
-      console.log(oldOrders);
-      this.orders = oldOrders;
-
-    })
-  }
+  @Input() order!: Order;
+  constructor() {}
   getStatusIcon(status:string): string {
     let key = status as keyof typeof Status;
-    var val = Status[key];
-    return val;
+    return Status[key];
   }
 }
