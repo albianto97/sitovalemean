@@ -12,7 +12,7 @@ import {OrderService} from "../../services/order.service";
 })
 
 export class ProfiloComponent implements OnInit {
-  
+
   user: User | undefined;
   bestProducts: Product[] = [];
   //bestProducts: Product[] = [];
@@ -20,7 +20,7 @@ export class ProfiloComponent implements OnInit {
   productCounts: any = {}; // Inizializza productCounts come un oggetto vuoto
   constructor(private auth: AuthService, private productService: ProductService, private orderService: OrderService) {
 
-    orderService.getOrdersFromUser().subscribe((response: any) => {
+    orderService.getOrderOfUserProduct().subscribe((response: any) => {
       console.log(response);
       this.bestProducts = response.bestProducts.splice(0,3);
     });

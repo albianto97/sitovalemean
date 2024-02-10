@@ -15,6 +15,11 @@ export class OrderService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get(this.endPoint+'/getOrdersFromUser', { headers });
   }
+  getOrderOfUserProduct() {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(this.endPoint+'/getOrderOfUserProduct', { headers });
+
+  }
 
   createOrder(order: any) {
     return this.http.post(this.endPoint + '/create-order', order);

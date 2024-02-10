@@ -2,7 +2,7 @@ const Order = require("../models/order");
 const jwt = require('jsonwebtoken');
 const Product = require("../models/product");
 
-const getOrderOfUser = async (req, res) => {
+const getOrderOfUserProduct = async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     var user = jwt.decode(token);
@@ -49,8 +49,7 @@ const getOrderOfUser = async (req, res) => {
     }
 };
 
-/*VECCHIO ORDERS
-const getOrderOfUser =async (req, res) => {
+const getOrdersFromUser =async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     var user =jwt.decode(token);
@@ -60,7 +59,7 @@ const getOrderOfUser =async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}*/
+}
 
 const createOrder = async (req, res) => {
     try {
@@ -74,5 +73,6 @@ const createOrder = async (req, res) => {
 
 module.exports = {
     createOrder,
-    getOrderOfUser
+    getOrderOfUserProduct,
+    getOrdersFromUser
 }

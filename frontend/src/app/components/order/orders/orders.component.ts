@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import {Product} from "../../../models/product";
+import {Order, Status} from "../../../models/order";
 
 @Component({
   selector: 'app-orders',
@@ -9,20 +10,6 @@ import {Product} from "../../../models/product";
   styleUrls: ['./orders.component.css'],
 })
 
-export class OrdersComponent {
-  orders: Product[] = [];
-  user: any;
-  constructor(private authService: AuthService, private orderService: OrderService) {
-    //this.user = authService.getUserFromToken();
-    orderService.getOrdersFromUser().subscribe((oldOrders: any) => {
-      console.log(oldOrders);
-      this.orders = oldOrders.splice(0,3);
-
-    })
-  }
-}
-
-/* VECCHIO COMPONENTE ORDERS
 export class OrdersComponent {
   orders: Order[] = [];
   user: any;
@@ -40,4 +27,3 @@ export class OrdersComponent {
     return val;
   }
 }
- */
