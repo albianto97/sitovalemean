@@ -5,11 +5,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import {OrderService} from "../../services/order.service";
 
-interface ProductWithCount {
-  product: Product; // Suppongo che Product sia l'interfaccia o la classe per i tuoi prodotti
-  count: number;
-}
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
