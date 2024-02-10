@@ -1,7 +1,6 @@
 const Product = require("../models/product");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order");
-const mongoose = require("mongoose");
 
 
 const getProduct = async (req, res) => {
@@ -45,5 +44,5 @@ const createProduct = async (req, res) => {
 module.exports = {
     getProduct,
     createProduct,
-    getSingleProduct,
+    getSingleProduct
 }
