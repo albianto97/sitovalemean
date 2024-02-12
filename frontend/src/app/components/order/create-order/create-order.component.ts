@@ -53,6 +53,7 @@ export class CreateOrderComponent {
       this.orderService.createOrder(order).subscribe(result => {
         console.log(result, order);
         this.cartService.emptyCart();
+        this.router.navigate(['/profilo']);
       });
     } else {
       // Deve effettuare il login per poter effettuare l'ordine
