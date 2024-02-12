@@ -12,8 +12,8 @@ import {Order} from "../../models/order";
 })
 export class UserListComponent implements OnInit {
   users: User[] = []; // Qui puoi definire una classe interfaccia User se vuoi tipizzare i dati degli utenti
-  displayedColumns: string[] = ['name', 'email', 'numero ordini'];
-  orders: Order[] = [];
+  displayedColumns: string[] = ['name', 'email'];
+  orders: Order[] = []; //ordini del cliente
 
   constructor(private userService: UserService, private orderService: OrderService) { }
 

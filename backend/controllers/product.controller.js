@@ -2,6 +2,17 @@ const Product = require("../models/product");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order");
 
+const getProductsById = async (req, res) =>{
+    try {
+        const productIds = req.body;
+        const products = await Product.find({"_id" : {"$in" : productIds}}).lean();
+
+        res.json(products);
+    } catch (error) {
+        console.error('Errore nel recupero dei prodotti:', error);
+        res.status(500).json({ message: 'Errore del server' });
+    }
+}
 
 const getProduct = async (req, res) => {
     // Logica per ottenere un utente
@@ -44,5 +55,6 @@ const createProduct = async (req, res) => {
 module.exports = {
     getProduct,
     createProduct,
-    getSingleProduct
+    getSingleProduct,
+    getProductsById
 }

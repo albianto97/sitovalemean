@@ -6,8 +6,9 @@ export class Product {
   disponibilita?: number; // Aggiunto il campo disponibilita
   type?: string; // Aggiunto il campo type
   count? : number;
+  quantity? : number;
 
-  constructor({_id,name,description,price,disponibilita,type, count}: {
+  constructor({_id,name,description,price,disponibilita,type, count, quantity}: {
     _id?: string;
     name: string;
     description: string;
@@ -15,6 +16,7 @@ export class Product {
     disponibilita?: number;
     type?: string;
     count?: number;
+    quantity?: number;
   }) {
     this._id = _id;
     this.name = name;
@@ -23,5 +25,6 @@ export class Product {
     this.disponibilita = disponibilita;
     this.type = type;
     this.count = count;
+    this.quantity = quantity;
   }
 }

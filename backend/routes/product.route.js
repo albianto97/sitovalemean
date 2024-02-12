@@ -9,6 +9,8 @@ router.get('/', productController.getProduct);
 router.get('/:productId', productController.getSingleProduct);
 // Rotta per creare un prodotto
 router.post('/create-product', productController.createProduct);
+// Rotta per ottenere una lista dei prodotti dall'id
+router.post('/getProductsById', productController.getProductsById);
 
 
 module.exports = router;

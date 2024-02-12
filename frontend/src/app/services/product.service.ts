@@ -18,6 +18,9 @@ export class ProductService {
     return this.http.get<Product[]>(this.endPoint);
   }
 
+  public getProductsById(productIds: String[]): Observable<Product[]> {
+    return this.http.post<Product[]>(this.endPoint + "/getProductsById", productIds);
+  }
 
   // product.service.ts
   public getSingleProduct(productId: string): Observable<Product> {

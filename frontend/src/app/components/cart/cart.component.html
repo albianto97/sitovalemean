@@ -1,6 +1,13 @@
 <div class="container-xl">
-    ECCO IL TUO CARRELLO:
-    <p>FARE UN COMPONENTE LISTA DEGLI ARTICOLI NEL CARRELLO</p>
+  ECCO IL TUO CARRELLO:
+  <p>FARE UN COMPONENTE LISTA DEGLI ARTICOLI NEL CARRELLO</p>
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of products">
+        <app-product-card [product]="product" [isViewCarrello]= "true"></app-product-card>
+      </div>
+    </div>
+  </div>
     <button class="btn btn-secondary">Continua a comprare</button>
     <button class="btn btn-primary" [routerLink]="'/order'">Ordina</button>
 </div>

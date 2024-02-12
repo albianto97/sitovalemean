@@ -4,7 +4,7 @@ const Product = require("../models/product");
 const User = require("../models/user");
 
 const getAllOrders = async (req, res) => {
-    // Logica per ottenere un utente
+    // Logica per ottenere ordini
     const orders = await Order.find();
     console.log(orders);
     res.json(orders);
