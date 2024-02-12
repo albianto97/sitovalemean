@@ -9,7 +9,9 @@
       <h5>Data ordine: <em>{{ order.creationDate | date: 'dd/MM/yyyy HH:mm:ss' }}</em></h5>
       <div>
         <p>Totale prodotti ordinati: <strong>{{ order.products.length }}</strong></p>
-        <button class="btn btn-primary w-100">Visualizza</button>
+
+        <!-- indirizzamento di visualizza -->
+        <button class="btn btn-primary w-100" [routerLink]="''">Visualizza</button>
       </div>
     </div>
   </div>
