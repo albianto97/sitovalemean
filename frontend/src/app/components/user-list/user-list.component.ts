@@ -21,7 +21,8 @@ export class UserListComponent implements OnInit {
   filteredOrders: Order[] = [];
   filteredUserOptions: User[] = [];
 
-  constructor(private userService: UserService, private orderService: OrderService) { }
+  constructor(private userService: UserService, private orderService: OrderService) {
+  }
 
   ngOnInit(): void {
     // Chiamata al servizio per ottenere la lista degli utenti al caricamento del componente
@@ -41,29 +42,24 @@ export class UserListComponent implements OnInit {
       this.orderService.getAllOrders().subscribe(orders => {
         this.orders = orders;
       });
-    }else{
+    } else {
       console.log("ciao ordini");
     }
   }
+
   getUsers(): void {
-    if (!this.selectedUserName) {
+    if (!this.users.length) { // Controlla se l'array degli utenti è vuoto
       this.userService.getUsers().subscribe(users => {
         this.users = users;
-        // Inizializza gli utenti filtrati con tutti gli utenti all'inizio
         this.filteredUsers = users;
         this.filteredUserOptions = users;
       });
-    }else{
-      /*this.orderService.getOrdersFromUser(this.selectedUserName).subscribe(orders => {
-        this.orders = orders;
-      });*/
-      console.log("ciao utenti");
     }
   }
 
   filterData(): void {
     // Filtra gli utenti in base alla corrispondenza parziale dell'username
-    this.filteredUsers = this.users.filter(user =>
+    this.filteredUsers = this.filteredUserOptions.filter(user =>
       user.username.toLowerCase().includes(this.selectedUserName.toLowerCase())
     );
 
@@ -77,6 +73,7 @@ export class UserListComponent implements OnInit {
       }
     }
   }
+}
 
 
   /*filterData(): void {
@@ -104,5 +101,4 @@ export class UserListComponent implements OnInit {
     }
     this.getOrders(); this.getUsers();
   }*/
-}
 
