@@ -1,9 +1,22 @@
 <div>
   <mat-form-field>
     <mat-label>Filtra per nome</mat-label>
-    <mat-select [(ngModel)]="selectedUserName" (ngModelChange)="filterUsers()">
+    <mat-select [(ngModel)]="selectedUserName" (ngModelChange)="filterData()">
       <mat-option value="">Tutti</mat-option>
       <mat-option *ngFor="let user of users" [value]="user.username">{{ user.username }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Filtra per stato ordine</mat-label>
+    <mat-select [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterData()">
+      <mat-option value="">Tutti</mat-option>
+      <mat-option value="inAttesa">In attesa</mat-option>
+      <mat-option value="Rifiutato">Rifiutato</mat-option>
+      <mat-option value="Accettato">Accettato</mat-option>
+      <mat-option value="Lavorazione">Lavorazione</mat-option>
+      <mat-option value="Terminato">Terminato</mat-option>
+      <mat-option value="Consegnato">Consegnato</mat-option>
     </mat-select>
   </mat-form-field>
 
