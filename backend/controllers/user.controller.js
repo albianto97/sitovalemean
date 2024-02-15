@@ -38,7 +38,7 @@ const createUser = async (req, res) => {
             return res.status(422).json({ error: "Conflict", message: "L'email è già associata ad un altro utente" });
         }
         const newUser = await User.create(req.body);
-        res.json({ message: "Utente creato con successo!", user: newUser });
+        res.json({ message: "Utente creato con successo! Login!", user: newUser });
     } catch (error) {
         console.error('Errore nella creazione dell\'utente:', error);
         res.status(500).json({ message: "Errore nella creazione dell'utente." });
