@@ -1,6 +1,6 @@
 <div class="container-xl">
-  ECCO IL TUO CARRELLO:
-  <p>FARE UN COMPONENTE LISTA DEGLI ARTICOLI NEL CARRELLO</p>
+  <p *ngIf="products.length !== 0; else noItems">ECCO IL TUO CARRELLO</p>
+  <ng-template #noItems>Il tuo carrello è vuoto</ng-template>
   <div class="container-xl">
     <div class="row">
       <div class="col-md-4" *ngFor="let product of products">
