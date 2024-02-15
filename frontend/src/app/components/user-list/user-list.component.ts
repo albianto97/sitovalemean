@@ -19,6 +19,7 @@ export class UserListComponent implements OnInit {
   filteredUsers: User[] = []; // Variabile per memorizzare gli utenti filtrati, inizializzata con tutti gli utenti all'inizio
   selectedOrderStatus: string = ''; // Variabile per memorizzare lo stato dell'ordine selezionato
   filteredOrders: Order[] = [];
+  filteredUserOptions: User[] = [];
 
   constructor(private userService: UserService, private orderService: OrderService) { }
 
@@ -31,6 +32,9 @@ export class UserListComponent implements OnInit {
     this.filteredUsers = this.users;
   }
 
+  displayFn(user: User): string {
+    return user && user.username ? user.username : '';
+  }
 
   getOrders(): void {
     if (!this.selectedOrderStatus) {
@@ -47,6 +51,7 @@ export class UserListComponent implements OnInit {
         this.users = users;
         // Inizializza gli utenti filtrati con tutti gli utenti all'inizio
         this.filteredUsers = users;
+        this.filteredUserOptions = users;
       });
     }else{
       /*this.orderService.getOrdersFromUser(this.selectedUserName).subscribe(orders => {
@@ -57,6 +62,27 @@ export class UserListComponent implements OnInit {
   }
 
   filterData(): void {
+    // Filtra gli utenti in base alla corrispondenza parziale dell'username
+    this.filteredUsers = this.users.filter(user =>
+      user.username.toLowerCase().includes(this.selectedUserName.toLowerCase())
+    );
+
+    // Se è stato selezionato un nome utente o uno stato dell'ordine, filtra di conseguenza
+    if (this.selectedUserName || this.selectedOrderStatus) {
+      // Filtra gli ordini se è stato selezionato uno stato dell'ordine
+      if (this.selectedOrderStatus) {
+        this.filteredOrders = this.orders.filter(order => order.status === this.selectedOrderStatus);
+      } else {
+        this.filteredOrders = this.orders;
+      }
+    }
+  }
+
+
+  /*filterData(): void {
+    this.filteredUsers = this.users.filter(user =>
+      user.username.toLowerCase().includes(this.selectedUserName.toLowerCase())
+    );
     if (!this.selectedUserName && !this.selectedOrderStatus) {
       // Se non viene selezionato né un nome utente né uno stato dell'ordine, mostra tutti gli utenti e tutti gli ordini
       this.filteredUsers = this.users;
@@ -77,6 +103,6 @@ export class UserListComponent implements OnInit {
       }
     }
     this.getOrders(); this.getUsers();
-  }
+  }*/
 }
 

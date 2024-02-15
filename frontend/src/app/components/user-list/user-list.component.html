@@ -1,10 +1,19 @@
-<div>
-  <mat-form-field>
+<div class="container-xl">
+  <!--<mat-form-field>
     <mat-label>Filtra per nome</mat-label>
     <mat-select [(ngModel)]="selectedUserName" (ngModelChange)="filterData()">
       <mat-option value="">Tutti</mat-option>
       <mat-option *ngFor="let user of users" [value]="user.username">{{ user.username }}</mat-option>
     </mat-select>
+  </mat-form-field>-->
+
+  <mat-form-field>
+    <input type="text" matInput placeholder="Filtra per nome" [(ngModel)]="selectedUserName" (ngModelChange)="filterData()">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngFor="let user of filteredUserOptions" [value]="user">
+        {{ user.username }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 
   <mat-form-field>
@@ -37,8 +46,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-
 </div>
+
 <div class="container-xl">
   <div class="row">
     <div class="col-md-4" *ngFor="let order of orders">
