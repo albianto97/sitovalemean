@@ -31,6 +31,7 @@ export class UserListComponent implements OnInit {
 
     // Inizializza gli utenti filtrati con tutti gli utenti all'inizio
     this.filteredUsers = this.users;
+    this.filteredOrders = this.orders;
   }
 
   displayFn(user: User): string {
@@ -38,9 +39,10 @@ export class UserListComponent implements OnInit {
   }
 
   getOrders(): void {
-    if (!this.selectedOrderStatus) {
+    if (!this.orders.length) {
       this.orderService.getAllOrders().subscribe(orders => {
         this.orders = orders;
+        this.filteredOrders = orders;
       });
     } else {
       console.log("ciao ordini");
