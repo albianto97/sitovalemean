@@ -40,23 +40,17 @@ export class UserListComponent implements OnInit {
   }
 
   getOrders(): void {
-    if (!this.selectedOrderStatus) {
       this.orderService.getAllOrders().subscribe(orders => {
         this.orders = orders;
         this.filteredOrders = orders;
       });
-    } else {
-      console.log("ciao ordini");
-    }
   }
 
   getUsers(): void {
-    if (!this.users.length) { // Controlla se l'array degli utenti è vuoto
       this.userService.getUsers().subscribe(users => {
         this.users = users;
         this.filteredUsers = users;
       });
-    }
   }
 
   filterData(): void {
