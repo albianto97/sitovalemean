@@ -25,6 +25,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
 import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProductCardComponent } from './components/product/product-card/product-
     CartComponent,
     OrdersComponent,
     StatusIconHtmlPipe,
-    ProductCardComponent
+    ProductCardComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,

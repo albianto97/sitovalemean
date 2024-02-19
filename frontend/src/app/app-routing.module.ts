@@ -13,6 +13,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CartComponent } from './components/cart/cart.component';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
+import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,9 @@ const routes: Routes = [
   { path: 'profilo', component: ProfiloComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  // Assicurati di inserire questa rotta prima della wildcard (se presente)
+  { path: '**', redirectTo: '/unauthorized' } // Reindirizza tutte le altre rotte non trovate alla pagina di errore "unauthorized"
 ];
 
 @NgModule({
