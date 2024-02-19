@@ -1,6 +1,6 @@
 <div class="container-xl">
   <div class="row">
-    <div class="col-md-6"> <!-- Imposta la larghezza del form a metà del contenitore -->
+    <div class="col-md-4"> <!-- Imposta la larghezza del form a metà del contenitore -->
       <mat-form-field>
         <input type="text" matInput placeholder="Filtra per nome" [(ngModel)]="selectedUserName" (ngModelChange)="filterData()">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
@@ -11,7 +11,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-md-6"> <!-- Imposta la larghezza del form a metà del contenitore -->
+    <div class="col-md-4"> <!-- Imposta la larghezza del form a metà del contenitore -->
       <mat-form-field>
         <mat-label>Filtra per stato ordine</mat-label>
         <mat-select [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterData()">
@@ -24,6 +24,9 @@
           <mat-option value="consegnato">Consegnato</mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+    <div class="col-md-4"> <!-- Imposta la larghezza del form a metà del contenitore -->
+      ORDINI VISUALIZZATI: {{filteredOrders.length}}
     </div>
   </div>
 
