@@ -13,4 +13,6 @@ router.get('/getOrderOfUserProduct', verifyToken, orderController.getOrderOfUser
 // Rotta protetta per prendere gli ordini di un utente loggato
 router.get('/getOrdersFromUser', verifyToken, orderController.getOrdersFromUser);
 
+router.get('/searchOrdersByUsername', orderController.searchOrdersByUsername);
+
 module.exports = router;

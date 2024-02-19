@@ -11,6 +11,23 @@ const getAllOrders = async (req, res) => {
 
     //res.send(res.json);
 }
+const searchOrdersByUsername = async (req, res) => {
+    try {
+        const username = req.query.username;
+        const status = req.query.status;
+        const userIds = await User.find({ username: { $regex: '^'+ username }}, {"_id": 1}).lean();
+        let orders;
+        if(status)
+             orders = await Order.find({user: {"$in" : userIds}, status : status}, {"_id": 1, "status": 1, "creationDate": 1, "products": 1}).lean();
+        else
+            orders = await Order.find({user: {"$in" : userIds}}, {"_id": 1, "status": 1, "creationDate": 1, "products": 1}).lean();
+        res.json( orders );
+    } catch (err) {
+        console.error('Errore nel recupero dei ordini:', err);
+        res.status(500).json({ message: 'Errore del server' });
+    }
+
+}
 const getOrderOfUserProduct = async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -84,5 +101,6 @@ module.exports = {
     createOrder,
     getOrderOfUserProduct,
     getOrdersFromUser,
-    getAllOrders
+    getAllOrders,
+    searchOrdersByUsername
 }

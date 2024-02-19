@@ -35,4 +35,11 @@ export class OrderService {
   public getAllOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.endPoint+'/getAllOrders');
   }
+
+  searchOrderByUsername(username : string, status: string): Observable<Order[]> {
+    let s = status ? status : "";
+    return this.http.get<Order[]>(this.endPoint+'/searchOrdersByUsername?username='+username+"&status="+s );
+
+  }
+
 }

@@ -24,6 +24,10 @@ export class UserService {
     return this.http.post(this.endPoint+"/login", user);
   }
 
+  public searchUsers(username : string): Observable<User[]> {
+    return this.http.get<User[]>(this.endPoint + "/searchUsersByUsername?username="+ username);
+  }
+
 
 
 }

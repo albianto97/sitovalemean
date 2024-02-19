@@ -9,6 +9,21 @@ const getUser = async (req, res) => {
 
     //res.send(res.json);
 }
+const searchUsersByUsername = async (req, res) => {
+    try {
+        const username = req.query.username; //metodo sarà /api/users/searchUserByUsername?username=<username>
+        const users = await User.find({ username: { $regex: '^'+ username }}).lean();
+
+        if (!users) {
+            return res.status(404).json({ message: 'Utenti non trovato' });
+        }
+
+        res.json(users);
+    } catch (error) {
+        console.error('Errore durante il recupero dell\'utente:', error);
+        res.status(500).json({ message: 'Errore del server' });
+    }
+};
 const getSingleUser = async (req, res) => {
     try {
         const userId = req.params.userId;
@@ -67,5 +82,6 @@ module.exports = {
     getUser,
     createUser,
     getSingleUser,
+    searchUsersByUsername,
     login
 }

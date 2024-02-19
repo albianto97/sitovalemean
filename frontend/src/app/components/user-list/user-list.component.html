@@ -4,7 +4,7 @@
       <mat-form-field>
         <input type="text" matInput placeholder="Filtra per nome" [(ngModel)]="selectedUserName" (ngModelChange)="filterData()">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let user of filteredUserOptions" [value]="user">
+          <mat-option *ngFor="let user of users" [value]="user">
             {{ user.username }}
           </mat-option>
         </mat-autocomplete>
@@ -17,17 +17,17 @@
         <mat-select [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterData()">
           <mat-option value="">Tutti</mat-option>
           <mat-option value="inAttesa">In attesa</mat-option>
-          <mat-option value="Rifiutato">Rifiutato</mat-option>
-          <mat-option value="Accettato">Accettato</mat-option>
-          <mat-option value="Lavorazione">Lavorazione</mat-option>
-          <mat-option value="Terminato">Terminato</mat-option>
-          <mat-option value="Consegnato">Consegnato</mat-option>
+          <mat-option value="rifiutato">Rifiutato</mat-option>
+          <mat-option value="accettato">Accettato</mat-option>
+          <mat-option value="lavorazione">Lavorazione</mat-option>
+          <mat-option value="terminato">Terminato</mat-option>
+          <mat-option value="consegnato">Consegnato</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </div>
 
-  <table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8">
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -48,7 +48,7 @@
 
 <div class="container-xl">
   <div class="row">
-    <div class="col-md-4" *ngFor="let order of orders">
+    <div class="col-md-4" *ngFor="let order of filteredOrders">
       <app-orders [order]="order"></app-orders>
     </div>
   </div>
