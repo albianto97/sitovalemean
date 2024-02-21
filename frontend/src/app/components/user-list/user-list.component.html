@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <table  *ngIf="selectedUserName.length == 3" mat-table [dataSource]="users" class="mat-elevation-z8">
+  <table  *ngIf="selectedUserName.length >= 3" mat-table [dataSource]="users" class="mat-elevation-z8">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>

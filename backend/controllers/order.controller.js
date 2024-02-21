@@ -15,12 +15,24 @@ const searchOrdersByUsername = async (req, res) => {
     try {
         const username = req.query.username;
         const status = req.query.status;
-        const userIds = await User.find({ username: { $regex: '^'+ username }}, {"_id": 1}).lean();
+        const users = await User.find({ username: { $regex: '^'+ username }}, {"_id": 1, "username": 1}).lean();
+        const userIds = users.map(u =>
+            Object.assign({}, {_id: u._id})
+        );
         let orders;
         if(status)
-             orders = await Order.find({user: {"$in" : userIds}, status : status}, {"_id": 1, "status": 1, "creationDate": 1, "products": 1}).lean();
+             orders = await Order.find({user: {"$in" : userIds}, status : status}, {"_id": 1, "status": 1, "creationDate": 1, "productsCount": {"$size": "$products"}, "user":1 }).lean();
         else
-            orders = await Order.find({user: {"$in" : userIds}}, {"_id": 1, "status": 1, "creationDate": 1, "products": 1}).lean();
+            orders = await Order.find({user: {"$in" : userIds}}, {"_id": 1, "status": 1, "creationDate": 1, "productsCount": {"$size": "$products"}, "user":1 }).lean();
+        orders = orders.map(o =>{
+            let userId = o.user;
+            let user = users.filter(u => u._id.equals(userId));
+            if(user.length > 0){
+                o.username = user[0].username;
+            }
+            return o;
+
+        })
         res.json( orders );
     } catch (err) {
         console.error('Errore nel recupero dei ordini:', err);

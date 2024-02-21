@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     // Chiamata al servizio per ottenere la lista degli utenti al caricamento del componente
     this.getUsers();
-    this.getOrders();
+    this.filterData();
 
     // Inizializza gli utenti filtrati con tutti gli utenti all'inizio
     this.filteredUsers = this.users;
