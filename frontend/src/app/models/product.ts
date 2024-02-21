@@ -7,6 +7,7 @@ export class Product {
   type?: string; // Aggiunto il campo type
   count? : number;
   quantity? : number;
+  cartQuantity?: number;
 
   constructor({_id,name,description,price,disponibilita,type, count, quantity}: {
     _id?: string;
@@ -17,6 +18,7 @@ export class Product {
     type?: string;
     count?: number;
     quantity?: number;
+    cartQuantity?: number;
   }) {
     this._id = _id;
     this.name = name;
@@ -26,5 +28,6 @@ export class Product {
     this.type = type;
     this.count = count;
     this.quantity = quantity;
+
   }
 }

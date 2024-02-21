@@ -101,11 +101,27 @@ const getOrdersFromUser =async (req, res) => {
 
 const createOrder = async (req, res) => {
     try {
-        const newOrder = await Order.create(req.body);
-        res.json({ msg: "Ordine creato con successo!", order: newOrder });
+        let quantityOk = await checkOrderQuantities(req.body);
+        if(quantityOk) {
+            const newOrder = await Order.create(req.body);
+            res.json({msg: "Ordine creato con successo!", order: newOrder});
+        }else{
+            res.json({msg: "Errore nel ordine", order: null});
+        }
     } catch (e) {
         res.status(400).send(e);
     }
+}
+
+const checkOrderQuantities = async (order) => {
+    let products = order.products;
+    for(i=0; i < products.length; i++){
+        let p = products[i];
+        let pDocument = await Product.findOne({"_id": p.productId}).lean();
+        if(pDocument.disponibilita < p.quantity)
+            return false;
+    }
+    return true;
 }
 
 

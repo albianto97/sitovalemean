@@ -14,7 +14,22 @@ export class ProductCardComponent {
 
   constructor(private cartService: CartService) {}
 
+  ngOnInit(): void {
+    let itemId = this.product._id;
+    let quantity = this.cartService.getQuantityByProductId(itemId);
+    this.product.cartQuantity = quantity;
+  }
+
+
   addItemToCart(itemId: string) {
-    this.cartService.addToCart(itemId, 1);
+    let quantity = this.cartService.getQuantityByProductId(itemId);
+    let p: any = this.product;
+    if(quantity < p.disponibilita) {
+      this.cartService.addToCart(itemId, 1);
+      (<any>this.product).cartQuantity++;
+    }
+    else{
+      alert("Disponibilià esaurita: Non è possibile inserire questo prodotto nel carrello");
+    }
   }
 }

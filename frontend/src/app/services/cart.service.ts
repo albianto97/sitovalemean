@@ -62,4 +62,13 @@ export class CartService {
     }
     return cart ? JSON.parse(cart) : { products: [] };
   }
+
+  getQuantityByProductId(productId: any){
+    let cart = this.getCart();
+    let product = cart.products.filter((p: any) => p.productId == productId);
+    if(product.length > 0){
+      return product[0].quantity;
+    }
+    return 0;
+  }
 }
