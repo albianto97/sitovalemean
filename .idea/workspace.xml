@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="TODO file">
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="profile" />
+        <entry key="$PROJECT_DIR$" value="noAdmin" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -97,6 +97,7 @@
       <workItem from="1702482016951" duration="126000" />
       <workItem from="1702482174559" duration="87000" />
       <workItem from="1702482285693" duration="291000" />
+      <workItem from="1708711406718" duration="173000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
