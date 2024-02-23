@@ -10,7 +10,7 @@
 <div class="container-xl">
   <div class="row">
     <div class="col-md-4" *ngFor="let order of myOrders">
-      <app-orders [order]="order" ></app-orders>
+      <app-orders [order]="order" [isProfile] = "true"></app-orders>
     </div>
   </div>
 </div>

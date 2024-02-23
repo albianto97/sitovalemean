@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import {Order, Status} from "../../../models/order";
-import {Product} from "../../../models/product";
 
 @Component({
   selector: 'app-orders',
@@ -12,6 +11,7 @@ import {Product} from "../../../models/product";
 export class OrdersComponent {
   @Input() order!: Order;
   @Input() selectUsername!: string;
+  @Input() isProfile: boolean = false;
   constructor() {}
   getStatusIcon(status:string): string {
     let key = status as keyof typeof Status;
