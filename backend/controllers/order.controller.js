@@ -67,8 +67,8 @@ const getOrderOfUserProduct = async (req, res) => {
         });
 
         // Ordina i prodotti in base alla quantità acquistata in ordine decrescente
-        const sortedProducts = Object.keys(productCounts).sort((a, b) => productCounts[b] - productCounts[a]);
-        console.log(productCounts);
+        let sortedProducts = Object.keys(productCounts).sort((a, b) => productCounts[b] - productCounts[a]);
+        sortedProducts = sortedProducts.slice(0,3);
 
         // Ottieni i dettagli dei prodotti più acquistati
         const bestProductsData = await Product.find({ _id: { $in: sortedProducts } });
