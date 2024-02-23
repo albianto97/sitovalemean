@@ -16,7 +16,7 @@ export class UserInfoComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router, private cartService: CartService){
       //cartService.initCart();
   }
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.cart = this.cartService.getCart();
     this.user = this.auth.getUserFromToken();
     this.calcolaSaluto();
@@ -32,12 +32,13 @@ export class UserInfoComponent implements OnInit {
       this.saluto = 'Buonasera, ' + this.user?.username + '!';
     }
   }
-  
+
   viewCart(){
     this.router.navigate(['/view-cart']);
   }
   logOut(){
     this.auth.logout();
     location.reload();
+    this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
   }
 }
