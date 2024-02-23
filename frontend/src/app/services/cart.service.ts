@@ -60,6 +60,7 @@ export class CartService {
     if(!cart){
       cart = JSON.stringify({ products: [] });
     }
+    console.log(JSON.parse(cart));
     return cart ? JSON.parse(cart) : { products: [] };
   }
 
