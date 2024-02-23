@@ -1,0 +1,37 @@
+<div class="container-xl">
+  <div class="row col-md">
+    <mat-card class="gusticard mb-3">
+      <mat-card-header>
+        <mat-card-subtitle>{{ product.type }}</mat-card-subtitle>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="text-break">{{ product.description }} </p>
+        <div *ngIf="product.quantity == undefined">
+          <p>Disponibili solo: {{ product.disponibilita }}</p>
+          <p *ngIf="product.count != undefined"> Conteggio : {{product.count}}</p>
+        </div>
+        <p *ngIf="product.quantity != undefined" > Quantita: {{product.quantity}}</p>
+        <p *ngIf="product.cartQuantity != 0 ">Nel carrello: {{ product.cartQuantity }}</p>
+      </mat-card-content>
+
+        <!-- ... (Contenuto della card del prodotto) -->
+        <div class="d-flex justify-content-between m-2">
+          <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+          <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)"
+                  *ngIf="!isViewCarrello else view">Aggiungi al carrello
+          </button>
+          <ng-template #view>
+            <!--<div>
+              bottoni per il carrello
+            </div>-->
+          </ng-template>
+        </div>
+      <mat-card-footer>
+        <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+
+</div>
+

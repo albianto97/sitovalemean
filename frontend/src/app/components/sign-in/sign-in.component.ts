@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,32 +14,46 @@ import { User } from 'src/app/models/user';
 export class SignInComponent implements OnInit {
   registrazioneForm: FormGroup;
   constructor(private userService: UserService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private router: Router,
+    private snackBar: MatSnackBar) {
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
 
   ngOnInit(): void {
-    console.log("Creazione Componente");
+    console.log("Creazione Componente Registrazione");
   }
 
   onSubmit() {
     if (this.registrazioneForm.valid) {
-      // Puoi gestire l'invio del form qui
-      console.log('Dati inviati:', this.registrazioneForm.value);
-      var user = new User(this.registrazioneForm.value);
-      console.log(user);
-      this.userService.createUser(user)
-        .subscribe((result: any) => {
-          console.log(result);
-        })
+      var newUser = new User(this.registrazioneForm.value.email, this.registrazioneForm.value.username,
+        this.registrazioneForm.value.password);
+      // disabilito la form così da evitare invii di richieste multiple
+      this.registrazioneForm.disable();
+      this.userService.createUser(newUser).subscribe((response: any) => {
+        // l'utente è stato creato con successo
+        console.log(response);
+        this.openSnackBar(response.message);
+        this.router.navigate(['/login']);
+        
+      },
+        // gestisco l'errore generato
+        (errorResult: any) => {
+          // riattivo la form per poter far modificare i campi
+          this.registrazioneForm.enable();
+
+          var error = errorResult.error;
+          console.error(error.message);
+          this.openSnackBar(error.message)
+        });
     }
   }
-
-
-
+  openSnackBar(message: string, action: string = 'OK') {
+    this.snackBar.open(message, action, {duration: 5000});
+  }
 }

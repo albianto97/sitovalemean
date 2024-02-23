@@ -1,0 +1,12 @@
+<!-- single-product.component.html -->
+<div *ngIf="!product">
+  <p>Caricamento in corso...</p>
+</div>
+
+<div class="container-xl">
+  <div class="row">
+    <div *ngIf="product">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
+</div>

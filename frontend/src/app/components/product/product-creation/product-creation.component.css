@@ -1,0 +1,21 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+/* Aggiungi queste regole nel tuo file CSS associato al componente */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Imposta l'altezza della pagina al 100% della viewport height */
+}
+
+form {
+  width: 400px; /* Imposta la larghezza del form */
+  text-align: center; /* Centra il testo all'interno del form */
+}

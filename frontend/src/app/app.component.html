@@ -1,2 +1,16 @@
-ciao
-<app-sign-in></app-sign-in>
+<div>
+  <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
+  <a href="#" class="navbar-brand">Gelateria</a>
+
+  <div>
+    <button mat-button color="primary" routerLink="userList">Lista Utenti</button>
+    <button mat-button color="primary" routerLink="productList">Lista Prodotti</button>
+    <button mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
+    <button mat-button color="primary" routerLink="profilo">Profilo</button>
+  </div>
+  </mat-toolbar>
+</div>
+<!-- Router Outlet -->
+<div>
+  <router-outlet></router-outlet>
+</div>

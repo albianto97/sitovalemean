@@ -1,0 +1,16 @@
+<div class="container-xl">
+  <p *ngIf="products.length !== 0; else noItems">ECCO IL TUO CARRELLO</p>
+  <ng-template #noItems>Il tuo carrello è vuoto</ng-template>
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of products">
+        <app-product-card [product]="product" [isViewCarrello]= "true"></app-product-card>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-secondary" [routerLink]="'/productList'">Continua a comprare</button>
+  <button class="btn btn-primary" [routerLink]="'/order'">Ordina</button>
+</div>
+
+
+
