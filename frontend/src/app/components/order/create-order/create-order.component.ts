@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import {Router} from "@angular/router";
+import {Product} from "../../../models/product";
 
 @Component({
   selector: 'app-create-order',
@@ -50,10 +51,19 @@ export class CreateOrderComponent {
       };
       console.log(order);
 
-      this.orderService.createOrder(order).subscribe(result => {
+      this.orderService.createOrder(order).subscribe((result: any) => {
         console.log(result, order);
-        this.cartService.emptyCart();
-        this.router.navigate(['/profilo']);
+        if(result.result == 1){
+          let productString = result.products.map((p: Product) => p.name).join(", ");
+          alert("Impossibile, prodotti non disponibili: " + productString + "\nVerranno rimossi dal carrello!");
+          for(let i =0; i < result.products.length; i++){
+            this.cartService.removeProduct(result.products[i]._id);
+          }
+          this.router.navigate(["/view-cart"]);
+        }else {
+          this.cartService.emptyCart();
+          this.router.navigate(['/profilo']);
+        }
       });
     } else {
       // Deve effettuare il login per poter effettuare l'ordine

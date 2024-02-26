@@ -99,14 +99,24 @@ const getOrdersFromUser =async (req, res) => {
     }
 }
 
+async function updateQuantities(products) {
+    for(i=0; i < products.length; i++){
+        let current = products[i];
+        const DBproduct = await Product.findOne({_id: current.productId}).lean();
+        let newQuantity = DBproduct.disponibilita - current.quantity;
+        let result = await Product.updateOne({_id: current.productId}, {disponibilita: newQuantity});
+    }
+}
+
 const createOrder = async (req, res) => {
     try {
-        let quantityOk = await checkOrderQuantities(req.body);
-        if(quantityOk) {
+        let unavailableProducts = await checkOrderQuantities(req.body);
+        if(unavailableProducts.length === 0) {
             const newOrder = await Order.create(req.body);
-            res.json({msg: "Ordine creato con successo!", order: newOrder});
+            await updateQuantities(req.body.products);
+            res.json({msg: "Ordine creato con successo!", order: newOrder, result : 0});
         }else{
-            res.json({msg: "Errore nel ordine", order: null});
+            res.json({msg: "Errore nel ordine", order: null, result: 1, products: unavailableProducts});
         }
     } catch (e) {
         res.status(400).send(e);
@@ -114,14 +124,15 @@ const createOrder = async (req, res) => {
 }
 
 const checkOrderQuantities = async (order) => {
+    let unavailableProducts = [];
     let products = order.products;
     for(i=0; i < products.length; i++){
         let p = products[i];
         let pDocument = await Product.findOne({"_id": p.productId}).lean();
         if(pDocument.disponibilita < p.quantity)
-            return false;
+            unavailableProducts.push(pDocument);
     }
-    return true;
+    return unavailableProducts;
 }
 
 
