@@ -49,7 +49,6 @@ export class CreateOrderComponent {
         products: this.productsInCart,
         user: this.user._id
       };
-      console.log(order);
 
       this.orderService.createOrder(order).subscribe((result: any) => {
         console.log(result, order);
