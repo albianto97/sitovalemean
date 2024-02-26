@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class CartService {
 
   constructor() { }
-  initCart() {
+  /*initCart() {
     var cart = {
       products: [
         { productId: "6564af0c79c5b00a9e6c58cc", quantity: 3 },
@@ -14,7 +14,7 @@ export class CartService {
       ]
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-  }
+  }*/
   // Aggiungere un prodotto al carrello: ho ipotizzato di passare solamente id del prodotto e qta richiesta
   addToCart(productId: any, quantity: any) {
     // Recuperare il carrello dal Local Storage
