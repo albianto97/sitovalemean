@@ -1,5 +1,5 @@
 // product-card.component.ts
-import { Component, Input } from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -11,8 +11,9 @@ import { CartService } from 'src/app/services/cart.service';
 export class ProductCardComponent {
   @Input() product!: Product;
   @Input() isViewCarrello: boolean = false;
+  @Output() itemRemoved = new EventEmitter();
 
-  constructor(private cartService: CartService) {}
+  constructor(public cartService: CartService) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
@@ -31,5 +32,10 @@ export class ProductCardComponent {
     else{
       alert("Disponibilià esaurita: Non è possibile inserire questo prodotto nel carrello");
     }
+  }
+
+  removeProduct(){
+    this.cartService.removeProduct(this.product._id)
+    this.itemRemoved.emit();
   }
 }
