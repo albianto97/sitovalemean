@@ -3,9 +3,9 @@
   <a href="#" class="navbar-brand">Gelateria</a>
 
   <div>
-    <button mat-button color="primary" routerLink="userList">Lista Utenti</button>
+    <button *ngIf="isAdmin" mat-button color="primary" routerLink="userList">Lista Utenti</button>
     <button mat-button color="primary" routerLink="productList">Lista Prodotti</button>
-    <button mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
+    <button *ngIf="isAdmin" mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
     <button mat-button color="primary" routerLink="profilo">Profilo</button>
   </div>
   </mat-toolbar>

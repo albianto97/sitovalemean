@@ -69,7 +69,7 @@ const login = async (req, res) => {
         if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(400).json({ isValid: false, message: "Incorrect password" });
         }
-        const token = jwt.sign({ _id: user._id, username: user.username }, 'chiaveSegreta');
+        const token = jwt.sign({ _id: user._id, username: user.username, role: user.ruolo }, 'chiaveSegreta');
 
         return res.status(200).json({ isValid: true, message: "Login successful", token: token });
     } catch (err) {
