@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {ProductService} from "../../services/product.service";
 import {Product} from "../../models/product";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-cart',
@@ -9,10 +10,21 @@ import {Product} from "../../models/product";
 })
 export class CartComponent {
   products : Product[] = [];
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private cartService: CartService) {}
 
 
   ngOnInit(): void {
+    this.reloadCart();
+  }
+
+
+  emptyCart() {
+    this.cartService.emptyCart();
+    this.reloadCart();
+  }
+
+  reloadCart() {
+    //this.products = this.cartService.getCart().products;
     // Verifica se 'cart' è presente nello storage locale e se contiene un valore valido
     if (localStorage['cart']) {
       try {
@@ -33,9 +45,7 @@ export class CartComponent {
         console.error('Errore durante il parsing del valore JSON in localStorage:', error);
       }
     } else {
-      console.error('Il valore di "cart" non è presente nello storage locale.');
+      console.error('Il valore di "cart" non è presente nello storage locale, carrello vuoto');
     }
   }
-
-
 }

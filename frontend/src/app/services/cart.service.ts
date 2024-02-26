@@ -51,7 +51,7 @@ export class CartService {
   // Svuotare il carrello
   emptyCart() {
     // Salvare il carrello vuoto nel Local Storage
-    localStorage.removeItem('cart');
+    localStorage.setItem('cart', JSON.stringify({products : []}));
   }
 
   // Recuperare il carrello dal Local Storage

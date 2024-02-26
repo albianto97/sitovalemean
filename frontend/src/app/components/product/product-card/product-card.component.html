@@ -18,6 +18,7 @@
         <!-- ... (Contenuto della card del prodotto) -->
         <div class="d-flex justify-content-between m-2">
           <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+          <button mat-raised-button color="warn" (click)="this.removeProduct()" mat-raised-button>Elimina prodotto</button>
           <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)"
                   *ngIf="!isViewCarrello else view">Aggiungi al carrello
           </button>
