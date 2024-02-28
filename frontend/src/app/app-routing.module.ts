@@ -15,6 +15,7 @@ import { CreateOrderComponent } from './components/order/create-order/create-ord
 import { OrdersComponent } from './components/order/orders/orders.component';
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import { InventoryComponent } from './components/product/inventory/inventory.component';
+import { AdministratorGuard } from './guards/administrator.guard';
 
 
 const routes: Routes = [
@@ -23,10 +24,10 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard] },
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, AdministratorGuard] },
   { path: 'userList', component: UserListComponent },
   { path: 'productList', component: InventoryComponent },
-  { path: 'profilo', component: ProfiloComponent },
+  { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },

@@ -12,8 +12,8 @@ export class AuthService {
   private token: string | null = null;
   constructor(private http: HttpClient) { }
   login(user: User): Observable<any> {
-    return this.http.post(this.endPoint+'/login',user).pipe(
-      tap((response : any )=> {
+    return this.http.post(this.endPoint + '/login', user).pipe(
+      tap((response: any) => {
         this.token = response.token;
         this.saveTokenToLocalStorage(this.token!);
       })
@@ -50,5 +50,12 @@ export class AuthService {
 
   removeTokenFromLocalStorage(): void {
     localStorage.removeItem('authToken');
+  }
+  isAdmin() {
+    var user = this.getUserFromToken();
+    if (user)
+      return user.role == "amministratore";
+    else
+      return false;
   }
 }
