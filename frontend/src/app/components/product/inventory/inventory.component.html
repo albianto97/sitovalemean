@@ -1,0 +1,11 @@
+<div class="container-xl mb-3">
+    <div class="example-button-row d-flex justify-content-between">
+        <button class="btn  btn-lg" (click)="filterProducts('TORTA')"
+            [ngClass]="{'btn-seco ndary': selectedType == 'TORTA','btn-primary': selectedType != 'TORTA'}">TORTA</button>
+        <button class="btn btn-primary btn-lg" (click)="filterProducts('GELATO')"
+            [ngClass]="{'secondary': selectedType === 'GELATO'}">GELATO</button>
+        <button class="btn btn-primary btn-lg" (click)="filterProducts('')"
+            [ngClass]="{'secondary': !selectedType}">Mostra Tutti</button>
+    </div>
+</div>
+<app-product-list [products]="products"></app-product-list>

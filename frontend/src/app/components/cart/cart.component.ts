@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {ProductService} from "../../services/product.service";
-import {Product} from "../../models/product";
-import {CartService} from "../../services/cart.service";
+import { ProductService } from "../../services/product.service";
+import { Product } from "../../models/product";
+import { CartService } from "../../services/cart.service";
 
 @Component({
   selector: 'app-cart',
@@ -9,8 +9,8 @@ import {CartService} from "../../services/cart.service";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  products : Product[] = [];
-  constructor(private productService: ProductService, private cartService: CartService) {}
+  products: Product[] = [];
+  constructor(private productService: ProductService, private cartService: CartService) { }
 
 
   ngOnInit(): void {
@@ -30,16 +30,18 @@ export class CartComponent {
       try {
         let cartProducts: any = JSON.parse(localStorage['cart']);
         let productIds = cartProducts.products.map((item: any) => item.productId);
-
         this.productService.getProductsById(productIds).subscribe((data) => {
-          this.products = data;
-          for(let i = 0; i < this.products.length; i++){
-            let item: Product = this.products[i];
-            let cartItem = cartProducts.products[i];
-            item.quantity = cartItem.quantity;
-          }
+          // conversione dell'array dei prodotti nel carrello in un oggetto key => value per ogni articolo,
+          // così da avere accesso diretto e non sprecare risorse per assegnare la quantita all'articolo trovato sul DB
+          const indexedArray = cartProducts.products.reduce((accumulator: any, current: any) => {
+            accumulator[current.productId] = current.quantity;
+            return accumulator;
+          }, {});
 
-          console.log(this.products);
+          this.products = data.map((product: Product) => {
+            product.quantity = indexedArray[product._id!];
+            return product;
+          });
         });
       } catch (error) {
         console.error('Errore durante il parsing del valore JSON in localStorage:', error);

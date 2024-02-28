@@ -2,11 +2,10 @@ const Product = require("../models/product");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order");
 
-const getProductsById = async (req, res) =>{
+const getProductsById = async (req, res) => {
     try {
         const productIds = req.body;
-        const products = await Product.find({"_id" : {"$in" : productIds}}).lean();
-
+        const products = await Product.find({ "_id": { "$in": productIds } }).lean();
         res.json(products);
     } catch (error) {
         console.error('Errore nel recupero dei prodotti:', error);
@@ -16,7 +15,7 @@ const getProductsById = async (req, res) =>{
 
 const getProduct = async (req, res) => {
     // Logica per ottenere un utente
-    try{
+    try {
         const products = await Product.find();
         res.json(products);
     } catch (error) {
@@ -33,13 +32,13 @@ const getSingleProduct = async (req, res) => {
         const product = await Product.findById(productId);
 
         if (!product) {
-            return res.status(404).json({message: 'Prodotto non trovato'});
+            return res.status(404).json({ message: 'Prodotto non trovato' });
         }
 
         res.json(product);
     } catch (error) {
         console.error('Errore durante il recupero del prodotto:', error);
-        res.status(500).json({message: 'Errore del server'});
+        res.status(500).json({ message: 'Errore del server' });
     }
 };
 

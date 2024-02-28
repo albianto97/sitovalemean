@@ -14,6 +14,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
+import { InventoryComponent } from './components/product/inventory/inventory.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
   { path: 'userList', component: UserListComponent },
-  { path: 'productList', component: ProductListComponent },
+  { path: 'productList', component: InventoryComponent },
   { path: 'profilo', component: ProfiloComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },

@@ -1,10 +1,10 @@
 <div class="container-xl">
-    <p>FARE UN COMPONENTE LISTA DEGLI ARTICOLI NEL CARRELLO</p>
     <div class="d-flex flex-column">
         <mat-form-field class="w-50">
             <mat-label>Tipologia Servizio</mat-label>
             <mat-select [(ngModel)]="selectedOrderType">
-                <mat-option *ngFor="let orderType of orderTypes" [value]="orderType.key">{{orderType.value}}</mat-option>
+                <mat-option *ngFor="let orderType of orderTypes"
+                    [value]="orderType.key">{{orderType.value}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="w-100">
