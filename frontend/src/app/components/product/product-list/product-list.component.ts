@@ -7,10 +7,8 @@ import { Product } from "../../../models/product";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
-  ngOnInit(): void {
-    //throw new Error('Method not implemented.');
-  }
+export class ProductListComponent {
+
   @Input() products: Product[] = [];
 
 }

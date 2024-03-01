@@ -53,9 +53,10 @@ export class AuthService {
   }
   isAdmin() {
     var user = this.getUserFromToken();
-    if (user)
+    if (user) {
+      console.log(user.role);
       return user.role == "amministratore";
-    else
+    }else
       return false;
   }
 }

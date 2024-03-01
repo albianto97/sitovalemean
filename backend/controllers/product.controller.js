@@ -43,12 +43,31 @@ const getSingleProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-    console.log(req)
-    Product.create(req.body)
-        .then(() => res.json({ msg: "Prodotto creato con successo!" }))
-        .catch(() => res.status(400).json({ msg: "Errore nella creazione" }));
+        try {
+            const productName = req.body.name;
 
+            // Verifica se esiste già un prodotto con lo stesso nome
+            const existingProduct = await Product.findOne({ name: productName });
+            if (existingProduct) {
+                // Se il prodotto esiste già, restituisci un errore
+                return res.status(400).json({ msg: "Il prodotto con questo nome esiste già" });
+            }
+
+            // Se non esiste un prodotto con lo stesso nome, crea il prodotto
+            await Product.create(req.body);
+            res.json({ msg: "Prodotto creato con successo!" });
+        } catch (error) {
+            console.error("Errore nella creazione del prodotto:", error);
+            if (error instanceof mongoose.Error.ValidationError) {
+                // Se si verifica un errore di validazione dei dati, restituisci un errore 400
+                res.status(400).json({ msg: "Dati del prodotto non validi" });
+            } else {
+                // Altrimenti, restituisci un errore 500
+                res.status(500).json({ msg: "Errore interno del server durante la creazione del prodotto" });
+            }
+        }
 }
+
 
 
 module.exports = {
