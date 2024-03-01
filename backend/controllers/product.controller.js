@@ -1,6 +1,5 @@
 const Product = require("../models/product");
-const jwt = require("jsonwebtoken");
-const Order = require("../models/order");
+
 
 const getProductsById = async (req, res) => {
     try {
@@ -50,21 +49,15 @@ const createProduct = async (req, res) => {
             const existingProduct = await Product.findOne({ name: productName });
             if (existingProduct) {
                 // Se il prodotto esiste già, restituisci un errore
-                return res.status(400).json({ msg: "Il prodotto con questo nome esiste già" });
+                res.json({ msg: "Il prodotto con questo nome esiste già", result: 1 });
+            }else {
+                // Se non esiste un prodotto con lo stesso nome, crea il prodotto
+                await Product.create(req.body);
+                res.json({msg: "Prodotto creato con successo!", result: 2});
             }
-
-            // Se non esiste un prodotto con lo stesso nome, crea il prodotto
-            await Product.create(req.body);
-            res.json({ msg: "Prodotto creato con successo!" });
         } catch (error) {
-            console.error("Errore nella creazione del prodotto:", error);
-            if (error instanceof mongoose.Error.ValidationError) {
-                // Se si verifica un errore di validazione dei dati, restituisci un errore 400
-                res.status(400).json({ msg: "Dati del prodotto non validi" });
-            } else {
-                // Altrimenti, restituisci un errore 500
-                res.status(500).json({ msg: "Errore interno del server durante la creazione del prodotto" });
-            }
+            console.error("Errore nella creazione del prodotto:", error );
+            res.status(400).json({ msg: "Errore generico"});
         }
 }
 
