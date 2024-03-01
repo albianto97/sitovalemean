@@ -7,18 +7,18 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.css']
 })
-export class InventoryComponent implements OnInit{
- products: Product[] = [];
- filteredProducts: Product[] = [];
- selectedType: string | null = null;
+export class InventoryComponent implements OnInit {
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
+  selectedType: string | null = null;
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
-      console.log(this.products);
-
+      console.log(this.products)
+      // Inizializza i prodotti filtrati con tutti i prodotti
       this.filteredProducts = this.products;
     });
   }
@@ -30,5 +30,7 @@ export class InventoryComponent implements OnInit{
     } else {
       this.filteredProducts = this.products;
     }
+    console.log(this.selectedType);
+    console.log(this.filteredProducts);
   }
 }

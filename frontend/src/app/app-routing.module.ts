@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from "./components/login/login.component";
 import { SignInComponent } from "./components/sign-in/sign-in.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
-import { ProductListComponent } from "./components/product/product-list/product-list.component";
 import { ProfiloComponent } from "./components/profile/profile.component";
 import { ProductCreationComponent } from "./components/product/product-creation/product-creation.component";
 import { SingleProductComponent } from "./components/product/single-product/single-product.component";
@@ -25,11 +24,11 @@ const routes: Routes = [
   { path: 'view-cart', component: CartComponent},
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, AdministratorGuard] },
-  { path: 'userList', component: UserListComponent },
+  { path: 'userList', component: UserListComponent, canActivate: [AuthGuard, AdministratorGuard]},
   { path: 'productList', component: InventoryComponent },
   { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'single-product/:productId', component: SingleProductComponent },
-  { path: 'create-product', component: ProductCreationComponent },
+  { path: 'create-product', component: ProductCreationComponent, canActivate: [AuthGuard, AdministratorGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
   // Assicurati di inserire questa rotta prima della wildcard (se presente)
   { path: '**', redirectTo: '/unauthorized' } // Reindirizza tutte le altre rotte non trovate alla pagina di errore "unauthorized"
