@@ -46,11 +46,11 @@ export class ProductCardComponent {
     this.itemRemoved.emit();
   }
 
-  addOneToQuantity(productId: string) {
+  addToQuantity(productId: string) {
     if (this.quantityToAdd > 0) {
       this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
         // Aggiorna la quantità nel componente
-        if (this.product.disponibilita) this.product.disponibilita += this.quantityToAdd;
+        this.product.disponibilita += this.quantityToAdd;
       });
     }else {
       this.productService.addOneToProductQuantity(productId).subscribe((response) => {

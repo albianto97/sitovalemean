@@ -30,7 +30,7 @@
             <mat-icon>remove_circle</mat-icon>
           </button>
           <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello">
-          <button mat-icon-button color="primary" (click)="addOneToQuantity(product._id!)">
+          <button mat-icon-button color="primary" (click)="addToQuantity(product._id!)">
             <mat-icon>add_circle</mat-icon>
           </button>
         </ng-template>
