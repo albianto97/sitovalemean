@@ -32,7 +32,10 @@ export class LoginComponent {
       if (this.loginForm.valid) {
         var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
         this.authService.login(newUser).subscribe((response: any) => {
-          this.router.navigate(['']);
+          if(!this.authService.isAdmin())
+            this.router.navigate(['']);
+          else
+            this.router.navigate(['/productList']);
         });
       }
     }

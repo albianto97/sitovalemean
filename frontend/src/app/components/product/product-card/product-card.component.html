@@ -26,7 +26,8 @@
         <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Elimina prodotto</button>
         <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)" *ngIf="(!isViewCarrello && !isAdmin) else view">Aggiungi al carrello</button>
         <ng-template #view>
-          <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+          <mat-icon>remove_circle</mat-icon>
+          <mat-icon>add_circle</mat-icon>
         </ng-template>
       </div>
 

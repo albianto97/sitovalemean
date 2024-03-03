@@ -1,12 +1,15 @@
 <div>
   <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
-  <a href="#" class="navbar-brand">Gelateria</a>
-
+  <a *ngIf="!isAdmin; else elseBlock" href="#" class="navbar-brand">Gelateria</a>
+    <ng-template #elseBlock>
+      <a class="navbar-brand">Amministratore</a>
+    </ng-template>
   <div>
     <button *ngIf="this.isAdmin" mat-button color="primary" routerLink="userList">Lista Utenti</button>
     <button mat-button color="primary" routerLink="productList">Lista Prodotti</button>
     <button *ngIf="this.isAdmin" mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
-    <button mat-button color="primary" routerLink="profilo">Profilo</button>
+    <button *ngIf="!this.isAdmin" mat-button color="primary" routerLink="profilo">Profilo</button>
+
   </div>
   </mat-toolbar>
 </div>
