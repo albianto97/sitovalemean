@@ -47,17 +47,12 @@ export class ProductCardComponent {
   }
 
   addToQuantity(productId: string) {
-    if (this.quantityToAdd > 0) {
-      this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
+    if (!this.quantityToAdd)
+      this.quantityToAdd = 1;
+    this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
         // Aggiorna la quantità nel componente
         this.product.disponibilita += this.quantityToAdd;
       });
-    }else {
-      this.productService.addOneToProductQuantity(productId).subscribe((response) => {
-        // Aggiornamento della quantità disponibile nel componente
-        if (this.product.disponibilita) this.product.disponibilita++;
-      });
-    }
   }
 
   removeOneFromQuantity(productId: string) {
