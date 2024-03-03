@@ -26,8 +26,12 @@
         <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Elimina prodotto</button>
         <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)" *ngIf="(!isViewCarrello && !isAdmin) else view">Aggiungi al carrello</button>
         <ng-template #view>
-          <mat-icon>remove_circle</mat-icon>
-          <mat-icon>add_circle</mat-icon>
+          <button mat-icon-button color="primary" (click)="removeOneFromQuantity(product._id!)">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="addOneToQuantity(product._id!)">
+            <mat-icon>add_circle</mat-icon>
+          </button>
         </ng-template>
       </div>
 

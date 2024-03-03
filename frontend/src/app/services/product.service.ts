@@ -28,4 +28,11 @@ export class ProductService {
   }
 
 
+  public addOneToProductQuantity(productId: string): Observable<any> {
+    return this.http.put<any>(`${this.endPoint}/${productId}/increment`, {});
+  }
+
+  public removeOneFromProductQuantity(productId: string): Observable<any> {
+    return this.http.put<any>(`${this.endPoint}/${productId}/decrement`, {});
+  }
 }

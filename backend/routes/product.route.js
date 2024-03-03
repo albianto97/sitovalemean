@@ -11,6 +11,8 @@ router.get('/:productId', productController.getSingleProduct);
 router.post('/create-product', productController.createProduct);
 // Rotta per ottenere una lista dei prodotti dall'id
 router.post('/getProductsById', productController.getProductsById);
-
+//Rotte per incrementare la disponibilita prodotto
+router.put('/:productId/increment', productController.incrementProductQuantity);
+router.put('/:productId/decrement', productController.decrementProductQuantity);
 
 module.exports = router;

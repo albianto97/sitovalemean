@@ -3,6 +3,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import {AuthService} from "../../../services/auth.service";
+import {ProductService} from "../../../services/product.service";
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,9 @@ export class ProductCardComponent {
   @Output() itemRemoved = new EventEmitter();
   isAdmin: boolean = false;
 
-  constructor(public cartService: CartService, private authService: AuthService) {}
+  constructor(public cartService: CartService,
+              private authService: AuthService,
+              private productService: ProductService) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
@@ -40,5 +43,19 @@ export class ProductCardComponent {
   removeProduct(){
     this.cartService.removeProduct(this.product._id)
     this.itemRemoved.emit();
+  }
+
+  addOneToQuantity(productId: string) {
+    this.productService.addOneToProductQuantity(productId).subscribe((response) => {
+      // Aggiornamento della quantità disponibile nel componente
+      if(this.product.disponibilita) this.product.disponibilita++;
+    });
+  }
+
+  removeOneFromQuantity(productId: string) {
+    this.productService.removeOneFromProductQuantity(productId).subscribe((response) => {
+      // Aggiornamento della quantità disponibile nel componente
+      if(this.product.disponibilita) this.product.disponibilita--;
+    });
   }
 }
