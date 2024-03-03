@@ -35,4 +35,8 @@ export class ProductService {
   public removeOneFromProductQuantity(productId: string): Observable<any> {
     return this.http.put<any>(`${this.endPoint}/${productId}/decrement`, {});
   }
+
+  addQuantityToProduct(productId: string, quantityToAdd: number) {
+    return this.http.put<any>(`${this.endPoint}/${productId}/increment`, { quantityToAdd });
+  }
 }

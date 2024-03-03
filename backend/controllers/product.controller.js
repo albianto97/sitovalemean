@@ -82,6 +82,30 @@ const incrementProductQuantity = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+const incrementProductQuantityPlus = async (req, res) => {
+    const productId = req.params.productId;
+    const quantityToAdd = req.body.quantityToAdd;
+
+    try {
+        // Trova il prodotto nel database
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Prodotto non trovato' });
+        }
+
+        // Incrementa la quantità del prodotto
+        product.disponibilita += quantityToAdd;
+
+        // Salva le modifiche nel database
+        await product.save();
+
+        res.json({ message: 'Quantità del prodotto aggiornata con successo' });
+    } catch (error) {
+        console.error('Errore durante l\'aggiornamento della quantità del prodotto:', error);
+        res.status(500).json({ message: 'Errore del server' });
+    }
+};
 
 const decrementProductQuantity = async (req, res) => {
     const productId = req.params.productId;
@@ -113,5 +137,5 @@ module.exports = {
     createProduct,
     getSingleProduct,
     getProductsById,
-    incrementProductQuantity, decrementProductQuantity
+    incrementProductQuantity, decrementProductQuantity, incrementProductQuantityPlus
 }

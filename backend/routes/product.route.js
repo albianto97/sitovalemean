@@ -13,6 +13,7 @@ router.post('/create-product', productController.createProduct);
 router.post('/getProductsById', productController.getProductsById);
 //Rotte per incrementare la disponibilita prodotto
 router.put('/:productId/increment', productController.incrementProductQuantity);
+router.put('/:productId/increment', productController.incrementProductQuantityPlus);
 router.put('/:productId/decrement', productController.decrementProductQuantity);
 
 module.exports = router;

@@ -15,6 +15,7 @@ export class ProductCardComponent {
   @Input() isViewCarrello: boolean = false;
   @Output() itemRemoved = new EventEmitter();
   isAdmin: boolean = false;
+  quantityToAdd: any;
 
   constructor(public cartService: CartService,
               private authService: AuthService,
@@ -46,10 +47,17 @@ export class ProductCardComponent {
   }
 
   addOneToQuantity(productId: string) {
-    this.productService.addOneToProductQuantity(productId).subscribe((response) => {
-      // Aggiornamento della quantità disponibile nel componente
-      if(this.product.disponibilita) this.product.disponibilita++;
-    });
+    if (this.quantityToAdd > 0) {
+      this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
+        // Aggiorna la quantità nel componente
+        if (this.product.disponibilita) this.product.disponibilita += this.quantityToAdd;
+      });
+    }else {
+      this.productService.addOneToProductQuantity(productId).subscribe((response) => {
+        // Aggiornamento della quantità disponibile nel componente
+        if (this.product.disponibilita) this.product.disponibilita++;
+      });
+    }
   }
 
   removeOneFromQuantity(productId: string) {
