@@ -26,12 +26,10 @@
           <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
           <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="this.removeProduct()" mat-raised-button>Elimina prodotto</button>
           <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)"
-                  *ngIf="!isViewCarrello else view">Aggiungi al carrello
+                  *ngIf="(!isViewCarrello && !isAdmin) else view">Aggiungi al carrello
           </button>
           <ng-template #view>
-            <!--<div>
-              bottoni per il carrello
-            </div>-->
+            <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
           </ng-template>
         </div>
       <mat-card-footer>

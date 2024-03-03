@@ -2,6 +2,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-product-card',
@@ -12,13 +13,15 @@ export class ProductCardComponent {
   @Input() product!: Product;
   @Input() isViewCarrello: boolean = false;
   @Output() itemRemoved = new EventEmitter();
+  isAdmin: boolean = false;
 
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, private authService: AuthService) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
+    this.isAdmin = this.authService.isAdmin();
   }
 
 
