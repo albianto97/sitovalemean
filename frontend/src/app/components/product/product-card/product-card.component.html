@@ -8,7 +8,13 @@
       <mat-card-content>
         <p class="text-break">{{ product.description }} </p>
         <div *ngIf="product.quantity == undefined">
-          <p>Disponibili solo: {{ product.disponibilita }}</p>
+          <ng-container *ngIf="product.disponibilita != 0; else elseBlock">
+            <p>Disponibili solo: {{ product.disponibilita }}</p>
+          </ng-container>
+
+          <ng-template #elseBlock>
+            <p>ATTUALMENTE NON DISPONIBILE</p>
+          </ng-template>
           <p *ngIf="product.count != undefined"> Conteggio : {{product.count}}</p>
         </div>
         <p *ngIf="product.quantity != undefined" > Quantita nel carrello: {{product.quantity}}</p>
