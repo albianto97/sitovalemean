@@ -6,37 +6,33 @@
         <mat-card-title>{{ product.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="text-break">{{ product.description }} </p>
-        <div *ngIf="product.quantity == undefined">
-          <ng-container *ngIf="product.disponibilita != 0; else elseBlock">
-            <p>Disponibili solo: {{ product.disponibilita }}</p>
-          </ng-container>
+        <p class="text-break">{{ product.description }}</p>
 
+        <ng-container *ngIf="product.quantity == undefined">
+          <p *ngIf="product.disponibilita != 0; else elseBlock">Disponibili solo: {{ product.disponibilita }}</p>
           <ng-template #elseBlock>
             <p>ATTUALMENTE NON DISPONIBILE</p>
           </ng-template>
-          <p *ngIf="product.count != undefined"> Conteggio : {{product.count}}</p>
-        </div>
-        <p *ngIf="product.quantity != undefined" > Quantita nel carrello: {{product.quantity}}</p>
-        <p *ngIf="product.cartQuantity != 0  && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
+
+          <p *ngIf="product.count != undefined">Conteggio: {{ product.count }}</p>
+        </ng-container>
+
+        <p *ngIf="product.quantity != undefined">Quantita nel carrello: {{ product.quantity }}</p>
+        <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
-        <!-- ... (Contenuto della card del prodotto) -->
-        <div class="d-flex justify-content-between m-2">
+      <div class="d-flex justify-content-between m-2">
+        <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+        <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Elimina prodotto</button>
+        <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)" *ngIf="(!isViewCarrello && !isAdmin) else view">Aggiungi al carrello</button>
+        <ng-template #view>
           <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
-          <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="this.removeProduct()" mat-raised-button>Elimina prodotto</button>
-          <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)"
-                  *ngIf="(!isViewCarrello && !isAdmin) else view">Aggiungi al carrello
-          </button>
-          <ng-template #view>
-            <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
-          </ng-template>
-        </div>
+        </ng-template>
+      </div>
+
       <mat-card-footer>
         <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
       </mat-card-footer>
     </mat-card>
   </div>
-
 </div>
-
