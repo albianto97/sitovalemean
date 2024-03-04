@@ -12,8 +12,14 @@ export class AppComponent {
   user: any;
   isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private route: Router) {
-    
+  constructor(private authService: AuthService, private router: Router) {
+
       this.isAdmin = authService.isAdmin();
   }
+    //da eliminare perche duplicato
+    logOut() {
+        this.authService.logout();
+        location.reload();
+        this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
+    }
 }
