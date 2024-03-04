@@ -12,7 +12,8 @@ export class ProductService {
 
   constructor(private http: HttpClient, private generalService: GeneralService) { }
   public createProduct(product: Product):any {
-    return this.http.post(this.endPoint + "/create-product", product);
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.post(this.endPoint + "/create-product", product, {headers});
   }
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.endPoint);
@@ -28,14 +29,17 @@ export class ProductService {
   }
 
   public removeOneFromProductQuantity(productId: string): Observable<any> {
-    return this.http.put<any>(`${this.endPoint}/${productId}/decrement`, {});
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put<any>(`${this.endPoint}/${productId}/decrement`, {},{headers});
   }
 
   addQuantityToProduct(productId: string, quantityToAdd: number) {
-    return this.http.put<any>(`${this.endPoint}/${productId}/increment`, { quantityToAdd });
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put<any>(`${this.endPoint}/${productId}/increment`, { quantityToAdd },{headers});
   }
 
   quantity0(productId: string) {
-    return this.http.put<any>(`${this.endPoint}/${productId}/zero`, {});
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put<any>(`${this.endPoint}/${productId}/zero`, {}, {headers});
   }
 }
