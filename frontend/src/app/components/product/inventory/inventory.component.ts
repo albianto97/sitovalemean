@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
+import {UserService} from "../../../services/user.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-inventory',
@@ -12,7 +14,7 @@ export class InventoryComponent implements OnInit {
   filteredProducts: Product[] = [];
   selectedType: string | null = null;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data) => {

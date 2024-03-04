@@ -16,5 +16,8 @@
       Mostra Tutti
     </button>
   </div>
+  <app-user-info *ngIf="!this.authService.isAdmin()"></app-user-info>
 </div>
+
 <app-product-list [products]="filteredProducts"></app-product-list>
+
