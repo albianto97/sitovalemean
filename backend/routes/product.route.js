@@ -14,5 +14,6 @@ router.post('/getProductsById', productController.getProductsById);
 //Rotte per incrementare la disponibilita prodotto
 router.put('/:productId/increment', productController.incrementProductQuantity);
 router.put('/:productId/decrement', productController.decrementProductQuantity);
+router.put('/:productId/zero', productController.quantity0);
 
 module.exports = router;

@@ -110,6 +110,28 @@ const decrementProductQuantity = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+const quantity0 = async (req, res) => {
+    const productId = req.params.productId;
+
+    try {
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Prodotto non trovato' });
+        }
+
+        // Incrementa la quantità disponibile del prodotto
+        product.disponibilita  = 0;
+
+        // Salva le modifiche nel database
+        await product.save();
+
+        res.json({ message: 'Quantità del prodotto decrementata con successo' });
+    } catch (error) {
+        console.error('Errore durante il decremento della quantità del prodotto:', error);
+        res.status(500).json({ message: 'Errore del server' });
+    }
+};
 
 
 
@@ -119,5 +141,6 @@ module.exports = {
     getSingleProduct,
     getProductsById,
     incrementProductQuantity,
-    decrementProductQuantity
+    decrementProductQuantity,
+    quantity0
 }

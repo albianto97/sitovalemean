@@ -61,4 +61,11 @@ export class ProductCardComponent {
       if(this.product.disponibilita) this.product.disponibilita--;
     });
   }
+
+  Quantity0(productId: string) {
+    this.productService.quantity0(productId).subscribe((response) => {
+      // Aggiornamento della quantità disponibile nel componente
+      if(this.product.disponibilita) this.product.disponibilita = 0;
+    });
+  }
 }

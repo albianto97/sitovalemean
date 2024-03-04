@@ -34,4 +34,8 @@ export class ProductService {
   addQuantityToProduct(productId: string, quantityToAdd: number) {
     return this.http.put<any>(`${this.endPoint}/${productId}/increment`, { quantityToAdd });
   }
+
+  quantity0(productId: string) {
+    return this.http.put<any>(`${this.endPoint}/${productId}/zero`, {});
+  }
 }
