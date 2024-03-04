@@ -20,6 +20,9 @@ export class UserInfoComponent implements OnInit {
     this.cart = this.cartService.getCart();
     this.user = this.auth.getUserFromToken();
     this.calcolaSaluto();
+    this.cartService.cartModify.subscribe(d =>{
+      this.cart = this.cartService.getCart();
+    })
   }
   calcolaSaluto() {
     const oraCorrente = new Date().getHours();
@@ -38,7 +41,8 @@ export class UserInfoComponent implements OnInit {
   }
   logOut(){
     this.auth.logout();
-    location.reload();
+    //location.reload();
     this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
   }
+
 }

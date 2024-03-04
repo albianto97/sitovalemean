@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  cartModify: Observable<any>;
+  cartModifySubscribers: any[] = [];
 
-  constructor() { }
-  /*initCart() {
-    var cart = {
-      products: [
-        { productId: "6564af0c79c5b00a9e6c58cc", quantity: 3 },
-        { productId: "6564afdc595c21d4cf11fc5e", quantity: 1 }
-      ]
-    }
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }*/
+  constructor() { this.cartModify = new Observable<any>(subscriber => {
+    console.log("CART: " + subscriber);
+    this.cartModifySubscribers.push(subscriber);
+  } ) }
+
   // Aggiungere un prodotto al carrello: ho ipotizzato di passare solamente id del prodotto e qta richiesta
   addToCart(productId: any, quantity: any) {
     // Recuperare il carrello dal Local Storage
@@ -34,6 +32,7 @@ export class CartService {
 
     // Salvare il carrello nel Local Storage
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.notifySubscribers();
   }
 
   // Rimuovere un prodotto dal carrello
@@ -70,5 +69,12 @@ export class CartService {
       return product[0].quantity;
     }
     return 0;
+  }
+
+  notifySubscribers(){
+    for(let i = 0; i< this.cartModifySubscribers.length; i++){
+      let s = this.cartModifySubscribers[i];
+      s.next();
+    }
   }
 }
