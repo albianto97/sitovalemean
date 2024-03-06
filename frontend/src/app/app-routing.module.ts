@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
-  { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard] },
+  { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, AdministratorGuard] },
   { path: 'userList', component: UserListComponent, canActivate: [AuthGuard, AdministratorGuard]},
   { path: 'productList', component: InventoryComponent },
