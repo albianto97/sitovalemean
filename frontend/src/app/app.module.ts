@@ -27,6 +27,7 @@ import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { InventoryComponent } from './components/product/inventory/inventory.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { InventoryComponent } from './components/product/inventory/inventory.com
     StatusIconHtmlPipe,
     ProductCardComponent,
     UnauthorizedComponent,
-    InventoryComponent
+    InventoryComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

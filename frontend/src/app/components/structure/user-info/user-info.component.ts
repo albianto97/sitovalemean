@@ -39,10 +39,6 @@ export class UserInfoComponent implements OnInit {
   viewCart(){
     this.router.navigate(['/view-cart']);
   }
-  logOut(){
-    this.auth.logout();
-    //location.reload();
-    this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
-  }
+
 
 }
