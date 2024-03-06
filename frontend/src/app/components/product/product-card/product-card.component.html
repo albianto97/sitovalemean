@@ -1,6 +1,6 @@
 <div class="container-xl">
   <div class="row col-md">
-    <mat-card class="gusticard mb-3">
+    <mat-card class="gusticard mb-3" [ngClass]="{'bg-warning': product.type === 'GELATO'}">
       <mat-card-header>
         <mat-card-subtitle>{{ product.type }}</mat-card-subtitle>
         <mat-card-title>{{ product.name }}</mat-card-title>
@@ -29,7 +29,7 @@
 
         <div *ngIf="!isViewCarrello && isAdmin" class="d-inline-flex">
           <button mat-icon-button color="primary" (click)="Quantity0(product._id!)">
-          <mat-icon>visibility_off</mat-icon>
+            <mat-icon>visibility_off</mat-icon>
           </button>
 
           <button mat-icon-button color="primary" (click)="removeOneFromQuantity(product._id!)">
