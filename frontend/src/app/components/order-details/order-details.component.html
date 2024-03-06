@@ -1,0 +1,14 @@
+<div *ngIf="productsLoaded">
+    <div *ngIf="order">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>ID Ordine {{ order._id }}</mat-card-title>
+          <mat-card-subtitle>Hai richiesto: {{ order.orderType }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div *ngFor="let product of products">
+      <app-product-card [product]="product" [isViewCarrello]="false"></app-product-card>
+    </div>
+</div>
+
