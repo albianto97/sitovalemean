@@ -28,6 +28,7 @@ import { ProductCardComponent } from './components/product/product-card/product-
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     ProductCardComponent,
     UnauthorizedComponent,
     InventoryComponent,
-    LogoutComponent
+    LogoutComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,

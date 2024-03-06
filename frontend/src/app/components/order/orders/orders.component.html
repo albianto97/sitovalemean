@@ -14,7 +14,7 @@
           Totale prodotti ordinati: <strong>{{ order.products.length }}</strong>
         </ng-template>
         <!-- indirizzamento di visualizza -->
-        <button class="btn btn-primary w-100" [routerLink]="''">Visualizza</button>
+        <button class="btn btn-primary w-100" [routerLink]="['/orders',order._id]">Visualizza</button>
       </div>
     </div>
   </div>

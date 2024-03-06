@@ -22,8 +22,9 @@
 
       <div class="d-flex justify-content-between m-2">
         <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+        <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct(product._id!)">Elimina prodotto</button>
 
-        <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Elimina prodotto</button>
+        <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Rimuovi prodotto</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
 
         <div *ngIf="!isViewCarrello && isAdmin" class="d-inline-flex">

@@ -16,6 +16,7 @@ import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.comp
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import {NonAdministratorGuard} from "./guards/non-administrator.guard";
+import {OrderDetailsComponent} from "./components/order-details/order-details.component";
 
 
 const routes: Routes = [
@@ -24,12 +25,13 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, AdministratorGuard] },
-  { path: 'userList', component: UserListComponent, canActivate: [AuthGuard, AdministratorGuard]},
+  { path: 'orders', component: OrdersComponent, canActivate: [ AdministratorGuard] },
+  { path: 'userList', component: UserListComponent, canActivate: [ AdministratorGuard]},
+  { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [ AdministratorGuard]},
   { path: 'productList', component: InventoryComponent },
   { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'single-product/:productId', component: SingleProductComponent },
-  { path: 'create-product', component: ProductCreationComponent, canActivate: [AuthGuard, AdministratorGuard] },
+  { path: 'create-product', component: ProductCreationComponent, canActivate: [AdministratorGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
   // Assicurati di inserire questa rotta prima della wildcard (se presente)
   { path: '**', redirectTo: '/unauthorized' } // Reindirizza tutte le altre rotte non trovate alla pagina di errore "unauthorized"

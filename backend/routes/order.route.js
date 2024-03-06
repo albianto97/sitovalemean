@@ -14,4 +14,6 @@ router.get('/getOrdersFromUser', verifyToken, orderController.getOrdersFromUser)
 
 router.get('/searchOrdersByUsername',verifyAdminToken, orderController.searchOrdersByUsername);
 
+router.get('/:orderId', verifyAdminToken, orderController.getOrder);
+
 module.exports = router;

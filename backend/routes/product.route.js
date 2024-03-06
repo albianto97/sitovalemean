@@ -15,5 +15,6 @@ router.post('/getProductsById', productController.getProductsById);
 router.put('/:productId/increment',verifyAdminToken, productController.incrementProductQuantity);
 router.put('/:productId/decrement',verifyAdminToken, productController.decrementProductQuantity);
 router.put('/:productId/zero',verifyAdminToken, productController.quantity0);
+router.delete('/:productId',verifyAdminToken, productController.deleteProduct);
 
 module.exports = router;

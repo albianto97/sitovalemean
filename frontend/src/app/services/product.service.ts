@@ -42,4 +42,8 @@ export class ProductService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.put<any>(`${this.endPoint}/${productId}/zero`, {}, {headers});
   }
+  deleteProduct(productId: string): Observable<any> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.delete<any>(`${this.endPoint}/${productId}`, { headers });
+  }
 }

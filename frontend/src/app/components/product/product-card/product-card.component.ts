@@ -4,6 +4,7 @@ import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import {AuthService} from "../../../services/auth.service";
 import {ProductService} from "../../../services/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
@@ -13,13 +14,15 @@ import {ProductService} from "../../../services/product.service";
 export class ProductCardComponent {
   @Input() product!: Product;
   @Input() isViewCarrello: boolean = false;
+  @Input() showDeleteButton: boolean = false;
   @Output() itemRemoved = new EventEmitter();
   isAdmin: boolean = false;
   quantityToAdd: any;
 
   constructor(public cartService: CartService,
               private authService: AuthService,
-              private productService: ProductService) {}
+              private productService: ProductService,
+              private route: Router) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
@@ -67,5 +70,14 @@ export class ProductCardComponent {
       // Aggiornamento della quantità disponibile nel componente
       if(this.product.disponibilita) this.product.disponibilita = 0;
     });
+  }
+
+  deleteProduct(productId: string) {
+      this.productService.deleteProduct(productId).subscribe(() => {
+          console.log('Prodotto eliminato con successo');
+          this.route.navigate(['/productList'])
+          // Esegui azioni aggiuntive dopo l'eliminazione del prodotto se necessario
+        }
+      );
   }
 }

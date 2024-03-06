@@ -41,7 +41,11 @@ export class OrderService {
     const headers = this.generalService.createHeadersForAuthorization();
     let s = status ? status : "";
     return this.http.get<Order[]>(this.endPoint+'/searchOrdersByUsername?username='+username+"&status="+s, {headers});
+  }
 
+  getOrder(orderId: string): Observable<Order>{
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Order>(this.endPoint+'/'+ orderId, {headers});
   }
 
 }

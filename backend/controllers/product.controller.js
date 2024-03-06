@@ -46,8 +46,6 @@ const createProduct = async (req, res) => {
             const productName = req.body.name;
             const productType = req.body.type;
 
-
-
             // Verifica se esiste già un prodotto con lo stesso nome
             const existingProduct = await Product.findOne({ name: productName, type: productType });
 
@@ -137,6 +135,21 @@ const quantity0 = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+const deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        // Trova e rimuovi il prodotto dal database
+        const deletedProduct = await Product.findByIdAndRemove(productId);
+        if (deletedProduct) {
+            res.status(200).json({ message: 'Prodotto eliminato con successo' });
+        } else {
+            res.status(404).json({ message: 'Prodotto non trovato' });
+        }
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione del prodotto:', error);
+        res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
+    }
+};
 
 
 
@@ -147,5 +160,6 @@ module.exports = {
     getProductsById,
     incrementProductQuantity,
     decrementProductQuantity,
+    deleteProduct,
     quantity0
 }
