@@ -24,7 +24,7 @@ const searchUsersByUsername = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
-/*const getSingleUser = async (req, res) => {
+const getSingleUser = async (req, res) => {
     try {
         const userId = req.params.userId;
         const user = await User.findById(userId);
@@ -38,7 +38,7 @@ const searchUsersByUsername = async (req, res) => {
         console.error('Errore durante il recupero dell\'utente:', error);
         res.status(500).json({ message: 'Errore del server' });
     }
-};*/
+};
 const createUser = async (req, res) => {
     try {
         const { username, email } = req.body;

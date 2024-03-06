@@ -44,14 +44,19 @@ const getSingleProduct = async (req, res) => {
 const createProduct = async (req, res) => {
         try {
             const productName = req.body.name;
+            const productType = req.body.type;
+
+
 
             // Verifica se esiste già un prodotto con lo stesso nome
-            const existingProduct = await Product.findOne({ name: productName });
+            const existingProduct = await Product.findOne({ name: productName, type: productType });
+
+
             if (existingProduct) {
                 // Se il prodotto esiste già, restituisci un errore
                 res.json({ msg: "Il prodotto con questo nome esiste già", result: 1 });
             }else {
-                // Se non esiste un prodotto con lo stesso nome, crea il prodotto
+                // Se non esiste un prodotto con lo stesso nome o type, crea il prodotto
                 await Product.create(req.body);
                 res.json({msg: "Prodotto creato con successo!", result: 2});
             }
