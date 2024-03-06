@@ -1,4 +1,5 @@
 <div class="container-xl mb-3">
+  <app-user-info *ngIf="!this.authService.isAdmin()"></app-user-info>
   <div class="example-button-row d-flex">
     <button class="btn btn-lg m-1"
             (click)="filterProducts('TORTA')"
@@ -16,8 +17,6 @@
       Mostra Tutti
     </button>
   </div>
-  <!--<app-user-info *ngIf="!this.authService.isAdmin()"></app-user-info>-->
-  <app-user-info></app-user-info>
 </div>
 
 <app-product-list [products]="filteredProducts"></app-product-list>
