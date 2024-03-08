@@ -20,14 +20,14 @@
         <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
-      <div class="d-flex justify-content-between m-2">
+      <div class="d-flex flex-wrap justify-content-between m-2">
         <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
         <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct(product._id!)">Elimina prodotto</button>
 
         <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Rimuovi prodotto</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
 
-        <div *ngIf="!isViewCarrello && isAdmin" class="d-inline-flex">
+        <div class="d-flex flex-wrap" *ngIf="!isViewCarrello && isAdmin">
           <button mat-icon-button color="primary" (click)="Quantity0(product._id!)">
             <mat-icon>visibility_off</mat-icon>
           </button>
