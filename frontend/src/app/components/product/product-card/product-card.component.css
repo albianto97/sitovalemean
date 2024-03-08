@@ -1,0 +1,44 @@
+/* Stile per il card container */
+.container-xl {
+  margin-top: 20px;
+}
+
+/* Stile per il card */
+.mat-card {
+  width: 100%;
+}
+
+/* Stile per il card header */
+.mat-card-header {
+  padding: 10px;
+}
+
+/* Stile per il card content */
+.mat-card-content {
+  padding: 10px;
+}
+
+/* Stile per i paragrafi nel card content */
+.mat-card-content p {
+  margin-bottom: 5px;
+}
+
+/* Stile per i bottoni */
+.mat-raised-button, .btn {
+  margin-right: 5px;
+}
+
+/* Stile per l'icona */
+.mat-icon {
+  font-size: 20px;
+}
+
+/* Stile per l'input number */
+.form-control {
+  width: 100px;
+}
+
+/* Stile per il card footer */
+.mat-card-footer {
+  padding: 10px;
+}

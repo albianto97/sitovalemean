@@ -14,7 +14,6 @@ export class AppComponent {
 
   constructor(private authService: AuthService, private route: Router) {
     this.route.events.subscribe( d => {
-      //console.log(d);
       if(d instanceof NavigationEnd) {
         this.user = authService.getUserFromToken();
         if (this.user)

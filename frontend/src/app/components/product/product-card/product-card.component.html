@@ -7,7 +7,6 @@
       </mat-card-header>
       <mat-card-content>
         <p class="text-break">{{ product.description }}</p>
-
         <ng-container *ngIf="product.quantity == undefined">
           <p *ngIf="product.disponibilita != 0; else elseBlock">Disponibili solo: {{ product.disponibilita }}</p>
           <ng-template #elseBlock>
@@ -15,35 +14,27 @@
           </ng-template>
           <p *ngIf="product.count != undefined">Conteggio: {{ product.count }}</p>
         </ng-container>
-
         <p *ngIf="product.quantity != undefined">Quantita nel carrello: {{ product.quantity }}</p>
         <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
-
       <div class="d-flex flex-wrap justify-content-between m-2">
         <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
         <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct(product._id!)">Elimina prodotto</button>
-
         <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Rimuovi prodotto</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
-
         <div class="d-flex flex-wrap" *ngIf="!isViewCarrello && isAdmin">
           <button mat-icon-button color="primary" (click)="Quantity0(product._id!)">
             <mat-icon>visibility_off</mat-icon>
           </button>
-
           <button mat-icon-button color="primary" (click)="removeOneFromQuantity(product._id!)">
             <mat-icon>remove_circle</mat-icon>
           </button>
-
           <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
-
           <button mat-icon-button color="primary" (click)="addToQuantity(product._id!)">
             <mat-icon>add_circle</mat-icon>
           </button>
         </div>
       </div>
-
       <mat-card-footer>
         <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
       </mat-card-footer>
