@@ -46,7 +46,8 @@ export class InventoryComponent implements OnInit {
       const filteredProducts = this.products.filter((product) => product.type === this.selectedType);
       this.filteredProducts = filteredProducts.slice(startIndex, endIndex);
     }
-    this.pageSize = endIndex;
+    this.pageSize = endIndex - startIndex;
+    //oppure this.pageSize = endIndex --> non ho capito la differenza
   }
 
   private updateFilteredProducts(): void {
