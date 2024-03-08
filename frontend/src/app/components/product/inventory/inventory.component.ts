@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
-import {UserService} from "../../../services/user.service";
-import {AuthService} from "../../../services/auth.service";
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-inventory',
@@ -11,28 +11,33 @@ import {AuthService} from "../../../services/auth.service";
 })
 export class InventoryComponent implements OnInit {
   products: Product[] = [];
-  filteredProducts: Product[] = [];
+  displayedProducts: Product[] = [];
   selectedType: string | null = null;
+  maxVisualization: number = 6;
 
   constructor(private productService: ProductService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
-      console.log(this.products)
-      // Inizializza i prodotti filtrati con tutti i prodotti
-      this.filteredProducts = this.products;
+      // Inizializza i prodotti visualizzati con tutti i prodotti
+      this.displayedProducts = this.products.slice(0, this.maxVisualization);
     });
   }
 
   filterProducts(type: string): void {
     this.selectedType = type;
     if (type === 'TORTA' || type === 'GELATO') {
-      this.filteredProducts = this.products.filter((product) => product.type === type);
+      this.displayedProducts = this.products.filter((product) => product.type === type).slice(0, this.maxVisualization);
     } else {
-      this.filteredProducts = this.products;
+      this.displayedProducts = this.products.slice(0, this.maxVisualization);
     }
-    console.log(this.selectedType);
-    console.log(this.filteredProducts);
+  }
+
+  onPageChange(event: any): void {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.displayedProducts = this.products.slice(startIndex, endIndex);
+    this.maxVisualization = endIndex;
   }
 }
