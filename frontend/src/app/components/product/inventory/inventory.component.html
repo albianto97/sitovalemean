@@ -19,11 +19,12 @@
   </div>
 </div>
 
-<app-product-list [products]="displayedProducts"></app-product-list>
+<app-product-list [products]="filteredProducts"></app-product-list>
 <div>
-<mat-paginator [length]="products.length"
-               [pageSize]="6"
-               [pageSizeOptions]="[6, 12, 24, 48]"
-               (page)="onPageChange($event)">
-</mat-paginator>
+  <mat-paginator [length]="totalFilteredProducts"
+                 [pageSize]="6"
+                 [pageSizeOptions]="[6, 12, 24, 48]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+
 </div>
