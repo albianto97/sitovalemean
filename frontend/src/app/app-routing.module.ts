@@ -16,7 +16,7 @@ import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.comp
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { AdministratorGuard } from './guards/administrator.guard';
 import {NonAdministratorGuard} from "./guards/non-administrator.guard";
-import {OrderDetailsComponent} from "./components/order-details/order-details.component";
+import {OrderDetailsComponent} from "./components/order/order-details/order-details.component";
 
 
 const routes: Routes = [

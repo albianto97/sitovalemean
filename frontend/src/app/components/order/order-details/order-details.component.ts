@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ProductService} from "../../services/product.service";
-import {OrderService} from "../../services/order.service";
-import {Order} from "../../models/order";
-import {Product} from "../../models/product";
+import {ProductService} from "../../../services/product.service";
+import {OrderService} from "../../../services/order.service";
+import {Order} from "../../../models/order";
+import {Product} from "../../../models/product";
 
 @Component({
   selector: 'app-order-details',
