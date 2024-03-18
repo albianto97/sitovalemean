@@ -4,7 +4,6 @@ const productRoutes = require('./routes/product.route');
 const orderRoutes = require('./routes/order.route');
 const token = require('./middlewares/token');
 const express = require('express');
-
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -26,11 +25,14 @@ app.use((req, res, next) => {
 });
 const port = 3000;
 connectDB();
+
+
+
+// Other Express middleware and routes
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
 app.use(token.verifyToken);
-
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

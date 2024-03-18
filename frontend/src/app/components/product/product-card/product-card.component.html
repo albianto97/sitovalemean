@@ -19,25 +19,25 @@
         <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
-      <div class="d-flex justify-content-between m-2">
-        <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+      <div class="d-flex flex-wrap justify-content-between m-2" style="align-items: center">
+        <button style="margin:10px 0" [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
         <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct(product._id!)">Elimina prodotto</button>
 
         <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Rimuovi prodotto</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
 
         <div class="d-flex flex-wrap" *ngIf="!isViewCarrello && isAdmin">
-          <button mat-icon-button color="primary" (click)="Quantity0(product._id!)">
+          <button mat-icon-button color="primary"  (click)="Quantity0(product._id!)">
             <mat-icon>visibility_off</mat-icon>
           </button>
 
-          <button mat-icon-button color="primary" (click)="removeOneFromQuantity(product._id!)">
+          <button mat-icon-button color="primary"  style="margin-left: -15px" (click)="removeOneFromQuantity(product._id!)">
             <mat-icon>remove_circle</mat-icon>
           </button>
 
-          <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
+          <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 50px; margin-left: -10px">
 
-          <button mat-icon-button color="primary" (click)="addToQuantity(product._id!)">
+          <button mat-icon-button color="primary" style="margin-left: -10px" (click)="addToQuantity(product._id!)">
             <mat-icon>add_circle</mat-icon>
           </button>
         </div>
