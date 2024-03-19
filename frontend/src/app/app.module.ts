@@ -37,6 +37,7 @@ import { AdminHomeComponent } from './components/home/admin-home/admin-home.comp
 import { OrderComponent } from './components/order/order.component';
 import { ListOrderComponent } from './components/order/list-order/list-order.component';
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +57,7 @@ import { OrderDetailsComponent } from './components/order/order-details/order-de
     StatusIconHtmlPipe,
     ProductCardComponent,
     UnauthorizedComponent,
-    InventoryComponent,
-    DialogAlertComponent,
-    AdminHomeComponent,
-    OrderComponent,
-    ListOrderComponent,
-    OrderDetailsComponent
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

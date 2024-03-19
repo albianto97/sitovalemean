@@ -29,13 +29,23 @@ export class ProductCreationComponent implements OnInit{
       // Puoi gestire l'invio del form qui
       console.log('Dati inviati:', this.productForm.value);
       var product = new Product(this.productForm.value);
-      console.log(product);
+
       this.productService.createProduct(product)
         .subscribe((result: any) => {
-          console.log(result);
-          this.router.navigate(['productList']);
-        })
+          console.log(result.result);
+          if (result && result.result == 1) {
+            alert("Prodotto già presente");
+            this.router.navigate(['/create-product']);
+          } else if (result && result.result == 2) {
+            console.log(result);
+            alert("Prodotto inserito con successo");
+            this.router.navigate(['/productList']);
+          } else {
+            alert("Errore nella creazione");
+          }
+        });
     }
+
   }
 
   ngOnInit(): void {

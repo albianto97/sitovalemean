@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import {Observable} from "rxjs";
+import {GeneralService} from "./-general.service";
 
 
 
@@ -11,10 +12,11 @@ import {Observable} from "rxjs";
 export class UserService {
   endPoint = "http://localhost:3000/api/user";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private generalService: GeneralService) { }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.endPoint);
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<User[]>(this.endPoint, {headers});
   }
 
   public createUser(user: User):any {
@@ -25,7 +27,8 @@ export class UserService {
   }
 
   public searchUsers(username : string): Observable<User[]> {
-    return this.http.get<User[]>(this.endPoint + "/searchUsersByUsername?username="+ username);
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<User[]>(this.endPoint + "/searchUsersByUsername?username="+ username,{headers});
   }
 
 

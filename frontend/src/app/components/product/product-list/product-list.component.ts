@@ -1,6 +1,5 @@
 // product-list.component.ts
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductService } from "../../../services/product.service";
 import { Product } from "../../../models/product";
 
 @Component({
@@ -8,10 +7,8 @@ import { Product } from "../../../models/product";
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+export class ProductListComponent {
+
   @Input() products: Product[] = [];
 
 }

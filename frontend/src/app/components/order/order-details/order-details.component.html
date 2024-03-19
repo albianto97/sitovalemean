@@ -1,20 +1,20 @@
-<div class="container-xl d-flex align-items-center flex-column" *ngIf="order">
-    <h1>Ordine: <strong>{{order._id}}</strong></h1>
-    <h3>
-        Articoli Ordinati:
-        <app-product-list></app-product-list>
-    </h3>
-    <div>
-        <h4>Stato dell'ordine</h4>
-        <mat-form-field>
-            <mat-label>Stato</mat-label>
-            <mat-select [(ngModel)]="order.status">
-                <mat-option *ngFor="let state of orderStates" [value]="state">{{state}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+<div class="container-xl" *ngIf="productsLoaded">
+  <!-- Ordine -->
+  <div class="row mb-3">
+    <div class="col-md">
+      <mat-card *ngIf="order">
+        <mat-card-header>
+          <mat-card-title>ID Ordine {{ order._id }}</mat-card-title>
+          <mat-card-subtitle>Hai richiesto: {{ order.orderType }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
 
+  <!-- Prodotti -->
+  <div class="row">
+    <div class="col-md-4" *ngFor="let product of products">
+      <app-product-card [product]="product" [isViewCarrello]="false"></app-product-card>
     </div>
-    <div>
-        <button mat-raised-button color="primary">Salva Modifiche</button>
-    </div>
+  </div>
 </div>

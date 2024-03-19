@@ -68,23 +68,34 @@ const getOrderOfUserProduct = async (req, res) => {
 
         // Ordina i prodotti in base alla quantità acquistata in ordine decrescente
         let sortedProducts = Object.keys(productCounts).sort((a, b) => productCounts[b] - productCounts[a]);
-        sortedProducts = sortedProducts.slice(0,3);
+        sortedProducts = sortedProducts.slice(0, 3);
 
         // Ottieni i dettagli dei prodotti più acquistati
         const bestProductsData = await Product.find({ _id: { $in: sortedProducts } });
 
         // Costruisci un array di oggetti per ciascun prodotto con il conteggio
         const bestProducts = bestProductsData.map(product => {
-            let p = Object.assign(product._doc,{count:productCounts[product._id]});
+            let p = Object.assign(product._doc, { count: productCounts[product._id] });
 
-            return p
+            return p;
         });
 
-        res.json({ bestProducts });
+        // Ordina bestProducts in base all'ordine degli ID specificato in sortedProducts
+        let orderedBestProducts = [];
+        sortedProducts.forEach(productId => {
+            let product = bestProducts.find(p => p._id.toString() === productId);
+            if (product) {
+                orderedBestProducts.push(product);
+            }
+        });
+
+        res.json({ bestProducts: orderedBestProducts });
+
     } catch (err) {
         console.error('Errore nel recupero dei prodotti:', err);
         res.status(500).json({ message: 'Errore del server' });
     }
+
 };
 
 const getOrdersFromUser =async (req, res) => {
@@ -135,11 +146,25 @@ const checkOrderQuantities = async (order) => {
     return unavailableProducts;
 }
 
+const getOrder = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        const order = await Order.findOne({"_id": orderId}).lean();
+        if(order)
+            res.json(order);
+        else
+            res.status(404).send();
+    }catch (e) {
+        res.status(400).send(e);
+    }
+}
+
 
 module.exports = {
     createOrder,
     getOrderOfUserProduct,
     getOrdersFromUser,
     getAllOrders,
+    getOrder,
     searchOrdersByUsername
 }

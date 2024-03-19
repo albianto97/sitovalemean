@@ -1,38 +1,51 @@
 <div class="container-xl">
   <div class="row col-md">
-    <mat-card class="gusticard mb-3">
+    <mat-card class="gusticard mb-3" [ngClass]="{'bg-warning': product.type === 'GELATO'}">
       <mat-card-header>
         <mat-card-subtitle>{{ product.type }}</mat-card-subtitle>
         <mat-card-title>{{ product.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="text-break">{{ product.description }} </p>
-        <div *ngIf="product.quantity == undefined">
-          <p>Disponibili solo: {{ product.disponibilita }}</p>
-          <p *ngIf="product.count != undefined"> Conteggio : {{product.count}}</p>
-        </div>
-        <p *ngIf="product.quantity != undefined" > Quantita nel carrello: {{product.quantity}}</p>
-        <p *ngIf="product.cartQuantity != 0  && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
+        <p class="text-break">{{ product.description }}</p>
+        <ng-container *ngIf="product.quantity == undefined">
+          <p *ngIf="product.disponibilita != 0; else elseBlock">Disponibili solo: {{ product.disponibilita }}</p>
+          <ng-template #elseBlock>
+            <p>ATTUALMENTE NON DISPONIBILE</p>
+          </ng-template>
+          <p *ngIf="product.count != undefined">Conteggio: {{ product.count }}</p>
+        </ng-container>
+
+        <p *ngIf="product.quantity != undefined">Quantita nel carrello: {{ product.quantity }}</p>
+        <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
-        <!-- ... (Contenuto della card del prodotto) -->
-        <div class="d-flex justify-content-between m-2">
-          <button [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
-          <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="this.removeProduct()" mat-raised-button>Elimina prodotto</button>
-          <button mat-raised-button color="primary" (click)="addItemToCart(product._id!)"
-                  *ngIf="!isViewCarrello else view">Aggiungi al carrello
+      <div class="d-flex flex-wrap justify-content-between m-2" style="align-items: center">
+        <button style="margin:10px 0" [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
+        <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct(product._id!)">Elimina prodotto</button>
+
+        <button *ngIf="isViewCarrello" mat-raised-button color="warn" (click)="removeProduct()">Rimuovi prodotto</button>
+        <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
+
+        <div class="d-flex flex-wrap" *ngIf="!isViewCarrello && isAdmin">
+          <button mat-icon-button color="primary"  (click)="Quantity0(product._id!)">
+            <mat-icon>visibility_off</mat-icon>
           </button>
-          <ng-template #view>
-            <!--<div>
-              bottoni per il carrello
-            </div>-->
-          </ng-template>
+
+          <button mat-icon-button color="primary"  style="margin-left: -15px" (click)="removeOneFromQuantity(product._id!)">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+
+          <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 50px; margin-left: -10px">
+
+          <button mat-icon-button color="primary" style="margin-left: -10px" (click)="addToQuantity(product._id!)">
+            <mat-icon>add_circle</mat-icon>
+          </button>
         </div>
+      </div>
+
       <mat-card-footer>
         <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
       </mat-card-footer>
     </mat-card>
   </div>
-
 </div>
-

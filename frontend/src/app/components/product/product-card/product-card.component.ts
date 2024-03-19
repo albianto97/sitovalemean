@@ -2,6 +2,9 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
+import {AuthService} from "../../../services/auth.service";
+import {ProductService} from "../../../services/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
@@ -11,14 +14,21 @@ import { CartService } from 'src/app/services/cart.service';
 export class ProductCardComponent {
   @Input() product!: Product;
   @Input() isViewCarrello: boolean = false;
+  @Input() showDeleteButton: boolean = false;
   @Output() itemRemoved = new EventEmitter();
+  isAdmin: boolean = false;
+  quantityToAdd: any;
 
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService,
+              private authService: AuthService,
+              private productService: ProductService,
+              private route: Router) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
+    this.isAdmin = this.authService.isAdmin();
   }
 
 
@@ -37,5 +47,37 @@ export class ProductCardComponent {
   removeProduct(){
     this.cartService.removeProduct(this.product._id)
     this.itemRemoved.emit();
+  }
+
+  addToQuantity(productId: string) {
+    if (!this.quantityToAdd)
+      this.quantityToAdd = 1;
+    this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
+        // Aggiorna la quantità nel componente
+        this.product.disponibilita += this.quantityToAdd;
+      });
+  }
+
+  removeOneFromQuantity(productId: string) {
+    this.productService.removeOneFromProductQuantity(productId).subscribe((response) => {
+      // Aggiornamento della quantità disponibile nel componente
+      if(this.product.disponibilita) this.product.disponibilita--;
+    });
+  }
+
+  Quantity0(productId: string) {
+    this.productService.quantity0(productId).subscribe((response) => {
+      // Aggiornamento della quantità disponibile nel componente
+      if(this.product.disponibilita) this.product.disponibilita = 0;
+    });
+  }
+
+  deleteProduct(productId: string) {
+      this.productService.deleteProduct(productId).subscribe(() => {
+          console.log('Prodotto eliminato con successo');
+          this.route.navigate(['/productList'])
+          // Esegui azioni aggiuntive dopo l'eliminazione del prodotto se necessario
+        }
+      );
   }
 }

@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GeneralService } from './-general.service';
 import {Observable} from "rxjs";
-import {User} from "../models/user";
 import {Order} from "../models/order";
 
 
@@ -28,18 +27,25 @@ export class OrderService {
   }
 
   createOrder(order: any) {
-    return this.http.post(this.endPoint + '/create-order', order);
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.post(this.endPoint + '/create-order', order, {headers});
   }
 
 
   public getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.endPoint+'/getAllOrders');
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Order[]>(this.endPoint+'/getAllOrders', {headers});
   }
 
   searchOrderByUsername(username : string, status: string): Observable<Order[]> {
+    const headers = this.generalService.createHeadersForAuthorization();
     let s = status ? status : "";
-    return this.http.get<Order[]>(this.endPoint+'/searchOrdersByUsername?username='+username+"&status="+s );
+    return this.http.get<Order[]>(this.endPoint+'/searchOrdersByUsername?username='+username+"&status="+s, {headers});
+  }
 
+  getOrder(orderId: string): Observable<Order>{
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Order>(this.endPoint+'/'+ orderId, {headers});
   }
 
 }

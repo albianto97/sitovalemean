@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { LoginComponent } from "./components/login/login.component";
 import { SignInComponent } from "./components/sign-in/sign-in.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
-import { ProductListComponent } from "./components/product/product-list/product-list.component";
 import { ProfiloComponent } from "./components/profile/profile.component";
 import { ProductCreationComponent } from "./components/product/product-creation/product-creation.component";
 import { SingleProductComponent } from "./components/product/single-product/single-product.component";
@@ -16,21 +15,22 @@ import { OrdersComponent } from './components/order/orders/orders.component';
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { AdministratorGuard } from './guards/administrator.guard';
+import {NonAdministratorGuard} from "./guards/non-administrator.guard";
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
-  { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard] },
-  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard, AdministratorGuard] },
-  { path: 'userList', component: UserListComponent },
+  { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [ AdministratorGuard] },
+  { path: 'userList', component: UserListComponent, canActivate: [ AdministratorGuard]},
+  { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'productList', component: InventoryComponent },
-  { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard] },
+  { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'single-product/:productId', component: SingleProductComponent },
-  { path: 'order/detail', component: OrderDetailsComponent },
   { path: 'create-product', component: ProductCreationComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   // Assicurati di inserire questa rotta prima della wildcard (se presente)
