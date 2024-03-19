@@ -9,8 +9,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule } from '@angular/forms';
-
 import { HttpClientModule } from  '@angular/common/http';
+
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import {CommonModule} from "@angular/common";
@@ -27,6 +32,11 @@ import { StatusIconHtmlPipe } from './pipes/status-icon-html.pipe';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { InventoryComponent } from './components/product/inventory/inventory.component';
+import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
+import { AdminHomeComponent } from './components/home/admin-home/admin-home.component';
+import { OrderComponent } from './components/order/order.component';
+import { ListOrderComponent } from './components/order/list-order/list-order.component';
+import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +56,12 @@ import { InventoryComponent } from './components/product/inventory/inventory.com
     StatusIconHtmlPipe,
     ProductCardComponent,
     UnauthorizedComponent,
-    InventoryComponent
+    InventoryComponent,
+    DialogAlertComponent,
+    AdminHomeComponent,
+    OrderComponent,
+    ListOrderComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,9 +73,14 @@ import { InventoryComponent } from './components/product/inventory/inventory.com
     MaterialModule,
     MatIconModule,
     HttpClientModule,
+    FontAwesomeModule,
     CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary){
+    library.addIconPacks(fas);
+  }
+ }

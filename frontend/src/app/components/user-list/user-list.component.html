@@ -48,11 +48,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+<app-list-order [orders]="filteredOrders"></app-list-order>
 
-<div class="container-xl">
-  <div class="row">
-    <div class="col-md-4" *ngFor="let order of filteredOrders">
-      <app-orders [order]="order"></app-orders>
-    </div>
-  </div>
-</div>

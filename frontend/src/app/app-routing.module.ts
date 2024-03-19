@@ -16,6 +16,7 @@ import { OrdersComponent } from './components/order/orders/orders.component';
 import {UnauthorizedComponent} from "./components/unauthorized/unauthorized.component";
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { AdministratorGuard } from './guards/administrator.guard';
+import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'productList', component: InventoryComponent },
   { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'single-product/:productId', component: SingleProductComponent },
+  { path: 'order/detail', component: OrderDetailsComponent },
   { path: 'create-product', component: ProductCreationComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   // Assicurati di inserire questa rotta prima della wildcard (se presente)

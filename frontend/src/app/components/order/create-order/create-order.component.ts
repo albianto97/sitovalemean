@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Order, OrderType } from 'src/app/models/order';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
-import {Router} from "@angular/router";
-import {Product} from "../../../models/product";
+import { Router } from "@angular/router";
+import { Product } from "../../../models/product";
+import { ProductService } from 'src/app/services/product.service';
+import { catchError, map, tap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAlertComponent } from '../../dialogs/dialog-alert/dialog-alert.component';
 
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.css']
 })
-export class CreateOrderComponent {
-  productsInCart = [];
+export class CreateOrderComponent implements OnInit {
+  productsInCart: any[] = [];
+  productsNotDispo: Product[] = [];
   user: any | undefined;
   order: Order | null = null;
   // per creare dinamicamente la select della tipologia del'ordine
@@ -21,22 +26,62 @@ export class CreateOrderComponent {
   selectedOrderType: string = 'ritiro';
 
   note: string | null = null;
-  constructor(private router: Router,private orderService: OrderService, private cartService: CartService, private authService: AuthService) {
-    this.productsInCart = cartService.getCart().products;
-    this.user = this.authService.getUserFromToken();
+  constructor(private router: Router, private orderService: OrderService,
+    private productService: ProductService, private cartService: CartService,
+    private authService: AuthService, private dialog: MatDialog) { }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogAlertComponent, {
+      data: {
+        titolo: 'Conferma Ordine',
+        descrizione:'Stai per inoltrare l\'ordine. Vuoi confermare l\'ordine?',
+        btn1:'Conferma Ordine',
+        btn2:'Annulla'
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     if(result){
+      this.creaOrdine();
+     }
+    });
   }
+
+  async ngOnInit(): Promise<void> {
+    this.user = await this.authService.getUserFromToken();
+    if (!this.user) {
+      this.router.navigate(['login']);
+    }
+    this.productsInCart = this.cartService.getCart().products;
+    // sono nella fase finale dell'ordine devo accorgermi se sono disponibili tutti i prodotti
+    this.checkDispoProducts();
+
+  }
+
   // assegno il valore digitato nella text-area ad una variabile
   handleInputTextArea(ev: any) {
     this.note = ev.target.value
   }
+  async checkDispoProducts() {
+    this.productsNotDispo = [];
+    try {
+      for (const product of this.productsInCart) {
+        const productToCheck = await this.productService.getSingleProduct(product.productId).toPromise();
+        if (productToCheck) {
+          if (productToCheck.disponibilita! < product.quantity) {
+            this.productsNotDispo.push(productToCheck);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Errore:', error);
+    }
+  }
   creaOrdine() {
-    console.log(this.user);
-
     // Verifica se il carrello contiene almeno un prodotto
-    if (this.productsInCart.length === 0) {
+    if (this.productsInCart.length == 0) {
       // Messaggio di avviso o azione da eseguire quando il carrello è vuoto
       console.log("Impossibile creare un ordine perché il carrello è vuoto.");
-      this.router.navigate(['productList']);
       return;
     }
 
@@ -49,17 +94,17 @@ export class CreateOrderComponent {
         products: this.productsInCart,
         user: this.user._id
       };
-
+      // da controllare prima se tutti i prodotti sono disponibili! 
       this.orderService.createOrder(order).subscribe((result: any) => {
         console.log(result, order);
-        if(result.result == 1){
+        if (result.result == 1) {
           let productString = result.products.map((p: Product) => p.name).join(", ");
           alert("Impossibile, prodotti non disponibili: " + productString + "\nVerranno rimossi dal carrello!");
-          for(let i =0; i < result.products.length; i++){
+          for (let i = 0; i < result.products.length; i++) {
             this.cartService.removeProduct(result.products[i]._id);
           }
           this.router.navigate(["/view-cart"]);
-        }else {
+        } else {
           this.cartService.emptyCart();
           this.router.navigate(['/profilo']);
         }

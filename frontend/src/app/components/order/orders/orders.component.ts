@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import {Order, Status} from "../../../models/order";
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -8,13 +9,15 @@ import {Order, Status} from "../../../models/order";
   styleUrls: ['./orders.component.css'],
 })
 
-export class OrdersComponent {
-  @Input() order!: Order;
-  @Input() selectUsername!: string;
-  @Input() isProfile: boolean = false;
-  constructor() {}
-  getStatusIcon(status:string): string {
-    let key = status as keyof typeof Status;
-    return Status[key];
+export class OrdersComponent implements OnInit{
+  orders :Order[] = []
+  constructor(private orderService: OrderService){}
+  ngOnInit(): void {
+    this.getOrders();
   }
+  getOrders(): void {
+    this.orderService.getAllOrders().subscribe(orders => {
+      this.orders = orders;
+    });
+}
 }
