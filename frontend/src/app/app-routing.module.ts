@@ -20,7 +20,7 @@ import { OrderDetailsComponent } from './components/order/order-details/order-de
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'userList', component: UserListComponent, canActivate: [ AdministratorGuard]},
   { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'productList', component: InventoryComponent },
-  { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
+  { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard, NonAdministratorGuard] },  
+  { path: 'order/detail', component: OrderDetailsComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },

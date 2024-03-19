@@ -12,32 +12,31 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
 
-    loginForm: FormGroup;
+  loginForm: FormGroup;
 
-    constructor(private authService: AuthService,
-       private fb: FormBuilder,
-       private router: Router) {
-      this.loginForm= this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
-      });
-    }
+  constructor(private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
-    ngOnInit() {
-      console.log("Inizializzo: Log-In");
-    }
+  ngOnInit() {
+    console.log("Inizializzo: Log-In");
+  }
 
-    onSubmit() {
+  onSubmit() {
 
-      if (this.loginForm.valid) {
-        var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
-        this.authService.login(newUser).subscribe((response: any) => {
-          if(!this.authService.isAdmin())
-            this.router.navigate(['']);
-          else
-            this.router.navigate(['/productList']);
-        });
-      }
+    if (this.loginForm.valid) {
+      var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
+      this.authService.login(newUser).subscribe((response: any) => {
+
+        this.router.navigate(['']);
+
+      }); 
     }
   }
+}
 

@@ -1,4 +1,4 @@
-<div class="container-xl">
+<!-- <div class="container-xl">
   <app-user-info></app-user-info>
   <div class="row" style="padding: 20px 0;">
     <div class="col-md-4" *ngFor="let product of bestProducts">
@@ -20,4 +20,15 @@
                  (page)="onPageChange($event)">
   </mat-paginator>
 
+</div> -->
+<div class="container-xl">
+  <app-user-info></app-user-info>
+  <div class="row" style="padding: 20px 0;">
+    <div class="col-md-4" *ngFor="let product of bestProducts">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
 </div>
+<app-list-order [orders]="myOrdersTotal" [isProfile] = "true"></app-list-order>
+
+
