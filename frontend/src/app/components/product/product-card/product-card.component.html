@@ -16,7 +16,7 @@
         </ng-container>
 
         <p *ngIf="product.quantity != undefined">Quantita nel carrello: {{ product.quantity }}</p>
-        <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello">Nel carrello: {{ product.cartQuantity }}</p>
+        <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello && !isAdmin">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
       <div class="d-flex flex-wrap justify-content-between m-2" style="align-items: center">
@@ -31,13 +31,13 @@
             <mat-icon>visibility_off</mat-icon>
           </button>
 
-          <button mat-icon-button color="primary"  style="margin-left: -15px" (click)="removeOneFromQuantity(product._id!)">
+          <button mat-icon-button color="primary"   (click)="removeOneFromQuantity(product._id!)">
             <mat-icon>remove_circle</mat-icon>
           </button>
 
-          <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 50px; margin-left: -10px">
+          <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
 
-          <button mat-icon-button color="primary" style="margin-left: -10px" (click)="addToQuantity(product._id!)">
+          <button mat-icon-button color="primary" (click)="addToQuantity(product._id!)">
             <mat-icon>add_circle</mat-icon>
           </button>
         </div>
