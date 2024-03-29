@@ -10,7 +10,7 @@ import { Order, Status } from 'src/app/models/order';
 export class OrderComponent {
   @Input() order!: Order;
   @Input() selectUsername!: string;
-  @Input() isProfile: boolean = false;
+  //@Input() isProfile: boolean = false;
   constructor(private router:Router) {}
   getStatusIcon(status:string): string {
     let key = status as keyof typeof Status;

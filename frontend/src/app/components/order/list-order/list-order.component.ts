@@ -8,5 +8,5 @@ import { Order } from 'src/app/models/order';
 })
 export class ListOrderComponent {
   @Input() orders!: Order[];
-  @Input() isProfile: boolean = false;
+  //@Input() isProfile: boolean = false;
 }

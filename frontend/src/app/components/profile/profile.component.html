@@ -1,34 +1,26 @@
-<!-- <div class="container-xl">
+<div class="container-xl">
   <app-user-info></app-user-info>
   <div class="row" style="padding: 20px 0;">
     <div class="col-md-4" *ngFor="let product of bestProducts">
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
-</div>
-<div class="container-xl">
-  <div class="row">
-    <div class="col-md-4" *ngFor="let order of myOrdersView">
-      <app-orders [order]="order" [isProfile] = "true"></app-orders>
-    </div>
-  </div>
-</div>
-<div>
+  <mat-chip-listbox aria-label="Fish selection" [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterChange()">
+    <mat-chip-option value="inAttesa"> In attesa</mat-chip-option>
+    <mat-chip-option value="rifiutato">Rifiutato</mat-chip-option>
+    <mat-chip-option color="accent" value="accettato">Accettato</mat-chip-option>
+    <mat-chip-option color="warn" value="consegnato">Consegnato</mat-chip-option>
+  </mat-chip-listbox>
+
+  <app-list-order [orders]="myOrdersView"></app-list-order>
   <mat-paginator [length]="myOrdersTotal.length"
                  [pageSize]="3"
                  [pageSizeOptions]="[3, 6, 12]"
                  (page)="onPageChange($event)">
-  </mat-paginator>
 
-</div> -->
-<div class="container-xl">
-  <app-user-info></app-user-info>
-  <div class="row" style="padding: 20px 0;">
-    <div class="col-md-4" *ngFor="let product of bestProducts">
-      <app-product-card [product]="product"></app-product-card>
-    </div>
-  </div>
+  </mat-paginator>
 </div>
-<app-list-order [orders]="myOrdersTotal" [isProfile] = "true"></app-list-order>
+
+
 
 
