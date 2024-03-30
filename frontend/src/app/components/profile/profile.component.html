@@ -6,19 +6,28 @@
     </div>
   </div>
   <mat-chip-listbox aria-label="Fish selection" [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterChange()">
-    <mat-chip-option value="inAttesa"> In attesa</mat-chip-option>
-    <mat-chip-option value="rifiutato">Rifiutato</mat-chip-option>
-    <mat-chip-option color="accent" value="accettato">Accettato</mat-chip-option>
-    <mat-chip-option color="warn" value="consegnato">Consegnato</mat-chip-option>
+    <mat-chip-option value="inAttesa" color="primary"> In attesa</mat-chip-option>
+    <mat-chip-option value="rifiutato" color="warn">Rifiutato</mat-chip-option>
+    <mat-chip-option value="accettato" color="accent">Accettato</mat-chip-option>
+    <mat-chip-option value="consegnato" color="primary">Consegnato</mat-chip-option>
+    <mat-chip-option value="lavorazione" color="warn">Lavorazione</mat-chip-option>
+    <mat-chip-option value="terminato" color="accent">Terminato</mat-chip-option>
   </mat-chip-listbox>
 
   <app-list-order [orders]="myOrdersView"></app-list-order>
-  <mat-paginator [length]="myOrdersTotal.length"
-                 [pageSize]="3"
-                 [pageSizeOptions]="[3, 6, 12]"
-                 (page)="onPageChange($event)">
+  <ng-container *ngIf="myOrdersTotal.length != 0; else noOrders">
+    <mat-paginator
+      [length]="myOrdersTotal.length"
+      [pageSize]="3"
+      [pageSizeOptions]="[3, 6, 12]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </ng-container>
 
-  </mat-paginator>
+  <ng-template #noOrders>
+    <h1>Non ci sono prodotti in questo stato.</h1>
+  </ng-template>
+
 </div>
 
 
