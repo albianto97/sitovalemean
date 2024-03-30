@@ -44,7 +44,7 @@ app.use(token.verifyToken);
 io.on('connection', (socket) => {
     console.log('Nuova connessione socket:', socket.id);
     socket.on('test', (data) =>{
-      console.log("message: " + JSON.stringify(data)); //in console mandare messaggio emit di test --> lui ascolta
+        console.log("message: " + JSON.stringify(data)); //in console mandare messaggio emit di test --> lui ascolta
     })
     socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
     io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
@@ -52,10 +52,12 @@ io.on('connection', (socket) => {
     socket.on('sendNotification', (data) => {
         console.log('Richiesta di notifica ricevuta:', data);
 
-        //Invia la notifica a tutti i client connessi
-        io.emit('notification', data);
+        // Invia la notifica a tutti i client connessi
+        //io.emit('notification', data); //invia a tutti
+        socket.broadcast.emit('notification', data); // non invia a se stesso
     });
 });
+
 server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
