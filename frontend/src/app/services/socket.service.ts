@@ -23,18 +23,24 @@ export class SocketService {
     this.socket.on('notification', (data: any) => {
     console.log('Notifica ricevuta:', data);
     // Emetti l'evento tramite un Observable
-      this.snackBar.open(data.message, 'Chiudi', {
-        duration: 3000
-      });
+      this.snackBarMessage(data);
+    });
+    this.socket.on('update', (data: any) => {
+      console.log('Notifica ricevuta:', data);
+      // Emetti l'evento tramite un Observable
+      this.snackBarMessage(data);
+    });
+
+  }
+  snackBarMessage(data: any){
+    this.snackBar.open(data.message, 'Chiudi', {
+      duration: 3000
     });
   }
 
   // Metodo per inviare una notifica
   sendNotification(notification: any) {
     this.socket.emit('sendNotification', notification);
-    /*this.snackBar.open(notification.message, 'Chiudi', {
-      duration: 3000, // Durata della notifica in millisecondi (3 secondi)
-    });*/
   }
 
 

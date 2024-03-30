@@ -46,15 +46,20 @@ io.on('connection', (socket) => {
     socket.on('test', (data) =>{
         console.log("message: " + JSON.stringify(data)); //in console mandare messaggio emit di test --> lui ascolta
     })
-    socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
-    io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
+    //socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
+    //io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
 
     socket.on('sendNotification', (data) => {
         console.log('Richiesta di notifica ricevuta:', data);
-
         // Invia la notifica a tutti i client connessi
         //io.emit('notification', data); //invia a tutti
         socket.broadcast.emit('notification', data); // non invia a se stesso
+    });
+    socket.on('sendNotification', (data) => {
+        console.log('Richiesta di notifica ricevuta:', data);
+        // Invia la notifica a tutti i client connessi
+        //io.emit('notification', data); //invia a tutti
+        socket.broadcast.emit('update', data); // non invia a se stesso
     });
 });
 

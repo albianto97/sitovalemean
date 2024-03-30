@@ -38,5 +38,8 @@ export class AppComponent {
   }
 
 
-
+  inviaNotifica2() {
+    const notification = { message: 'UPDATE' }; // Puoi cambiare il messaggio come desideri
+    this.socket.sendNotification(notification);
+  }
 }
