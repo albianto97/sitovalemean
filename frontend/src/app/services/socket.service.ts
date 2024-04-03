@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,19 +10,25 @@ import {Observable} from "rxjs";
 export class SocketService {
   private socket: any;
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar, private authService: AuthService) {
+    this.connect();
+  }
+  connect(){
     // Connetti al server Socket.IO
-    this.socket = io('http://localhost:3000');
-    this.socket.on("welcome", (data: any) =>{
-      console.log("messaggio: " + data);
+    if(this.socket && this.socket.isConnected){
+      this.socket.disconnect();
+    }
+    this.socket = io('http://localhost:3000', {
+      extraHeaders: {Authorization: "Bearer " + this.authService.getTokenFromLocalStorage()}
     });
+    console.log("socket connected");
     //console.log(this.socket);
-    this.receiveNotification();
+    this.registerHandlers();
   }
 
-  receiveNotification(){
+  registerHandlers(){
     this.socket.on('notification', (data: any) => {
-    console.log('Notifica ricevuta:', data);
+      console.log('Notifica ricevuta:', data);
     // Emetti l'evento tramite un Observable
       this.snackBarMessage(data);
     });
@@ -29,6 +36,9 @@ export class SocketService {
       console.log('Notifica ricevuta:', data);
       // Emetti l'evento tramite un Observable
       this.snackBarMessage(data);
+    });
+    this.socket.on("welcome", (data: any) =>{
+      console.log("messaggio: " + data);
     });
 
   }

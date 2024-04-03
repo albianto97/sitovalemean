@@ -7,6 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 const socketIo = require('socket.io');
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const server = http.createServer(app);
@@ -17,6 +18,9 @@ const io = socketIo(server, {
   }
 });
 
+let socketsByUsername = {}
+
+
 // Middleware per gestire le richieste CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -25,11 +29,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-
-
-// Gestisci l'evento di invio della notifica
-
-
 
 app.use(bodyParser.json());
 
@@ -43,25 +42,35 @@ app.use('/api/order', orderRoutes);
 app.use(token.verifyToken);
 io.on('connection', (socket) => {
     console.log('Nuova connessione socket:', socket.id);
-    socket.on('test', (data) =>{
-        console.log("message: " + JSON.stringify(data)); //in console mandare messaggio emit di test --> lui ascolta
-    })
-    //socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
-    //io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
+    let token = socket.handshake.headers.authorization.replace("Bearer ", "");
+    getUsernameFromJWT(token, (err, user) => {
+        if(user) {
+            let username = user.username;
+            socketsByUsername[username] = socket;
+            socket.on('test', (data) => {
+                console.log("message: " + JSON.stringify(data)); //in console mandare messaggio emit di test --> lui ascolta
+            })
 
-    socket.on('sendNotification', (data) => {
-        console.log('Richiesta di notifica ricevuta:', data);
-        // Invia la notifica a tutti i client connessi
-        //io.emit('notification', data); //invia a tutti
-        socket.broadcast.emit('notification', data); // non invia a se stesso
-    });
-    socket.on('sendNotification', (data) => {
-        console.log('Richiesta di notifica ricevuta:', data);
-        // Invia la notifica a tutti i client connessi
-        //io.emit('notification', data); //invia a tutti
-        socket.broadcast.emit('update', data); // non invia a se stesso
-    });
+            socket.on('sendNotification', (data) => {
+                let username = data.username;
+                let userSocket = socketsByUsername[username];
+                if (userSocket)
+                    userSocket.emit('notification', data);
+                console.log('Richiesta di notifica ricevuta:', data);
+                // Invia la notifica a tutti i client connessi
+                //io.emit('notification', data); //invia a tutti
+            });
+        }
+    })
 });
+
+//socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
+//io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
+//socket.broadcast.emit('notification', data); // non invia a se stesso
+
+function getUsernameFromJWT(token, callback){
+    return jwt.verify(token, 'chiaveSegreta', callback);
+}
 
 server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

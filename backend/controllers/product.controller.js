@@ -72,12 +72,14 @@ const incrementProductQuantity = async (req, res) => {
     }
 
     try {
+        let notify = false;
         const product = await Product.findById(productId);
 
         if (!product) {
             return res.status(404).json({ message: 'Prodotto non trovato' });
         }
-
+        if(product.disponibilita === 0) //--> ripartire
+            notify = true;
         // Incrementa la quantità del prodotto
         product.disponibilita += quantityToAdd;
 
