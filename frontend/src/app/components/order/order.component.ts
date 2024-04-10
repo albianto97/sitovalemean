@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, Status } from 'src/app/models/order';
 import {SocketService} from "../../services/socket.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-order',
@@ -12,7 +13,7 @@ export class OrderComponent {
   @Input() order!: Order;
   @Input() selectUsername!: string;
   //@Input() isProfile: boolean = false;
-  constructor(private router:Router, private socketService: SocketService) {}
+  constructor(private router:Router, private socketService: SocketService, public authService: AuthService) {}
   getStatusIcon(status:string): string {
     let key = status as keyof typeof Status;
     return Status[key];
