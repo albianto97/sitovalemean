@@ -15,7 +15,7 @@
           <p *ngIf="product.count != undefined">Conteggio: {{ product.count }}</p>
         </ng-container>
 
-        <p *ngIf="product.quantity != undefined">Quantita nel carrello: {{ product.quantity }}</p>
+        <p *ngIf="product.quantity != undefined">Quantita ordinata: {{ product.quantity }}</p>
         <p *ngIf="product.cartQuantity !== 0 && !isViewCarrello && !isAdmin">Nel carrello: {{ product.cartQuantity }}</p>
       </mat-card-content>
 
