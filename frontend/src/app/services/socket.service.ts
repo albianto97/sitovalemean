@@ -40,6 +40,11 @@ export class SocketService {
     this.socket.on("welcome", (data: any) =>{
       console.log("messaggio: " + data);
     });
+    this.socket.on('productAvailable', (data: any) => {
+      console.log('Notifica ricevuta:', data);
+      // Emetti l'evento tramite un Observable
+      this.snackBarMessage(data);
+    });
 
   }
   snackBarMessage(data: any){

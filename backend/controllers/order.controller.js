@@ -98,6 +98,21 @@ const getOrderOfUserProduct = async (req, res) => {
 
 };
 
+const getOrder =async (req, res) => {
+    const orderId = req.params.orderId;
+    try {
+        const order = await Order.findOne({ _id: orderId }).lean();
+        const productIds = order.products.map(p => p.productId);
+        const products = await Product.find({ "_id": { "$in": productIds } }).lean();
+        for(i = 0; i < order.products.length; i++){
+            order.products[i] = Object.assign({},order.products[i], products[i]);
+        }
+        res.json(order);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 const getOrdersFromUser =async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -146,7 +161,7 @@ const checkOrderQuantities = async (order) => {
     return unavailableProducts;
 }
 
-const getOrder = async (req, res) => {
+/*const getOrder = async (req, res) => {
     try {
         const orderId = req.params.orderId;
         const order = await Order.findOne({"_id": orderId}).lean();
@@ -157,7 +172,7 @@ const getOrder = async (req, res) => {
     }catch (e) {
         res.status(400).send(e);
     }
-}
+}*/
 
 
 module.exports = {

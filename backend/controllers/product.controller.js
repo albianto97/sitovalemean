@@ -65,6 +65,7 @@ const createProduct = async (req, res) => {
 }
 const incrementProductQuantity = async (req, res) => {
     const productId = req.params.productId;
+    const socket = req.socketServer;
     let quantityToAdd = 1; // Default value
 
     if (req.body.quantityToAdd) {
@@ -78,15 +79,17 @@ const incrementProductQuantity = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: 'Prodotto non trovato' });
         }
-        if(product.disponibilita === 0) //--> ripartire
+        if(product.disponibilita === 0)
             notify = true;
         // Incrementa la quantità del prodotto
         product.disponibilita += quantityToAdd;
 
+
         // Salva le modifiche nel database
         await product.save();
 
-        res.json({ message: 'Quantità del prodotto aggiornata con successo' });
+        if(notify) socket.emit('productAvailable',{message: 'Il prodotto ' + product.name +' è tornato disponibile'});
+        res.json({message: 'Quantità del prodotto aggiornata con successo' });
     } catch (error) {
         console.error('Errore durante l\'aggiornamento della quantità del prodotto:', error);
         res.status(500).json({ message: 'Errore del server' });

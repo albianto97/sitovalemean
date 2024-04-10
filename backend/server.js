@@ -32,6 +32,11 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+    req.socketServer = io;
+    next();
+});
+
 const port = process.env.PORT || 3000;
 
 connectDB();

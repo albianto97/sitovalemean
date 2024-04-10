@@ -19,7 +19,7 @@ export class OrderComponent {
     return Status[key];
   }
   openDetail(orderPass: Order){
-    this.router.navigate(['/order/detail'], { state: { order: orderPass } });
+    this.router.navigate(['/order/detail'], { state: { orderId: orderPass._id } });
   }
 
   sendNotification(username: string| undefined) {

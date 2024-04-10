@@ -1,4 +1,4 @@
-<div class="container-xl" *ngIf="products.length > 0">
+<div class="container-xl" *ngIf="order.products.length > 0">
         <!-- Ordine -->
         <div class="row mb-3">
             <div class="col-md">
@@ -10,10 +10,9 @@
                 </mat-card>
             </div>
         </div>
-
         <!-- Prodotti -->
         <div class="row">
-            <div class="col-md-4" *ngFor="let product of products">
+            <div class="col-md-4" *ngFor="let product of order.products">
                 <app-product-card [product]="product" [isViewCarrello]="false"></app-product-card>
             </div>
         </div>
