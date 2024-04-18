@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import {OrderService} from "../../../services/order.service";
+import {SocketService} from "../../../services/socket.service";
 
 @Component({
   selector: 'app-order-details',
@@ -18,7 +19,8 @@ export class OrderDetailsComponent implements OnInit {
   isAdmin:boolean = false;
   constructor(private route: ActivatedRoute, private productService: ProductService,
               public authService:AuthService,
-              private orderService: OrderService) { }
+              private orderService: OrderService,
+              private socketService: SocketService) { }
   ngOnInit(): void {
     let orderId = '';
     const state = history.state;
@@ -29,5 +31,10 @@ export class OrderDetailsComponent implements OnInit {
     this.orderStates = Object.keys(Status);
 
   }
+  sendNotification() {
+    console.log(this.order);
+    this.socketService.sendNotification({ username: "albi", message: "test" });
+  }
+
 
 }

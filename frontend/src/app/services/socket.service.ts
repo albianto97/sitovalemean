@@ -26,6 +26,7 @@ export class SocketService {
     this.registerHandlers();
   }
 
+  //in ascolto da backend
   registerHandlers(){
     this.socket.on('notification', (data: any) => {
       console.log('Notifica ricevuta:', data);
@@ -53,7 +54,7 @@ export class SocketService {
     });
   }
 
-  // Metodo per inviare una notifica
+  // Metodo per inviare una notifica a tutti
   sendNotification(notification: any) {
     this.socket.emit('sendNotification', notification);
   }
