@@ -26,6 +26,12 @@ export class SocketService {
     this.registerHandlers();
   }
 
+  registerChatHandlers(callback: any){
+    this.socket.on('newMessage', (data: any) => {
+      callback('newMessage', data);
+    });
+  }
+
   //in ascolto da backend
   registerHandlers(){
     this.socket.on('notification', (data: any) => {
@@ -57,6 +63,10 @@ export class SocketService {
   // Metodo per inviare una notifica a tutti
   sendNotification(notification: any) {
     this.socket.emit('sendNotification', notification);
+  }
+
+  sendMessage(message: any){
+    this.socket.emit('messageSent', message)
   }
 
 

@@ -65,6 +65,16 @@ io.on('connection', (socket) => {
                 // Invia la notifica a tutti i client connessi
                 //io.emit('notification', data); //invia a tutti
             });
+            socket.on('messageSent', (data) =>{
+                let to = data.to;
+                let userSocket = socketsByUsername[to];
+                if(userSocket) {
+                    data.to = '';
+                    console.log(data);
+                    data.from = username;
+                    userSocket.emit('newMessage', data);
+                }
+            });
         }
     })
 });
