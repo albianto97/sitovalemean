@@ -1,0 +1,22 @@
+<div class="chatbox-main">
+  <div *ngIf="isAdmin" class="chatbox-user">
+    <select [(ngModel)]="currentUser">
+      <option *ngFor="let user of users" value="{{user}}">{{user}}</option>
+    </select>
+  </div>
+  <div class="chatbox-display">
+    <p *ngFor="let m of displayMessages">
+      <span *ngIf="m.from ==''">io: </span>
+      <span *ngIf="m.from !=''"> {{m.from}}: </span>
+      {{m.message}}
+    </p>
+  </div>
+  <div class="chatbox-input">
+    <div class="chatbox-textarea">
+      <textarea [(ngModel)]="message"> </textarea>
+    </div>
+    <div class="chatbox-button">
+      <button (click)="sendMessage()">Invia</button>
+    </div>
+  </div>
+</div>
