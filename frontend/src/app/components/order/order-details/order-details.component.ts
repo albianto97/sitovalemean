@@ -24,7 +24,8 @@ export class OrderDetailsComponent implements OnInit {
               public authService:AuthService,
               private orderService: OrderService,
               private socketService: SocketService,
-              private notificationService: NotifyService) { }
+              private notificationService: NotifyService,
+              private userService: UserService) { }
   ngOnInit(): void {
     let orderId = '';
     const state = history.state;
@@ -38,18 +39,25 @@ export class OrderDetailsComponent implements OnInit {
 
   sendNotification() {
     console.log(this.order);
+    // Recupera l'utente dall'ID
     const user = this.authService.getUserFromToken(); //admin
-    //this.userService.
-    this.socketService.sendNotification({ username: "albi", message: "test" });
+    this.userService.getSingleUserById(this.order.user).subscribe(
+      (userData: any) => {
+        if (userData) {
+          const username = userData.username;
+          // Invia la notifica utilizzando il nome utente recuperato
+          this.socketService.sendNotification({ username: username, message: "test" });
 
-    // Chiamata al metodo saveEvaso del servizio NotifyService
-    this.notificationService.saveEvaso(user.username, this.order._id).subscribe(
-      (notification: Notify) => {
-        console.log("Notifica salvata con successo:", notification);
-        // Gestisci la notifica salvata come preferisci
+          // Chiamata al metodo saveEvaso del servizio NotifyService
+          this.notificationService.saveEvaso(username, this.order._id).subscribe(
+            (notification: Notify) => {
+              console.log("Notifica salvata con successo:", notification);
+              // Gestisci la notifica salvata come preferisci
+            }
+          );
+        }
       }
     );
   }
-
 
 }

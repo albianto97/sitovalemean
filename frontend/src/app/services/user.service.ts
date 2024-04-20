@@ -30,6 +30,10 @@ export class UserService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<User[]>(this.endPoint + "/searchUsersByUsername?username="+ username,{headers});
   }
+  getSingleUserById(id: string): Observable<User> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<User>(`${this.endPoint}/${id}`, { headers });
+  }
 
 
 
