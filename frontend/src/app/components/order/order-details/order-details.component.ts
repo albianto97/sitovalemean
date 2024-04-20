@@ -49,7 +49,7 @@ export class OrderDetailsComponent implements OnInit {
           this.socketService.sendNotification({ username: username, message: "test" });
 
           // Chiamata al metodo saveEvaso del servizio NotifyService
-          this.notificationService.saveEvaso(username, this.order._id).subscribe(
+          this.notificationService.saveEvaso(username, this.order._id, "il prodotto è nel seguente stato" /* + this. inserire lo stato di salvataggio*/).subscribe(
             (notification: Notify) => {
               console.log("Notifica salvata con successo:", notification);
               // Gestisci la notifica salvata come preferisci
