@@ -8,6 +8,7 @@ import {OrderService} from "../../../services/order.service";
 import {SocketService} from "../../../services/socket.service";
 import {NotifyService} from "../../../services/notify.service";
 import {Notify} from "../../../models/notify";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-order-details',
@@ -37,10 +38,12 @@ export class OrderDetailsComponent implements OnInit {
 
   sendNotification() {
     console.log(this.order);
+    const user = this.authService.getUserFromToken(); //admin
+    //this.userService.
     this.socketService.sendNotification({ username: "albi", message: "test" });
 
     // Chiamata al metodo saveEvaso del servizio NotifyService
-    this.notificationService.saveEvaso("albi", "65e88fa2abe521cb9f43305f").subscribe(
+    this.notificationService.saveEvaso(user.username, this.order._id).subscribe(
       (notification: Notify) => {
         console.log("Notifica salvata con successo:", notification);
         // Gestisci la notifica salvata come preferisci
