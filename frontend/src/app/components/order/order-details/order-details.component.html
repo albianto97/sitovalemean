@@ -21,7 +21,7 @@
                 <h4>Stato dell'ordine</h4>
                 <mat-form-field>
                     <mat-label>Stato</mat-label>
-                    <mat-select [(ngModel)]="order.status">
+                    <mat-select [(ngModel)]="order.status" (selectionChange)="onStateChange($event)">
                         <mat-option *ngFor="let state of orderStates" [value]="state">{{state}}</mat-option>
                     </mat-select>
                 </mat-form-field>

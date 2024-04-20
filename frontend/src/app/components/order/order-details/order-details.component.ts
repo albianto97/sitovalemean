@@ -19,6 +19,7 @@ import {UserService} from "../../../services/user.service";
 export class OrderDetailsComponent implements OnInit {
   order: any;
   orderStates: string[] = [];
+  selectedOrderState: string = 'inAttesa';
   isAdmin:boolean = false;
   constructor(private route: ActivatedRoute, private productService: ProductService,
               public authService:AuthService,
@@ -32,7 +33,10 @@ export class OrderDetailsComponent implements OnInit {
     if (state && state.orderId) {
       orderId = state.orderId;
     }
-    let order = this.orderService.getOrder(orderId).subscribe((order: any) => this.order = order);
+    let order = this.orderService.getOrder(orderId).subscribe((order: any) => {
+      this.order = order;
+      this.selectedOrderState = order.status; // Imposta lo stato selezionato in base all'ordine
+    });
     this.orderStates = Object.keys(Status);
 
   }
@@ -49,7 +53,7 @@ export class OrderDetailsComponent implements OnInit {
           this.socketService.sendNotification({ username: username, message: "test" });
 
           // Chiamata al metodo saveEvaso del servizio NotifyService
-          this.notificationService.saveEvaso(username, this.order._id, "il prodotto è nel seguente stato" /* + this. inserire lo stato di salvataggio*/).subscribe(
+          this.notificationService.saveEvaso(username, this.order._id, this.selectedOrderState/*"il prodotto è nel seguente stato" /* + this. inserire lo stato di salvataggio*/).subscribe(
             (notification: Notify) => {
               console.log("Notifica salvata con successo:", notification);
               // Gestisci la notifica salvata come preferisci
@@ -60,4 +64,7 @@ export class OrderDetailsComponent implements OnInit {
     );
   }
 
+  onStateChange(event: any) {
+    this.selectedOrderState = event.value; // Aggiorna lo stato selezionato quando cambia
+  }
 }
