@@ -13,16 +13,19 @@ export class NotificationListComponent {
 
   constructor(private notifyService: NotifyService, private authService: AuthService) { }
 
+
   ngOnInit(): void {
     // Recupera le notifiche dell'utente corrente quando la componente viene inizializzata
     const currentUser = this.authService.getUserFromToken();
     if (currentUser) {
       this.notifyService.getUserNotifications(currentUser.username).subscribe(
-        (notifications: Notify[]) => {
+        (notifications: any) => { // Utilizza 'any' come tipo temporaneo per verificare i dati ricevuti
+          console.log('Notifications:', notifications); // Controlla il formato dei dati ricevuti
           this.notifications = notifications;
         }
       );
     }
   }
+
 
 }
