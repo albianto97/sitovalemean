@@ -39,6 +39,7 @@ import { ListOrderComponent } from './components/order/list-order/list-order.com
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ChatboxComponent } from './components/chatbox/chatbox.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ChatboxComponent } from './components/chatbox/chatbox.component';
     ListOrderComponent,
     OrderDetailsComponent,
     LogoutComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    NotificationListComponent
   ],
   imports: [
     BrowserModule,

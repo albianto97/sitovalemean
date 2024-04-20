@@ -16,4 +16,8 @@ export class NotifyService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.post<Notify>(this.endPoint+'/createNotify', { username, message, orderId }, { headers });
   }
+  getUserNotifications(username: string): Observable<Notify[]> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Notify[]>(`${this.endPoint}/${username}`, {headers});
+  }
 }

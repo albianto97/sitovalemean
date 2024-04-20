@@ -1,0 +1,20 @@
+<!-- notification-list.component.html -->
+<div class="container">
+  <h2>Le tue notifiche</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Messaggio</th>
+      <th scope="col">Data</th>
+      <!-- Aggiungi altre colonne se necessario -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let notification of notifications">
+      <td>{{ notification.message }}</td>
+      <!--<td>{{ notification.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>-->
+      <!-- Aggiungi altre colonne se necessario -->
+    </tr>
+    </tbody>
+  </table>
+</div>
