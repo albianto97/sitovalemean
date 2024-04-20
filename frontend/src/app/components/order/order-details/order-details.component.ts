@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import {OrderService} from "../../../services/order.service";
 import {SocketService} from "../../../services/socket.service";
+import {NotifyService} from "../../../services/notify.service";
+import {Notify} from "../../../models/notify";
 
 @Component({
   selector: 'app-order-details',
@@ -20,7 +22,8 @@ export class OrderDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private productService: ProductService,
               public authService:AuthService,
               private orderService: OrderService,
-              private socketService: SocketService) { }
+              private socketService: SocketService,
+              private notificationService: NotifyService) { }
   ngOnInit(): void {
     let orderId = '';
     const state = history.state;
@@ -31,9 +34,18 @@ export class OrderDetailsComponent implements OnInit {
     this.orderStates = Object.keys(Status);
 
   }
+
   sendNotification() {
     console.log(this.order);
     this.socketService.sendNotification({ username: "albi", message: "test" });
+
+    // Chiamata al metodo saveEvaso del servizio NotifyService
+    this.notificationService.saveEvaso("albi", "65e88fa2abe521cb9f43305f").subscribe(
+      (notification: Notify) => {
+        console.log("Notifica salvata con successo:", notification);
+        // Gestisci la notifica salvata come preferisci
+      }
+    );
   }
 
 
