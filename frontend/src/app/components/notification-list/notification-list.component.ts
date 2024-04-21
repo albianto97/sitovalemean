@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {NotifyService} from "../../services/notify.service";
 import {Notify} from "../../models/notify";
 import {AuthService} from "../../services/auth.service";
+import {Order} from "../../models/order";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-notification-list',
@@ -11,7 +13,9 @@ import {AuthService} from "../../services/auth.service";
 export class NotificationListComponent {
   notifications: Notify[] = [];
 
-  constructor(private notifyService: NotifyService, private authService: AuthService) { }
+  constructor(private notifyService: NotifyService,
+              private authService: AuthService,
+              private router:Router) { }
 
 
   ngOnInit(): void {
@@ -25,6 +29,9 @@ export class NotificationListComponent {
         }
       );
     }
+  }
+  openDetail(id: string){
+    this.router.navigate(['/order/detail'], { state: { orderId: id } });
   }
 
 

@@ -15,6 +15,7 @@
       <td>{{ notification.orderId }}</td>
       <td>{{ notification.message }}</td>
       <td>{{ notification.notifyDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+      <button class="btn btn-primary w-100" (click)="openDetail(notification.orderId)">Visualizza</button>
       <!-- Aggiungi altre colonne se necessario -->
     </tr>
     </tbody>
