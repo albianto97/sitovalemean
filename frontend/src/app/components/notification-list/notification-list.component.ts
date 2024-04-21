@@ -19,6 +19,10 @@ export class NotificationListComponent {
 
 
   ngOnInit(): void {
+    this.loadNotify();
+
+  }
+  loadNotify(){
     // Recupera le notifiche dell'utente corrente quando la componente viene inizializzata
     const currentUser = this.authService.getUserFromToken();
     if (currentUser) {
@@ -32,6 +36,16 @@ export class NotificationListComponent {
   }
   openDetail(id: string){
     this.router.navigate(['/order/detail'], { state: { orderId: id } });
+  }
+  deleteNotification(notificationId: string) {
+    // Chiama il metodo del servizio per eliminare la notifica
+    this.notifyService.deleteNotification(notificationId).subscribe(
+      (response) => {
+        console.log('Notifica eliminata con successo:', response);
+        // Ricarica le notifiche dopo l'eliminazione
+        this.loadNotify();
+      }
+    );
   }
 
 

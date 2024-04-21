@@ -1,5 +1,5 @@
 export class Notify {
-  _id?: string;
+  _id: string;
   username: string;
   notifyDate: Date;
   message: string;
@@ -10,7 +10,7 @@ export class Notify {
     notifyDate: Date,
     message: string,
     orderId: string,
-    id?: string
+    id: string
   ) {
     this._id = id;
     this.username = username;

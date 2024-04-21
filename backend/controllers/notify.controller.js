@@ -1,4 +1,5 @@
 const Notify = require('../models/notify');
+const Product = require("../models/product");
 
 // Creazione di una nuova notifica
 const createNotification = async (req, res) => {
@@ -42,12 +43,40 @@ const getUserNotifications = async (req, res) => {
         res.status(500).json({ success: false, message: 'Errore durante il recupero delle notifiche dell\'utente' });
     }
 };
+/*const deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        // Trova e rimuovi il prodotto dal database
+        const deletedProduct = await Product.findByIdAndRemove(productId);
+        if (deletedProduct) {
+            res.status(200).json({ message: 'Prodotto eliminato con successo' });
+        } else {
+            res.status(404).json({ message: 'Prodotto non trovato' });
+        }
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione del prodotto:', error);
+        res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
+    }
+};*/
+const deleteNotification = async (req, res) => {
+    try {
+        const notificationId = req.params.id;
 
-
-
-
+        // Controlla se l'ID della notifica è valido
+        const deletedNotify = await Notify.findByIdAndRemove(notificationId);
+        if (deletedNotify) {
+            res.status(200).json({ message: 'Notifica eliminata con successo' });
+        } else {
+            res.status(404).json({ message: 'Notifica non trovato' });
+        }
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione della notifica:', error);
+        res.status(500).json({ message: 'Errore del server durante l\'eliminazione della notifica' });
+    }
+};
 
 module.exports = {
     createNotification,
-    getUserNotifications
+    getUserNotifications,
+    deleteNotification
 }
