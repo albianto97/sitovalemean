@@ -19,13 +19,14 @@ export class NotificationListComponent {
     const currentUser = this.authService.getUserFromToken();
     if (currentUser) {
       this.notifyService.getUserNotifications(currentUser.username).subscribe(
-        (notifications: any) => { // Utilizza 'any' come tipo temporaneo per verificare i dati ricevuti
+        (notifications: any[]) => { // Ora notifications è un array
           console.log('Notifications:', notifications); // Controlla il formato dei dati ricevuti
           this.notifications = notifications;
         }
       );
     }
   }
+
 
 
 }

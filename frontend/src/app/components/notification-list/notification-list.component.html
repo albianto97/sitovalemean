@@ -4,13 +4,15 @@
   <table class="table">
     <thead>
     <tr>
+      <th scope="col">N° Ordine</th>
       <th scope="col">Messaggio</th>
-      <th scope="col">Data</th>
+      <!--<th scope="col">Data</th>-->
       <!-- Aggiungi altre colonne se necessario -->
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let notification of notifications">
+      <td>{{ notification.orderId }}</td>
       <td>{{ notification.message }}</td>
       <!--<td>{{ notification.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>-->
       <!-- Aggiungi altre colonne se necessario -->

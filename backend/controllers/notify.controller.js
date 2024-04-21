@@ -25,14 +25,15 @@ const getUserNotifications = async (req, res) => {
         const username = req.params.username;
 
         // Trova tutte le notifiche per l'utente specificato
-        const notifications = await Notify.find({ username });
+        const notifications = await Notify.find({ username }).lean();
 
-        res.status(200).json({ success: true, notifications }); // Assicurati che le notifiche siano inviate come array
+        res.status(200).json(notifications); // Invia direttamente le notifiche come array
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Errore durante il recupero delle notifiche dell\'utente' });
     }
 };
+
 
 
 
