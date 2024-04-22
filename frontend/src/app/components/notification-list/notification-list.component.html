@@ -1,5 +1,9 @@
 <div class="container">
   <h2>Queste sono le tue notifiche</h2>
+  <div class="mb-3">
+    <button class="btn btn-primary mr-2" (click)="showAll()">Mostra tutte</button>
+    <button class="btn btn-primary" (click)="showUnread()">Mostra non lette</button>
+  </div>
   <table class="table">
     <thead>
     <tr>
@@ -31,9 +35,5 @@
     </tbody>
   </table>
 
-  <mat-paginator [length]="notifications.length"
-                 [pageSize]="5"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 (page)="onPageChange($event)">
-  </mat-paginator>
+  <mat-paginator [length]="notifications.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)"></mat-paginator>
 </div>

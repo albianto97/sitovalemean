@@ -15,7 +15,7 @@ export class ChatboxComponent {
   users: ChatUser[] = [];
   displayMessages: any[] = [];
   newMessage: boolean = false;
-  showBox: boolean = true;
+  showBox: boolean = false;
   @Input() isAdmin: boolean = false;
 
   constructor(private socketService: SocketService) {
