@@ -6,12 +6,12 @@
       <th scope="col">N° Ordine</th>
       <th scope="col">Messaggio</th>
       <th scope="col">Data</th>
-      <th scope="col">Azioni</th> <!-- Aggiungi una colonna per le azioni -->
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let notification of notifications">
-      <td>{{ notification.orderId }}</td>
+    <tr *ngFor="let notification of notificationsView">
+      <td (click)="openDetail(notification.orderId)" style="cursor: pointer;">{{ notification.orderId }}</td>
       <td>{{ notification.message }}</td>
       <td>{{ notification.notifyDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
       <td>
@@ -25,4 +25,10 @@
     </tr>
     </tbody>
   </table>
+
+  <mat-paginator [length]="notifications.length"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 20]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
 </div>
