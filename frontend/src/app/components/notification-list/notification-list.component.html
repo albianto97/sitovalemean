@@ -5,6 +5,7 @@
     <tr>
       <th scope="col">N° Ordine</th>
       <th scope="col">Messaggio</th>
+      <th scope="col">Letto?</th>
       <th scope="col">Data</th>
       <th scope="col"></th>
     </tr>
@@ -13,6 +14,7 @@
     <tr *ngFor="let notification of notificationsView">
       <td (click)="openDetail(notification.orderId)" style="cursor: pointer;">{{ notification.orderId }}</td>
       <td>{{ notification.message }}</td>
+      <td>{{ notification.read }}</td>
       <td>{{ notification.notifyDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
       <td>
         <div class="d-flex justify-content-between align-items-center">

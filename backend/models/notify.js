@@ -10,6 +10,7 @@ const notificationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    read: {type: Boolean},
     orderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order',

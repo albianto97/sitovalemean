@@ -12,9 +12,9 @@ export class NotifyService {
 
   constructor(private http: HttpClient, private generalService: GeneralService) { }
 
-  saveEvaso(username: string, date: string, orderId: string, message: string): Observable<Notify> {
+  saveEvaso(username: string, date: string, orderId: string, read: boolean, message: string): Observable<Notify> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.post<Notify>(this.endPoint+'/createNotify', { username, date, message, orderId }, { headers });
+    return this.http.post<Notify>(this.endPoint+'/createNotify', { username, date, message, read, orderId }, { headers });
   }
   getUserNotifications(username: string): Observable<Notify[]> {
     const headers = this.generalService.createHeadersForAuthorization();
