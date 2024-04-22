@@ -40,6 +40,7 @@ export class NotificationListComponent {
           console.log('Notifications:', notifications); // Controlla il formato dei dati ricevuti
           this.notifications = notifications;
           this.notificationsView = this.notifications.slice(this.startIndex, this.endIndex);
+          this.filteredNotifications = this.notifications;
         }
       );
     }
@@ -92,11 +93,17 @@ export class NotificationListComponent {
     this.notificationsView = this.notifications.slice(this.startIndex, this.endIndex);
     this.filteredNotifications = this.notifications;
     this.section = true; //All
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
   }
 
   showUnread() {
     this.filteredNotifications = this.notifications.filter(notification => !notification.read);
     this.notificationsView = this.filteredNotifications.slice(this.startIndex, this.endIndex);
     this.section = false; //notRead
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
   }
 }

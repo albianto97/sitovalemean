@@ -1,9 +1,11 @@
 <div class="container">
   <h2>Queste sono le tue notifiche</h2>
-  <div class="mb-3">
-    <button class="btn btn-primary mr-2" (click)="showAll()">Mostra tutte</button>
-    <button class="btn btn-primary" (click)="showUnread()">Mostra non lette</button>
+  <div class="d-flex mb-3">
+    <mat-icon class="icon-button" (click)="showAll()">mail</mat-icon>
+    <mat-icon class="icon-button" (click)="showUnread()">markunread_mailbox</mat-icon>
   </div>
+
+
   <table class="table">
     <thead>
     <tr>
