@@ -7,5 +7,6 @@ const {verifyToken} = require("../middlewares/token");
 router.post('/createNotify',verifyToken, notificationController.createNotification);
 router.get('/:username',verifyToken, notificationController.getUserNotifications);
 router.delete('/:id', verifyToken, notificationController.deleteNotification);
+router.put('/:id', verifyToken, notificationController.updateNotification);
 
 module.exports = router;

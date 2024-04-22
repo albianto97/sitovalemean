@@ -74,4 +74,12 @@ export class NotificationListComponent {
     // Aggiorna myOrdersView con la porzione corretta degli ordini
     this.notificationsView = this.notifications.slice(this.startIndex, this.endIndex);
   }
+
+  updateReadStatus(notification: any) {
+    this.notifyService.updateNotification(notification._id, notification.read).subscribe(
+      (response) => {
+        console.log('Stato di lettura aggiornato con successo:', response);
+      }
+    );
+  }
 }

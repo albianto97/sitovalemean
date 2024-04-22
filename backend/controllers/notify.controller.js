@@ -44,21 +44,6 @@ const getUserNotifications = async (req, res) => {
         res.status(500).json({ success: false, message: 'Errore durante il recupero delle notifiche dell\'utente' });
     }
 };
-/*const deleteProduct = async (req, res) => {
-    try {
-        const productId = req.params.productId;
-        // Trova e rimuovi il prodotto dal database
-        const deletedProduct = await Product.findByIdAndRemove(productId);
-        if (deletedProduct) {
-            res.status(200).json({ message: 'Prodotto eliminato con successo' });
-        } else {
-            res.status(404).json({ message: 'Prodotto non trovato' });
-        }
-    } catch (error) {
-        console.error('Errore durante l\'eliminazione del prodotto:', error);
-        res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
-    }
-};*/
 const deleteNotification = async (req, res) => {
     try {
         const notificationId = req.params.id;
@@ -75,9 +60,33 @@ const deleteNotification = async (req, res) => {
         res.status(500).json({ message: 'Errore del server durante l\'eliminazione della notifica' });
     }
 };
+const updateNotification = async (req, res) => {
+    try {
+        const notificationId = req.params.id;
+
+        // Controlla se la notifica esiste nel database
+        const notification = await Notify.findById(notificationId);
+        if (!notification) {
+            return res.status(404).json({ success: false, message: 'Notifica non trovata' });
+        }
+
+        // Imposta lo stato di lettura della notifica
+        notification.read = req.body.read;
+
+        // Salva la notifica aggiornata nel database
+        await notification.save();
+
+        res.status(200).json({ success: true, message: 'Stato di lettura della notifica aggiornato con successo' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Errore durante l\'aggiornamento dello stato di lettura della notifica' });
+    }
+};
+
 
 module.exports = {
     createNotification,
     getUserNotifications,
-    deleteNotification
+    deleteNotification,
+    updateNotification
 }

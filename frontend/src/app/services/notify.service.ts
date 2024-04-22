@@ -24,4 +24,8 @@ export class NotifyService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.delete(`${this.endPoint}/${notificationId}`, { headers });
   }
+  updateNotification(notificationId: string, read: boolean): Observable<any> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put<any>(`${this.endPoint}/${notificationId}`, { read }, { headers });
+  }
 }
