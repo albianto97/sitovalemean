@@ -22,7 +22,6 @@
       <td>{{ notification.message }}</td>
       <td>
         <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="notification.read" (change)="updateReadStatus(notification)"></mat-checkbox>
-        {{ notification.read }}
       </td>
       <td>{{ notification.notifyDate | date:'dd/MM/yyyy HH:mm:ss' }}</td>
       <td>
