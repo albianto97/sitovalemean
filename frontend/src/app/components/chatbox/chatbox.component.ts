@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {SocketService} from "../../services/socket.service";
+import {ChatUser} from "../../models/chatUser";
 
 @Component({
   selector: 'app-chatbox',
@@ -11,8 +12,10 @@ export class ChatboxComponent {
   messages: any[] = [];
   message: string = '';
   currentUser: string = '';
-  users: string[] = [];
+  users: ChatUser[] = [];
   displayMessages: any[] = [];
+  newMessage: boolean = false;
+  showBox: boolean = true;
   @Input() isAdmin: boolean = false;
 
   constructor(private socketService: SocketService) {
@@ -37,11 +40,25 @@ export class ChatboxComponent {
   }
   socketCallback(event: any, data: any){
     if(event == 'newMessage'){
+      if(this.isAdmin){
+        if(this.users.length == 0){
+          this.currentUser = data.from;
+        }
+        if (this.users.filter(u => u.username == data.from).length == 0) {
+          this.users.push({username: data.from, newMessages: this.users.length > 0});
+        }else {
+          let user = this.users.filter(u => u.username == data.from)[0];
+          user.newMessages = data.from != this.currentUser;
+        }
+      }
+
       this.messages.push(data);
       this.filterMessages();
     }
   }
   filterMessages(){
-    this.displayMessages = this.messages.filter((m:any) => m.to == this.currentUser || m.from == this.currentUser)
+    this.displayMessages = this.messages.filter((m:any) => m.to == this.currentUser || m.from == this.currentUser);
+    this.users.filter(u => u.username == this.currentUser)[0].newMessages = false;
+    this.newMessage = this.users.filter(u => u.newMessages).length > 0; //u.newMessages ==true
   }
 }

@@ -1,10 +1,17 @@
-<div class="chatbox-main">
+<div class="chatbox-display-open" *ngIf="!showBox" (click)="showBox = true">
+  <mat-icon> chat</mat-icon>
+</div>
+<div class="chatbox-main" *ngIf="showBox">
   <div *ngIf="isAdmin" class="chatbox-user">
-    <select [(ngModel)]="currentUser">
-      <option *ngFor="let user of users" value="{{user}}">{{user}}</option>
+    <select [(ngModel)]="currentUser" (change)="filterMessages()">
+      <option *ngFor="let user of users" value="{{user.username}}">{{user.username}}<span *ngIf="user.newMessages"> (new)</span></option>
     </select>
+    <span *ngIf="this.newMessage">Nuovo messaggio</span>
   </div>
   <div class="chatbox-display">
+    <div class="chatbox-display-close" (click)="showBox = false">
+      <mat-icon>close</mat-icon>
+    </div>
     <p *ngFor="let m of displayMessages">
       <span *ngIf="m.from ==''">io: </span>
       <span *ngIf="m.from !=''"> {{m.from}}: </span>

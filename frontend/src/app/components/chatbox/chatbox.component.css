@@ -4,8 +4,10 @@
   background-color: yellow;
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   z-index: 100;
+  bottom: 10px;
+  right: 10px;
 }
 
 .chatbox-display{
@@ -26,6 +28,15 @@
 }
 .chatbox-textarea{
   width: 100%;
+}
+.chatbox-display-close {
+  position: absolute;
+  right: 10px;
+}
+.chatbox-display-open {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
 }
 
 textarea{
