@@ -30,9 +30,9 @@ export class NotifyService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.post<Notify>(this.endPoint+'/createNotify', { username, date, message, read, orderId }, { headers });
   }
-  getUserNotifications(username: string): Observable<Notify[]> {
+  getUserNotifications(id: string): Observable<Notify[]> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Notify[]>(`${this.endPoint}/${username}`, {headers});
+    return this.http.get<Notify[]>(`${this.endPoint}/${id}`, {headers});
   }
   deleteNotification(notificationId: string): Observable<any> {
     const headers = this.generalService.createHeadersForAuthorization();

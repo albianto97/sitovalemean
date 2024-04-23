@@ -33,10 +33,10 @@ const createNotification = async (req, res) => {
 
 const getUserNotifications = async (req, res) => {
     try {
-        const username = req.params.username;
+        const id = req.params.id;
 
         // Trova tutte le notifiche per l'utente specificato
-        const notifications = await Notify.find({ username }).lean();
+        const notifications = await Notify.find({ id }).lean();
 
         res.status(200).json(notifications); // Invia direttamente le notifiche come array
     } catch (error) {

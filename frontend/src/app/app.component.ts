@@ -18,6 +18,7 @@ export class AppComponent {
   unreadNotificationsCount: number = 0;
 
 
+
   constructor(private authService: AuthService, private route: Router, private socket: SocketService, private notifyService: NotifyService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
@@ -32,7 +33,9 @@ export class AppComponent {
     });
   }
 
-
+  ngOnInit(){
+    this.countUnreadNotifications();
+  }
 
   countUnreadNotifications() {
     const currentUser = this.authService.getUserFromToken();
