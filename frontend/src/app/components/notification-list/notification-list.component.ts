@@ -62,7 +62,9 @@ export class NotificationListComponent {
           }
         }
         this.loadNotify();
+        this.notifyService.notifySubscribers(); // Aggiorna il badge delle notifiche
       }
+
     );
   }
 
@@ -73,8 +75,8 @@ export class NotificationListComponent {
         if (notification.read && !this.section) {
           // La notifica è stata contrassegnata come letta, quindi ricarica solo le notifiche non lette rimanenti
           this.showUnread();
-
         }
+        this.notifyService.notifySubscribers(); // Aggiorna il badge delle notifiche
       }
     );
   }

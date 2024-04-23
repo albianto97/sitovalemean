@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
   isAdmin: boolean = false;
   constructor(private router: Router, private authService: AuthService){
     this.isAdmin = authService.isAdmin();
@@ -15,8 +15,6 @@ export class HomeComponent implements OnInit{
   ordina(){
     this.router.navigate(['/productList']);
     // va indirizzato nella lista degli articoli
-  }
-  ngOnInit(): void {
   }
 
 }
