@@ -3,6 +3,7 @@
 </div>
 
 <div class="chatbox-main" *ngIf="showBox">
+  <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
   <div *ngIf="isAdmin" class="chatbox-user">
     <select [(ngModel)]="currentUser" (change)="filterMessages()">
       <option *ngFor="let user of users" value="{{user.username}}">
@@ -14,7 +15,7 @@
 
   <div class="chatbox-display">
     <div class="chatbox-display-close" (click)="showBox = false">
-      <mat-icon color="primary">close</mat-icon>
+      <mat-icon style="color: #e74c3c">close</mat-icon>
     </div>
 
     <p *ngFor="let m of displayMessages" class="message">

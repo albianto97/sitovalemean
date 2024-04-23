@@ -9,14 +9,14 @@
   z-index: 100;
   bottom: 10px;
   right: 10px;
-  border: 1px solid #ccc;
+  border: 3px solid #007bff;
   border-radius: 5px;
 }
 
 /* Stile del display dei messaggi */
 .chatbox-display {
   flex-grow: 1;
-  background-color: #3498db;
+  background-color: #6ab0f3; /* Colore più chiaro per lo sfondo */
   padding: 10px;
   color: white;
   overflow-y: auto;
@@ -24,26 +24,26 @@
 
 /* Stile dell'area di input */
 /* Stile dell'area di input */
+/* Stile dell'area di input */
 .chatbox-input {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Posiziona gli elementi all'inizio dell'area di input */
-  align-items: flex-start; /* Posiziona gli elementi all'inizio dell'area di input */
+  flex-direction: row; /* Per posizionare gli elementi sulla stessa riga */
+  align-items: center; /* Per centrare verticalmente gli elementi */
   padding: 10px;
 }
 
 /* Stile della textarea */
 textarea {
-  width: calc(100% - 20px); /* Larghezza - padding */
+  flex: 1; /* Per far espandere la textarea quanto possibile */
   resize: none;
   padding: 10px;
-  margin-bottom: 10px; /* Margine inferiore per separare la textarea dal bottone */
+  margin-right: 10px; /* Margine a destra per separare la textarea dal bottone */
 }
 
 /* Stile del bottone di invio */
 .chatbox-button {
-  align-self: flex-end; /* Posiziona il bottone alla fine dell'area di input */
+  margin-left: auto; /* Per spingere il bottone alla fine della riga */
 }
 
 /* Stile dell'icona di chiusura */
