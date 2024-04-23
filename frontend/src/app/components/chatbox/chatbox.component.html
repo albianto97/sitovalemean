@@ -4,7 +4,7 @@
 
 <div class="chatbox-main" *ngIf="showBox">
   <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
-  <div *ngIf="isAdmin" class="chatbox-user">
+  <div *ngIf="isAdmin && messages.length != 0" class="chatbox-user">
     <select [(ngModel)]="currentUser" (change)="filterMessages()">
       <option *ngFor="let user of users" value="{{user.username}}">
         {{user.username}}
@@ -25,7 +25,7 @@
     </p>
   </div>
 
-  <div class="chatbox-input">
+  <div class="chatbox-input" *ngIf="(messages.length > 0 || (messages.length == 0 && !isAdmin))">
     <div class="chatbox-textarea">
       <textarea [(ngModel)]="message"></textarea>
     </div>

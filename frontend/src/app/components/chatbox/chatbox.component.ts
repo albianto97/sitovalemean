@@ -44,9 +44,10 @@ export class ChatboxComponent {
         if(this.users.length == 0){
           this.currentUser = data.from;
         }
-        if (this.users.filter(u => u.username == data.from).length == 0) {
+        if(data.from != "admin")
+        if (this.users.filter(u => u.username == data.from).length == 0 ) {
           this.users.push({username: data.from, newMessages: this.users.length > 0});
-        }else {
+        }else{
           let user = this.users.filter(u => u.username == data.from)[0];
           user.newMessages = data.from != this.currentUser;
         }
