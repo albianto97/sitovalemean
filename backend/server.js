@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const socketIo = require('socket.io');
 const jwt = require("jsonwebtoken");
+const {createChat} = require("./controllers/chat.controllers");
 
 const app = express();
 const server = http.createServer(app);
@@ -67,14 +68,16 @@ io.on('connection', (socket) => {
                 // Invia la notifica a tutti i client connessi
                 //io.emit('notification', data); //invia a tutti
             });
-            socket.on('messageSent', (data) =>{
+            socket.on('messageSent', async (data) => {
                 let to = data.to;
                 let userSocket = socketsByUsername[to];
-                if(userSocket) {
+                if (userSocket) {
                     data.to = '';
                     console.log(data);
                     data.from = username;
                     userSocket.emit('newMessage', data);
+                    const savedMessage = await createChat(username, to, data.message);
+                    console.log('Messaggio salvato:', savedMessage);
                 }
             });
         }
