@@ -3,6 +3,7 @@ const userRoutes = require('./routes/user.route');
 const productRoutes = require('./routes/product.route');
 const orderRoutes = require('./routes/order.route');
 const notificationRoutes = require('./routes/notify.route');
+//const chatRoute = require('./routes/chat.routes');
 const token = require('./middlewares/token');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -47,6 +48,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
 app.use('/api/notification', notificationRoutes);
+//app.use('/api/chat', chatRoute);
 app.use(token.verifyToken);
 io.on('connection', (socket) => {
     console.log('Nuova connessione socket:', socket.id);
@@ -75,8 +77,8 @@ io.on('connection', (socket) => {
                     data.to = '';
                     console.log(data);
                     data.from = username;
-                    userSocket.emit('newMessage', data);
                     const savedMessage = await createChat(username, to, data.message);
+                    userSocket.emit('newMessage', data);
                     console.log('Messaggio salvato:', savedMessage);
                 }
             });

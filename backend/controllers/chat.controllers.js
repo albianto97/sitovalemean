@@ -22,8 +22,19 @@ const createChat = async (senderUsername, receiverUsername, messageContent) => {
         console.log("ciao errore")
 
     }
-}
+};
+const getChat = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const messages = await ChatMessage.find({ $or: [{ from: userId }, { to: userId }] })
+            .populate('from', 'username')
+            .populate('to', 'username');
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 module.exports ={
-    createChat
+    createChat, getChat
 };
