@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Message = require('../models/chat');
-const Order = require("../models/order");
+
 
 const createChat = async (senderUsername, receiverUsername, messageContent) => {
     try {
@@ -23,18 +23,25 @@ const createChat = async (senderUsername, receiverUsername, messageContent) => {
 
     }
 };
-const getChat = async (req, res) => {
+
+const getChatForUser = async (req, res) => {
     try {
         const userId = req.params.userId;
-        const messages = await ChatMessage.find({ $or: [{ from: userId }, { to: userId }] })
-            .populate('from', 'username')
-            .populate('to', 'username');
+        // Trova i messaggi inviati da e verso l'utente stesso o dall'admin verso l'utente
+        const messages = await Message.find({
+            $or: [
+                { $and: [{ from: userId }, { to: '65ce873f9a6f5740c5b268ad' }] }, // Messaggi inviati da e verso l'utente stesso
+                { $and: [{ from: '65ce873f9a6f5740c5b268ad' }, { to: userId }] } // Messaggi inviati dall'admin all'utente
+            ]
+        }).populate('from', 'username')
+            .populate('to', 'username').lean();
         res.json(messages);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
+
 module.exports ={
-    createChat, getChat
+    createChat, getChatForUser
 };
