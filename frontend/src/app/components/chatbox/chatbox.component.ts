@@ -1,6 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {SocketService} from "../../services/socket.service";
 import {ChatUser} from "../../models/chatUser";
+import {AuthService} from "../../services/auth.service";
+import {ChatService} from "../../services/chat.service";
+import {ChatMessage} from "../../models/chatMessage";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-chatbox',
@@ -9,7 +13,7 @@ import {ChatUser} from "../../models/chatUser";
 })
 export class ChatboxComponent {
 
-  messages: any[] = [];
+  messages: ChatMessage[] = [];
   message: string = '';
   currentUser: string = '';
   users: ChatUser[] = [];
@@ -17,21 +21,36 @@ export class ChatboxComponent {
   newMessage: boolean = false;
   showBox: boolean = false;
   @Input() isAdmin: boolean = false;
+  private userId: any = '';
 
-  constructor(private socketService: SocketService) {
+  constructor(private socketService: SocketService, private authService: AuthService, private chatService: ChatService) {
     socketService.registerChatHandlers((event: any, data: any) =>this.socketCallback(event,data))
   }
   ngOnInit(){
     if(!this.isAdmin){
       this.currentUser = "admin";
     }
+    this.userId = this.authService.getUserFromToken();
+    //this.messages = this.chatService.getMessagesForUser(this.userId._id);
+    this.getChatForUser(this.userId._id);
+    console.log("m1: " + this.messages);
+  }
+
+  getChatForUser(userId: string) {
+    this.chatService.getMessagesForUser(userId)
+      .subscribe((messages: ChatMessage[]) => {
+        console.log("m1: " + messages);
+        this.messages = messages;
+        this.filterMessages();
+      })
   }
 
   sendMessage() {
     if(this.message) {
       console.log(this.message);
       let messageItem = {"to": this.currentUser, "message": this.message, "from": ""};
-      this.messages.push(messageItem);
+      //salva nel backend --> frontend nulla da fare
+      //this.messages.push(messageItem);
       //CONVERTIRE \n in <br>
       this.socketService.sendMessage(messageItem);
       this.filterMessages();
@@ -52,14 +71,28 @@ export class ChatboxComponent {
           user.newMessages = data.from != this.currentUser;
         }
       }
-
-      this.messages.push(data);
+      //salva nel backend --> frontend nulla da fare
+      //this.messages.push(messageItem);
       this.filterMessages();
     }
   }
-  filterMessages(){
+  filterMessages() {
+    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to == this.currentUser || m.from == this.currentUser);
+
+    if (this.users.length > 0) { // Verifichiamo che l'array degli utenti non sia vuoto
+      const currentUserObj = this.users.find(u => u.username === this.currentUser);
+      if (currentUserObj) {
+        currentUserObj.newMessages = false; // Impostiamo newMessages per l'utente corrente a false
+      }
+    }
+
+    this.newMessage = this.users.some(u => u.newMessages); // true se ci sono nuovi messaggi
+  }
+
+  /*filterMessages(){
     this.displayMessages = this.messages.filter((m:any) => m.to == this.currentUser || m.from == this.currentUser);
     this.users.filter(u => u.username == this.currentUser)[0].newMessages = false;
     this.newMessage = this.users.filter(u => u.newMessages).length > 0; //u.newMessages ==true
-  }
+    console.log("m2: " + this.messages);
+  }*/
 }
