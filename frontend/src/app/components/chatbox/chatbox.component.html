@@ -4,7 +4,7 @@
 
 <div class="chatbox-main" *ngIf="showBox">
   <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
-  <!--<div *ngIf="isAdmin && messages.length != 0" class="chatbox-user">--  deve essere cosi per togliere la possibilita ad admin di essere il primo di inviare mex -->
+
   <div *ngIf="isAdmin" class="chatbox-user">
     <select [(ngModel)]="currentUser" (change)="filterMessages()">
       <option *ngFor="let user of users" value="{{user.username}}">
@@ -20,9 +20,9 @@
     </div>
 
     <p *ngFor="let m of displayMessages" class="message">
-      <span *ngIf="m.from ==''" class="message-from">Io: </span>
-      <span *ngIf="m.from !=''" class="message-from">{{m.from}}: </span>
-      {{m.message}}
+      <span *ngIf="m.from == 'admin'" class="message-from">Io: </span>
+      <span *ngIf="m.from != 'admin'" class="message-from">{{m.from}}: </span>
+      {{m.content}}
     </p>
   </div>
 
