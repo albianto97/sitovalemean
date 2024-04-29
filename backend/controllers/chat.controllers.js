@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const Message = require('../models/chat');
-const Notify = require("../models/notify");
 
 const createChat = async (senderUsername, receiverUsername, messageContent) => {
     try {
@@ -53,12 +52,14 @@ const getChatForUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+//todo: da testare
 const deleteChat = async (req, res) => {
     try {
         const userId = req.params.id;
 
         // Elimina tutte le chat in cui l'ID corrisponde a 'from' o 'to'
-        const deletedChats = await Chat.deleteMany({
+        const deletedChats = await Message.deleteMany({
             $or: [{ from: userId }, { to: userId }]
         });
 
@@ -72,9 +73,19 @@ const deleteChat = async (req, res) => {
         res.status(500).json({ message: 'Errore del server durante l\'eliminazione delle chat' });
     }
 };
+//todo da testare
+const getChatUserOpen = async (req, res) => {
+    try {
+        const allUsernames = await Message.distinct('from.username', { $or: [{}, { to: {} }] });
+        res.status(200).json({ usernames: allUsernames });
+    } catch (error) {
+        console.error('Errore durante il recupero degli username:', error);
+        res.status(500).json({ message: 'Errore del server durante il recupero degli username' });
+    }
+};
 
 
 
 module.exports ={
-    createChat, getChatForUser, deleteChat
+    createChat, getChatForUser, deleteChat, getChatUserOpen
 };

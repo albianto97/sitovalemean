@@ -35,6 +35,14 @@ export class ChatboxComponent implements OnInit {
     }
     this.userId = this.authService.getUserFromToken();
     this.getChatForUser(this.userId._id);
+    /*this.chatService.getUserChatOpen()
+      .subscribe((usernames: any) => {
+        // Per ogni username, crea un oggetto ChatUser e aggiungilo all'array this.users
+        usernames.forEach((username: string) => {
+          const newUser = (username, false);
+          this.users.push(newUser);
+        })
+      })*/
     //console.log("message1: "+ this.messages);
   }
 

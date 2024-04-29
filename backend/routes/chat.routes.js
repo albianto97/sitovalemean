@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post('/create-chat', verifyToken, chatController.createChat);
 router.get('/messages/:userId', verifyToken, chatController.getChatForUser);
+router.get('/usersOpen', verifyToken, chatController.getChatUserOpen);
 router.delete('/messages/:userId', verifyAdminToken, chatController.deleteChat);
 
 module.exports = router;

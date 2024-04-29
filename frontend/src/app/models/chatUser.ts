@@ -1,11 +1,11 @@
 export class ChatUser{
   username: string;
   newMessages: boolean;
-  date?: Date;
+  //date?: Date;
 
-  constructor( username: string, newMessages: boolean, date: Date) {
-    this.newMessages = newMessages;
+  constructor( username: string, newMessages: boolean) {
     this.username = username;
-    this.date = date;
+    this.newMessages = newMessages;
+    //this.date = date;
   }
 }
