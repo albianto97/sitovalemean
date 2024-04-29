@@ -13,6 +13,8 @@ import { Observable } from "rxjs";
 })
 export class ChatboxComponent implements OnInit {
 
+  sender: any;
+  receiver: any;
   messages: ChatMessage[] = [];
   message: string = '';
   currentUser: string = '';
@@ -33,26 +35,36 @@ export class ChatboxComponent implements OnInit {
     }
     this.userId = this.authService.getUserFromToken();
     this.getChatForUser(this.userId._id);
-    console.log("message1: "+ this.messages);
+    //console.log("message1: "+ this.messages);
   }
 
   getChatForUser(userId: string) {
     this.chatService.getMessagesForUser(userId)
-      .subscribe((messages: ChatMessage[]) => {
-        console.log("message: "+ messages);
-        this.messages = messages;
+      .subscribe((chat: any) => {
+        console.log("message: "+ chat);
+        this.sender = chat.sender;
+        this.receiver = chat.receiver;
+        this.messages = chat.messages;
         this.filterMessages();
       })
   }
 
   sendMessage() {
     if (this.message) {
-      let messageItem: ChatMessage = { to: this.currentUser, content: this.message, from: "" };
+      let messageItem: { from: string; to: string; content: string } = { to: this.currentUser, content: this.message, from: "" };
       this.socketService.sendMessage(messageItem);
+      let chatMessage: ChatMessage = {
+        from: this.sender,
+        to: this.receiver,
+        content: this.message
+      }
+      this.messages.push(chatMessage);
       this.filterMessages();
       this.message = '';
     }
   }
+
+  //cercare in this.receriver il current user asseganre a 58
 
   socketCallback(event: any, data: any) {
     if (event == 'newMessage') {
@@ -74,17 +86,15 @@ export class ChatboxComponent implements OnInit {
   }
 
   filterMessages() {
-    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to == this.currentUser || m.from == this.currentUser);
+    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser);
 
     if (this.users.length > 0) {
-      const currentUserObj = this.users.find(u => u.username === this.currentUser);
-      if (currentUserObj) {
-        currentUserObj.newMessages = false;
+      const currentUser = this.users.find(u => u.username === this.currentUser);
+      if (currentUser) {
+        currentUser.newMessages = false;
       }
     }
 
     this.newMessage = this.users.some(u => u.newMessages);
-    console.log("message2: "+ this.messages);
   }
-
 }

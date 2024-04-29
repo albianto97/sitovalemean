@@ -16,12 +16,14 @@ export class AppComponent {
   user: any;
   isAdmin: boolean = false;
   unreadNotificationsCount: number = 0;
+  showChatbox: boolean = false;
 
 
 
   constructor(private authService: AuthService, private route: Router, private socket: SocketService, private notifyService: NotifyService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
+        this.showChatbox = !this.route.url.endsWith("/login");
         this.user = authService.getUserFromToken();
         if (this.user)
           this.isAdmin = this.user.role == "amministratore";
@@ -31,6 +33,7 @@ export class AppComponent {
     this.notifyService.modify.subscribe(() => {
       this.countUnreadNotifications(); // Aggiorna il badge ogni volta che una notifica viene modificata
     });
+
   }
 
   ngOnInit(){

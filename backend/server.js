@@ -77,8 +77,8 @@ io.on('connection', (socket) => {
                     data.to = '';
                     console.log(data);
                     data.from = username;
-                    const savedMessage = await createChat(username, to, data.message);
                     userSocket.emit('newMessage', data);
+                    const savedMessage = await createChat(username, to, data.content);
                     console.log('Messaggio salvato:', savedMessage);
                 }
             });
