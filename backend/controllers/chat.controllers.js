@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Message = require('../models/chat');
+const Notify = require("../models/notify");
 
 const createChat = async (senderUsername, receiverUsername, messageContent) => {
     try {
@@ -52,8 +53,28 @@ const getChatForUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+const deleteChat = async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        // Elimina tutte le chat in cui l'ID corrisponde a 'from' o 'to'
+        const deletedChats = await Chat.deleteMany({
+            $or: [{ from: userId }, { to: userId }]
+        });
+
+        if (deletedChats.deletedCount > 0) {
+            res.status(200).json({ message: 'Chat eliminate con successo' });
+        } else {
+            res.status(404).json({ message: 'Nessuna chat trovata' });
+        }
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione delle chat:', error);
+        res.status(500).json({ message: 'Errore del server durante l\'eliminazione delle chat' });
+    }
+};
+
 
 
 module.exports ={
-    createChat, getChatForUser
+    createChat, getChatForUser, deleteChat
 };

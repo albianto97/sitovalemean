@@ -23,7 +23,7 @@ export class ChatboxComponent implements OnInit {
   newMessage: boolean = false;
   showBox: boolean = false;
   @Input() isAdmin: boolean = false;
-  private userId: any = '';
+  userId: any = '';
 
   constructor(private socketService: SocketService, private authService: AuthService, private chatService: ChatService) {
     socketService.registerChatHandlers((event: any, data: any) => this.socketCallback(event, data))
@@ -55,7 +55,7 @@ export class ChatboxComponent implements OnInit {
       this.socketService.sendMessage(messageItem);
       let chatMessage: ChatMessage = {
         from: this.sender,
-        to: this.receiver,
+        to: this.receiver[0],
         content: this.message
       }
       this.messages.push(chatMessage);
@@ -96,5 +96,18 @@ export class ChatboxComponent implements OnInit {
     }
 
     this.newMessage = this.users.some(u => u.newMessages);
+  }
+
+  deleteMessage() {
+    let deleteId;
+    if(this.userId == this.sender.id)
+      deleteId = this.receiver.id;
+    else
+      deleteId = this.sender.id;
+    this.chatService.deleteMessage(deleteId)
+      .subscribe(() => {
+        // Ricarica i messaggi mostrati
+        this.filterMessages();
+      });
   }
 }

@@ -33,6 +33,7 @@
 
     <div class="chatbox-button">
       <button mat-raised-button color="primary" (click)="sendMessage()">Invia</button>
+      <button mat-raised-button color="warn" *ngIf="isAdmin" (click)="deleteMessage()">Elimina</button>
     </div>
   </div>
 </div>

@@ -17,4 +17,9 @@ export class ChatService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<ChatMessage[]>(`${this.endPoint}/messages/${userId}`, {headers});
   }
+
+  deleteMessage(userId: string): Observable<any> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.delete(`${this.endPoint}/messages/${userId}`, {headers});
+  }
 }
