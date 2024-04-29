@@ -55,13 +55,17 @@ export class ChatboxComponent implements OnInit {
       this.socketService.sendMessage(messageItem);
       let chatMessage: ChatMessage = {
         from: this.sender,
-        to: this.receiver[0],
+        to: this.findCurrent(),
         content: this.message
       }
       this.messages.push(chatMessage);
       this.filterMessages();
       this.message = '';
     }
+  }
+
+  findCurrent() {
+    return this.receiver.find((r:any) => r.username === this.currentUser);
   }
 
   //cercare in this.receriver il current user asseganre a 58
