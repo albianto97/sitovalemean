@@ -21,7 +21,7 @@
 
     <p *ngFor="let m of displayMessages" class="message">
       <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
-      <span *ngIf="m.from.username == this.receiver.username" class="message-from">{{m.from.username}}: </span>
+      <span *ngIf="this.receiver[0].username == m.from.username" class="message-from">{{m.from.username}}: </span>
       {{m.content}}
     </p>
   </div>

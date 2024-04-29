@@ -99,15 +99,25 @@ export class ChatboxComponent implements OnInit {
   }
 
   deleteMessage() {
-    let deleteId;
-    if(this.userId == this.sender.id)
-      deleteId = this.receiver.id;
-    else
-      deleteId = this.sender.id;
-    this.chatService.deleteMessage(deleteId)
-      .subscribe(() => {
-        // Ricarica i messaggi mostrati
-        this.filterMessages();
-      });
+    let deleteId: string | undefined;
+    if (this.sender && this.receiver) {
+      if (this.userId === this.sender._id)
+        deleteId = this.receiver._id;
+      else
+        deleteId = this.sender._id;
+
+      if (deleteId) {
+        this.chatService.deleteMessage(deleteId)
+          .subscribe(() => {
+            // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
+            this.filterMessages();
+          });
+      } else {
+        console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
+      }
+    } else {
+      console.error('Messaggio non definito correttamente');
+    }
   }
+
 }
