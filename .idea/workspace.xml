@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="TODO file">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="noAdmin" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="2XVGDLsf4pgDWryGB5cmrzvujsu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="" />
+      <created>1698706713908</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698706713908</updated>
+      <workItem from="1698706715543" duration="271000" />
+      <workItem from="1699474712287" duration="3361000" />
+      <workItem from="1699478228623" duration="3923000" />
+      <workItem from="1699891081234" duration="5169000" />
+      <workItem from="1700166602515" duration="155000" />
+      <workItem from="1700838883509" duration="8216000" />
+      <workItem from="1701095603752" duration="6829000" />
+      <workItem from="1701181897707" duration="4502000" />
+      <workItem from="1701444738762" duration="1592000" />
+      <workItem from="1701532102353" duration="1669000" />
+      <workItem from="1701703924233" duration="2639000" />
+      <workItem from="1702479147147" duration="2481000" />
+      <workItem from="1702481673947" duration="139000" />
+      <workItem from="1702481838028" duration="87000" />
+      <workItem from="1702481947023" duration="43000" />
+      <workItem from="1702482016951" duration="126000" />
+      <workItem from="1702482174559" duration="87000" />
+      <workItem from="1702482285693" duration="291000" />
+      <workItem from="1708711406718" duration="173000" />
+    </task>
+    <task id="LOCAL-00001" summary="GetSingle User">
+      <created>1699475738481</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699475738481</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add Product call">
+      <created>1699478375855</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699478375855</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Models Frontend Product">
+      <created>1699478755832</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699478755832</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Product Service with createProduct">
+      <created>1699479091278</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1699479091278</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Pagina Base">
+      <created>1699481166739</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1699481166739</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Stampa lista utenti non funziona">
+      <created>1699482111681</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699482111681</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Stampa lista utenti non funziona">
+      <created>1699482141554</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699482141554</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Components Profile">
+      <created>1699891890633</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1699891890633</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Delete components profiile, create a new branch for this">
+      <created>1699892253064</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1699892253064</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Profilo, stampa solo un elemento">
+      <created>1699894868715</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1699894868715</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Profilo, stampa solo un elemento">
+      <created>1699895038396</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699895038396</updated>
+    </task>
+    <task id="LOCAL-00012" summary="TODO COMMIT (precedente nome sbagliato)">
+      <created>1699895092493</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1699895092493</updated>
+    </task>
+    <task id="LOCAL-00013" summary="TODO COMMIT">
+      <created>1699896452187</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1699896452187</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Commit merge">
+      <created>1700839550176</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1700839550176</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Non dovrebbe far aggiungere 2 utenti con lo stesso nome ed email. --&gt; mostra errore in console browser">
+      <created>1700844115024</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1700844115024</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Componente creazione prodotto">
+      <created>1700844538800</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1700844538800</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Da testare l'inserimento del prodotto">
+      <created>1700847106931</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1700847106931</updated>
+    </task>
+    <task id="LOCAL-00018" summary="testare inserimento prodotti, e creare bottone di inserimento">
+      <created>1700847197111</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1700847197111</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Creazione prodotto">
+      <created>1701097589124</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1701097589124</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Da testare">
+      <created>1701100181230</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1701100181230</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Da testare">
+      <created>1701100208455</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1701100208455</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Rebase Profile eliminando branch non funzionante">
+      <created>1701100490854</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1701100490854</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Single product">
+      <created>1701100888593</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1701100888593</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Rotta frontend">
+      <created>1701101062124</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1701101062124</updated>
+    </task>
+    <task id="LOCAL-00025" summary="delete commento">
+      <created>1701101121501</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1701101121501</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Non funziona il passaggio di iD">
+      <created>1701102444060</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1701102444061</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Commit files">
+      <created>1701102454654</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1701102454654</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Single product">
+      <created>1701183478219</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1701183478219</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Errori">
+      <created>1701707073932</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1701707073932</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Remove files">
+      <created>1702480693735</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1702480693735</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Remove files">
+      <created>1702480755431</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1702480755431</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Remove files">
+      <created>1702480811401</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1702480811401</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Remove files">
+      <created>1702480863659</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1702480863659</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Remove files create order">
+      <created>1702481164654</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1702481164654</updated>
+    </task>
+    <task id="LOCAL-00035" summary="TODO file">
+      <created>1702482463600</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1702482463600</updated>
+    </task>
+    <task id="LOCAL-00036" summary="TODO file">
+      <created>1702482498368</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1702482498368</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Pagina Base" />
+    <MESSAGE value="Stampa lista utenti non funziona" />
+    <MESSAGE value="Components Profile" />
+    <MESSAGE value="Delete components profiile, create a new branch for this" />
+    <MESSAGE value="Profilo, stampa solo un elemento" />
+    <MESSAGE value="TODO COMMIT (precedente nome sbagliato)" />
+    <MESSAGE value="TODO COMMIT" />
+    <MESSAGE value="Commit merge" />
+    <MESSAGE value="Non dovrebbe far aggiungere 2 utenti con lo stesso nome ed email. --&gt; mostra errore in console browser" />
+    <MESSAGE value="Componente creazione prodotto" />
+    <MESSAGE value="Da testare l'inserimento del prodotto" />
+    <MESSAGE value="testare inserimento prodotti, e creare bottone di inserimento" />
+    <MESSAGE value="Creazione prodotto" />
+    <MESSAGE value="Da testare" />
+    <MESSAGE value="Rebase Profile eliminando branch non funzionante" />
+    <MESSAGE value="Rotta frontend" />
+    <MESSAGE value="delete commento" />
+    <MESSAGE value="Non funziona il passaggio di iD" />
+    <MESSAGE value="Commit files" />
+    <MESSAGE value="Single product" />
+    <MESSAGE value="Errori" />
+    <MESSAGE value="user controller update" />
+    <MESSAGE value="Remove files" />
+    <MESSAGE value="Remove files create order" />
+    <MESSAGE value="TODO file" />
+    <option name="LAST_COMMIT_MESSAGE" value="TODO file" />
+  </component>
+</project>
