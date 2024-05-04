@@ -79,8 +79,6 @@ export class ChatboxComponent implements OnInit {
     return this.receiver.find((r:any) => r.username === this.currentUser);
   }
 
-  //cercare in this.receriver il current user asseganre a 58
-
   socketCallback(event: any, data: any) {
     if (event == 'newMessage') {
       if (this.isAdmin) {
@@ -117,14 +115,15 @@ export class ChatboxComponent implements OnInit {
   deleteMessage() {
     let deleteId: string | undefined;
     if (this.receiver) {
-      console.log("-----------------------------")
       deleteId = this.receiver[0]._id;
       if (deleteId) {
         this.chatService.deleteMessage(deleteId)
           .subscribe(() => {
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
             this.filterMessages();
-            this.users = this.users.filter(user => user.username !== this.receiver[0]);
+            //eliminare dalla lista degli utenti attivi
+            this.users = this.users.filter(user => user.username !== this.receiver[0].username);
+            //mostra nessun utente nel filtro
             this.currentUser = '';
           });
       } else {
