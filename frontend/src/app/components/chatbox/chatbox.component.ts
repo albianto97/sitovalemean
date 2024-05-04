@@ -105,6 +105,7 @@ export class ChatboxComponent implements OnInit {
     if (this.users.length > 0) {
       const currentUser = this.users.find(u => u.username === this.currentUser);
       if (currentUser) {
+        console.log(this.currentUser + " utente corrente");
         currentUser.newMessages = false;
       }
     }
