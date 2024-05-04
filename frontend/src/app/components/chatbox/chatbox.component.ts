@@ -128,7 +128,8 @@ export class ChatboxComponent implements OnInit {
           .subscribe(() => {
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
             this.filterMessages();
-            this.chatService.getUserChatOpen();
+            this.users = this.users.filter(user => user.username !== this.receiver[0]);
+            this.currentUser = '';
           });
       } else {
         console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
