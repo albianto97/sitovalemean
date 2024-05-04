@@ -43,10 +43,6 @@ export class ChatboxComponent implements OnInit {
           AllUsername.allUsernames.forEach((username: string) => {
             this.users.push({ username: username, newMessages: false });
           });
-          /*Object.keys(usernames).forEach((key: string) => {
-            // Aggiungi ogni username come oggetto ChatUser all'array this.users
-            this.users.push({ username: usernames[key], newMessages: false });
-          });*/
         });
     }
 
