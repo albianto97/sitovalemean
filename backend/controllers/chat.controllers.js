@@ -56,7 +56,7 @@ const getChatForUser = async (req, res) => {
 //todo: da testare
 const deleteChat = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.params.userId;
 
         // Elimina tutte le chat in cui l'ID corrisponde a 'from' o 'to'
         const deletedChats = await Message.deleteMany({

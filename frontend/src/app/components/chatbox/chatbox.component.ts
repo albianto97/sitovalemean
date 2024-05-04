@@ -49,7 +49,6 @@ export class ChatboxComponent implements OnInit {
   getChatForUser(userId: string) {
     this.chatService.getMessagesForUser(userId)
       .subscribe((chat: any) => {
-        console.log("message: "+ chat);
         this.sender = chat.sender;
         this.receiver = chat.receiver;
         this.messages = chat.messages;
@@ -98,6 +97,7 @@ export class ChatboxComponent implements OnInit {
   }
 
   filterMessages() {
+    this.getChatForUser(this.userId._id)
     this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser);
 
     if (this.users.length > 0) {
@@ -112,12 +112,9 @@ export class ChatboxComponent implements OnInit {
 
   deleteMessage() {
     let deleteId: string | undefined;
-    if (this.sender && this.receiver) {
-      if (this.userId === this.sender._id)
-        deleteId = this.receiver._id;
-      else
-        deleteId = this.sender._id;
-
+    if (this.receiver) {
+      console.log("-----------------------------")
+      deleteId = this.receiver[0]._id;
       if (deleteId) {
         this.chatService.deleteMessage(deleteId)
           .subscribe(() => {
