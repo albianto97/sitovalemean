@@ -1,5 +1,6 @@
-const User = require('../models/user');
 const Message = require('../models/chat');
+const User = require("../models/user");
+
 
 const createChat = async (senderUsername, receiverUsername, messageContent) => {
     try {
@@ -76,8 +77,15 @@ const deleteChat = async (req, res) => {
 //todo da testare
 const getChatUserOpen = async (req, res) => {
     try {
-        const allUsernames = await Message.distinct('from.username', { $or: [{}, { to: {} }] });
-        res.status(200).json({ usernames: allUsernames });
+        let allUsernames = [];
+        const allIds = await Message.distinct('from');
+        for (let id of allIds) {
+            const user = await User.findById(id);
+            if (user) {
+                allUsernames.push(user.username);
+            }
+        }
+        res.status(200).json({ allUsernames });
     } catch (error) {
         console.error('Errore durante il recupero degli username:', error);
         res.status(500).json({ message: 'Errore del server durante il recupero degli username' });

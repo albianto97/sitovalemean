@@ -24,7 +24,7 @@ export class ChatService {
     return this.http.delete(`${this.endPoint}/messages/${userId}`, {headers});
   }
 
-  getUserChatOpen() {
+  getUserChatOpen(): Observable<ChatUser[]> {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<ChatUser[]>(`${this.endPoint}/usersOpen`, {headers});
   }

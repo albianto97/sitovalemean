@@ -35,14 +35,22 @@ export class ChatboxComponent implements OnInit {
     }
     this.userId = this.authService.getUserFromToken();
     this.getChatForUser(this.userId._id);
-    /*this.chatService.getUserChatOpen()
-      .subscribe((usernames: any) => {
-        // Per ogni username, crea un oggetto ChatUser e aggiungilo all'array this.users
-        usernames.forEach((username: string) => {
-          const newUser = (username, false);
-          this.users.push(newUser);
-        })
-      })*/
+    if (this.isAdmin) {
+      this.chatService.getUserChatOpen()
+        .subscribe((AllUsername: any) => {
+          console.log(AllUsername);
+          // Per ogni username, crea un oggetto ChatUser e aggiungilo all'array this.users
+          AllUsername.allUsernames.forEach((username: string) => {
+            this.users.push({ username: username, newMessages: false });
+          });
+          /*Object.keys(usernames).forEach((key: string) => {
+            // Aggiungi ogni username come oggetto ChatUser all'array this.users
+            this.users.push({ username: usernames[key], newMessages: false });
+          });*/
+        });
+    }
+
+
     //console.log("message1: "+ this.messages);
   }
 
@@ -120,6 +128,7 @@ export class ChatboxComponent implements OnInit {
           .subscribe(() => {
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
             this.filterMessages();
+            this.chatService.getUserChatOpen();
           });
       } else {
         console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
