@@ -35,16 +35,7 @@ export class ChatboxComponent implements OnInit {
     }
     this.userId = this.authService.getUserFromToken();
     this.getChatForUser(this.userId._id);
-    if (this.isAdmin) {
-      this.chatService.getUserChatOpen()
-        .subscribe((AllUsername: any) => {
-          console.log(AllUsername);
-          // Per ogni username, crea un oggetto ChatUser e aggiungilo all'array this.users
-          AllUsername.allUsernames.forEach((username: string) => {
-            this.users.push({ username: username, newMessages: false });
-          });
-        });
-    }
+
   }
 
   getChatForUser(userId: string) {
@@ -53,6 +44,9 @@ export class ChatboxComponent implements OnInit {
         this.sender = chat.sender;
         this.receiver = chat.receiver;
         this.messages = chat.messages;
+        this.users= this.receiver.map((r: any) => Object.assign({}, { username: r.username, newMessages: false }))
+        if(this.users.length > 0)
+          this.currentUser = this.users[0].username;
         this.filterMessages();
       })
   }
@@ -60,7 +54,7 @@ export class ChatboxComponent implements OnInit {
   sendMessage() {
     if (this.message) {
       let messageItem: { from: string; to: string; content: string } = { to: this.currentUser, content: this.message, from: "" };
-      //this.socketService.sendMessage(messageItem); --> socket
+      this.socketService.sendMessage(messageItem);
       let chatMessage: ChatMessage = {
         from: this.sender,
         to: this.findCurrent(),
@@ -78,25 +72,29 @@ export class ChatboxComponent implements OnInit {
 
   socketCallback(event: any, data: any) {
     if (event == 'newMessage') {
-      if (this.isAdmin) {
+      //if (this.isAdmin) {
         if (this.users.length == 0) {
-          this.currentUser = data.from;
+          this.currentUser = data.from.username;
         }
-        if (data.from != "admin" && !this.users.some(u => u.username === data.from)) {
-          this.users.push({ username: data.from, newMessages: this.users.length > 0 });
+        if (!this.users.some(u => u.username === data.from.username)) {
+          this.users.push({ username: data.from.username, newMessages: this.users.length > 0 });
         } else {
-          let user = this.users.find(u => u.username === data.from);
+          let user = this.users.find(u => u.username === data.from.username);
           if (user) {
-            user.newMessages = data.from != this.currentUser;
+            user.newMessages = data.from.username != this.currentUser;
           }
         }
-      }
+      //}
+        this.messages.push(data);
+        console.log(this.messages);
+        this.filterMessages();
+    }else if(event == 'chatDeleted'){
+      this.messages = [];
       this.filterMessages();
     }
   }
 
   filterMessages() {
-    this.getChatForUser(this.userId._id)
     this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser);
 
     if (this.users.length > 0) {
@@ -111,25 +109,22 @@ export class ChatboxComponent implements OnInit {
   }
 
   deleteMessage() {
-    let deleteId: string | undefined;
-    if (this.receiver) {
-      deleteId = this.receiver[0]._id;
-      if (deleteId) {
-        this.chatService.deleteMessage(deleteId)
+    let deleteUsername: string  = this.currentUser;
+    /*if (this.receiver) {
+      deleteId = this.receiver[0]._id;*/
+      if (deleteUsername) {
+        this.chatService.deleteMessage(deleteUsername)
           .subscribe(() => {
-            // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
-            this.filterMessages();
             //eliminare dalla lista degli utenti attivi
-            this.users = this.users.filter(user => user.username !== this.receiver[0].username);
+            this.users = this.users.filter(user => user.username !== deleteUsername);
             // Trova il primo utente nell'array this.users
             const firstUser = this.users.find(() => true);
             // Assegna il nome utente corrispondente o '' se non trovato
             this.currentUser = firstUser ? firstUser.username : '';
+            // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
+            this.filterMessages();
 
           });
-      } else {
-        console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
-      }
     } else {
       console.error('Messaggio non definito correttamente');
     }

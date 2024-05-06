@@ -57,14 +57,17 @@ const getChatForUser = async (req, res) => {
 //todo: da testare
 const deleteChat = async (req, res) => {
     try {
-        const userId = req.params.userId;
-
+        const username = req.params.username;
+        const user = await User.findOne({"username" : username}).lean();
+        const userId = user._id;
         // Elimina tutte le chat in cui l'ID corrisponde a 'from' o 'to'
         const deletedChats = await Message.deleteMany({
             $or: [{ from: userId }, { to: userId }]
         });
 
         if (deletedChats.deletedCount > 0) {
+            let socket = req.socketsByUsername[username];
+            socket.emit("chatDeleted" , {});
             res.status(200).json({ message: 'Chat eliminate con successo' });
         } else {
             res.status(404).json({ message: 'Nessuna chat trovata' });

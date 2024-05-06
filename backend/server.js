@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     req.socketServer = io;
+    req.socketsByUsername = socketsByUsername;
     next();
 });
 
@@ -74,9 +75,9 @@ io.on('connection', (socket) => {
                 let to = data.to;
                 let userSocket = socketsByUsername[to];
                 if (userSocket) {
-                    data.to = '';
+                    data.to = {"username" : to};
                     console.log(data);
-                    data.from = username;
+                    data.from = {"username" : username};
                     userSocket.emit('newMessage', data);
                     const savedMessage = await createChat(username, to, data.content);
                     console.log('Messaggio salvato:', savedMessage);
