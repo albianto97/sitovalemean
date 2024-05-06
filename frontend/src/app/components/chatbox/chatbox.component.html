@@ -1,5 +1,6 @@
 <div class="chatbox-display-open" *ngIf="!showBox" (click)="showBox = true">
-  <mat-icon color="primary">chat</mat-icon>
+  <mat-icon [style.color]="newMessage ? 'red' : 'primary'">chat</mat-icon>
+
 </div>
 
 <div class="chatbox-main" *ngIf="showBox">
@@ -26,7 +27,7 @@
     </p>
   </div>
   <!-- *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))"-- bloocare admin che parli per primo -->
-  <div class="chatbox-input">
+  <div *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))" class="chatbox-input">
     <div class="chatbox-textarea">
       <textarea [(ngModel)]="message"></textarea>
     </div>

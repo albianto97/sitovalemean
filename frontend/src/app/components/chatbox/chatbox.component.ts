@@ -45,9 +45,6 @@ export class ChatboxComponent implements OnInit {
           });
         });
     }
-
-
-    //console.log("message1: "+ this.messages);
   }
 
   getChatForUser(userId: string) {
@@ -63,7 +60,7 @@ export class ChatboxComponent implements OnInit {
   sendMessage() {
     if (this.message) {
       let messageItem: { from: string; to: string; content: string } = { to: this.currentUser, content: this.message, from: "" };
-      this.socketService.sendMessage(messageItem);
+      //this.socketService.sendMessage(messageItem); --> socket
       let chatMessage: ChatMessage = {
         from: this.sender,
         to: this.findCurrent(),
@@ -124,8 +121,11 @@ export class ChatboxComponent implements OnInit {
             this.filterMessages();
             //eliminare dalla lista degli utenti attivi
             this.users = this.users.filter(user => user.username !== this.receiver[0].username);
-            //mostra nessun utente nel filtro
-            this.currentUser = '';
+            // Trova il primo utente nell'array this.users
+            const firstUser = this.users.find(() => true);
+            // Assegna il nome utente corrispondente o '' se non trovato
+            this.currentUser = firstUser ? firstUser.username : '';
+
           });
       } else {
         console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');

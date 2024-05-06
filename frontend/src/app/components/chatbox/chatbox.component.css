@@ -60,6 +60,7 @@ textarea {
   right: 10px;
   bottom: 10px;
   cursor: pointer;
+  z-index: 999;
 }
 
 /* Stile del testo per le nuove notifiche */
