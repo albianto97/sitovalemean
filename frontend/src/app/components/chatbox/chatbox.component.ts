@@ -34,7 +34,6 @@ export class ChatboxComponent implements OnInit {
     }
     this.userId = this.authService.getUserFromToken();
     this.getChatForUser(this.userId._id);
-
   }
 
   getChatForUser(userId: string) {
@@ -121,11 +120,13 @@ export class ChatboxComponent implements OnInit {
             // Assegna il nome utente corrispondente o '' se non trovato
             this.currentUser = firstUser ? firstUser.username : '';
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
-            this.filterMessages();
+            //this.messages = []; //ripetuto forse
+            //this.filterMessages(); //commentanto io
+
 
           });
     } else {
-      console.error('Messaggio non definito correttamente');
+        console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
     }
   }
 
