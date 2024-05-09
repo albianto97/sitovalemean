@@ -38,6 +38,7 @@ import { OrderComponent } from './components/order/order.component';
 import { ListOrderComponent } from './components/order/list-order/list-order.component';
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     OrderComponent,
     ListOrderComponent,
     OrderDetailsComponent,
-    LogoutComponent
+    LogoutComponent,
+    OrderedProductComponent
   ],
   imports: [
     BrowserModule,

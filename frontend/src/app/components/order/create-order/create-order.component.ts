@@ -34,16 +34,16 @@ export class CreateOrderComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogAlertComponent, {
       data: {
         titolo: 'Conferma Ordine',
-        descrizione:'Stai per inoltrare l\'ordine. Vuoi confermare l\'ordine?',
-        btn1:'Conferma Ordine',
-        btn2:'Annulla'
+        descrizione: 'Stai per inoltrare l\'ordine. Vuoi confermare l\'ordine?',
+        btn1: 'Conferma Ordine',
+        btn2: 'Annulla'
       },
     });
 
     dialogRef.afterClosed().subscribe(result => {
-     if(result){
-      this.creaOrdine();
-     }
+      if (result) {
+        this.creaOrdine();
+      }
     });
   }
 
@@ -88,6 +88,8 @@ export class CreateOrderComponent implements OnInit {
     if (this.user) {
       const order = {
         creationDate: new Date(),
+        closingDate: null,
+        shippingDate: null,
         status: 'inAttesa',
         note: this.note,
         orderType: this.selectedOrderType,

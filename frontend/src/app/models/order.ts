@@ -32,15 +32,13 @@ export class Order {
     orderType?: OrderType;
     products: Product[];
     user: string;
-    productsCount?: number;
-    username?: string;
 
-    constructor(creationDate: Date, status: Status, products: Product[], user: string, productsCount: number, username: string) {
+    constructor(creationDate: Date, status: Status, products: Product[], user: string, closingDate: Date, shippingDate: Date) {
         this.creationDate = creationDate;
         this.status = status;
         this.products = products;
         this.user = user;
-        this.productsCount = productsCount;
-        this.username = username;
+        this.closingDate = closingDate;
+        this.shippingDate = shippingDate;
     }
 }

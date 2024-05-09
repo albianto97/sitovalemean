@@ -7,7 +7,7 @@
     <button *ngIf="this.isAdmin" mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
     <button *ngIf="!this.isAdmin" mat-button color="primary" routerLink="profilo">Profilo</button>
   </div>
-    <app-logout *ngIf="this.user && this.isAdmin"></app-logout>
+    <app-logout *ngIf="this.user || this.isAdmin"></app-logout>
   </mat-toolbar>
 </div>
 <!-- Router Outlet -->

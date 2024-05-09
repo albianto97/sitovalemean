@@ -15,5 +15,7 @@ router.get('/getOrdersFromUser', verifyToken, orderController.getOrdersFromUser)
 router.get('/searchOrdersByUsername',verifyAdminToken, orderController.searchOrdersByUsername);
 
 router.get('/:orderId', verifyToken, orderController.getOrder);
+// Rotta per aggiornare un ordine
+router.put('/update', verifyToken, orderController.updateOrder);
 
 module.exports = router;

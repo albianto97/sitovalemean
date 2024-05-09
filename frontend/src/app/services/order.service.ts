@@ -48,4 +48,11 @@ export class OrderService {
     return this.http.get<Order>(this.endPoint+'/'+ orderId, {headers});
   }
 
+  updateOrder(order:Order){
+    console.log(order);
+    
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put(this.endPoint + '/update', order, {headers});
+  }
+
 }

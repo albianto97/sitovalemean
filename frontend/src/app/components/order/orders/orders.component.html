@@ -1,1 +1,61 @@
-<app-list-order [orders]="orders"></app-list-order>
+<div class="container-xl">
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Filtri
+            </mat-panel-title>
+            <mat-panel-description>
+                Apri il panel per cercare un ordine
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h2>Ricerca gli ordini di un utente specifico</h2>
+        <div class="d-flex justify-content-around">
+
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <mat-select [(ngModel)]="userIdSearch">
+                    <mat-option *ngFor="let username of utentiUsername" [value]="username.key">
+                        {{username.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <mat-select [(ngModel)]="userIdSearch">
+                    <mat-option *ngFor="let email of utentiEmail" [value]="email.key">
+                        {{email.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <hr>
+        <h2>Trova un ordine in base al suo numero</h2>
+        <form>
+            <mat-form-field class="w-50">
+              <mat-label>Number</mat-label>
+              <input type="text"
+                     placeholder="Id Ordine"
+                     matInput
+                     [formControl]="idOrderToSearch"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        <hr>    
+        <button mat-raised-button color="primary" (click)="filterOrder()">Filtra</button>
+    </mat-expansion-panel>
+</div>
+<app-list-order [orders]="orderToShow"></app-list-order>
+<mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="ordersFiltered.length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]=" pageSizeOptions"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+</mat-paginator>

@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 const getAllOrders = async (req, res) => {
     // Logica per ottenere ordini
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ creationDate: -1 });
     console.log(orders);
     res.json(orders);
 
@@ -133,6 +133,35 @@ const createOrder = async (req, res) => {
         res.status(400).send(e);
     }
 }
+// aggiornamento dell'ordine
+const updateOrder = async (req, res) => {
+    try {
+        console.log( req.body)
+        const orderId = req.body._id; // Ottieni l'ID dell'ordine dalla richiesta
+
+        // Controlla se l'ordine esiste nel database
+        const existingOrder = await Order.findById(orderId);
+        if (!existingOrder) {
+            return res.status(404).json({ msg: "Ordine non trovato" });
+        }
+
+        // Aggiorna l'ordine nel database
+        const updatedOrder = await Order.findByIdAndUpdate(orderId, req.body, { new: true });
+
+        // Controlla se l'aggiornamento è avvenuto con successo
+        if (!updatedOrder) {
+            return res.status(400).json({ msg: "Impossibile aggiornare l'ordine" });
+        }
+
+        // Se l'aggiornamento è avvenuto con successo, rispondi con l'ordine aggiornato
+        res.json({ msg: "Ordine aggiornato con successo", order: updatedOrder });
+    } catch (error) {
+        // Gestisci eventuali errori
+        console.error("Errore nell'aggiornamento dell'ordine:", error);
+        res.status(500).json({ msg: "Errore interno del server" });
+    }
+};
+
 
 const checkOrderQuantities = async (order) => {
     let unavailableProducts = [];
@@ -166,5 +195,6 @@ module.exports = {
     getOrdersFromUser,
     getAllOrders,
     getOrder,
-    searchOrdersByUsername
+    searchOrdersByUsername,
+    updateOrder
 }
