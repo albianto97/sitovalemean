@@ -8,12 +8,10 @@
 
   <div *ngIf="isAdmin" class="chatbox-user">
     <select [(ngModel)]="currentUser" (change)="filterMessages()">
-      <option *ngFor="let user of users" value="{{user.username}}">
-        {{user.username}}
-        <span *ngIf="user.newMessages" class="new-message">Nuovo messaggio</span>
+      <option *ngFor="let user of users" value="{{user.username}}" [ngClass]="{'new-message': user.newMessages}">{{user.username}}
       </option>
     </select>
-    <span *ngIf="this.newMessage">Nuovo messaggio</span>
+    <span *ngIf="this.newMessage">Nuovo messaggio</span> <!-- nel menu filtro -->
   </div>
 
   <div class="chatbox-display">
@@ -30,7 +28,7 @@
     </p>
   </div>
   <!-- *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))"-- bloocare admin che parli per primo -->
-  <div class="chatbox-input">
+  <div *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))" class="chatbox-input">
     <div class="chatbox-textarea">
       <textarea [(ngModel)]="message"></textarea>
     </div>
