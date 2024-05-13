@@ -22,9 +22,11 @@
     </div>
 
     <p *ngFor="let m of displayMessages" class="message">
-      <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
-      <span *ngIf="this.sender.username != m.from.username" class="message-from">{{m.from.username}}: </span>
-      {{m.content}}
+      <span *ngIf="m.from.username != '_service_'">
+        <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
+        <span *ngIf="this.sender.username != m.from.username" class="message-from">{{m.from.username}}: </span>
+      </span>
+      <span [ngClass]="{'service-message': m.from.username == '_service_'}">{{m.content}}</span>
     </p>
   </div>
   <!-- *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))"-- bloocare admin che parli per primo -->

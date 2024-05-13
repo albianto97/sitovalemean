@@ -57,12 +57,10 @@ export class UserListComponent implements OnInit {
 
     this.userService.searchUsers(this.selectedUserName).subscribe(users => {
       this.users = users;
-      console.log(users);
     });
 
     this.orderService.searchOrderByUsername(this.selectedUserName, this.selectedOrderStatus).subscribe(orders => {
       this.filteredOrders = orders;
-      console.log(this.filteredOrders);
     });
 
   }

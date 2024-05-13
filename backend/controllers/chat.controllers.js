@@ -44,9 +44,11 @@ const getChatForUser = async (req, res) => {
             }
         }
         receiverIds = receiverIds.filter( u=> u != userId);
-        const recivers = await User.find({ "_id": { "$in": receiverIds } }, selectField).lean();
+        let receivers = await User.find({ "_id": { "$in": receiverIds } }, selectField).lean();
+        if(receivers.length == 0 && sender.username != 'admin')
+            receivers.push({"username": 'admin'})
         const response = {
-            "sender" : sender, "receiver": recivers, "messages": messages
+            "sender" : sender, "receiver": receivers, "messages": messages
         }
         res.json(response);
     } catch (error) {
@@ -77,7 +79,7 @@ const deleteChat = async (req, res) => {
         res.status(500).json({ message: 'Errore del server durante l\'eliminazione delle chat' });
     }
 };
-//todo da testare
+
 const getChatUserOpen = async (req, res) => {
     try {
         let allUsernames = [];

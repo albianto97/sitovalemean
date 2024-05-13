@@ -4,6 +4,7 @@ import { ChatUser } from "../../models/chatUser";
 import { AuthService } from "../../services/auth.service";
 import { ChatService } from "../../services/chat.service";
 import { ChatMessage } from "../../models/chatMessage";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-chatbox',
@@ -52,6 +53,7 @@ export class ChatboxComponent implements OnInit {
   sendMessage() {
     if (this.message) {
       let messageItem: { from: string; to: string; content: string } = { to: this.currentUser, content: this.message, from: "" };
+      console.log(messageItem);
       this.socketService.sendMessage(messageItem);
       let chatMessage: ChatMessage = {
         from: this.sender,
@@ -64,8 +66,8 @@ export class ChatboxComponent implements OnInit {
     }
   }
 
-  findCurrent() {
-    return this.receiver.find((r:any) => r.username === this.currentUser);
+  findCurrent() : any{
+    return this.users.find((r:any) => r.username === this.currentUser);
   }
 
   socketCallback(event: any, data: any) {
@@ -85,16 +87,16 @@ export class ChatboxComponent implements OnInit {
       //}
         this.messages.push(data);
         console.log(this.messages);
-        this.filterMessages();
+
     }else if(event == 'chatDeleted'){
-      this.messages = [];
-      this.filterMessages();
+      this.messages = []; // cancellare la chat post delete
+      this.messages.push({to: this.sender, from : {'username' : "_service_"}, content: "admin ha eliminato la chat"});
     }
+    this.filterMessages();
   }
 
   filterMessages() {
-    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser);
-
+    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser || m.from.username == '_service_');
     if (this.users.length > 0) {
       const currentUser = this.users.find(u => u.username === this.currentUser);
       if (currentUser) {
@@ -120,10 +122,8 @@ export class ChatboxComponent implements OnInit {
             // Assegna il nome utente corrispondente o '' se non trovato
             this.currentUser = firstUser ? firstUser.username : '';
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
-            //this.messages = []; //ripetuto forse
-            //this.filterMessages(); //commentanto io
-
-
+            this.messages = this.messages.filter(messagge => messagge.from.username !=deleteUsername && messagge.to.username !=deleteUsername);
+            this.filterMessages();
           });
     } else {
         console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');

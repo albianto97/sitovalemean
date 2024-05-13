@@ -76,8 +76,8 @@ io.on('connection', (socket) => {
                 let userSocket = socketsByUsername[to];
                 if (userSocket) {
                     data.to = {"username" : to};
-                    console.log(data);
                     data.from = {"username" : username};
+                    console.log(data);
                     userSocket.emit('newMessage', data);
                     const savedMessage = await createChat(username, to, data.content);
                     console.log('Messaggio salvato:', savedMessage);
@@ -87,9 +87,6 @@ io.on('connection', (socket) => {
     })
 });
 
-//socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
-//io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
-//socket.broadcast.emit('notification', data); // non invia a se stesso
 
 function getUsernameFromJWT(token, callback){
     return jwt.verify(token, 'chiaveSegreta', callback);
