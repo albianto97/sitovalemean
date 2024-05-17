@@ -4,7 +4,6 @@ import { ChatUser } from "../../models/chatUser";
 import { AuthService } from "../../services/auth.service";
 import { ChatService } from "../../services/chat.service";
 import { ChatMessage } from "../../models/chatMessage";
-import {filter} from "rxjs";
 
 @Component({
   selector: 'app-chatbox',
