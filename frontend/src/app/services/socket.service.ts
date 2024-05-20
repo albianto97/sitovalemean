@@ -70,5 +70,10 @@ export class SocketService {
     this.socket.emit('messageSent', message)
   }
 
+  notifyChatDisplayed(currentUser: string, remoteUser: string){
+    this.socket.emit('chatDisplayed', {currentUser: currentUser, remoteUser: remoteUser});
+
+  }
+
 
 }

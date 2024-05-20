@@ -22,6 +22,7 @@ const io = socketIo(server, {
 });
 
 let socketsByUsername = {}
+let newMessages = {} //mittente_ricevitore;
 
 
 // Middleware per gestire le richieste CORS
@@ -38,6 +39,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     req.socketServer = io;
     req.socketsByUsername = socketsByUsername;
+    req.newMessages = newMessages;
     next();
 });
 
@@ -81,8 +83,13 @@ io.on('connection', (socket) => {
                     userSocket.emit('newMessage', data);
                     const savedMessage = await createChat(username, to, data.content);
                     console.log('Messaggio salvato:', savedMessage);
+                    newMessages[username+"|"+to] = true;
                 }
             });
+            socket.on('chatDisplayed', async (data) => {
+                let nmk = data.remoteUser+"|"+data.currentUser;
+                newMessages[nmk]= false;
+            })
         }
     })
 });

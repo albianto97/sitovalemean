@@ -1,5 +1,5 @@
-<div class="chatbox-display-open" *ngIf="!showBox" (click)="showBox = true">
-  <mat-icon [style.color]="this.newMessage ? 'red' : 'primary'">chat</mat-icon>
+<div class="chatbox-display-open" *ngIf="!showBox" (click)="displayBox()">
+  <mat-icon [style.color]="this.chatIconActive ? 'red' : 'primary'">chat</mat-icon>
 
 </div>
 
@@ -15,7 +15,7 @@
   </div>
 
   <div class="chatbox-display">
-    <div class="chatbox-display-close" (click)="showBox = false">
+    <div class="chatbox-display-close" (click)="closeBox()">
       <mat-icon style="color: #e74c3c">close</mat-icon>
     </div>
 

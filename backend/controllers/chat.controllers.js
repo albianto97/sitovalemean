@@ -48,7 +48,7 @@ const getChatForUser = async (req, res) => {
         if(receivers.length == 0 && sender.username != 'admin')
             receivers.push({"username": 'admin'})
         const response = {
-            "sender" : sender, "receiver": receivers, "messages": messages
+            "sender" : sender, "receiver": receivers, "messages": messages, usersWithNewMessages: getUsersWithNewMessages(sender.username, req.newMessages)
         }
         res.json(response);
     } catch (error) {
@@ -97,6 +97,18 @@ const getChatUserOpen = async (req, res) => {
     }
 };
 
+function getUsersWithNewMessages(user, newMessagesDictionary){
+    let keys= Object.keys(newMessagesDictionary);
+    let newMessages = [];
+    for(i = 0; i< keys.length; i++){
+        let currentKey= keys[i];
+        let from_to = currentKey.split("|");
+        if (from_to.length == 2 && from_to[1] == user && newMessagesDictionary[currentKey] == true){
+            newMessages.push(from_to[0]);
+        }
+    }
+    return newMessages;
+}
 
 
 module.exports ={
