@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Order = require("../models/order");
 
 
 const getProductsById = async (req, res) => {
@@ -140,6 +141,7 @@ const quantity0 = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+/*
 const deleteProduct = async (req, res) => {
     try {
         const productId = req.params.productId;
@@ -154,7 +156,30 @@ const deleteProduct = async (req, res) => {
         console.error('Errore durante l\'eliminazione del prodotto:', error);
         res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
     }
+};*/
+const deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.productId;
+
+        // Check if the product is present in any order
+        const orderContainingProduct = await Order.findOne({ products: productId });
+        if (orderContainingProduct) {
+            return res.status(400).json({ message: 'Il prodotto è presente in uno o più ordini e non può essere eliminato' });
+        }
+
+        // Find and remove the product from the database
+        const deletedProduct = await Product.findByIdAndRemove(productId);
+        if (deletedProduct) {
+            res.status(200).json({ message: 'Prodotto eliminato con successo' });
+        } else {
+            res.status(404).json({ message: 'Prodotto non trovato' });
+        }
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione del prodotto:', error);
+        res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
+    }
 };
+
 
 
 
