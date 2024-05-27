@@ -22,6 +22,7 @@ export class ChatboxComponent implements OnInit {
   displayMessages: ChatMessage[] = [];
   newMessage: boolean = false;
   showBox: boolean = false;
+  onlineFilter : boolean = true;
   @Input() isAdmin: boolean = false;
   user: any = '';
 
@@ -38,7 +39,7 @@ export class ChatboxComponent implements OnInit {
   }
 
   getChatForUser(userId: string) {
-    this.chatService.getMessagesForUser(userId)
+    this.chatService.getMessagesForUser(userId, this.onlineFilter)
       .subscribe((chat: any) => {
         this.sender = chat.sender;
         this.receiver = chat.receiver;
@@ -46,7 +47,8 @@ export class ChatboxComponent implements OnInit {
         this.users= this.receiver.map((r: any) => Object.assign({}, { username: r.username, newMessages: false }))
         if(this.users.length > 0)
           this.currentUser = this.users[0].username;
-
+        else
+          this.currentUser = '';
         let usersWithNewMessages = chat.usersWithNewMessages;
         for(let i= 0 ; i< usersWithNewMessages.length; i++){
           let username = usersWithNewMessages[i];
@@ -149,5 +151,9 @@ export class ChatboxComponent implements OnInit {
   displayBox() {
     this.showBox = true;
     this.filterMessages();
+  }
+
+  updateFilterOnline() {
+    setTimeout(()=> this.getChatForUser(this.user._id));
   }
 }

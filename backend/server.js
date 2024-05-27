@@ -81,10 +81,10 @@ io.on('connection', (socket) => {
                     data.from = {"username" : username};
                     console.log(data);
                     userSocket.emit('newMessage', data);
-                    const savedMessage = await createChat(username, to, data.content);
-                    console.log('Messaggio salvato:', savedMessage);
-                    newMessages[username+"|"+to] = true;
                 }
+                const savedMessage = await createChat(username, to, data.content);
+                console.log('Messaggio salvato:', savedMessage);
+                newMessages[username+"|"+to] = true;
             });
             socket.on('chatDisplayed', async (data) => {
                 let nmk = data.remoteUser+"|"+data.currentUser;

@@ -25,28 +25,48 @@ const createChat = async (senderUsername, receiverUsername, messageContent) => {
 
 const getChatForUser = async (req, res) => {
     try {
+        const onlineReceivers = req.query.onlineReceivers == 'true';
         const userId = req.params.userId;
         // Trova i messaggi inviati da e verso l'utente stesso o dall'admin verso l'utente
         const messages = await Message.find({
             $or: [{ from: userId  }, { to: userId }]}).populate('from', 'username')
             .populate('to', 'username').lean();
-        const selectField = {_id: 1, username: 1};
+        const selectField = {_id: 1, username: 1, ruolo: 1};
         const sender = await User.findOne({_id: userId}, selectField).lean();
-        let receiverIds =[];
-        for(let i = 0; i < messages.length; i++){
-            let from = messages[i].from._id.toString()
-            if(receiverIds.indexOf(from) == -1){
-                receiverIds.push(from)
+        let receivers = [];
+        if(sender.ruolo == "amministratore") {
+            let receiverIds = [];
+            for (let i = 0; i < messages.length; i++) {
+                let from = messages[i].from._id.toString()
+                if (receiverIds.indexOf(from) == -1) {
+                    receiverIds.push(from)
+                }
+                let to = messages[i].to._id.toString()
+                if (receiverIds.indexOf(to) == -1) {
+                    receiverIds.push(to)
+                }
             }
-            let to = messages[i].to._id.toString()
-            if(receiverIds.indexOf(to) == -1){
-                receiverIds.push(to)
+            receiverIds = receiverIds.filter(u => u != userId);
+            receivers = await User.find({"_id": {"$in": receiverIds}}, selectField).lean();
+            if(onlineReceivers){
+                receivers = receivers.filter( r => {
+                    let socket = req.socketsByUsername[r.username];
+                    return (socket && socket.connected);
+                })
             }
         }
-        receiverIds = receiverIds.filter( u=> u != userId);
-        let receivers = await User.find({ "_id": { "$in": receiverIds } }, selectField).lean();
-        if(receivers.length == 0 && sender.username != 'admin')
-            receivers.push({"username": 'admin'})
+        else {
+            const adminUsers = await User.find({"ruolo": "amministratore"}, selectField).lean();
+            for(i = 0; i< adminUsers.length; i++){
+                if(onlineReceivers) {
+                    let socket = req.socketsByUsername[adminUsers[i].username];
+                    if (socket && socket.connected)
+                        receivers.push(adminUsers[i]);
+                }else{
+                    receivers.push(adminUsers[i]);
+                }
+            }
+        }
         const response = {
             "sender" : sender, "receiver": receivers, "messages": messages, usersWithNewMessages: getUsersWithNewMessages(sender.username, req.newMessages)
         }
