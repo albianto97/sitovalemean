@@ -11,11 +11,11 @@ import { MaterialModule } from './modules/material/material.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { CommonModule } from "@angular/common";
@@ -40,6 +40,8 @@ import { OrderDetailsComponent } from './components/order/order-details/order-de
 import { LogoutComponent } from './components/logout/logout.component';
 import { ChatboxComponent } from './components/chatbox/chatbox.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { NotificationListComponent } from './components/notification-list/notifi
     OrderDetailsComponent,
     LogoutComponent,
     ChatboxComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AdminDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,9 +81,12 @@ import { NotificationListComponent } from './components/notification-list/notifi
     BrowserAnimationsModule,
     MaterialModule,
     MatIconModule,
-    HttpClientModule,
     FontAwesomeModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

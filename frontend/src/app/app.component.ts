@@ -4,6 +4,10 @@ import { NavigationEnd, Router } from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {SocketService} from "./services/socket.service";
 import {NotifyService} from "./services/notify.service";
+import {AdminDialogComponent} from "./components/admin-dialog/admin-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {UserService} from "./services/user.service";
+
 
 
 @Component({
@@ -20,7 +24,8 @@ export class AppComponent {
 
 
 
-  constructor(private authService: AuthService, private route: Router, private socket: SocketService, private notifyService: NotifyService) {
+  constructor(private authService: AuthService, private route: Router, private socket: SocketService,
+              private notifyService: NotifyService, private dialog: MatDialog, private userService: UserService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
         this.showChatbox = !this.route.url.endsWith("/login");
@@ -51,5 +56,21 @@ export class AppComponent {
         }
       );
     }
+  }
+  openAdminDialog(): void {
+    const dialogRef = this.dialog.open(AdminDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result) {
+        console.log(`User ${result} will be made an admin`);
+        this.userService.addAdmin(result).subscribe(() => {
+          console.log('User promoted to admin');
+        })
+      }else {
+        console.log("Result is empty or undefined.");
+      }
+    });
   }
 }
