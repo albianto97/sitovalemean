@@ -35,7 +35,7 @@ export class NotificationListComponent {
     // Recupera le notifiche dell'utente corrente quando la componente viene inizializzata
     const currentUser = this.authService.getUserFromToken();
     if (currentUser) {
-      this.notifyService.getUserNotifications(currentUser).subscribe(
+      this.notifyService.getUserNotifications(currentUser.username).subscribe(
         (notifications: any[]) => { // Ora notifications è un array
           console.log('Notifications:', notifications); // Controlla il formato dei dati ricevuti
           this.notifications = notifications;

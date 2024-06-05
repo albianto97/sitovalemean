@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { NavigationEnd, Router } from "@angular/router";
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {SocketService} from "./services/socket.service";
 import {NotifyService} from "./services/notify.service";
 import {AdminDialogComponent} from "./components/admin-dialog/admin-dialog.component";
