@@ -49,9 +49,11 @@ export class AppComponent {
     if (currentUser) {
       this.notifyService.getUserNotifications(currentUser.username).subscribe(
         (notifications: any[]) => {
+          // Aggiorna il contatore
+          this.notifyService.notifySubscribers();
           // Filtra le notifiche non lette
           this.unreadNotificationsCount = notifications.filter(notification => !notification.read).length;
-          // Aggiorna il contatore
+
         }
       );
     }
