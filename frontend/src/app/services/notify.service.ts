@@ -4,6 +4,7 @@ import {Notify} from "../models/notify";
 import {Injectable} from "@angular/core";
 import {GeneralService} from "./-general.service";
 import {AuthService} from "./auth.service";
+import {EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,18 @@ export class NotifyService {
   modify: Observable<any>;
   modifySubscribers: any[] = [];
   private number: number = 0;
+  notifyReload = new EventEmitter<void>();
+
+
+
 
   constructor(private http: HttpClient, private generalService: GeneralService, private authService: AuthService) {
     this.modify = new Observable<any>(subscriber => {
       this.modifySubscribers.push(subscriber);
     })
+  }
+  emitNotifyReload() {
+    this.notifyReload.emit();
   }
   notifySubscribers(){
     for(let i = 0; i< this.modifySubscribers.length; i++){
