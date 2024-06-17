@@ -27,7 +27,7 @@ export class AppComponent {
               private notifyService: NotifyService, private dialog: MatDialog, private userService: UserService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
-        this.showChatbox = !this.route.url.endsWith("/login");
+        this.showChatbox = !this.route.url.endsWith("/login") && !this.route.url.endsWith("/sign-in");
         this.user = authService.getUserFromToken();
         if (this.user)
           this.isAdmin = this.user.role == "amministratore";
