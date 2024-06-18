@@ -2,6 +2,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.3"
+    "@mui/material": "^5.15.3",
+    "apexcharts": "^3.49.1"
   }
 }

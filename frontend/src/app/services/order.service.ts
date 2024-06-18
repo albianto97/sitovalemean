@@ -47,7 +47,24 @@ export class OrderService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<Order>(this.endPoint+'/'+ orderId, {headers});
   }
+  getOrdersForDate(startDate?: string, endDate?: string){
+    let queryParams = '';
 
+    if (startDate && endDate) {
+      queryParams = `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Order>(this.endPoint+'/getOrdersForDate'+queryParams, {headers});
+  }
+  getTotalEarnings(startDate?: string, endDate?: string){
+    let queryParams = '';
+
+    if (startDate && endDate) {
+      queryParams = `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get<Order>(this.endPoint+'/getTotalEarnings'+queryParams, {headers});
+  }
   updateOrder(order:Order){
     console.log(order);
     

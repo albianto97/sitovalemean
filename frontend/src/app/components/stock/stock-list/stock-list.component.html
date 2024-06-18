@@ -1,0 +1,24 @@
+<div class="container-xl">
+  <h2>Movimenti</h2>
+  <form (ngSubmit)="getStocks()">
+    <div class="d-flex justify-content-around mt-2 mb-2">
+    <label>
+      Data Inizio:
+      <input class="form-control" [(ngModel)]="startDate" name="startDate" type="date" />
+    </label>
+    <label>
+      Data Fine:
+      <input class="form-control" [(ngModel)]="endDate" name="endDate" type="date" />
+    </label>
+  </div>
+    <button class="btn btn-primary w-100" type="submit">Visualizza Movimenti</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let stock of stocks">
+      {{ stock.insertDate | date }} - {{ stock.typeMovement }} - {{ stock.ingredient.name }}: {{ stock.movementQuantity }} {{ stock.ingredient.meauserement }} - Prezzo: {{ stock.price.toFixed(2) }} €
+      <!-- {{ stock.insertDate | date }} - {{ stock.typeMovement }} - {{ stock.ingredient.name }}: {{ stock.movementQuantity }} {{ stock.ingredient.meauserement }} - Prezzo: {{ stock.price }} € -->
+    </li>
+  </ul>
+  <app-stock-add (sendMovimento)="reciveMovimento($event)"></app-stock-add>
+</div>

@@ -7,6 +7,10 @@ const router = express.Router();
 router.post('/create-order', verifyToken, orderController.createOrder);
 // Rotta per ottenere tutti ordini
 router.get('/getAllOrders', verifyAdminToken, orderController.getAllOrders);
+// Rotta per ottenere i numeri di ordini raggruppati per data di inserimento
+router.get('/getOrdersForDate', verifyAdminToken, orderController.getOrdersForDate);
+// Rotta per ottenere il totale degli incassi da data a data
+router.get('/getTotalEarnings', verifyAdminToken, orderController.getTotalEarnings);
 // Rotta protetta per prendere i prodotti di un utente loggato piu ordinati
 router.get('/getOrderOfUserProduct', verifyToken, orderController.getOrderOfUserProduct);
 // Rotta protetta per prendere gli ordini di un utente loggato

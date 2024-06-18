@@ -1,0 +1,62 @@
+<div class="container mt-4">
+
+    <h1>Ingredienti</h1>
+    <ul class="list-group mb-4">
+        <li class="list-group-item" *ngFor="let ingredient of ingredients">
+            <div class="d-flex justify-content-between">
+
+                {{ ingredient.name }} - {{ ingredient.disponibilty.toFixed(2) }} {{ ingredient.meauserement }} - €{{ingredient.mediumPrice.toFixed(2) }}
+                <button class="btn btn-secondary">
+                    <fa-icon [icon]="['fas', 'trash']" ></fa-icon>
+                </button>
+            </div>
+        </li>
+    </ul>
+
+    <h2>Aggiungi un nuovo ingrediente</h2>
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input id="name" type="text" class="form-control" formControlName="name">
+            <div *ngIf="ingredientForm.controls['name'].invalid && (ingredientForm.controls['name'].dirty || ingredientForm.controls['name'].touched)"
+                class="text-danger">
+                Nome è richiesto.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="disponibilty" class="form-label">Disponibilità</label>
+            <input id="disponibilty" type="number" class="form-control" formControlName="disponibilty">
+            <div *ngIf="ingredientForm.controls['disponibilty'].invalid && (ingredientForm.controls['disponibilty'].dirty || ingredientForm.controls['disponibilty'].touched)"
+                class="text-danger">
+                Disponibilità è richiesta e deve essere un numero non negativo.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="meauserement">Misura:</label>
+            <select id="meauserement" formControlName="meauserement" class="form-select">
+              <option value="Kg">Kg</option>
+              <option value="Pz">Pz</option>
+              <option value="L">L</option>
+            </select>
+            <div *ngIf="ingredientForm.controls['meauserement'].invalid && (ingredientForm.controls['meauserement'].dirty || ingredientForm.controls['meauserement'].touched)"
+                class="text-danger">
+                Misura è richiesta.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mediumPrice" class="form-label">Prezzo Medio</label>
+            <input id="mediumPrice" type="number" class="form-control" formControlName="mediumPrice">
+            <div *ngIf="ingredientForm.controls['mediumPrice'].invalid && (ingredientForm.controls['mediumPrice'].dirty || ingredientForm.controls['mediumPrice'].touched)"
+                class="text-danger">
+                Prezzo Medio è richiesto e deve essere un numero non negativo.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary"  [disabled]="ingredientForm.invalid">Aggiungi Ingrediente</button>
+    </form>
+
+
+</div>

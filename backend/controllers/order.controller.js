@@ -6,34 +6,156 @@ const User = require("../models/user");
 const getAllOrders = async (req, res) => {
     // Logica per ottenere ordini
     const orders = await Order.find().sort({ creationDate: -1 });
-    console.log(orders);
     res.json(orders);
 
     //res.send(res.json);
 }
+
+ const getTotalEarnings = async (req, res) => {
+    const { startDate, endDate } = req.query;
+
+    let start, end;
+    if (startDate && endDate) {
+        start = new Date(startDate);
+        end = new Date(endDate);
+    } else {
+        // Recupera la data del primo ordine
+        const firstOrder = await Order.findOne().sort({ creationDate: 1 });
+        start = firstOrder ? firstOrder.creationDate : new Date();
+        end = new Date();
+    }
+    try {
+        const result = await Order.aggregate([
+            {
+                $match: {
+                    creationDate: { $gte: start, $lte: end }
+                }
+            },
+            {
+                $unwind: "$products"
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "products.productId",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $unwind: "$productDetails"
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalEarnings: { $sum: { $multiply: ["$products.quantity", "$productDetails.price"] } }
+                }
+            }
+        ]);
+
+        const totalEarnings = result.length > 0 ? result[0].totalEarnings : 0;
+
+        res.json({ totalEarnings });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
+// Funzione per generare una sequenza di date
+const generateDateRange = (start, end) => {
+    const dates = [];
+    let currentDate = new Date(start);
+
+    while (currentDate <= end) {
+        dates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dates;
+};
+
+
+const getOrdersForDate = async (req, res) => {
+    const { startDate, endDate } = req.query;
+
+    let start, end;
+    if (startDate && endDate) {
+        start = new Date(startDate);
+        end = new Date(endDate);
+    } else {
+        // Recupera la data del primo ordine
+        const firstOrder = await Order.findOne().sort({ creationDate: 1 });
+        start = firstOrder ? firstOrder.creationDate : new Date();
+        end = new Date();
+    }
+
+    let matchStage = {
+        creationDate: { $gte: start, $lte: end }
+    };
+
+    try {
+        const result = await Order.aggregate([
+            {
+                $match: matchStage
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$creationDate" } },
+                    count: { $sum: 1 }
+                }
+            },
+            { $sort: { _id: 1 } }
+        ]);
+
+        // Genera la sequenza di date
+        const dateRange = generateDateRange(start, end);
+
+        // Crea un oggetto per mappare le date e i conteggi
+        const countMap = result.reduce((map, item) => {
+            map[item._id] = item.count;
+            return map;
+        }, {});
+
+        // Popola il risultato finale con 0 per i giorni mancanti
+        const finalResult = dateRange.map(date => {
+            const dateString = date.toISOString().split('T')[0];
+            return {
+                _id: dateString,
+                count: countMap[dateString] || 0
+            };
+        });
+
+        res.json(finalResult);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
 const searchOrdersByUsername = async (req, res) => {
     try {
         const username = req.query.username;
         const status = req.query.status;
-        const users = await User.find({ username: { $regex: '^'+ username }}, {"_id": 1, "username": 1}).lean();
+        const users = await User.find({ username: { $regex: '^' + username } }, { "_id": 1, "username": 1 }).lean();
         const userIds = users.map(u =>
-            Object.assign({}, {_id: u._id})
+            Object.assign({}, { _id: u._id })
         );
         let orders;
-        if(status)
-             orders = await Order.find({user: {"$in" : userIds}, status : status}, {"_id": 1, "status": 1, "creationDate": 1, "productsCount": {"$size": "$products"}, "user":1 }).lean();
+        if (status)
+            orders = await Order.find({ user: { "$in": userIds }, status: status }, { "_id": 1, "status": 1, "creationDate": 1, "productsCount": { "$size": "$products" }, "user": 1 }).lean();
         else
-            orders = await Order.find({user: {"$in" : userIds}}, {"_id": 1, "status": 1, "creationDate": 1, "productsCount": {"$size": "$products"}, "user":1 }).lean();
-        orders = orders.map(o =>{
+            orders = await Order.find({ user: { "$in": userIds } }, { "_id": 1, "status": 1, "creationDate": 1, "productsCount": { "$size": "$products" }, "user": 1 }).lean();
+        orders = orders.map(o => {
             let userId = o.user;
             let user = users.filter(u => u._id.equals(userId));
-            if(user.length > 0){
+            if (user.length > 0) {
                 o.username = user[0].username;
             }
             return o;
 
         })
-        res.json( orders );
+        res.json(orders);
     } catch (err) {
         console.error('Errore nel recupero dei ordini:', err);
         res.status(500).json({ message: 'Errore del server' });
@@ -98,10 +220,10 @@ const getOrderOfUserProduct = async (req, res) => {
 
 };
 
-const getOrdersFromUser =async (req, res) => {
+const getOrdersFromUser = async (req, res) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    var user =jwt.decode(token);
+    var user = jwt.decode(token);
     try {
         const ordini = await Order.find({ user: user._id }).sort({ creationDate: -1 });
         res.json(ordini);
@@ -111,23 +233,23 @@ const getOrdersFromUser =async (req, res) => {
 }
 
 async function updateQuantities(products) {
-    for(i=0; i < products.length; i++){
+    for (i = 0; i < products.length; i++) {
         let current = products[i];
-        const DBproduct = await Product.findOne({_id: current.productId}).lean();
+        const DBproduct = await Product.findOne({ _id: current.productId }).lean();
         let newQuantity = DBproduct.disponibilita - current.quantity;
-        let result = await Product.updateOne({_id: current.productId}, {disponibilita: newQuantity});
+        let result = await Product.updateOne({ _id: current.productId }, { disponibilita: newQuantity });
     }
 }
 
 const createOrder = async (req, res) => {
     try {
         let unavailableProducts = await checkOrderQuantities(req.body);
-        if(unavailableProducts.length === 0) {
+        if (unavailableProducts.length === 0) {
             const newOrder = await Order.create(req.body);
             await updateQuantities(req.body.products);
-            res.json({msg: "Ordine creato con successo!", order: newOrder, result : 0});
-        }else{
-            res.json({msg: "Errore nel ordine", order: null, result: 1, products: unavailableProducts});
+            res.json({ msg: "Ordine creato con successo!", order: newOrder, result: 0 });
+        } else {
+            res.json({ msg: "Errore nel ordine", order: null, result: 1, products: unavailableProducts });
         }
     } catch (e) {
         res.status(400).send(e);
@@ -136,7 +258,6 @@ const createOrder = async (req, res) => {
 // aggiornamento dell'ordine
 const updateOrder = async (req, res) => {
     try {
-        console.log( req.body)
         const orderId = req.body._id; // Ottieni l'ID dell'ordine dalla richiesta
 
         // Controlla se l'ordine esiste nel database
@@ -166,10 +287,10 @@ const updateOrder = async (req, res) => {
 const checkOrderQuantities = async (order) => {
     let unavailableProducts = [];
     let products = order.products;
-    for(i=0; i < products.length; i++){
+    for (i = 0; i < products.length; i++) {
         let p = products[i];
-        let pDocument = await Product.findOne({"_id": p.productId}).lean();
-        if(pDocument.disponibilita < p.quantity)
+        let pDocument = await Product.findOne({ "_id": p.productId }).lean();
+        if (pDocument.disponibilita < p.quantity)
             unavailableProducts.push(pDocument);
     }
     return unavailableProducts;
@@ -178,12 +299,12 @@ const checkOrderQuantities = async (order) => {
 const getOrder = async (req, res) => {
     try {
         const orderId = req.params.orderId;
-        const order = await Order.findOne({"_id": orderId}).lean();
-        if(order)
+        const order = await Order.findOne({ "_id": orderId }).lean();
+        if (order)
             res.json(order);
         else
             res.status(404).send();
-    }catch (e) {
+    } catch (e) {
         res.status(400).send(e);
     }
 }
@@ -194,6 +315,8 @@ module.exports = {
     getOrderOfUserProduct,
     getOrdersFromUser,
     getAllOrders,
+    getTotalEarnings,
+    getOrdersForDate,
     getOrder,
     searchOrdersByUsername,
     updateOrder

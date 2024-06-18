@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +10,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './modules/material/material.module';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -39,49 +40,66 @@ import { ListOrderComponent } from './components/order/list-order/list-order.com
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
+import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
+import { LineGraphComponent } from './components/statistics-dashboard/line-graph/line-graph.component';
+import { AreaChartComponent } from "./components/statistics-dashboard/area-chart/area-chart.component";
+import { StockListComponent } from './components/stock/stock-list/stock-list.component';
+import {NgApexchartsModule} from 'ng-apexcharts'
+import { StockAddComponent } from './components/stock/stock-add/stock-add.component';
+import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
+import { LoaderComponent } from './components/structure/loader/loader.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignInComponent,
-    UserListComponent,
-    ProductListComponent,
-    ProfiloComponent,
-    ProductCreationComponent,
-    SingleProductComponent,
-    CreateOrderComponent,
-    HomeComponent,
-    UserInfoComponent,
-    CartComponent,
-    OrdersComponent,
-    StatusIconHtmlPipe,
-    ProductCardComponent,
-    UnauthorizedComponent,
-    InventoryComponent,
-    DialogAlertComponent,
-    AdminHomeComponent,
-    OrderComponent,
-    ListOrderComponent,
-    OrderDetailsComponent,
-    LogoutComponent,
-    OrderedProductComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatIconModule,
-    HttpClientModule,
-    FontAwesomeModule,
-    CommonModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        SignInComponent,
+        UserListComponent,
+        ProductListComponent,
+        ProfiloComponent,
+        ProductCreationComponent,
+        SingleProductComponent,
+        CreateOrderComponent,
+        HomeComponent,
+        UserInfoComponent,
+        CartComponent,
+        OrdersComponent,
+        StatusIconHtmlPipe,
+        ProductCardComponent,
+        UnauthorizedComponent,
+        InventoryComponent,
+        DialogAlertComponent,
+        AdminHomeComponent,
+        OrderComponent,
+        ListOrderComponent,
+        OrderDetailsComponent,
+        LogoutComponent,
+        OrderedProductComponent,
+        StatisticsDashboardComponent,
+        LineGraphComponent,
+        AreaChartComponent,
+        StockListComponent,
+        StockAddComponent,
+        IngredientsComponent,
+        LoaderComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        MatIconModule,
+        HttpClientModule,
+        FontAwesomeModule,
+        CommonModule,
+        NgApexchartsModule
+    ]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

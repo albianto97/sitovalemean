@@ -2,6 +2,8 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/user.route');
 const productRoutes = require('./routes/product.route');
 const orderRoutes = require('./routes/order.route');
+const rawIngredentsRoutes = require('./routes/rawIngredients.route');
+const stockRoutes = require('./routes/stock.route');
 const token = require('./middlewares/token');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -32,6 +34,8 @@ connectDB();
 app.use('/api/user', userRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/stock', stockRoutes);
+app.use('/api/rawIngredients', rawIngredentsRoutes);
 app.use(token.verifyToken);
 
 app.listen(port, () => {

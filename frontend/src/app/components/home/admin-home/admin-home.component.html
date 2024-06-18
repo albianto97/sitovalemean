@@ -1,27 +1,58 @@
 <div *ngIf="isAdmin">
     <mat-tab-group>
-        <mat-tab label="Consulta gli ordini"> 
+        <mat-tab label="Consulta gli ordini">
             <div class="mt-3 container">
                 <h4>In questa sezione sono disponibili i comandi pricipali per gestire gli ordini ricevuti</h4>
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col mb-4">
                             <button class="bottoni-custom" [routerLink]="'orders'">
-                                <fa-icon [icon]="['fas', 'igloo']" ></fa-icon>
+                                <fa-icon [icon]="['fas', 'igloo']"></fa-icon>
                                 <p class="btn-text">Visualizza Ordini</p>
                             </button>
                         </div>
                         <div class="col mb-4">
-                            <button class="bottoni-custom"><p class="btn-text">Visualizza Ordini</p></button>
+                            <button class="bottoni-custom" routerLink="/statistics">
+                                <fa-icon [icon]="['fas', 'chart-simple']"></fa-icon>
+                                <p class="btn-text">Visualizza Statistiche</p>
+                            </button>
                         </div>
                         <div class="col mb-4">
-                            <button class="bottoni-custom"><p class="btn-text">Visualizza Ordini</p></button>
+                            <button class="bottoni-custom">
+                                <p class="btn-text">Visualizza Ordini</p>
+                            </button>
                         </div>
                     </div>
-                </div>                
-            </div>    
+                </div>
+            </div>
         </mat-tab>
         <mat-tab label="Contatta cliente"> Content 2 </mat-tab>
-        <mat-tab label="Non so cosa"> Content 3 </mat-tab>
-    </mat-tab-group>      
+        <mat-tab label="Gestisci Magazzino">
+            <div class="mt-3 container">
+                <h4>In questa sezione sono disponibili i comandi pricipali per gestire il tuo magazzino</h4>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col mb-4">
+                            <button class="bottoni-custom" [routerLink]="'orders-ingredients'">
+                                <fa-icon [icon]="['fas', 'money-bill-wheat']"></fa-icon>
+                                <p class="btn-text">Movimentazione Materie Prime</p>
+                            </button>
+                        </div>
+                        <div class="col mb-4">
+                            <button class="bottoni-custom" [routerLink]="'ingredients'">
+                                <fa-icon [icon]="['fas', 'wheat-awn']"></fa-icon>
+                                <p class="btn-text">Aggiungi Materie Prime</p>
+                            </button>
+                        </div>
+                        <div class="col mb-4">
+                            <button class="bottoni-custom">
+                                <fa-icon [icon]="['fas', 'wheat-awn-circle-exclamation']"></fa-icon>
+                                <p class="btn-text">Crea Lista Spesa</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>

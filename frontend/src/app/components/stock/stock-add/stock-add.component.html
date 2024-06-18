@@ -1,0 +1,37 @@
+<div *ngIf="isIngredientsAreLoad && !isInError; else loader ">
+    <h2>Aggiungi Movimento</h2>
+    <form (ngSubmit)="addStock()" class="d-flex flex-column">
+      <label>
+        Ingrediente:
+        <select class="form-select" [(ngModel)]="ingredientId" name="ingredientId" required (change)="setPrice()">
+          <option *ngFor="let ingredient of ingredients" [value]="ingredient._id">{{ingredient.name}}</option>
+        </select>
+      </label>
+      <label>
+        Quantità Movimento:
+        <input class="form-control" [(ngModel)]="movementQuantity" name="movementQuantity" type="number" required (change)="setPrice()"/>
+      </label>
+      <label>
+        Tipo Movimento:
+        <select class="form-select" [(ngModel)]="typeMovement" name="typeMovement" required >
+          <option value="load">Carico</option>
+          <option value="unload">Scarico</option>
+        </select>
+      </label>
+      <label>
+        Prezzo:
+        <input class="form-control" [(ngModel)]="price" name="price" type="number"/>
+      </label>
+      <label>
+        Data Inserimento:
+        <input class="form-control" [(ngModel)]="insertDate" name="insertDate" type="date" required />
+      </label>
+      <button class="btn btn-primary" type="submit">Aggiungi Movimento</button>
+    </form>
+  </div>
+  <ng-template #loader>
+    <app-loader *ngIf="!isInError;else error"></app-loader>
+    <ng-template #error>
+      <h1 class="bg-danger bg-gradient p-3" style="color: white;">ERRORE IMPREVISTO</h1>
+    </ng-template>
+  </ng-template>
