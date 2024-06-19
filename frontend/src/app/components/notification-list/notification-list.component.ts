@@ -31,9 +31,9 @@ export class NotificationListComponent {
 
   ngOnInit(): void {
     this.loadNotify();
-    this.notifySubscription = this.notifyService.notifyReload.subscribe(() => {
+    /*this.notifySubscription = this.notifyService.notifyReload.subscribe(() => {
       this.loadNotify();
-    });
+    });*/
   }
 
   ngOnDestroy(): void {

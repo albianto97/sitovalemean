@@ -26,7 +26,7 @@ export class NotifyService {
       this.modifySubscribers.push(subscriber);
     })
   }
-  notifySubscribers2() {
+  notifyTable() {
     this.notifySubject.next();
   }
   notifySubscribers(){
