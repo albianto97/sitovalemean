@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Notify} from "../models/notify";
 import {Injectable} from "@angular/core";
 import {GeneralService} from "./-general.service";
@@ -14,8 +14,10 @@ export class NotifyService {
   modify: Observable<any>;
   modifySubscribers: any[] = [];
   private number: number = 0;
-  notifyReload = new EventEmitter<void>();
+  //notifyReload = new EventEmitter<void>();
 
+  private notifySubject = new Subject<void>();
+  notifyReload = this.notifySubject.asObservable();
 
 
 
@@ -24,8 +26,8 @@ export class NotifyService {
       this.modifySubscribers.push(subscriber);
     })
   }
-  emitNotifyReload() {
-    this.notifyReload.emit();
+  notifySubscribers2() {
+    this.notifySubject.next();
   }
   notifySubscribers(){
     for(let i = 0; i< this.modifySubscribers.length; i++){

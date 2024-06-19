@@ -53,6 +53,7 @@ export class AppComponent {
           this.notifyService.notifySubscribers();
           // Filtra le notifiche non lette
           this.unreadNotificationsCount = notifications.filter(notification => !notification.read).length;
+          this.notifyService.notifySubscribers2(); // Notifica i cambiamenti
 
         }
       );

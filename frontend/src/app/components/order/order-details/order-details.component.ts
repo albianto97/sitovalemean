@@ -44,7 +44,6 @@ export class OrderDetailsComponent implements OnInit {
 
   sendNotification() {
     console.log(this.order);
-    this.notificationService.emitNotifyReload();
     // Recupera l'utente dall'ID
     const notifyDate = new Date(); // Ottieni la data corrente
 
