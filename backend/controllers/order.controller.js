@@ -296,6 +296,19 @@ const checkOrderQuantities = async (order) => {
     return unavailableProducts;
 }
 
+const getOrder = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        const order = await Order.findOne({"_id": orderId}).lean();
+        if(order)
+            res.json(order);
+        else
+            res.status(404).send();
+    }catch (e) {
+        res.status(400).send(e);
+    }
+}
+
 
 module.exports = {
     createOrder,

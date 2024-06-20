@@ -6,6 +6,7 @@ import {NotifyService} from "./services/notify.service";
 import {AdminDialogComponent} from "./components/admin-dialog/admin-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "./services/user.service";
+import { MenuItem } from 'ngx-zeus-ui';
 
 
 
@@ -16,11 +17,20 @@ import {UserService} from "./services/user.service";
 })
 export class AppComponent {
   title = 'Gelateria';
+  linkLogo = "";
+  tel = './assets/media/logo-mobile.png';
+  des = './assets/media/logo-desktop.png';
   user: any;
   isAdmin: boolean = false;
   unreadNotificationsCount: number = 0;
   showChatbox: boolean = false;
-
+  link: MenuItem[] = [
+    new MenuItem("Home", "/",  true,  false,  { tipo:"fas", icona: "home"}, true),
+     new MenuItem("Comandi", "/comandi",  true,  false,  { tipo:"fas",icona: "code"}, true),
+     new MenuItem("Sinonimi", "/lexi",  true,  false,  { tipo:"fas",icona: "comments"}, true),
+     new MenuItem("Magazzini", "/magazzini",  true,  false,  { tipo:"fas",icona: "box"}, true),
+     new MenuItem("Marketplace", "/marketplace",  true,  false,  { tipo:"fas",icona: "store"}, true)
+   ];
 
 
   constructor(private authService: AuthService, private route: Router, private socket: SocketService,

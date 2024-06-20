@@ -53,6 +53,7 @@ import { StockAddComponent } from './components/stock/stock-add/stock-add.compon
 import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { LoaderComponent } from './components/structure/loader/loader.component';
 
+import { NgxZeusUiModule } from 'ngx-zeus-ui';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxZeusUiModule
   ]
 })
 export class AppModule {
