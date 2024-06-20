@@ -4,7 +4,6 @@ import { ChatUser } from "../../models/chatUser";
 import { AuthService } from "../../services/auth.service";
 import { ChatService } from "../../services/chat.service";
 import { ChatMessage } from "../../models/chatMessage";
-import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-chatbox',
@@ -15,6 +14,7 @@ export class ChatboxComponent implements OnInit {
 
   sender: any;
   receiver: any;
+  chatIconActive: boolean = false;
   messages: ChatMessage[] = [];
   message: string = '';
   currentUser: string = '';
@@ -22,8 +22,9 @@ export class ChatboxComponent implements OnInit {
   displayMessages: ChatMessage[] = [];
   newMessage: boolean = false;
   showBox: boolean = false;
+  onlineFilter : boolean = true;
   @Input() isAdmin: boolean = false;
-  userId: any = '';
+  user: any = '';
 
   constructor(private socketService: SocketService, private authService: AuthService, private chatService: ChatService) {
     socketService.registerChatHandlers((event: any, data: any) => this.socketCallback(event, data))
@@ -33,13 +34,12 @@ export class ChatboxComponent implements OnInit {
     if (!this.isAdmin) {
       this.currentUser = "admin";
     }
-    this.userId = this.authService.getUserFromToken();
-    this.getChatForUser(this.userId._id);
-
+    this.user = this.authService.getUserFromToken();
+    this.getChatForUser(this.user._id);
   }
 
   getChatForUser(userId: string) {
-    this.chatService.getMessagesForUser(userId)
+    this.chatService.getMessagesForUser(userId, this.onlineFilter)
       .subscribe((chat: any) => {
         this.sender = chat.sender;
         this.receiver = chat.receiver;
@@ -47,6 +47,15 @@ export class ChatboxComponent implements OnInit {
         this.users= this.receiver.map((r: any) => Object.assign({}, { username: r.username, newMessages: false }))
         if(this.users.length > 0)
           this.currentUser = this.users[0].username;
+        else
+          this.currentUser = '';
+        let usersWithNewMessages = chat.usersWithNewMessages;
+        for(let i= 0 ; i< usersWithNewMessages.length; i++){
+          let username = usersWithNewMessages[i];
+          let foundUser = this.users.filter( u => u.username == username);
+          if(foundUser.length > 0)
+            foundUser[0].newMessages = true;
+        }
         this.filterMessages();
       })
   }
@@ -54,6 +63,7 @@ export class ChatboxComponent implements OnInit {
   sendMessage() {
     if (this.message) {
       let messageItem: { from: string; to: string; content: string } = { to: this.currentUser, content: this.message, from: "" };
+      console.log(messageItem);
       this.socketService.sendMessage(messageItem);
       let chatMessage: ChatMessage = {
         from: this.sender,
@@ -66,13 +76,14 @@ export class ChatboxComponent implements OnInit {
     }
   }
 
-  findCurrent() {
-    return this.receiver.find((r:any) => r.username === this.currentUser);
+  findCurrent() : any{
+    return this.users.find((r:any) => r.username === this.currentUser);
   }
 
   socketCallback(event: any, data: any) {
     if (event == 'newMessage') {
       //if (this.isAdmin) {
+        this.chatIconActive = !this.showBox;
         if (this.users.length == 0) {
           this.currentUser = data.from.username;
         }
@@ -80,32 +91,34 @@ export class ChatboxComponent implements OnInit {
           this.users.push({ username: data.from.username, newMessages: this.users.length > 0 });
         } else {
           let user = this.users.find(u => u.username === data.from.username);
-          if (user) {
-            user.newMessages = data.from.username != this.currentUser;
+          if (user ) {
+            user.newMessages = !this.showBox || data.from.username != this.currentUser;
           }
         }
       //}
         this.messages.push(data);
         console.log(this.messages);
-        this.filterMessages();
+
     }else if(event == 'chatDeleted'){
-      this.messages = [];
-      this.filterMessages();
+      this.messages = []; // cancellare la chat post delete
+      this.messages.push({to: this.sender, from : {'username' : "_service_"}, content: "admin ha eliminato la chat"});
     }
+    this.filterMessages();
   }
 
   filterMessages() {
-    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser);
-
-    if (this.users.length > 0) {
+    this.displayMessages = this.messages.filter((m: ChatMessage) => m.to.username == this.currentUser || m.from.username == this.currentUser || m.from.username == '_service_');
+    if (this.users.length > 0 && this.showBox) {
       const currentUser = this.users.find(u => u.username === this.currentUser);
       if (currentUser) {
         console.log(this.currentUser + " utente corrente");
         currentUser.newMessages = false;
+        this.socketService.notifyChatDisplayed(this.user.username, this.currentUser)
       }
     }
 
     this.newMessage = this.users.some(u => u.newMessages);
+    this.chatIconActive = this.newMessage;
   }
 
   deleteMessage() {
@@ -122,12 +135,25 @@ export class ChatboxComponent implements OnInit {
             // Assegna il nome utente corrispondente o '' se non trovato
             this.currentUser = firstUser ? firstUser.username : '';
             // Ricarica i messaggi mostrati solo se il messaggio è stato eliminato con successo
+            this.messages = this.messages.filter(messagge => messagge.from.username !=deleteUsername && messagge.to.username !=deleteUsername);
             this.filterMessages();
-
           });
     } else {
-      console.error('Messaggio non definito correttamente');
+        console.error('Impossibile determinare l\'ID del destinatario per eliminare il messaggio');
     }
   }
 
+  closeBox() {
+    this.showBox = false;
+    this.chatIconActive = this.newMessage;
+  }
+
+  displayBox() {
+    this.showBox = true;
+    this.filterMessages();
+  }
+
+  updateFilterOnline() {
+    setTimeout(()=> this.getChatForUser(this.user._id));
+  }
 }

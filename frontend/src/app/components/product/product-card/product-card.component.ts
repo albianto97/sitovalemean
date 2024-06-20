@@ -74,10 +74,14 @@ export class ProductCardComponent {
   }
 
   deleteProduct(productId: string) {
-      this.productService.deleteProduct(productId).subscribe(() => {
+      this.productService.deleteProduct(productId).subscribe(r => {
+        if(r.result == 0) {
+          alert('Prodotto eliminato con successo');
           console.log('Prodotto eliminato con successo');
-          this.route.navigate(['/productList'])
-          // Esegui azioni aggiuntive dopo l'eliminazione del prodotto se necessario
+        }else if(r.result == 2){
+          alert('Prodotto presente in qualche ordine, evitiamo di sballare i grafici');
+        }
+        this.route.navigate(['/productList'])
         }
       );
   }

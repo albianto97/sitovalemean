@@ -23,8 +23,6 @@
 }
 
 /* Stile dell'area di input */
-/* Stile dell'area di input */
-/* Stile dell'area di input */
 .chatbox-input {
   width: 100%;
   display: flex;
@@ -58,7 +56,7 @@ textarea {
 .chatbox-display-open {
   position: fixed;
   right: 10px;
-  bottom: 10px;
+  bottom: 100px;
   cursor: pointer;
   z-index: 999;
 }
@@ -78,4 +76,7 @@ textarea {
 .message-from {
   font-weight: bold;
   color: #2c3e50;
+}
+.service-message{
+  color: gray;
 }

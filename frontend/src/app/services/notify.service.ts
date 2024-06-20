@@ -1,9 +1,10 @@
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Notify} from "../models/notify";
 import {Injectable} from "@angular/core";
 import {GeneralService} from "./-general.service";
 import {AuthService} from "./auth.service";
+import {EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,20 @@ export class NotifyService {
   modify: Observable<any>;
   modifySubscribers: any[] = [];
   private number: number = 0;
+  //notifyReload = new EventEmitter<void>();
+
+  private notifySubject = new Subject<void>();
+  notifyReload = this.notifySubject.asObservable();
+
+
 
   constructor(private http: HttpClient, private generalService: GeneralService, private authService: AuthService) {
     this.modify = new Observable<any>(subscriber => {
       this.modifySubscribers.push(subscriber);
     })
+  }
+  notifyTable() {
+    this.notifySubject.next();
   }
   notifySubscribers(){
     for(let i = 0; i< this.modifySubscribers.length; i++){
@@ -30,9 +40,9 @@ export class NotifyService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.post<Notify>(this.endPoint+'/createNotify', { username, date, message, read, orderId }, { headers });
   }
-  getUserNotifications(id: string): Observable<Notify[]> {
+  getUserNotifications(username: string): Observable<Notify[]> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Notify[]>(`${this.endPoint}/${id}`, {headers});
+    return this.http.get<Notify[]>(`${this.endPoint}/${username}`, {headers});
   }
   deleteNotification(notificationId: string): Observable<any> {
     const headers = this.generalService.createHeadersForAuthorization();

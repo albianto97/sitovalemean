@@ -1,34 +1,34 @@
-<div class="chatbox-display-open" *ngIf="!showBox" (click)="showBox = true">
-  <mat-icon [style.color]="newMessage ? 'red' : 'primary'">chat</mat-icon>
+<div class="chatbox-display-open" *ngIf="!showBox" (click)="displayBox()">
+  <mat-icon [style.color]="this.chatIconActive ? 'red' : 'primary'">chat</mat-icon>
 
 </div>
 
 <div class="chatbox-main" *ngIf="showBox">
   <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
-
-  <div *ngIf="isAdmin" class="chatbox-user">
+  <div><input type="checkbox" [(ngModel)]="onlineFilter" (click)="updateFilterOnline()"> Solo online</div>
+  <div class="chatbox-user">
     <select [(ngModel)]="currentUser" (change)="filterMessages()">
-      <option *ngFor="let user of users" value="{{user.username}}">
-        {{user.username}}
-        <span *ngIf="user.newMessages" class="new-message">Nuovo messaggio</span>
+      <option *ngFor="let user of users" value="{{user.username}}" [ngClass]="{'new-message': user.newMessages}">{{user.username}}
       </option>
     </select>
-    <span *ngIf="this.newMessage">Nuovo messaggio</span>
+    <span *ngIf="this.newMessage">Nuovo messaggio</span> <!-- nel menu filtro -->
   </div>
 
   <div class="chatbox-display">
-    <div class="chatbox-display-close" (click)="showBox = false">
+    <div class="chatbox-display-close" (click)="closeBox()">
       <mat-icon style="color: #e74c3c">close</mat-icon>
     </div>
 
     <p *ngFor="let m of displayMessages" class="message">
-      <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
-      <span *ngIf="this.sender.username != m.from.username" class="message-from">{{m.from.username}}: </span>
-      {{m.content}}
+      <span *ngIf="m.from.username != '_service_'">
+        <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
+        <span *ngIf="this.sender.username != m.from.username" class="message-from">{{m.from.username}}: </span>
+      </span>
+      <span [ngClass]="{'service-message': m.from.username == '_service_'}">{{m.content}}</span>
     </p>
   </div>
   <!-- *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))"-- bloocare admin che parli per primo -->
-  <div class="chatbox-input">
+  <div *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))" class="chatbox-input">
     <div class="chatbox-textarea">
       <textarea [(ngModel)]="message"></textarea>
     </div>

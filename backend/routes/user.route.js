@@ -12,6 +12,8 @@ router.get('/:userId',verifyAdminToken, userController.getSingleUser);
 router.post('/create-user', userController.createUser);
 // Rotta per effettuare il Login di un utente
 router.post('/login', userController.login);
+router.post('/addAdmin', userController.addAdmin);
+
 
 
 

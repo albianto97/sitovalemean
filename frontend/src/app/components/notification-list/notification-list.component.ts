@@ -2,9 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { NotifyService } from "../../services/notify.service";
 import { Notify } from "../../models/notify";
 import { AuthService } from "../../services/auth.service";
-import { Order } from "../../models/order";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { MatPaginator } from "@angular/material/paginator";
+import {Subscription} from "rxjs";
+
 
 @Component({
   selector: 'app-notification-list',
@@ -25,17 +26,27 @@ export class NotificationListComponent {
   currentPage: number = 1;
   startIndex: number = 0;
   endIndex: number = 5;
+  private notifySubscription: Subscription = new Subscription();
 
 
   ngOnInit(): void {
     this.loadNotify();
-
+    /*this.notifySubscription = this.notifyService.notifyReload.subscribe(() => {
+      this.loadNotify();
+    });*/
   }
+
+  ngOnDestroy(): void {
+    if (this.notifySubscription) {
+      this.notifySubscription.unsubscribe();
+    }
+  }
+
   loadNotify() {
     // Recupera le notifiche dell'utente corrente quando la componente viene inizializzata
     const currentUser = this.authService.getUserFromToken();
     if (currentUser) {
-      this.notifyService.getUserNotifications(currentUser).subscribe(
+      this.notifyService.getUserNotifications(currentUser.username).subscribe(
         (notifications: any[]) => { // Ora notifications è un array
           console.log('Notifications:', notifications); // Controlla il formato dei dati ricevuti
           this.notifications = notifications;

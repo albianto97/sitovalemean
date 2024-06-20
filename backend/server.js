@@ -24,6 +24,7 @@ const io = socketIo(server, {
 });
 
 let socketsByUsername = {}
+let newMessages = {} //mittente_ricevitore;
 
 
 // Middleware per gestire le richieste CORS
@@ -40,6 +41,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     req.socketServer = io;
     req.socketsByUsername = socketsByUsername;
+    req.newMessages = newMessages;
     next();
 });
 
@@ -80,20 +82,22 @@ io.on('connection', (socket) => {
                 let userSocket = socketsByUsername[to];
                 if (userSocket) {
                     data.to = {"username" : to};
-                    console.log(data);
                     data.from = {"username" : username};
+                    console.log(data);
                     userSocket.emit('newMessage', data);
-                    const savedMessage = await createChat(username, to, data.content);
-                    console.log('Messaggio salvato:', savedMessage);
                 }
+                const savedMessage = await createChat(username, to, data.content);
+                console.log('Messaggio salvato:', savedMessage);
+                newMessages[username+"|"+to] = true;
             });
+            socket.on('chatDisplayed', async (data) => {
+                let nmk = data.remoteUser+"|"+data.currentUser;
+                newMessages[nmk]= false;
+            })
         }
     })
 });
 
-//socket.emit("welcome", "benvenuto nel socket, " + socket.id); //singolo
-//io.emit("welcome", "nuova connessione: " + socket.id); //broadcast
-//socket.broadcast.emit('notification', data); // non invia a se stesso
 
 function getUsernameFromJWT(token, callback){
     return jwt.verify(token, 'chiaveSegreta', callback);

@@ -12,11 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './modules/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { CommonModule } from "@angular/common";
@@ -41,6 +41,8 @@ import { OrderDetailsComponent } from './components/order/order-details/order-de
 import { LogoutComponent } from './components/logout/logout.component';
 import { ChatboxComponent } from './components/chatbox/chatbox.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
 import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
 import { LineGraphComponent } from './components/statistics-dashboard/line-graph/line-graph.component';
@@ -86,7 +88,8 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
     StockAddComponent,
     IngredientsComponent,
     LoaderComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AdminDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -99,9 +102,12 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
     BrowserAnimationsModule,
     MaterialModule,
     MatIconModule,
-    HttpClientModule,
     FontAwesomeModule,
     CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     NgApexchartsModule
   ]
 })

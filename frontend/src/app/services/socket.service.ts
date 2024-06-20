@@ -27,9 +27,10 @@ export class SocketService {
   }
 
   registerChatHandlers(callback: any){
-    this.socket.on('newMessage', (data: any) => {
+    /*this.socket.on('newMessage', (data: any) => {
       callback('newMessage', data);
-    });
+    });*/
+    this.socket.onAny((eventName : any, data : any) => callback(eventName, data));
   }
 
   //in ascolto da backend
@@ -67,6 +68,11 @@ export class SocketService {
 
   sendMessage(message: any){
     this.socket.emit('messageSent', message)
+  }
+
+  notifyChatDisplayed(currentUser: string, remoteUser: string){
+    this.socket.emit('chatDisplayed', {currentUser: currentUser, remoteUser: remoteUser});
+
   }
 
 

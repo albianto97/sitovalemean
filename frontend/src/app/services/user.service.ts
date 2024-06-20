@@ -34,6 +34,10 @@ export class UserService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<User>(`${this.endPoint}/${id}`, { headers });
   }
+  public addAdmin(username: string):any {
+    const data = { username: username }; // Ensure the username is included in the data object
+    return this.http.post(this.endPoint+"/addAdmin", data);
+  }
   public getUserById(userId : string): Observable<User> {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<User>(this.endPoint + "/"+ userId,{headers});

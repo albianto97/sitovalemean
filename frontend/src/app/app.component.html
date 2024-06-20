@@ -8,6 +8,7 @@
     <button *ngIf="this.isAdmin" mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
     <button *ngIf="!this.isAdmin" mat-button color="primary" routerLink="profilo">Profilo</button>
     <button *ngIf="!this.isAdmin" mat-button color="primary"  [matBadge]="unreadNotificationsCount" routerLink="notifications">Notifiche</button>
+    <button *ngIf="this.isAdmin" mat-button color="primary" (click)="openAdminDialog()">Aggiungi Admin</button>
   </div>
     <app-logout *ngIf="this.user || this.isAdmin"></app-logout>
   </mat-toolbar>

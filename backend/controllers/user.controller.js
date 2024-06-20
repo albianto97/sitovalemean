@@ -77,11 +77,30 @@ const login = async (req, res) => {
         res.status(500).json({ isValid: false, message: err.message });
     }
 }
+const addAdmin = async (req, res) => {
+    try {
+        const { username } = req.body;
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'uffa!' });
+        }
+
+        user.ruolo = 'amministratore';
+        await user.save();
+
+        res.status(200).json({ message: 'User promosso ad admin' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
 
 module.exports = {
     getUser,
     createUser,
     getSingleUser,
     searchUsersByUsername,
-    login
+    login,
+    addAdmin
 }

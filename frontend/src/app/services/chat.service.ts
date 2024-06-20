@@ -14,9 +14,9 @@ export class ChatService {
 
   constructor(private http: HttpClient, private generalService: GeneralService) { }
 
-  getMessagesForUser(userId: string | null): Observable<ChatMessage[]> {
+  getMessagesForUser(userId: string | null, onlineReceivers: boolean): Observable<ChatMessage[]> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<ChatMessage[]>(`${this.endPoint}/messages/${userId}`, {headers});
+    return this.http.get<ChatMessage[]>(`${this.endPoint}/messages/${userId}`, {headers, params: {onlineReceivers: onlineReceivers}});
   }
 
   deleteMessage(username: string): Observable<any> {

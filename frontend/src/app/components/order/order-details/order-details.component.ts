@@ -10,6 +10,7 @@ import { NotifyService } from "../../../services/notify.service";
 import { Notify } from "../../../models/notify";
 import { UserService } from "../../../services/user.service";
 
+
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
@@ -103,6 +104,7 @@ export class OrderDetailsComponent implements OnInit {
             (notification: Notify) => {
               console.log("Notifica salvata con successo:", notification);
               // Gestisci la notifica salvata come preferisci
+              this.notificationService.notifySubscribers();
             }
           );
         }
