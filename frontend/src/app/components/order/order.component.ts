@@ -14,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class OrderComponent implements OnInit {
   @Input() order!: Order;
   @Input() selectUsername!: string;
-  //@Input() isProfile: boolean = false;
+  @Input() isProfile: boolean = false;
   username: string = "";
 
   constructor(private router: Router, private userService: UserService, private socketService: SocketService, public authService: AuthService) { }

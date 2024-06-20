@@ -46,7 +46,7 @@ import { StatisticsDashboardComponent } from './components/statistics-dashboard/
 import { LineGraphComponent } from './components/statistics-dashboard/line-graph/line-graph.component';
 import { AreaChartComponent } from "./components/statistics-dashboard/area-chart/area-chart.component";
 import { StockListComponent } from './components/stock/stock-list/stock-list.component';
-import {NgApexchartsModule} from 'ng-apexcharts'
+import { NgApexchartsModule } from 'ng-apexcharts'
 import { StockAddComponent } from './components/stock/stock-add/stock-add.component';
 import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { LoaderComponent } from './components/structure/loader/loader.component';
@@ -78,8 +78,18 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
     OrderDetailsComponent,
     LogoutComponent,
     ChatboxComponent,
+    OrderedProductComponent,
+    StatisticsDashboardComponent,
+    LineGraphComponent,
+    AreaChartComponent,
+    StockListComponent,
+    StockAddComponent,
+    IngredientsComponent,
+    LoaderComponent,
     NotificationListComponent
   ],
+  providers: [],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -91,59 +101,9 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
     MatIconModule,
     HttpClientModule,
     FontAwesomeModule,
-    CommonModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        SignInComponent,
-        UserListComponent,
-        ProductListComponent,
-        ProfiloComponent,
-        ProductCreationComponent,
-        SingleProductComponent,
-        CreateOrderComponent,
-        HomeComponent,
-        UserInfoComponent,
-        CartComponent,
-        OrdersComponent,
-        StatusIconHtmlPipe,
-        ProductCardComponent,
-        UnauthorizedComponent,
-        InventoryComponent,
-        DialogAlertComponent,
-        AdminHomeComponent,
-        OrderComponent,
-        ListOrderComponent,
-        OrderDetailsComponent,
-        LogoutComponent,
-        OrderedProductComponent,
-        StatisticsDashboardComponent,
-        LineGraphComponent,
-        AreaChartComponent,
-        StockListComponent,
-        StockAddComponent,
-        IngredientsComponent,
-        LoaderComponent
-    ],
-    providers: [],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MaterialModule,
-        MatIconModule,
-        HttpClientModule,
-        FontAwesomeModule,
-        CommonModule,
-        NgApexchartsModule
-    ]
+    CommonModule,
+    NgApexchartsModule
+  ]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {

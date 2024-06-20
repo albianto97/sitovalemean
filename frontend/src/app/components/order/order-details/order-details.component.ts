@@ -5,11 +5,10 @@ import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
-import {OrderService} from "../../../services/order.service";
-import {SocketService} from "../../../services/socket.service";
-import {NotifyService} from "../../../services/notify.service";
-import {Notify} from "../../../models/notify";
-import {UserService} from "../../../services/user.service";
+import { SocketService } from "../../../services/socket.service";
+import { NotifyService } from "../../../services/notify.service";
+import { Notify } from "../../../models/notify";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-order-details',
@@ -27,8 +26,13 @@ export class OrderDetailsComponent implements OnInit {
     totQuantity: 0,
     totPrice: 0
   }
-  constructor(private route: ActivatedRoute, private productService: ProductService, private orderService: OrderService,
-    public authService: AuthService) { }
+  constructor(private route: ActivatedRoute,
+    private productService: ProductService,
+    private orderService: OrderService,
+    private userService: UserService,
+    public authService: AuthService,
+    private socketService: SocketService,
+    private notificationService: NotifyService) { }
   ngOnInit(): void {
     // passo l'ordine dal router
     const state = history.state;
@@ -63,18 +67,25 @@ export class OrderDetailsComponent implements OnInit {
         this.order.closingDate = new Date();
       this.order.shippingDate = new Date();
     }
-    console.log("CIAO", this.order);
 
     this.orderService.updateOrder(this.order).subscribe(result => {
       console.log(result);
       history.state.order = result;
+      this.sendNotification();
     })
   }
 
 
 
-  }
 
+
+
+
+  selectedOrderState: any;
+
+  onStateChange(event: any) {
+    this.selectedOrderState = event.value; // Aggiorna lo stato selezionato quando cambia
+  }
   sendNotification() {
     console.log(this.order);
     // Recupera l'utente dall'ID
@@ -85,7 +96,7 @@ export class OrderDetailsComponent implements OnInit {
         if (userData) {
           const username = userData.username;
           // Invia la notifica utilizzando il nome utente recuperato
-          const message = "Il prodotto è nel seguente stato: " + this.selectedOrderState;
+          const message = "Il prodotto è nel seguente stato: " + this.order.status;
           this.socketService.sendNotification({ username: username, message: message });
           // Chiamata al metodo saveEvaso del servizio NotifyService
           this.notificationService.saveEvaso(username, notifyDate.toISOString(), this.order._id, false, message).subscribe(
@@ -97,11 +108,5 @@ export class OrderDetailsComponent implements OnInit {
         }
       }
     );
-  }
-
-
-
-  onStateChange(event: any) {
-    this.selectedOrderState = event.value; // Aggiorna lo stato selezionato quando cambia
   }
 }

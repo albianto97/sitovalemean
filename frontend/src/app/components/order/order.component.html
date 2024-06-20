@@ -15,7 +15,7 @@
               <button class="btn btn-primary w-100" (click)="openDetail(order)">Visualizza</button>
             </div>
             <div class="col-md-6 mb-2" *ngIf="this.authService.isAdmin()">
-              <button class="btn btn-primary w-100"  (click)="sendNotification(order.username)">Invia notifica</button>
+              <button class="btn btn-primary w-100"  (click)="sendNotification(username)">Invia notifica</button>
             </div>
           </div>
         </div>

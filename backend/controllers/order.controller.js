@@ -296,7 +296,7 @@ const checkOrderQuantities = async (order) => {
     return unavailableProducts;
 }
 
-/*const getOrder = async (req, res) => {
+const getOrder = async (req, res) => {
     try {
         const orderId = req.params.orderId;
         const order = await Order.findOne({ "_id": orderId }).lean();
@@ -307,7 +307,7 @@ const checkOrderQuantities = async (order) => {
     } catch (e) {
         res.status(400).send(e);
     }
-}*/
+}
 
 
 module.exports = {
