@@ -1,0 +1,41 @@
+<div class="chatbox-display-open" *ngIf="!showBox" (click)="showBox = true">
+  <mat-icon [style.color]="newMessage ? 'red' : 'primary'">chat</mat-icon>
+
+</div>
+
+<div class="chatbox-main" *ngIf="showBox">
+  <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
+
+  <div *ngIf="isAdmin" class="chatbox-user">
+    <select [(ngModel)]="currentUser" (change)="filterMessages()">
+      <option *ngFor="let user of users" value="{{user.username}}">
+        {{user.username}}
+        <span *ngIf="user.newMessages" class="new-message">Nuovo messaggio</span>
+      </option>
+    </select>
+    <span *ngIf="this.newMessage">Nuovo messaggio</span>
+  </div>
+
+  <div class="chatbox-display">
+    <div class="chatbox-display-close" (click)="showBox = false">
+      <mat-icon style="color: #e74c3c">close</mat-icon>
+    </div>
+
+    <p *ngFor="let m of displayMessages" class="message">
+      <span *ngIf="this.sender.username == m.from.username" class="message-from">Io: </span>
+      <span *ngIf="this.sender.username != m.from.username" class="message-from">{{m.from.username}}: </span>
+      {{m.content}}
+    </p>
+  </div>
+  <!-- *ngIf="(messages.length > 0 || !(messages.length == 0 && isAdmin))"-- bloocare admin che parli per primo -->
+  <div class="chatbox-input">
+    <div class="chatbox-textarea">
+      <textarea [(ngModel)]="message"></textarea>
+    </div>
+
+    <div class="chatbox-button">
+      <button mat-raised-button color="primary" (click)="sendMessage()">Invia</button>
+      <button mat-raised-button color="warn" *ngIf="isAdmin" (click)="deleteMessage()">Elimina</button>
+    </div>
+  </div>
+</div>

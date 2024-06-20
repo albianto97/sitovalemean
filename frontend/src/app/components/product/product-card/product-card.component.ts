@@ -18,6 +18,7 @@ export class ProductCardComponent {
   @Output() itemRemoved = new EventEmitter();
   isAdmin: boolean = false;
   quantityToAdd: any;
+  @Input() singleP: boolean = false;
 
   constructor(public cartService: CartService,
               private authService: AuthService,

@@ -10,9 +10,15 @@
         <div>
             Totale prodotti ordinati: <strong>{{ order.products.length }}</strong>
           <!-- indirizzamento di visualizza -->
-          <button class="btn btn-primary w-100" (click)="openDetail(order)" >Visualizza</button>
+          <div class="row">
+            <div class="col-md-6 mb-2">
+              <button class="btn btn-primary w-100" (click)="openDetail(order)">Visualizza</button>
+            </div>
+            <div class="col-md-6 mb-2" *ngIf="this.authService.isAdmin()">
+              <button class="btn btn-primary w-100"  (click)="sendNotification(order.username)">Invia notifica</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  

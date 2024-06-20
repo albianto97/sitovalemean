@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import {SocketService} from "../../services/socket.service";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private socketService: SocketService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -32,10 +34,10 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       var newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
       this.authService.login(newUser).subscribe((response: any) => {
-
+        this.socketService.connect();
         this.router.navigate(['']);
 
-      }); 
+      });
     }
   }
 }

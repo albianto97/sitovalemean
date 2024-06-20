@@ -1,3 +1,4 @@
+<app-chatbox [isAdmin]="this.isAdmin" *ngIf="showChatbox"></app-chatbox>
 <div>
   <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
   <a href="#" class="navbar-brand">Gelateria</a>
@@ -6,6 +7,7 @@
     <button mat-button color="primary" routerLink="productList">Lista Prodotti</button>
     <button *ngIf="this.isAdmin" mat-button color="primary" routerLink="create-product">Inserisci Prodotto</button>
     <button *ngIf="!this.isAdmin" mat-button color="primary" routerLink="profilo">Profilo</button>
+    <button *ngIf="!this.isAdmin" mat-button color="primary"  [matBadge]="unreadNotificationsCount" routerLink="notifications">Notifiche</button>
   </div>
     <app-logout *ngIf="this.user || this.isAdmin"></app-logout>
   </mat-toolbar>

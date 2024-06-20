@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-single-product',
@@ -13,7 +14,7 @@ export class SingleProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -30,4 +31,5 @@ export class SingleProductComponent implements OnInit {
         }) as Product;
     }
   }
+
 }

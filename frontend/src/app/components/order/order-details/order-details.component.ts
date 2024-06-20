@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order, Status } from 'src/app/models/order';
+import { Status } from 'src/app/models/order';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
+import {OrderService} from "../../../services/order.service";
+import {SocketService} from "../../../services/socket.service";
+import {NotifyService} from "../../../services/notify.service";
+import {Notify} from "../../../models/notify";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-order-details',
@@ -67,4 +72,36 @@ export class OrderDetailsComponent implements OnInit {
   }
 
 
+
+  }
+
+  sendNotification() {
+    console.log(this.order);
+    // Recupera l'utente dall'ID
+    const notifyDate = new Date(); // Ottieni la data corrente
+
+    this.userService.getSingleUserById(this.order.user).subscribe(
+      (userData: any) => {
+        if (userData) {
+          const username = userData.username;
+          // Invia la notifica utilizzando il nome utente recuperato
+          const message = "Il prodotto è nel seguente stato: " + this.selectedOrderState;
+          this.socketService.sendNotification({ username: username, message: message });
+          // Chiamata al metodo saveEvaso del servizio NotifyService
+          this.notificationService.saveEvaso(username, notifyDate.toISOString(), this.order._id, false, message).subscribe(
+            (notification: Notify) => {
+              console.log("Notifica salvata con successo:", notification);
+              // Gestisci la notifica salvata come preferisci
+            }
+          );
+        }
+      }
+    );
+  }
+
+
+
+  onStateChange(event: any) {
+    this.selectedOrderState = event.value; // Aggiorna lo stato selezionato quando cambia
+  }
 }

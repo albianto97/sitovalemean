@@ -39,6 +39,8 @@ import { OrderComponent } from './components/order/order.component';
 import { ListOrderComponent } from './components/order/list-order/list-order.component';
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { ChatboxComponent } from './components/chatbox/chatbox.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
 import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
 import { LineGraphComponent } from './components/statistics-dashboard/line-graph/line-graph.component';
@@ -51,6 +53,48 @@ import { LoaderComponent } from './components/structure/loader/loader.component'
 
 
 @NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignInComponent,
+    UserListComponent,
+    ProductListComponent,
+    ProfiloComponent,
+    ProductCreationComponent,
+    SingleProductComponent,
+    CreateOrderComponent,
+    HomeComponent,
+    UserInfoComponent,
+    CartComponent,
+    OrdersComponent,
+    StatusIconHtmlPipe,
+    ProductCardComponent,
+    UnauthorizedComponent,
+    InventoryComponent,
+    DialogAlertComponent,
+    AdminHomeComponent,
+    OrderComponent,
+    ListOrderComponent,
+    OrderDetailsComponent,
+    LogoutComponent,
+    ChatboxComponent,
+    NotificationListComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatIconModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    CommonModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
     declarations: [
         AppComponent,
         LoginComponent,
