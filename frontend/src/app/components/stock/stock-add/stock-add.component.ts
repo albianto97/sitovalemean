@@ -57,7 +57,7 @@ export class StockAddComponent implements OnInit {
     const ingredient = this.ingredients.find(ingredient => ingredient._id === this.ingredientId);
     console.log(ingredient);
     if (ingredient) {
-      this.price = ingredient.mediumPrice * this.movementQuantity;
+      this.price = parseFloat((ingredient.mediumPrice * this.movementQuantity).toFixed(2));
     }
 
   }
