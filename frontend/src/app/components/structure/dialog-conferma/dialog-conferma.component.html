@@ -1,0 +1,27 @@
+<app-dialog-struttura [titolo]="'Conferma'">
+  <div *ngIf="data.type == 'warning'">
+    <div mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Annulla</button>
+      <button mat-button color="warn" (click)="onYesClick()">Elimina</button>
+    </div>
+  </div>
+  <div *ngIf="data.type == 'strong_warning'">
+    <div mat-dialog-content class="d-flex flex-column">
+      <div class="d-flex justify-content-center mb-4" *ngIf="data.imgLink">
+        <!-- <img [src]="data.imgLink" width="100px" height="100px" style="box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.08);
+        border-radius: 20px;"> -->
+      </div>
+      <b style="font-weight: 500;">{{ data.message }}</b>
+      <p >{{ data.secondaryMessage }}</p>
+      <mat-slide-toggle (change)="this.isConfirmButtonDisabled = !this.isConfirmButtonDisabled">Abilita conferma</mat-slide-toggle>
+    </div>
+    <div mat-dialog-actions class="d-flex" style="justify-content: space-between;">
+      <button mat-stroked-button (click)="onNoClick()">Annulla</button>
+      <button mat-flat-button [disabled]="isConfirmButtonDisabled" color="warn" (click)="onYesClick()">Elimina</button>
+    </div>
+  </div>
+
+</app-dialog-struttura>

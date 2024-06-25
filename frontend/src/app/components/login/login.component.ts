@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import {SocketService} from "../../services/socket.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent {
   constructor(private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private socketService: SocketService) {
+    private socketService: SocketService,
+  private _matSnackbar: MatSnackBar) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -36,8 +38,15 @@ export class LoginComponent {
       this.authService.login(newUser).subscribe((response: any) => {
         this.socketService.connect();
         this.router.navigate(['']);
-
-      });
+      },
+      error => {
+        const message = 'credenziali inserite non corrette.'
+        this._matSnackbar.open(message, 'chiudi', {
+          duration: 5 * 1000,
+        });
+        console.error('Error fetching data', error);
+      }
+    );
     }
   }
 }

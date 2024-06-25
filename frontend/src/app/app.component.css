@@ -1,8 +1,14 @@
 .mat-button {
-  color: black; /* Imposta il colore del testo su nero */
-  background-color: yellow !important; /* Imposta il colore di sfondo su giallo */
+  color: black; 
+  background-color: yellow !important; 
 }
 
 .mat-button:hover {
-  background-color: #ffd700 !important; /* Cambia il colore di sfondo al passaggio del mouse */
+  background-color: #ffd700 !important; 
+}
+::ng-deep.pan-menu-desktop li{
+  color:#523aeb !important;
+}
+::ng-deep.pan-menu-desktop li::after{
+  background-color: #523aeb !important;
 }

@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Rotta per ottenere tutti i prodotti
 router.get('/', productController.getProduct);
+router.get('/getTopProducts', productController.getTopProducts);
 // Rotta per ottenere singolo prodotto
 router.get('/:productId', productController.getSingleProduct);
 // Rotta per creare un prodotto

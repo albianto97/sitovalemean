@@ -1,5 +1,5 @@
 <div class="container-xl">
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="true" class="mb-3" *ngIf="this.authService.isAdmin()">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Filtri
@@ -32,30 +32,35 @@
         <h2>Trova un ordine in base al suo numero</h2>
         <form>
             <mat-form-field class="w-50">
-              <mat-label>Number</mat-label>
-              <input type="text"
-                     placeholder="Id Ordine"
-                     matInput
-                     [formControl]="idOrderToSearch"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
+                <mat-label>Number</mat-label>
+                <input type="text" placeholder="Id Ordine" matInput [formControl]="idOrderToSearch"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
-          </form>
-        <hr>    
+        </form>
+        <hr>
         <button mat-raised-button color="primary" (click)="filterOrder()">Filtra</button>
     </mat-expansion-panel>
+    <mat-chip-listbox aria-label="Fish selection" class="mb-3" [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterOrder()">
+        <mat-chip-option value="inAttesa" color="primary"> In attesa</mat-chip-option>
+        <mat-chip-option value="rifiutato" color="warn">Rifiutato</mat-chip-option>
+        <mat-chip-option value="accettato" color="accent">Accettato</mat-chip-option>
+        <mat-chip-option value="consegnato" color="primary">Consegnato</mat-chip-option>
+        <mat-chip-option value="lavorazione" color="warn">Lavorazione</mat-chip-option>
+        <mat-chip-option value="terminato" color="accent">Terminato</mat-chip-option>
+    </mat-chip-listbox>
+    <div *ngIf="orderToShow.length > 0; else noOrders">
+        <app-list-order [orders]="orderToShow"></app-list-order>
+        <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+            [length]="ordersFiltered.length" [pageSize]="pageSize" [pageSizeOptions]=" pageSizeOptions"
+            [pageIndex]="pageIndex" aria-label="Select page">
+        </mat-paginator>
+    </div>
+    <ng-template #noOrders>
+        <h1>Non esistono ordini con queste caratteristiche.</h1>
+    </ng-template>
 </div>
-<app-list-order [orders]="orderToShow"></app-list-order>
-<mat-paginator #paginator
-               class="demo-paginator"
-               (page)="handlePageEvent($event)"
-               [length]="ordersFiltered.length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]=" pageSizeOptions"
-               [pageIndex]="pageIndex"
-               aria-label="Select page">
-</mat-paginator>

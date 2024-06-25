@@ -1,7 +1,7 @@
 <app-chatbox [isAdmin]="this.isAdmin" *ngIf="showChatbox"></app-chatbox>
 
-<zeus-navbar [links]="link" [titolo]="'agorà'" [logoMobilePath]="tel" [logoDesktopPath]="des"></zeus-navbar>
-<div>
+<zeus-navbar style=" background-color: white; width:100%;" [links]="link" [titolo]="title" [logoMobilePath]="tel" [logoDesktopPath]="des"></zeus-navbar>
+<!-- <div>
   <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
   <a href="#" class="navbar-brand">Gelateria</a>
   <div *ngIf="user">
@@ -14,8 +14,8 @@
   </div>
     <app-logout *ngIf="this.user || this.isAdmin"></app-logout>
   </mat-toolbar>
-</div>
+</div> -->
 <!-- Router Outlet -->
-<div>
+<div >
   <router-outlet></router-outlet>
 </div>

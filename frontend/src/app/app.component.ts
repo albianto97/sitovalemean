@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { NavigationEnd, Router } from "@angular/router";
-import {SocketService} from "./services/socket.service";
-import {NotifyService} from "./services/notify.service";
-import {AdminDialogComponent} from "./components/admin-dialog/admin-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {UserService} from "./services/user.service";
+import { SocketService } from "./services/socket.service";
+import { NotifyService } from "./services/notify.service";
+import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { UserService } from "./services/user.service";
 import { MenuItem } from 'ngx-zeus-ui';
 
 
@@ -15,26 +15,37 @@ import { MenuItem } from 'ngx-zeus-ui';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Gelateria';
-  linkLogo = "";
-  tel = './assets/media/logo-mobile.png';
-  des = './assets/media/logo-desktop.png';
+  tel = './assets/media/logo.png';
+  des = './assets/media/logo.png';
   user: any;
   isAdmin: boolean = false;
   unreadNotificationsCount: number = 0;
   showChatbox: boolean = false;
-  link: MenuItem[] = [
-    new MenuItem("Home", "/",  true,  false,  { tipo:"fas", icona: "home"}, true),
-     new MenuItem("Comandi", "/comandi",  true,  false,  { tipo:"fas",icona: "code"}, true),
-     new MenuItem("Sinonimi", "/lexi",  true,  false,  { tipo:"fas",icona: "comments"}, true),
-     new MenuItem("Magazzini", "/magazzini",  true,  false,  { tipo:"fas",icona: "box"}, true),
-     new MenuItem("Marketplace", "/marketplace",  true,  false,  { tipo:"fas",icona: "store"}, true)
-   ];
+  link:MenuItem[] =[]
+  linkAdmin: MenuItem[] = [
+    new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
+    new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
+    new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
+    new MenuItem("Ingredienti", "/ingredients", true, false, { tipo: "fas", icona: "wheat-awn" }, true),
+    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true),
+  ];
+  linkUser: MenuItem[] = [
+    new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
+    new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
+    new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
+    new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true),
+    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true),
+  ];
 
 
-  constructor(private authService: AuthService, private route: Router, private socket: SocketService,
-              private notifyService: NotifyService, private dialog: MatDialog, private userService: UserService) {
+  constructor(private authService: AuthService,
+    private route: Router,
+    private socket: SocketService,
+    private notifyService: NotifyService,
+    private dialog: MatDialog,
+    private userService: UserService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
         this.showChatbox = !this.route.url.endsWith("/login") && !this.route.url.endsWith("/sign-in");
@@ -50,7 +61,21 @@ export class AppComponent {
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
+    this.user = this.authService.getUserFromToken();
+    if (this.user)
+      this.isAdmin = this.user.role == "amministratore";
+    if(this.isAdmin){
+      this.link = this.linkAdmin;
+    }else{
+      this.link = this.linkUser;
+    }
+    if(this.authService.isAuthenticated()){
+      this.link.push(new MenuItem("Esci", "/logout", true, false, { tipo: "fas", icona: "right-from-bracket" }, true))
+    }else{
+      this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true))
+    }
+
     this.countUnreadNotifications();
   }
 
@@ -80,7 +105,7 @@ export class AppComponent {
         this.userService.addAdmin(result).subscribe(() => {
           console.log('User promoted to admin');
         })
-      }else {
+      } else {
         console.log("Result is empty or undefined.");
       }
     });

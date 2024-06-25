@@ -22,7 +22,15 @@ export class ProductService {
   public getProductsById(productIds: String[]): Observable<Product[]> {
     return this.http.post<Product[]>(this.endPoint + "/getProductsById", productIds);
   }
+  getTopProducts(startDate?: string, endDate?: string) {
+    let queryParams = '';
 
+    if (startDate && endDate) {
+      queryParams = `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(`${this.endPoint}/getTopProducts${queryParams}`, {headers});
+  }
   // product.service.ts
   public getSingleProduct(productId: string): Observable<Product> {
     return this.http.get<Product>(`${this.endPoint}/${productId}`);

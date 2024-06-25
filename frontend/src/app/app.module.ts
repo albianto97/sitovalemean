@@ -45,15 +45,17 @@ import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.com
 import {MatDialogModule} from "@angular/material/dialog";
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
 import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
-import { LineGraphComponent } from './components/statistics-dashboard/line-graph/line-graph.component';
 import { AreaChartComponent } from "./components/statistics-dashboard/area-chart/area-chart.component";
 import { StockListComponent } from './components/stock/stock-list/stock-list.component';
 import { NgApexchartsModule } from 'ng-apexcharts'
 import { StockAddComponent } from './components/stock/stock-add/stock-add.component';
 import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { LoaderComponent } from './components/structure/loader/loader.component';
-
+import { DialogStrutturaComponent } from './components/structure/dialog-struttura/dialog-struttura.component';
+import { ColumnChartComponent } from './components/statistics-dashboard/column-chart/column-chart.component';
 import { NgxZeusUiModule } from 'ngx-zeus-ui';
+import { DialogConfermaComponent } from './components/structure/dialog-conferma/dialog-conferma.component';
+import { DialogWarningsSuccessesComponent } from './components/structure/dialog-warnings-successes/dialog-warnings-successes.component';
 
 @NgModule({
   declarations: [
@@ -83,14 +85,17 @@ import { NgxZeusUiModule } from 'ngx-zeus-ui';
     ChatboxComponent,
     OrderedProductComponent,
     StatisticsDashboardComponent,
-    LineGraphComponent,
     AreaChartComponent,
     StockListComponent,
     StockAddComponent,
     IngredientsComponent,
     LoaderComponent,
     NotificationListComponent,
-    AdminDialogComponent
+    AdminDialogComponent,
+    DialogStrutturaComponent,
+    DialogConfermaComponent,
+    DialogWarningsSuccessesComponent,
+    ColumnChartComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

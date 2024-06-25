@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
+  @Input() product!: any;
   @Input() isViewCarrello: boolean = false;
   @Input() showDeleteButton: boolean = false;
   @Output() itemRemoved = new EventEmitter();

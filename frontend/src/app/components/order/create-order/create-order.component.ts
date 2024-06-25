@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Order, OrderType } from 'src/app/models/order';
-import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from "@angular/router";
 import { Product } from "../../../models/product";
 import { ProductService } from 'src/app/services/product.service';
-import { catchError, map, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAlertComponent } from '../../dialogs/dialog-alert/dialog-alert.component';
 

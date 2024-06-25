@@ -1,0 +1,66 @@
+
+<div *ngIf="this.successArray.length > 0 || this.warningArray.length > 0 || this.errorArray.length > 0 else caricamento" >
+
+  <!-- <div *ngIf="this.successArray.length > 0" >
+    <div style="background-color: #2fe159; color:white; text-align: center;" mat-dialog-title>
+      <label class="m-2" style="font-weight: 500;">Successo</label>
+    </div>
+    <div class="m-2" mat-dialog-content>
+      <div *ngFor="let successo of this.successArray">
+        {{successo}}
+      </div>
+    </div>
+  </div> -->
+
+  <div *ngIf="this.successArray.length > 0" class="d-flex flex-column align-items-center">
+    <div class="m-1">
+      <img src="/assets/media/success.png" alt="successo!" style="width: 240px;">
+    </div>
+    <div>
+      <h1>Successo!</h1>
+    </div>
+    <div class="m-2 text-center" mat-dialog-content >
+      <div *ngFor="let successo of this.successArray" [innerHtml]="successo">
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.errorArray.length > 0" class="d-flex flex-column align-items-center">
+    <div class="m-1">
+      <img src="/assets/media/error.png" alt="Errore!" style="width: 180px;">
+    </div>
+    <div>
+      <h1>Errore!</h1>
+    </div>
+    <div  mat-dialog-content class="wrap-text text-center">
+      <div *ngFor="let error of this.errorArray">
+        {{this.error}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.warningArray.length > 0" class="d-flex flex-column align-items-center">
+    <div >
+      <img src="/assets/media/warning.png" alt="Attenzione" style="width: 220px;">
+    </div>
+    <div>
+      <h1>Attenzione</h1>
+    </div>
+    <div class="wrap-text text-center" mat-dialog-content >
+      <div *ngFor="let warning of this.warningArray">
+        {{this.warning}}
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions ="d-flex" style="justify-content: center; align-items: center;">
+    <button mat-button mat-dialog-close class="w-100">Chiudi</button>
+  </div>
+</div>
+
+<ng-template #caricamento>
+<div class="w-100 d-flex" style="justify-content: center; align-items: center; flex-direction: column;">
+  <mat-spinner></mat-spinner>
+  <p>Caricamento in corso...</p>
+</div>
+
+</ng-template>
+

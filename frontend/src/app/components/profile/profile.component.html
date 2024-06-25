@@ -15,6 +15,7 @@
   </mat-chip-listbox>
 
   <app-list-order [orders]="myOrdersView"></app-list-order>
+  <!-- <app-product-list [products]="topProducts"></app-product-list> -->
   <ng-container *ngIf="myOrdersTotal.length != 0; else noOrders">
     <mat-paginator
       [length]="myOrdersTotal.length"

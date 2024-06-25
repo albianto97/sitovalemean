@@ -13,9 +13,9 @@ export class OrderService {
   endPoint = "http://localhost:3000/api/order";
 
   constructor(private http: HttpClient, private generalService: GeneralService) { }
-  getOrdersFromUser() {
+  getOrdersFromUser(): Observable<Order[]> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get(this.endPoint+'/getOrdersFromUser', { headers });
+    return this.http.get<Order[]>(this.endPoint+'/getOrdersFromUser', { headers });
   }
   /*getOrdersFromUser(user: any) {
     return this.http.get(this.endPoint+'/getOrdersFromUser',  user );

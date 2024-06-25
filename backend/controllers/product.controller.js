@@ -12,7 +12,67 @@ const getProductsById = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 }
+const getTopProducts = async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query;
 
+        // Costruisci il filtro data
+        let dateFilter = {};
+        if (startDate && endDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate), $lte: new Date(endDate) };
+        } else if (startDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate) };
+        } else if (endDate) {
+            dateFilter.creationDate = { $lte: new Date(endDate) };
+        }
+
+        const topProducts = await Product.aggregate([
+            {
+                $lookup: {
+                    from: "orders",
+                    let: { productId: "$_id" },
+                    pipeline: [
+                        { $match: dateFilter },
+                        { $unwind: "$products" },
+                        {
+                            $match: {
+                                $expr: { $eq: ["$products.productId", "$$productId"] }
+                            }
+                        },
+                        {
+                            $group: {
+                                _id: null,
+                                totalQuantity: { $sum: "$products.quantity" }
+                            }
+                        }
+                    ],
+                    as: "orderDetails"
+                }
+            },
+            {
+                $addFields: {
+                    totalQuantity: { $ifNull: [{ $arrayElemAt: ["$orderDetails.totalQuantity", 0] }, 0] }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    productId: "$_id",
+                    name: 1,
+                    description: 1,
+                    totalQuantity: 1
+                }
+            },
+            { $sort: { totalQuantity: -1 } },
+            // { $limit: 10 } // Puoi modificare questo valore per restituire più o meno prodotti
+        ]);
+
+        res.json(topProducts);
+    } catch (err) {
+        console.error('Error fetching top products', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
 const getProduct = async (req, res) => {
     // Logica per ottenere un utente
     try {
@@ -43,26 +103,26 @@ const getSingleProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-        try {
-            const productName = req.body.name;
-            const productType = req.body.type;
+    try {
+        const productName = req.body.name;
+        const productType = req.body.type;
 
-            // Verifica se esiste già un prodotto con lo stesso nome
-            const existingProduct = await Product.findOne({ name: productName, type: productType });
+        // Verifica se esiste già un prodotto con lo stesso nome
+        const existingProduct = await Product.findOne({ name: productName, type: productType });
 
 
-            if (existingProduct) {
-                // Se il prodotto esiste già, restituisci un errore
-                res.json({ msg: "Il prodotto con questo nome esiste già", result: 1 });
-            }else {
-                // Se non esiste un prodotto con lo stesso nome o type, crea il prodotto
-                await Product.create(req.body);
-                res.json({msg: "Prodotto creato con successo!", result: 2});
-            }
-        } catch (error) {
-            console.error("Errore nella creazione del prodotto:", error );
-            res.status(400).json({ msg: "Errore generico"});
+        if (existingProduct) {
+            // Se il prodotto esiste già, restituisci un errore
+            res.json({ msg: "Il prodotto con questo nome esiste già", result: 1 });
+        } else {
+            // Se non esiste un prodotto con lo stesso nome o type, crea il prodotto
+            await Product.create(req.body);
+            res.json({ msg: "Prodotto creato con successo!", result: 2 });
         }
+    } catch (error) {
+        console.error("Errore nella creazione del prodotto:", error);
+        res.status(400).json({ msg: "Errore generico" });
+    }
 }
 const incrementProductQuantity = async (req, res) => {
     const productId = req.params.productId;
@@ -80,7 +140,7 @@ const incrementProductQuantity = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: 'Prodotto non trovato' });
         }
-        if(product.disponibilita === 0)
+        if (product.disponibilita === 0)
             notify = true;
         // Incrementa la quantità del prodotto
         product.disponibilita += quantityToAdd;
@@ -89,8 +149,8 @@ const incrementProductQuantity = async (req, res) => {
         // Salva le modifiche nel database
         await product.save();
 
-        if(notify) socket.emit('productAvailable',{message: 'Il prodotto ' + product.name +' è tornato disponibile'});
-        res.json({message: 'Quantità del prodotto aggiornata con successo' });
+        if (notify) socket.emit('productAvailable', { message: 'Il prodotto ' + product.name + ' è tornato disponibile' });
+        res.json({ message: 'Quantità del prodotto aggiornata con successo' });
     } catch (error) {
         console.error('Errore durante l\'aggiornamento della quantità del prodotto:', error);
         res.status(500).json({ message: 'Errore del server' });
@@ -130,7 +190,7 @@ const quantity0 = async (req, res) => {
         }
 
         // Incrementa la quantità disponibile del prodotto
-        product.disponibilita  = 0;
+        product.disponibilita = 0;
 
         // Salva le modifiche nel database
         await product.save();
@@ -157,7 +217,7 @@ const deleteProduct = async (req, res) => {
         if (deletedProduct) {
             res.json({ message: 'Prodotto eliminato con successo', result: 0 });
         } else {
-            res.json({ message: 'Prodotto non trovato' , result: 1});
+            res.json({ message: 'Prodotto non trovato', result: 1 });
         }
     } catch (error) {
         console.error('Errore durante l\'eliminazione del prodotto:', error);
@@ -176,5 +236,6 @@ module.exports = {
     incrementProductQuantity,
     decrementProductQuantity,
     deleteProduct,
-    quantity0
+    quantity0,
+    getTopProducts
 }

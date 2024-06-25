@@ -27,7 +27,7 @@ export class ProfiloComponent implements OnInit {
   startIndex: number = 0;
   endIndex: number = 3;
   selectedOrderStatus: string = 'inAttesa'; // Valore predefinito del filtro
-
+ topProducts: any[] = [];
   constructor(private authService: AuthService, private productService: ProductService, private orderService: OrderService) {
     orderService.getOrderOfUserProduct().subscribe((response: any) => {
       console.log(response);
@@ -40,6 +40,18 @@ export class ProfiloComponent implements OnInit {
     this.user = this.authService.getUserFromToken();
     this.username = this.authService.getUserFromToken().username;
     this.filterData();
+  }
+  getTopProducts(){
+    this.productService.getTopProducts().subscribe((data:any) =>{
+      
+      this.topProducts =  data;
+       
+     }, error => {
+       
+       const message = "Errore nel recupero dei top Products";
+       console.error(message, error);
+       
+     })
   }
 
   /*loadOrders(): void {

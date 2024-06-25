@@ -41,7 +41,8 @@
                 <h4>Note:</h4>
                 <p>{{order.note == null? 'Non ci sono note...':order.note }}</p>
                 <hr>
-                <button mat-raised-button color="accent" routerLink="/orders">Contatta il cliente</button>
+                <button mat-raised-button color="accent" routerLink="/orders" *ngIf="this.authService.isAdmin()">Contatta il cliente</button>
+                <button mat-raised-button color="accent" routerLink="/orders" *ngIf="!this.authService.isAdmin()">Contatta il negozio</button>
                 <hr>
             </div>
         </mat-expansion-panel>
@@ -100,7 +101,7 @@
     <div class="mt-2">
         <div class="d-flex justify-content-between">
             <button mat-button routerLink="/orders">Torna alla lista</button>
-            <button mat-raised-button color="primary" (click)="updateOrder()">Salva Modifiche</button>
+            <button mat-raised-button color="primary" (click)="updateOrder()" *ngIf="this.authService.isAdmin()">Salva Modifiche</button>
         </div>
     </div>
 </div>

@@ -25,6 +25,8 @@ export class StatisticsDashboardComponent {
   ready = false;
   isExpensesLoaded: boolean = false;
   isTotalLoaded: boolean = false;
+  topProducts: any[] = [];
+  isTopProductsReady: boolean = false;
 
   constructor(private orderService: OrderService, private stockService: StockService, private productService: ProductService) { }
   ngOnInit(): void {
@@ -33,8 +35,27 @@ export class StatisticsDashboardComponent {
   getStatistics() {
     this.isExpensesLoaded = false;
     this.isTotalLoaded = false;
+    this.isTopProductsReady = false;
+    this.getTopProducts();
     this.getOrders();
     this.getMovements();
+  }
+  getTopProducts(){
+    this.productService.getTopProducts(this.startDate,this.endDate).subscribe((data:any) =>{
+     var all = data.map((product:any) =>  {return {labels: product.name, values: product.totalQuantity}});
+     this.topProducts =  all.reduce((acc:any, curr:any) => {
+      acc.labels.push(curr.labels);
+      acc.values.push(curr.values);
+      return acc;
+    }, { labels: [], values: [] });
+      this.isTopProductsReady = true;
+      
+    }, error => {
+      this.isTopProductsReady = true;
+      const message = "Errore nel recupero dei top Products";
+      console.error(message, error);
+      
+    })
   }
   getMovements() {
     this.stockService.getStockExpensesGroupedByDate(this.startDate,this.endDate).subscribe((movimenti: any) => {
@@ -63,9 +84,7 @@ export class StatisticsDashboardComponent {
 
   }
 
-  filterOrder() {
-
-  }
+ 
 
 
 }

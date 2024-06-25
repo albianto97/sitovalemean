@@ -11,11 +11,12 @@ export class LogoutComponent {
 
   constructor(private auth: AuthService, private router: Router){
     //cartService.initCart();
+    this.logOut()
   }
 
   logOut(){
     this.auth.logout();
-    //location.reload();
-    this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
+    location.reload();
+    //this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
   }
 }

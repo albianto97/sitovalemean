@@ -1,6 +1,8 @@
 <!-- <app-line-graph></app-line-graph> -->
-<div class="container-xl">
+<div class="container-xl mt-4">
     <div>
+        <h1>Visualizza le statistiche del tuo negozio.</h1>
+        <h3>fai delle ricerche per date, queste modificheranno tutti i diagrammi presenti nella pagina.</h3>
         <form (ngSubmit)="getStatistics()">
             <div class="d-flex justify-content-around mt-2 mb-2">
                 <label>
@@ -16,10 +18,10 @@
         </form>
         <div class="row mt-4">
             <div class="col-md-6" *ngIf="countsArray.length > 0 && isTotalLoaded; else loader">
-                <app-area-chart [total]="TotaleVendite" [data]="countsArray"></app-area-chart>
+                <app-area-chart [total]="TotaleVendite" [data]="countsArray" [label]="'Ordini Ricevuti'"></app-area-chart>
             </div>
             <div class="col-md-6" *ngIf="isExpensesLoaded; else loader">
-                <app-area-chart [total]="TotaleSpese" [data]="Movements"></app-area-chart>
+                <app-area-chart [total]="TotaleSpese" [data]="Movements" [label]="'Spese'"></app-area-chart>
             </div>
             <div class="d-flex w-100 justify-content-center align-items-center mt-5 flex-column"
                 *ngIf="isExpensesLoaded && isTotalLoaded">
@@ -30,6 +32,11 @@
                     (TotaleVendite-TotaleSpese).toFixed(2)}}</h1>
             </div>
         </div>
+    </div>
+    <hr>
+    <div *ngIf="isTopProductsReady " class="my-3">
+        <h1>I Prodotti più venduti</h1>
+        <app-column-chart  [dataToView]="topProducts" [yTitle]="'Quantità vendute'" [title]="'Classifica dei prodotti più venduti'"></app-column-chart>
     </div>
     <ng-template #loader>
         <div class="col-md-6">

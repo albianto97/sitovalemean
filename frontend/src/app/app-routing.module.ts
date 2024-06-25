@@ -21,17 +21,19 @@ import {NotificationListComponent} from "./components/notification-list/notifica
 import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
 import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { StockListComponent } from './components/stock/stock-list/stock-list.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
   { path: 'ingredients', component: IngredientsComponent, canActivate: [ AdministratorGuard]},
   { path: 'orders-ingredients', component: StockListComponent, canActivate: [ AdministratorGuard]},
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
-  { path: 'orders', component: OrdersComponent, canActivate: [ AdministratorGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [ AuthGuard] },
   { path: 'statistics', component: StatisticsDashboardComponent, canActivate: [ AdministratorGuard] },
   { path: 'userList', component: UserListComponent, canActivate: [ AdministratorGuard]},
   { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
