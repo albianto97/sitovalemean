@@ -10,8 +10,16 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomeComponent {
   isAdmin: boolean = false;
+  productsBestSeller: any[] = [];
   constructor(private router: Router, private authService: AuthService, private productService: ProductService){
     this.isAdmin = authService.isAdmin();  
+    this.productService.getTopProducts().subscribe((bestProducts:any) => {
+      this.productsBestSeller = bestProducts;
+      if(this.productsBestSeller.length > 6){
+        this.productsBestSeller = this.productsBestSeller.slice(0,6)
+      }
+
+    })
   }
   ordina(){
     this.router.navigate(['/productList']);

@@ -13,6 +13,7 @@ export class UserInfoComponent implements OnInit {
   user: User | undefined;
   saluto: string = "";
   cart:any;
+  isAdmin: boolean = false;
   @Input() unreadNotificationsCount = '0';
   constructor(private auth: AuthService, private router: Router, private cartService: CartService){
       //cartService.initCart();
@@ -20,6 +21,7 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
     this.user = this.auth.getUserFromToken();
+    this.isAdmin = this.auth.isAdmin();
     this.calcolaSaluto();
     this.cartService.cartModify.subscribe(d =>{
       this.cart = this.cartService.getCart();

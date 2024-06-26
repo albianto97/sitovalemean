@@ -19,7 +19,7 @@ export class IngredientsComponent implements OnInit {
   ) {
     this.ingredientForm = this.fb.group({
       name: ['', Validators.required],
-      disponibilty: ['', [Validators.required, Validators.min(0)]],
+      disponibilty: [0, [Validators.required, Validators.min(0)]],
       meauserement: ['', Validators.required],
       mediumPrice: ['', [Validators.required, Validators.min(0)]]
     });
@@ -45,7 +45,12 @@ export class IngredientsComponent implements OnInit {
       this.ingredientService.addIngredient(newIngredient).subscribe(response => {
         console.log('Ingredient added:', response);
         this.getIngredients(); // Ricarica gli ingredienti dopo l'aggiunta
-        this.ingredientForm.reset(); // Resetta il form dopo l'invio
+        this.ingredientForm = this.fb.group({
+          name: ['', Validators.required],
+          disponibilty: [0, [Validators.required, Validators.min(0)]],
+          meauserement: ['', Validators.required],
+          mediumPrice: ['', [Validators.required, Validators.min(0)]]
+        });
       });
     }
   }

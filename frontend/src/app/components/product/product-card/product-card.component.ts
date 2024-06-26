@@ -5,6 +5,8 @@ import { CartService } from 'src/app/services/cart.service';
 import {AuthService} from "../../../services/auth.service";
 import {ProductService} from "../../../services/product.service";
 import {Router} from "@angular/router";
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfermaComponent } from '../../structure/dialog-conferma/dialog-conferma.component';
 
 @Component({
   selector: 'app-product-card',
@@ -23,7 +25,8 @@ export class ProductCardComponent {
   constructor(public cartService: CartService,
               private authService: AuthService,
               private productService: ProductService,
-              private route: Router) {}
+              private route: Router,
+            private dialog: MatDialog) {}
 
   ngOnInit(): void {
     let itemId = this.product._id;
@@ -50,15 +53,22 @@ export class ProductCardComponent {
     this.itemRemoved.emit();
   }
 
-  addToQuantity(productId: string) {
+  addToQuantity(qta: number) {
     if (!this.quantityToAdd)
-      this.quantityToAdd = 1;
-    this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
+      this.quantityToAdd = qta;
+    else
+      this.quantityToAdd += qta;
+    // this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
+    //     // Aggiorna la quantità nel componente
+    //     this.product.disponibilita += this.quantityToAdd;
+    //   });
+  }
+  aggiornaQta(){
+    this.productService.addQuantityToProduct(this.product._id, this.quantityToAdd).subscribe(() => {
         // Aggiorna la quantità nel componente
         this.product.disponibilita += this.quantityToAdd;
       });
   }
-
   removeOneFromQuantity(productId: string) {
     this.productService.removeOneFromProductQuantity(productId).subscribe((response) => {
       // Aggiornamento della quantità disponibile nel componente
@@ -66,23 +76,45 @@ export class ProductCardComponent {
     });
   }
 
-  Quantity0(productId: string) {
-    this.productService.quantity0(productId).subscribe((response) => {
-      // Aggiornamento della quantità disponibile nel componente
-      if(this.product.disponibilita) this.product.disponibilita = 0;
-    });
+  quantity0(productId: string) {
+    this.dialog.open(DialogConfermaComponent,{
+      data: {
+        type: "strong_warning",
+        message: "Confermi di voler portare a 0 la quantita di: '" + this.product.name + "'",
+        secondaryMessage: "Nel negozio non risulterà disponibile"
+      }
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        this.productService.quantity0(productId).subscribe((response) => {
+          // Aggiornamento della quantità disponibile nel componente
+          if(this.product.disponibilita) this.product.disponibilita = 0;
+        });
+      }
+    })
+    
   }
 
-  deleteProduct(productId: string) {
-      this.productService.deleteProduct(productId).subscribe(r => {
-        if(r.result == 0) {
-          alert('Prodotto eliminato con successo');
-          console.log('Prodotto eliminato con successo');
-        }else if(r.result == 2){
-          alert('Prodotto presente in qualche ordine, evitiamo di sballare i grafici');
-        }
-        this.route.navigate(['/productList'])
-        }
-      );
+  deleteProduct() {
+    this.dialog.open(DialogConfermaComponent,{
+      data: {
+        type: "strong_warning",
+        message: "Confermi di voler Eliminare il prodotto: '" + this.product.name + "'",
+        secondaryMessage: "Verranno eliminate tutte le informazioni."
+      }
+    }).afterClosed().subscribe((res) => {
+      if (res) {
+        this.productService.deleteProduct(this.product._id).subscribe(r => {
+          if(r.result == 0) {
+            alert('Prodotto eliminato con successo');
+            console.log('Prodotto eliminato con successo');
+          }else if(r.result == 2){
+            alert('Prodotto presente in qualche ordine, evitiamo di sballare i grafici');
+          }
+          this.route.navigate(['/productList'])
+          }
+        );
+      }
+    })
+      
   }
 }

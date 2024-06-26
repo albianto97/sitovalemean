@@ -5,7 +5,7 @@
           <div>
             <button mat-icon-button color="primary"  [matBadge]="unreadNotificationsCount" routerLink="notifications">
             <mat-icon>message</mat-icon></button>
-            <button mat-icon-button (click)="viewCart()">
+            <button mat-icon-button (click)="viewCart()" *ngIf="!isAdmin">
                     <mat-icon>shopping_basket</mat-icon>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-10" *ngIf="cart">
                         {{cart.products.length}}

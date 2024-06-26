@@ -24,8 +24,8 @@ export class OrdersComponent implements OnInit {
   userIdSearch: string = "";
   idOrderToSearch = new FormControl('');
   options: string[] = [];
-  filteredOptions: Observable<string[]> | undefined;  
-  selectedOrderStatus: string = 'inAttesa'; // Valore predefinito del filtro
+  filteredOptions: Observable<string[]> | undefined;
+  selectedOrderStatus: string | undefined; // Valore predefinito del filtro
   // per gestire il paginator
   pageEvent: PageEvent | undefined;
   length = 50;
@@ -89,13 +89,15 @@ export class OrdersComponent implements OnInit {
       this.ordersFiltered = this.ordersAll;
     }
     else {
+      this.ordersFiltered = this.ordersAll;
+      
       if (this.userIdSearch != "") {
         this.ordersFiltered = this.ordersAll.filter(order => order.user === this.userIdSearch);
       }
       if (this.idOrderToSearch.value != "") {
         this.ordersFiltered = this.ordersAll.filter(order => order._id === this.idOrderToSearch.value);
       }
-      if(this.selectedOrderStatus != ""){
+      if (this.selectedOrderStatus != "" && this.selectedOrderStatus != undefined) {
         this.ordersFiltered = this.ordersAll.filter(order => order.status === this.selectedOrderStatus)
       }
     }

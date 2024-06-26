@@ -35,11 +35,12 @@ export class ProductCreationComponent implements OnInit{
           console.log(result.result);
           if (result && result.result == 1) {
             alert("Prodotto già presente");
-            this.router.navigate(['/create-product']);
+            //this.router.navigate(['/create-product']);
           } else if (result && result.result == 2) {
             console.log(result);
             alert("Prodotto inserito con successo");
-            this.router.navigate(['/productList']);
+            this.productForm.reset();
+            //this.router.navigate(['/productList']);
           } else {
             alert("Errore nella creazione");
           }

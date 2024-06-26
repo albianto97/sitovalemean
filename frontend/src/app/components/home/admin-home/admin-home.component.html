@@ -17,11 +17,6 @@
                                 <p class="btn-text">Visualizza Statistiche</p>
                             </button>
                         </div>
-                        <div class="col mb-4">
-                            <button class="bottoni-custom">
-                                <p class="btn-text">Visualizza Ordini</p>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -32,22 +27,28 @@
                 <h4>In questa sezione sono disponibili i comandi pricipali per gestire il tuo magazzino</h4>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col mb-4">
+                        <div class="col-md-4 mb-4">
                             <button class="bottoni-custom" [routerLink]="'orders-ingredients'">
                                 <fa-icon [icon]="['fas', 'money-bill-wheat']"></fa-icon>
                                 <p class="btn-text">Movimentazione Materie Prime</p>
                             </button>
                         </div>
-                        <div class="col mb-4">
+                        <div class="col-md-4 mb-4">
                             <button class="bottoni-custom" [routerLink]="'ingredients'">
                                 <fa-icon [icon]="['fas', 'wheat-awn']"></fa-icon>
                                 <p class="btn-text">Aggiungi Materie Prime</p>
                             </button>
                         </div>
-                        <div class="col mb-4">
+                        <div class="col-md-4 mb-4">
                             <button class="bottoni-custom">
                                 <fa-icon [icon]="['fas', 'wheat-awn-circle-exclamation']"></fa-icon>
                                 <p class="btn-text">Crea Lista Spesa</p>
+                            </button>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <button class="bottoni-custom" [routerLink]="'create-product'">
+                                <fa-icon [icon]="['fas', 'ice-cream']"></fa-icon>
+                                <p class="btn-text">Crea Nuovo Prodotto</p>
                             </button>
                         </div>
                     </div>

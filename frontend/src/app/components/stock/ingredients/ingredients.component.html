@@ -26,7 +26,7 @@
 
         <div class="mb-3">
             <label for="disponibilty" class="form-label">Disponibilità</label>
-            <input id="disponibilty" type="number" class="form-control" formControlName="disponibilty">
+            <input id="disponibilty" type="number" class="form-control" formControlName="disponibilty" [value]="0">
             <div *ngIf="ingredientForm.controls['disponibilty'].invalid && (ingredientForm.controls['disponibilty'].dirty || ingredientForm.controls['disponibilty'].touched)"
                 class="text-danger">
                 Disponibilità è richiesta e deve essere un numero non negativo.

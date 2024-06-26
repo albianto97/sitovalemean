@@ -60,6 +60,9 @@ const getTopProducts = async (req, res) => {
                     productId: "$_id",
                     name: 1,
                     description: 1,
+                    price: 1,
+                    disponibilita: 1,
+                    type: 1,
                     totalQuantity: 1
                 }
             },
