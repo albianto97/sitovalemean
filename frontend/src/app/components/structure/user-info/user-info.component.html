@@ -1,8 +1,10 @@
-<div><mat-card>
-    <mat-card-content>
+<mat-card class="mb-3" >
+    <mat-card-content   class="container-xl">
         <div class="d-flex justify-content-between align-items-center">
           <h3 class="m-0">{{saluto}}</h3>
           <div>
+            <button mat-icon-button color="primary"  [matBadge]="unreadNotificationsCount" routerLink="notifications">
+            <mat-icon>message</mat-icon></button>
             <button mat-icon-button (click)="viewCart()">
                     <mat-icon>shopping_basket</mat-icon>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-10" *ngIf="cart">
@@ -13,4 +15,4 @@
           <!-- <app-logout></app-logout> -->
         </div>
     </mat-card-content>
-</mat-card></div>
+</mat-card>

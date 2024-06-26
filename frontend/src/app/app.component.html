@@ -1,6 +1,6 @@
 <app-chatbox [isAdmin]="this.isAdmin" *ngIf="showChatbox"></app-chatbox>
-
 <zeus-navbar style=" background-color: white; width:100%;" [links]="link" [titolo]="title" [logoMobilePath]="tel" [logoDesktopPath]="des"></zeus-navbar>
+<app-user-info [unreadNotificationsCount]="unreadNotificationsCount.toString()"></app-user-info>
 <!-- <div>
   <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
   <a href="#" class="navbar-brand">Gelateria</a>

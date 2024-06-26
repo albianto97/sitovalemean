@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +13,7 @@ export class UserInfoComponent implements OnInit {
   user: User | undefined;
   saluto: string = "";
   cart:any;
+  @Input() unreadNotificationsCount = '0';
   constructor(private auth: AuthService, private router: Router, private cartService: CartService){
       //cartService.initCart();
   }
