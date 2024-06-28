@@ -10,6 +10,47 @@ const getAllOrders = async (req, res) => {
 
     //res.send(res.json);
 }
+const getAverageProductsPerOrder = async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query;
+
+        // Costruisci il filtro data
+        let dateFilter = {};
+        if (startDate && endDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate), $lte: new Date(endDate) };
+        } else if (startDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate) };
+        } else if (endDate) {
+            dateFilter.creationDate = { $lte: new Date(endDate) };
+        }
+
+        const averageProducts = await Order.aggregate([
+            { $match: dateFilter },
+            {
+                $project: {
+                    numberOfProducts: { $size: "$products" }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    averageProducts: { $avg: "$numberOfProducts" }
+                }
+            }
+        ]);
+
+        if (averageProducts.length > 0) {
+            res.json({ averageProducts: averageProducts[0].averageProducts });
+        } else {
+            res.json({ averageProducts: 0 });
+        }
+    } catch (err) {
+        console.error('Error fetching average products per order', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+module.exports = { getAverageProductsPerOrder };
 
  const getTotalEarnings = async (req, res) => {
     const { startDate, endDate } = req.query;
@@ -308,7 +349,69 @@ const getOrder = async (req, res) => {
         res.status(400).send(e);
     }
 }
+const getAverageOrderValue = async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query;
 
+        // Costruisci il filtro data
+        let dateFilter = {};
+        if (startDate && endDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate), $lte: new Date(endDate) };
+        } else if (startDate) {
+            dateFilter.creationDate = { $gte: new Date(startDate) };
+        } else if (endDate) {
+            dateFilter.creationDate = { $lte: new Date(endDate) };
+        }
+
+        const averageOrderValue = await Order.aggregate([
+            { $match: dateFilter },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "products.productId",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $project: {
+                    orderValue: {
+                        $sum: {
+                            $map: {
+                                input: "$products",
+                                as: "product",
+                                in: {
+                                    $multiply: [
+                                        { $arrayElemAt: [
+                                            "$productDetails.price",
+                                            { $indexOfArray: ["$productDetails._id", "$$product.productId"] }
+                                        ]},
+                                        "$$product.quantity"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    averageOrderValue: { $avg: "$orderValue" }
+                }
+            }
+        ]);
+
+        if (averageOrderValue.length > 0) {
+            res.json({ averageOrderValue: averageOrderValue[0].averageOrderValue });
+        } else {
+            res.json({ averageOrderValue: 0 });
+        }
+    } catch (err) {
+        console.error('Error fetching average order value', err);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 module.exports = {
     createOrder,
@@ -319,5 +422,7 @@ module.exports = {
     getOrdersForDate,
     getOrder,
     searchOrdersByUsername,
-    updateOrder
+    updateOrder,
+    getAverageProductsPerOrder,
+    getAverageOrderValue
 }

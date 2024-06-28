@@ -1,5 +1,5 @@
-<div class="container-xl mb-3">
-  <div class="example-button-row d-flex">
+<div class="container-xl ">
+  <div class="example-button-row d-flex mb-3">
     <button class="btn btn-lg m-1"
             (click)="filterProducts('TORTA')"
             [ngClass]="{'btn-secondary': selectedType == 'TORTA', 'btn-primary': selectedType != 'TORTA'}">
@@ -16,9 +16,9 @@
       Mostra Tutti
     </button>
   </div>
+  <app-product-list [products]="filteredProducts"></app-product-list>
 </div>
 
-<app-product-list [products]="filteredProducts"></app-product-list>
 <div>
   <mat-paginator [length]="totalFilteredProducts"
                  [pageSize]="6"

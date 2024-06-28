@@ -17,6 +17,24 @@ export class OrderService {
     const headers = this.generalService.createHeadersForAuthorization();
     return this.http.get<Order[]>(this.endPoint+'/getOrdersFromUser', { headers });
   }
+  getAverageProductsPerOrder(startDate?: string, endDate?: string) {
+    let queryParams = '';
+
+    if (startDate && endDate) {
+      queryParams = `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(`${this.endPoint}/getAverageProductsPerOrder${queryParams}`, {headers});
+  }
+  getAverageOrderValue(startDate?: string, endDate?: string) {
+    let queryParams = '';
+
+    if (startDate && endDate) {
+      queryParams = `?startDate=${startDate}&endDate=${endDate}`;
+    }
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.get(`${this.endPoint}/getAverageOrderValue${queryParams}`, {headers});
+  }
   /*getOrdersFromUser(user: any) {
     return this.http.get(this.endPoint+'/getOrdersFromUser',  user );
   }*/

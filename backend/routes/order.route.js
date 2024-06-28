@@ -16,6 +16,9 @@ router.get('/getOrderOfUserProduct', verifyToken, orderController.getOrderOfUser
 // Rotta protetta per prendere gli ordini di un utente loggato
 router.get('/getOrdersFromUser', verifyToken, orderController.getOrdersFromUser);
 
+router.get('/getAverageProductsPerOrder', verifyAdminToken, orderController.getAverageProductsPerOrder);
+router.get('/getAverageOrderValue', verifyAdminToken, orderController.getAverageOrderValue);
+
 router.get('/searchOrdersByUsername',verifyToken, orderController.searchOrdersByUsername);
 
 router.get('/:orderId', verifyToken, orderController.getOrder);

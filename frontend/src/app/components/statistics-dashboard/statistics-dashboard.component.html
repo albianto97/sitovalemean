@@ -16,9 +16,16 @@
             </div>
             <button class="btn btn-primary w-100" type="submit">Visualizza Statistiche</button>
         </form>
+        <div>
+            <h3>Numero medio di prodotti per ordine</h3>
+            <div class="circle">{{averageProductsPerOrder}}</div>
+            <div class="circle">{{averageOrderValue}}</div>
+            <div class="circle">{{totNumeroOrdini}}</div>
+        </div>
         <div class="row mt-4">
             <div class="col-md-6" *ngIf="countsArray.length > 0 && isTotalLoaded; else loader">
-                <app-area-chart [total]="TotaleVendite" [data]="countsArray" [label]="'Ordini Ricevuti'"></app-area-chart>
+                <app-area-chart [total]="TotaleVendite" [data]="countsArray"
+                    [label]="'Ordini Ricevuti'"></app-area-chart>
             </div>
             <div class="col-md-6" *ngIf="isExpensesLoaded; else loader">
                 <app-area-chart [total]="TotaleSpese" [data]="Movements" [label]="'Spese'"></app-area-chart>
@@ -36,7 +43,8 @@
     <hr>
     <div *ngIf="isTopProductsReady " class="my-3">
         <h1>I Prodotti più venduti</h1>
-        <app-column-chart  [dataToView]="topProducts" [yTitle]="'Quantità vendute'" [title]="'Classifica dei prodotti più venduti'"></app-column-chart>
+        <app-column-chart [dataToView]="topProducts" [yTitle]="'Quantità vendute'"
+            [title]="'Classifica dei prodotti più venduti'"></app-column-chart>
     </div>
     <ng-template #loader>
         <div class="col-md-6">

@@ -27,6 +27,9 @@ export class StatisticsDashboardComponent {
   isTotalLoaded: boolean = false;
   topProducts: any[] = [];
   isTopProductsReady: boolean = false;
+  averageProductsPerOrder: number = 0;
+  averageOrderValue: number = 0;
+  totNumeroOrdini: number = 0
 
   constructor(private orderService: OrderService, private stockService: StockService, private productService: ProductService) { }
   ngOnInit(): void {
@@ -39,6 +42,21 @@ export class StatisticsDashboardComponent {
     this.getTopProducts();
     this.getOrders();
     this.getMovements();
+    this.getAverageProductsPerOrder();
+    this.getAverageOrderValue();
+    
+  }
+  getAverageProductsPerOrder(){
+    this.orderService.getAverageProductsPerOrder(this.startDate,this.endDate).subscribe((data:any) =>{
+      this.averageProductsPerOrder = data.averageProducts;
+      
+    })
+  }
+  getAverageOrderValue(){
+    this.orderService.getAverageOrderValue(this.startDate,this.endDate).subscribe((data:any) =>{
+      this.averageOrderValue = data.averageOrderValue;
+      
+    })
   }
   getTopProducts(){
     this.productService.getTopProducts(this.startDate,this.endDate).subscribe((data:any) =>{
@@ -70,6 +88,7 @@ export class StatisticsDashboardComponent {
   getOrders(): void {
     this.orderService.getOrdersForDate(this.startDate,this.endDate).subscribe((c: any) => {
       this.countsArray = c.map((obj: any) => obj.count);
+      this.totNumeroOrdini = this.countsArray.reduce((accumulatore, valoreCorrente) => accumulatore + valoreCorrente, 0);
     }, error => {
       console.error('Errore nella chiamata HTTP', error);
     });
