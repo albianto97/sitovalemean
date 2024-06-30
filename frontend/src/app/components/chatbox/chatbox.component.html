@@ -7,8 +7,8 @@
   <div style="height: 50px; display: flex; justify-content: center; align-items: center; font-family: 'Arial', sans-serif; font-size: 24px; color: #3498db;">CHAT</div>
   <div><input type="checkbox" [(ngModel)]="onlineFilter" (click)="updateFilterOnline()"> Solo online</div>
   <div class="chatbox-user">
-    <select [(ngModel)]="currentUser" (change)="filterMessages()">
-      <option *ngFor="let user of users" value="{{user.username}}" [ngClass]="{'new-message': user.newMessages}">{{user.username}}
+    <select [(ngModel)]="destinatario" (change)="filterMessages()">
+      <option *ngFor="let user of listaDestinatari" value="{{user.username}}" [ngClass]="{'new-message': user.newMessages}">{{user.username}}
       </option>
     </select>
     <span *ngIf="this.newMessage">Nuovo messaggio</span> <!-- nel menu filtro -->

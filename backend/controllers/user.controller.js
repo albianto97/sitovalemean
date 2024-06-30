@@ -12,7 +12,7 @@ const getUser = async (req, res) => {
 const searchUsersByUsername = async (req, res) => {
     try {
         const username = req.query.username; //metodo sarà /api/users/searchUserByUsername?username=<username>
-        const users = await User.find({ username: { $regex: '^'+ username }}).lean();
+        const users = await User.find({ username: { $regex: '^' + username } }).lean();
 
         if (!users) {
             return res.status(404).json({ message: 'Utenti non trovato' });
@@ -24,6 +24,15 @@ const searchUsersByUsername = async (req, res) => {
         res.status(500).json({ message: 'Errore del server' });
     }
 };
+async function getUserByUsername(username) {
+    try {
+        const user = await User.findOne({ username });
+        return user;
+    } catch (err) {
+        console.error(err);
+        throw err; // Gestisci l'errore in modo adeguato
+    }
+}
 const getSingleUser = async (req, res) => {
     try {
         const userId = req.params.userId;
@@ -102,5 +111,6 @@ module.exports = {
     getSingleUser,
     searchUsersByUsername,
     login,
-    addAdmin
+    addAdmin,
+    getUserByUsername
 }
