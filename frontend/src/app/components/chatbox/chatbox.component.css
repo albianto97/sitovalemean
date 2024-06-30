@@ -1,7 +1,7 @@
 /* Stile generale */
 .chatbox-main {
   width: 300px;
-  height: 600px;
+  height: 80vh;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 /* Stile del display dei messaggi */
 .chatbox-display {
   flex-grow: 1;
-  background-color: #6ab0f3; /* Colore più chiaro per lo sfondo */
+  
   padding: 10px;
   color: white;
   overflow-y: auto;
