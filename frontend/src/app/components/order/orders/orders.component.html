@@ -44,6 +44,8 @@
         </form>
         <hr>
         <button mat-raised-button color="primary" (click)="filterOrder()">Filtra</button>
+        <span style="margin: 0 10px;"></span>
+        <button mat-raised-button color="warn" (click)="ripristina()">Ripristina</button>
     </mat-expansion-panel>
     <mat-chip-listbox aria-label="Fish selection" class="mb-3" [(ngModel)]="selectedOrderStatus" (ngModelChange)="filterOrder()">
         <mat-chip-option value="inAttesa" color="primary"> In attesa</mat-chip-option>

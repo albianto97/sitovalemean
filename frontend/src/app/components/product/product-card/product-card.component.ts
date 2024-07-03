@@ -32,6 +32,7 @@ export class ProductCardComponent {
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
+    this.quantityToAdd = 0;
     this.isAdmin = this.authService.isAdmin();
   }
 
@@ -91,7 +92,7 @@ export class ProductCardComponent {
         });
       }
     })
-    
+
   }
 
   deleteProduct() {
@@ -115,6 +116,6 @@ export class ProductCardComponent {
         );
       }
     })
-      
+
   }
 }

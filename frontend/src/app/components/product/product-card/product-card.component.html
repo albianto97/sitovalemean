@@ -27,24 +27,23 @@
         <button mat-raised-button color="warn" *ngIf="isViewCarrello" (click)="removeProduct()">Rimuovi prodotto</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
         <div class="d-flex flex-wrap" *ngIf="showDeleteButton && !isViewCarrello && isAdmin">
-          <button mat-icon-button color="primary"  (click)="quantity0(product._id!)" [matTooltip]="'Porta la quantità del prodotto a 0'">
+          <button mat-icon-button color="primary" (click)="quantity0(product._id!)" [matTooltip]="'Porta la quantità del prodotto a 0'">
             <mat-icon>not_interested</mat-icon>
           </button>
           <div class="d-flex flex-column align-items-center">
             <div class="d-flex mb-1">
-              <button mat-icon-button color="primary" (click)="addToQuantity(-1)">
+              <button mat-icon-button color="primary" (click)="addToQuantity(-1)" [disabled]="quantityToAdd <= 0">
                 <mat-icon>remove_circle</mat-icon>
               </button>
 
-              <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]= 0 [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
+              <input type="number" value="0" min="0" [(ngModel)]="quantityToAdd"   class="form-control" style="width: 100px;">
 
               <button mat-icon-button color="primary" (click)="addToQuantity(1)">
                 <mat-icon>add_circle</mat-icon>
               </button>
             </div>
-              <button class="btn btn-primary" (click)="aggiornaQta()" [disabled]="!quantityToAdd">Upload quantità</button>
+            <button class="btn btn-primary" (click)="aggiornaQta()" [disabled]="quantityToAdd <= 0">Upload quantità</button>
           </div>
-
         </div>
       </div>
 
