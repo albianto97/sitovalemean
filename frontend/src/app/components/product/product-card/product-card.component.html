@@ -32,19 +32,19 @@
           </button>
           <div class="d-flex flex-column align-items-center">
             <div class="d-flex mb-1">
-              <button mat-icon-button color="primary"   (click)="addToQuantity(-1)">
+              <button mat-icon-button color="primary" (click)="addToQuantity(-1)">
                 <mat-icon>remove_circle</mat-icon>
               </button>
-    
-              <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
-    
+
+              <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]= 0 [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
+
               <button mat-icon-button color="primary" (click)="addToQuantity(1)">
                 <mat-icon>add_circle</mat-icon>
               </button>
             </div>
               <button class="btn btn-primary" (click)="aggiornaQta()" [disabled]="!quantityToAdd">Upload quantità</button>
           </div>
-          
+
         </div>
       </div>
 
