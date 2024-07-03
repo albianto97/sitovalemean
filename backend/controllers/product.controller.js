@@ -227,6 +227,23 @@ const deleteProduct = async (req, res) => {
         res.status(500).json({ message: 'Errore del server durante l\'eliminazione del prodotto' });
     }
 };
+const updateProductDescription  = async (req, res) => {
+    const { productId } = req.params;
+    const { description } = req.body;
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(productId, { description }, { new: true });
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: 'Prodotto non trovato' });
+        }
+
+        res.json(updatedProduct);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Errore del server');
+    }
+};
 
 
 
@@ -240,5 +257,6 @@ module.exports = {
     decrementProductQuantity,
     deleteProduct,
     quantity0,
+    updateProductDescription,
     getTopProducts
 }
