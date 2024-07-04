@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { NotifyService } from 'src/app/services/notify.service';
 
 @Component({
   selector: 'app-user-info',
@@ -14,8 +15,8 @@ export class UserInfoComponent implements OnInit {
   saluto: string = "";
   cart:any;
   isAdmin: boolean = false;
-  @Input() unreadNotificationsCount = '0';
-  constructor(private auth: AuthService, private router: Router, private cartService: CartService){
+  unreadNotificationsCount = '0';
+  constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService){
       //cartService.initCart();
   }
   ngOnInit(): void {
@@ -23,6 +24,9 @@ export class UserInfoComponent implements OnInit {
     this.user = this.auth.getUserFromToken();
     this.isAdmin = this.auth.isAdmin();
     this.calcolaSaluto();
+    this.notifyService.modify.subscribe(d => {
+      this.countUnreadNotifications();
+    })
     this.cartService.cartModify.subscribe(d =>{
       this.cart = this.cartService.getCart();
     })
@@ -38,7 +42,20 @@ export class UserInfoComponent implements OnInit {
       this.saluto = 'Buonasera, ' + this.user?.username + '!';
     }
   }
+  countUnreadNotifications() {
+    if (this.user) {
+      this.notifyService.getUserNotifications(this.user.username).subscribe(
+        (notifications: any[]) => {
+          // Aggiorna il contatore
+          
+          // Filtra le notifiche non lette
+          this.unreadNotificationsCount = (notifications.filter(notification => !notification.read).length).toString();
+          //this.notifyService.notifyTable(); // Notifica i cambiamenti
 
+        }
+      );
+    }
+  }
   viewCart(){
     this.router.navigate(['/view-cart']);
   }

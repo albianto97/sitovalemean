@@ -26,6 +26,8 @@ export class CartComponent {
   reloadCart() {
     //this.products = this.cartService.getCart().products;
     // Verifica se 'cart' è presente nello storage locale e se contiene un valore valido
+    console.log(localStorage['cart']);
+    
     if (localStorage['cart']) {
       try {
         let cartProducts: any = JSON.parse(localStorage['cart']);
@@ -43,6 +45,8 @@ export class CartComponent {
             return product;
           });
         });
+        console.log(this.products);
+        
       } catch (error) {
         console.error('Errore durante il parsing del valore JSON in localStorage:', error);
       }

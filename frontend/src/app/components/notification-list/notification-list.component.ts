@@ -31,6 +31,10 @@ export class NotificationListComponent {
 
   ngOnInit(): void {
     this.loadNotify();
+    this.notifyService.modify.subscribe(d =>{
+      console.log("entrato",d);
+      this.loadNotify();
+    })
     /*this.notifySubscription = this.notifyService.notifyReload.subscribe(() => {
       this.loadNotify();
     });*/
