@@ -3,6 +3,7 @@ import { io } from 'socket.io-client';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {AuthService} from "./auth.service";
+import { NotifyService } from './notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {AuthService} from "./auth.service";
 export class SocketService {
   private socket: any;
 
-  constructor(private snackBar: MatSnackBar, private authService: AuthService) {
+  constructor(private snackBar: MatSnackBar, private authService: AuthService, private notificationService: NotifyService) {
     this.connect();
   }
   connect(){
@@ -37,6 +38,7 @@ export class SocketService {
   registerHandlers(){
     this.socket.on('notification', (data: any) => {
       console.log('Notifica ricevuta:', data);
+      this.notificationService.notifySubscribers();
     // Emetti l'evento tramite un Observable
       this.snackBarMessage(data);
     });

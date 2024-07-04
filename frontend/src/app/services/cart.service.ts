@@ -8,7 +8,8 @@ export class CartService {
   cartModify: Observable<any>;
   cartModifySubscribers: any[] = [];
 
-  constructor() { this.cartModify = new Observable<any>(subscriber => {
+  constructor() { 
+    this.cartModify = new Observable<any>(subscriber => {
     console.log("CART: " + subscriber);
     this.cartModifySubscribers.push(subscriber);
   } ) }
@@ -45,12 +46,14 @@ export class CartService {
 
     // Salvare il carrello nel Local Storage
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.notifySubscribers();
   }
 
   // Svuotare il carrello
   emptyCart() {
     // Salvare il carrello vuoto nel Local Storage
     localStorage.setItem('cart', JSON.stringify({products : []}));
+    this.notifySubscribers();
   }
 
   // Recuperare il carrello dal Local Storage
