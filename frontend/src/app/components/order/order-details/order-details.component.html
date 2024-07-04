@@ -1,14 +1,4 @@
-<!-- <div class="container-xl d-flex align-items-center flex-column" *ngIf="order">
-    <h1>Ordine: <strong>{{order._id}}</strong></h1>
-    <h3>
-        Articoli Ordinati:
-    </h3> -->
-
-
-
 <div class="container-xl" *ngIf="orderedProducts.length > 0">
-
-
 
     <mat-accordion class="mb-2" multi>
         <!-- Ordine -->
@@ -20,20 +10,22 @@
                 <mat-panel-description>
                     Tipo di consegna: {{ order.orderType }}
                 </mat-panel-description>
+                <mat-panel-description *ngIf="!authService.isAdmin()">
+                    Stato attuale dell'ordine: {{ order.status }}
+                </mat-panel-description>
             </mat-expansion-panel-header>
             <!-- Note dell'ordine-->
             <div>
                 <!-- Modifica dello stato dell'ordine -->
-                <div *ngIf="this.authService.isAdmin()">
-                    <div>
-                        <mat-form-field>
-                            <mat-label>Stato dell'ordine</mat-label>
-                            <mat-select [(ngModel)]="order.status">
-                                <mat-option *ngFor="let state of orderStates" [value]="state">{{state}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
+              <div *ngIf="authService.isAdmin()">
+                <mat-form-field>
+                  <mat-label>Stato dell'ordine</mat-label>
+                  <mat-select [(ngModel)]="order.status">
+                    <mat-option *ngFor="let state of orderStates" [value]="state">{{ state }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
                 <p>Data creazione ordine: {{order.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
                 <p>Data fine ordine: {{order.closingDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
                 <p>Data spedizione ordine: {{order.shippingDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>

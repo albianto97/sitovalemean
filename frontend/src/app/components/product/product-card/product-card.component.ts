@@ -21,6 +21,9 @@ export class ProductCardComponent {
   isAdmin: boolean = false;
   quantityToAdd: any;
   @Input() singleP: boolean = false;
+  updatedDescription: string = '';
+  isEditingDescription: boolean = false; // Flag per mostrare/nascondere la modifica della descrizione
+  originalDescription: string = ''; // Descrizione originale da mostrare durante la modifica
 
   constructor(public cartService: CartService,
               private authService: AuthService,
@@ -32,7 +35,33 @@ export class ProductCardComponent {
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
+    this.quantityToAdd = 0;
     this.isAdmin = this.authService.isAdmin();
+  }
+  // Metodo per attivare la modalità di modifica
+  startEditingDescription() {
+    this.isEditingDescription = true;
+    this.updatedDescription = this.product.description; // Inizializza la descrizione modificabile con il valore corrente
+    this.originalDescription = this.product.description; // Salva la descrizione originale per confronto
+  }
+
+  // Metodo per annullare la modifica
+  cancelEditingDescription() {
+    this.isEditingDescription = false;
+    this.updatedDescription = ''; // Resetta la descrizione modificabile
+  }
+
+  // Metodo per salvare la descrizione modificata
+  saveUpdatedDescription() {
+    console.log("prodotto id: " +this.product._id);
+    console.log("descrizione: " + this.updatedDescription);
+    this.productService.updateProductDescription(this.product._id, this.updatedDescription)
+      .subscribe(() => {
+        this.product.description = this.updatedDescription; // Aggiorna la descrizione nel componente
+        this.isEditingDescription = false; // Nasconde la modalità di modifica
+        // Aggiungi un feedback visivo (es. alert o messaggio di successo)
+        alert('Descrizione aggiornata con successo!');
+      });
   }
 
 
@@ -58,10 +87,6 @@ export class ProductCardComponent {
       this.quantityToAdd = qta;
     else
       this.quantityToAdd += qta;
-    // this.productService.addQuantityToProduct(productId, this.quantityToAdd).subscribe(() => {
-    //     // Aggiorna la quantità nel componente
-    //     this.product.disponibilita += this.quantityToAdd;
-    //   });
   }
   aggiornaQta(){
     this.productService.addQuantityToProduct(this.product._id, this.quantityToAdd).subscribe(() => {
@@ -74,6 +99,14 @@ export class ProductCardComponent {
       // Aggiornamento della quantità disponibile nel componente
       if(this.product.disponibilita) this.product.disponibilita--;
     });
+  }
+  updateDescription() {
+    this.productService.updateProductDescription(this.product._id, this.updatedDescription)
+      .subscribe(() => {
+        this.product.description = this.updatedDescription;  // Aggiorna la descrizione nel componente
+        // Aggiungi un feedback visivo (es. alert o messaggio di successo)
+        alert('Descrizione aggiornata con successo!');
+      });
   }
 
   quantity0(productId: string) {
@@ -91,7 +124,7 @@ export class ProductCardComponent {
         });
       }
     })
-    
+
   }
 
   deleteProduct() {
@@ -115,6 +148,6 @@ export class ProductCardComponent {
         );
       }
     })
-      
+
   }
 }

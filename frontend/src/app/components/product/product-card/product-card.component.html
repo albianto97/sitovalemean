@@ -21,30 +21,36 @@
 
       <div class="d-flex flex-wrap justify-content-between m-2" style="align-items: center">
         <button *ngIf="!isAdmin && !singleP" style="margin:10px 0" [routerLink]="['/single-product', product._id]" mat-raised-button>VISUALIZZA</button>
-        <button *ngIf="isAdmin && !singleP" style="margin:10px 0" [routerLink]="['/single-product', product._id]"  mat-raised-button>MODIFICA</button>
+
+        <!-- Bottone Modifica -->
+        <button *ngIf="isAdmin && !singleP" style="margin:10px 0; margin-right: 10px" [routerLink]="['/single-product', product._id]"  mat-raised-button>MODIFICA</button>
+
+        <!-- Bottone Elimina -->
         <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct()">Elimina prodotto</button>
 
+        <!-- Pulsanti per la gestione della quantità -->
         <button mat-raised-button color="warn" *ngIf="isViewCarrello" (click)="removeProduct()">Rimuovi prodotto</button>
+        <button mat-raised-button color="primary" *ngIf="!isEditingDescription && isAdmin && !isViewCarrello && showDeleteButton" (click)="startEditingDescription()">Modifica descrizione</button>
         <button mat-raised-button color="primary" *ngIf="!isViewCarrello && !isAdmin" (click)="addItemToCart(product._id!)">Aggiungi al carrello</button>
+
         <div class="d-flex flex-wrap" *ngIf="showDeleteButton && !isViewCarrello && isAdmin">
-          <button mat-icon-button color="primary"  (click)="quantity0(product._id!)" [matTooltip]="'Porta la quantità del prodotto a 0'">
+          <button mat-icon-button color="primary" (click)="quantity0(product._id!)" [matTooltip]="'Porta la quantità del prodotto a 0'">
             <mat-icon>not_interested</mat-icon>
           </button>
           <div class="d-flex flex-column align-items-center">
             <div class="d-flex mb-1">
-              <button mat-icon-button color="primary"   (click)="addToQuantity(-1)">
+              <button mat-icon-button color="primary" (click)="addToQuantity(-1)" [disabled]="quantityToAdd <= 0">
                 <mat-icon>remove_circle</mat-icon>
               </button>
-    
-              <input type="number" [(ngModel)]="quantityToAdd" [min]="0" [defaultValue]="0" [disabled]="isViewCarrello" class="form-control" style="width: 100px;">
-    
+
+              <input type="number" value="0" min="0" [(ngModel)]="quantityToAdd" class="form-control" style="width: 100px;">
+
               <button mat-icon-button color="primary" (click)="addToQuantity(1)">
                 <mat-icon>add_circle</mat-icon>
               </button>
             </div>
-              <button class="btn btn-primary" (click)="aggiornaQta()" [disabled]="!quantityToAdd">Upload quantità</button>
+            <button class="btn btn-primary" (click)="aggiornaQta()" [disabled]="quantityToAdd <= 0">Upload quantità</button>
           </div>
-          
         </div>
       </div>
 
@@ -52,5 +58,19 @@
         <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
       </mat-card-footer>
     </mat-card>
+
+    <!-- Sezione per la modifica della descrizione -->
+    <div class="col-md">
+      <mat-card-content>
+        <textarea cols="50" rows="8" *ngIf="isEditingDescription" [(ngModel)]="updatedDescription" class="form-control"
+                  style="width: 100%; height: 100px;"></textarea>
+
+        <div class="d-flex mt-2">
+          <button *ngIf="isEditingDescription" mat-button color="warn" (click)="cancelEditingDescription()">Annulla</button>
+          <button *ngIf="isEditingDescription" mat-button color="primary" (click)="saveUpdatedDescription()">Salva</button>
+        </div>
+      </mat-card-content>
+    </div>
+
   </div>
 </div>

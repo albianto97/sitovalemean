@@ -90,7 +90,7 @@ export class OrdersComponent implements OnInit {
     }
     else {
       this.ordersFiltered = this.ordersAll;
-      
+
       if (this.userIdSearch != "") {
         this.ordersFiltered = this.ordersAll.filter(order => order.user === this.userIdSearch);
       }
@@ -145,4 +145,10 @@ export class OrdersComponent implements OnInit {
     this.setOrderVariable(isFIltered);
 
   }
+
+  ripristina(): void {
+    this.userIdSearch = '';  // Clear the user selection
+    this.idOrderToSearch.reset();  // Clear the order ID field
+  }
+
 }
