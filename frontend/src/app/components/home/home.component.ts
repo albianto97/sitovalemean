@@ -18,7 +18,8 @@ export class HomeComponent {
       if(this.productsBestSeller.length > 6){
         this.productsBestSeller = this.productsBestSeller.slice(0,6)
       }
-
+      console.log("ciao",this.productsBestSeller);
+      
     })
   }
   ordina(){
