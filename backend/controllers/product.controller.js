@@ -56,7 +56,7 @@ const getTopProducts = async (req, res) => {
             },
             {
                 $project: {
-                    _id: 0,
+                    _id: "$_id",
                     productId: "$_id",
                     name: 1,
                     description: 1,

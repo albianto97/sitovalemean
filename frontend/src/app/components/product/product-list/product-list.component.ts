@@ -10,5 +10,6 @@ import { Product } from "../../../models/product";
 export class ProductListComponent {
 
   @Input() products: Product[] = [];
+  
 
 }

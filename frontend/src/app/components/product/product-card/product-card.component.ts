@@ -32,6 +32,8 @@ export class ProductCardComponent {
             private dialog: MatDialog) {}
 
   ngOnInit(): void {
+    console.log(this.product);
+    
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
