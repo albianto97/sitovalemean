@@ -30,16 +30,16 @@
 
     <p *ngFor="let m of displayMessages" class="message">
       <span *ngIf="m.from.username != '_service_'">
-        <div class="d-flex align-items-start flex-column"  *ngIf="this.sender.username != m.from.username && m.from.username == destinatario">
+        <div class="d-flex align-items-start flex-column me-4"  *ngIf="this.sender.username != m.from.username && m.from.username == destinatario">
           <b style="color: black;">{{m.from.username}}:</b>
-          <span  class=" text-end bg-primary p-2 rounded"> {{m.content}}</span>
+          <span  class="bg-primary p-2 rounded"> {{m.content}}</span>
         </div>
-        <div class="d-flex align-items-end flex-column"  *ngIf="this.sender.username != m.from.username && m.from.username != destinatario">
+        <div class="d-flex align-items-end flex-column ms-4"  *ngIf="this.sender.username != m.from.username && m.from.username != destinatario">
           <b style="color: black;">{{m.from.username}}:</b>
-          <span  class=" text-end bg-info p-2 rounded"> {{m.content}}</span>
+          <span  class="bg-info p-2 rounded"> {{m.content}}</span>
         </div>
-        <div class="d-flex align-items-end flex-column" *ngIf="this.sender.username == m.from.username">
-          <span  class=" text-end bg-secondary p-2 rounded"> {{m.content}}</span>
+        <div class="d-flex align-items-end flex-column ms-4" *ngIf="this.sender.username == m.from.username">
+          <span  class="bg-secondary p-2 rounded"> {{m.content}}</span>
         </div>
       </span>
       <!-- <span [ngClass]="{'service-message': m.from.username == '_service_'}">{{m.content}}</span> -->
