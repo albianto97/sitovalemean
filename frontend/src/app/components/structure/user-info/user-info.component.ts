@@ -17,7 +17,7 @@ export class UserInfoComponent implements OnInit {
   isAdmin: boolean = false;
   unreadNotificationsCount = '0';
   constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService){
-      //cartService.initCart();
+
   }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
@@ -47,7 +47,7 @@ export class UserInfoComponent implements OnInit {
       this.notifyService.getUserNotifications(this.user.username).subscribe(
         (notifications: any[]) => {
           // Aggiorna il contatore
-          
+
           // Filtra le notifiche non lette
           this.unreadNotificationsCount = (notifications.filter(notification => !notification.read).length).toString();
           //this.notifyService.notifyTable(); // Notifica i cambiamenti

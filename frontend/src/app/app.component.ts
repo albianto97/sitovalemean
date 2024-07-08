@@ -54,7 +54,10 @@ export class AppComponent implements OnInit{
           this.isAdmin = this.user.role == "amministratore";
       }
     })
-
+    this.countUnreadNotifications();
+    this.notifyService.modify.subscribe(() => {
+      this.countUnreadNotifications(); // Aggiorna il badge ogni volta che una notifica viene modificata
+    });
 
   }
 
@@ -73,9 +76,24 @@ export class AppComponent implements OnInit{
       this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true))
     }
 
+    this.countUnreadNotifications();
   }
 
+  countUnreadNotifications() {
+    const currentUser = this.authService.getUserFromToken();
+    if (currentUser) {
+      this.notifyService.getUserNotifications(currentUser.username).subscribe(
+        (notifications: any[]) => {
+          // Aggiorna il contatore
+          this.notifyService.notifySubscribers();
+          // Filtra le notifiche non lette
+          this.unreadNotificationsCount = notifications.filter(notification => !notification.read).length;
+          this.notifyService.notifyTable(); // Notifica i cambiamenti
 
+        }
+      );
+    }
+  }
   openAdminDialog(): void {
     const dialogRef = this.dialog.open(AdminDialogComponent, {
       width: '250px'

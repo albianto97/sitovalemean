@@ -13,11 +13,6 @@ export class NotifyService {
   endPoint = "http://localhost:3000/api/notification";
   modify: Observable<any>;
   modifySubscribers: any[] = [];
-  private number: number = 0;
-  //notifyReload = new EventEmitter<void>();
-
-  private notifySubject = new Subject<void>();
-  notifyReload = this.notifySubject.asObservable();
 
 
 
@@ -26,9 +21,7 @@ export class NotifyService {
       this.modifySubscribers.push(subscriber);
     })
   }
-  notifyTable() {
-    this.notifySubject.next();
-  }
+
   notifySubscribers(){
     for(let i = 0; i< this.modifySubscribers.length; i++){
       let s = this.modifySubscribers[i];
