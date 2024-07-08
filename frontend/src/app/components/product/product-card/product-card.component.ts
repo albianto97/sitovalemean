@@ -1,4 +1,3 @@
-// product-card.component.ts
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
@@ -7,6 +6,7 @@ import {ProductService} from "../../../services/product.service";
 import {Router} from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfermaComponent } from '../../structure/dialog-conferma/dialog-conferma.component';
+import {EditDescriptionDialogComponent} from "../../structure/edit-description-dialog/edit-description-dialog.component";
 
 @Component({
   selector: 'app-product-card',
@@ -21,9 +21,6 @@ export class ProductCardComponent {
   isAdmin: boolean = false;
   quantityToAdd: any;
   @Input() singleP: boolean = false;
-  updatedDescription: string = '';
-  isEditingDescription: boolean = false; // Flag per mostrare/nascondere la modifica della descrizione
-  originalDescription: string = ''; // Descrizione originale da mostrare durante la modifica
 
   constructor(public cartService: CartService,
               private authService: AuthService,
@@ -33,37 +30,35 @@ export class ProductCardComponent {
 
   ngOnInit(): void {
     console.log(this.product);
-    
+
     let itemId = this.product._id;
     let quantity = this.cartService.getQuantityByProductId(itemId);
     this.product.cartQuantity = quantity;
     this.quantityToAdd = 0;
     this.isAdmin = this.authService.isAdmin();
   }
-  // Metodo per attivare la modalità di modifica
-  startEditingDescription() {
-    this.isEditingDescription = true;
-    this.updatedDescription = this.product.description; // Inizializza la descrizione modificabile con il valore corrente
-    this.originalDescription = this.product.description; // Salva la descrizione originale per confronto
-  }
 
-  // Metodo per annullare la modifica
-  cancelEditingDescription() {
-    this.isEditingDescription = false;
-    this.updatedDescription = ''; // Resetta la descrizione modificabile
-  }
+  // Metodo per aprire il dialogo di modifica della descrizione
+  openEditDescriptionDialog(): void {
+    const dialogRef = this.dialog.open(EditDescriptionDialogComponent, {
+      width: '400px',
+      data: {
+        description: this.product.description,
+        type: "strong_warning",
+        message: "Confermi di voler aggiornare la descrizione del prodotto: '" + this.product.name + "'?",
+        secondaryMessage: "La nuova descrizione sostituirà quella esistente."
+      }
+    });
 
-  // Metodo per salvare la descrizione modificata
-  saveUpdatedDescription() {
-    console.log("prodotto id: " +this.product._id);
-    console.log("descrizione: " + this.updatedDescription);
-    this.productService.updateProductDescription(this.product._id, this.updatedDescription)
-      .subscribe(() => {
-        this.product.description = this.updatedDescription; // Aggiorna la descrizione nel componente
-        this.isEditingDescription = false; // Nasconde la modalità di modifica
-        // Aggiungi un feedback visivo (es. alert o messaggio di successo)
-        alert('Descrizione aggiornata con successo!');
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.productService.updateProductDescription(this.product._id, result)
+          .subscribe(() => {
+            this.product.description = result; // Aggiorna la descrizione nel componente
+            alert('Descrizione aggiornata con successo!');
+          });
+      }
+    });
   }
 
 
@@ -90,25 +85,17 @@ export class ProductCardComponent {
     else
       this.quantityToAdd += qta;
   }
+
   aggiornaQta(){
     this.productService.addQuantityToProduct(this.product._id, this.quantityToAdd).subscribe(() => {
-        // Aggiorna la quantità nel componente
-        this.product.disponibilita += this.quantityToAdd;
-      });
-  }
-  removeOneFromQuantity(productId: string) {
-    this.productService.removeOneFromProductQuantity(productId).subscribe((response) => {
-      // Aggiornamento della quantità disponibile nel componente
-      if(this.product.disponibilita) this.product.disponibilita--;
+      this.product.disponibilita += this.quantityToAdd;
     });
   }
-  updateDescription() {
-    this.productService.updateProductDescription(this.product._id, this.updatedDescription)
-      .subscribe(() => {
-        this.product.description = this.updatedDescription;  // Aggiorna la descrizione nel componente
-        // Aggiungi un feedback visivo (es. alert o messaggio di successo)
-        alert('Descrizione aggiornata con successo!');
-      });
+
+  removeOneFromQuantity(productId: string) {
+    this.productService.removeOneFromProductQuantity(productId).subscribe((response) => {
+      if(this.product.disponibilita) this.product.disponibilita--;
+    });
   }
 
   quantity0(productId: string) {
@@ -121,12 +108,10 @@ export class ProductCardComponent {
     }).afterClosed().subscribe((res) => {
       if (res) {
         this.productService.quantity0(productId).subscribe((response) => {
-          // Aggiornamento della quantità disponibile nel componente
           if(this.product.disponibilita) this.product.disponibilita = 0;
         });
       }
-    })
-
+    });
   }
 
   deleteProduct() {
@@ -142,14 +127,12 @@ export class ProductCardComponent {
           if(r.result == 0) {
             alert('Prodotto eliminato con successo');
             console.log('Prodotto eliminato con successo');
-          }else if(r.result == 2){
+          } else if(r.result == 2) {
             alert('Prodotto presente in qualche ordine, evitiamo di sballare i grafici');
           }
-          this.route.navigate(['/productList'])
-          }
-        );
+          this.route.navigate(['/productList']);
+        });
       }
-    })
-
+    });
   }
 }
