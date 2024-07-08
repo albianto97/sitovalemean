@@ -7,8 +7,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./edit-description-dialog.component.css']
 })
 export class EditDescriptionDialogComponent {
-  confirmUpdate: boolean = false;
-
   constructor(
     public dialogRef: MatDialogRef<EditDescriptionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { description: string, type: string, message: string, secondaryMessage: string }
@@ -19,10 +17,6 @@ export class EditDescriptionDialogComponent {
   }
 
   onSave(): void {
-    if (!this.confirmUpdate) {
-      this.confirmUpdate = true;
-    } else {
-      this.dialogRef.close(this.data.description);
-    }
+    this.dialogRef.close(this.data.description);
   }
 }

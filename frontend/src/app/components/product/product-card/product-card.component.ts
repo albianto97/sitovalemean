@@ -40,7 +40,7 @@ export class ProductCardComponent {
 
   // Metodo per aprire il dialogo di modifica della descrizione
   openEditDescriptionDialog(): void {
-    this.dialog.open(EditDescriptionDialogComponent, {
+    const dialogRef = this.dialog.open(EditDescriptionDialogComponent, {
       width: '400px',
       data: {
         description: this.product.description,
@@ -48,7 +48,9 @@ export class ProductCardComponent {
         message: "Confermi di voler aggiornare la descrizione del prodotto: '" + this.product.name + "'?",
         secondaryMessage: "La nuova descrizione sostituirà quella esistente."
       }
-    }).afterClosed().subscribe(result => {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.productService.updateProductDescription(this.product._id, result)
           .subscribe(() => {
@@ -58,6 +60,7 @@ export class ProductCardComponent {
       }
     });
   }
+
 
 
   addItemToCart(itemId: string) {
