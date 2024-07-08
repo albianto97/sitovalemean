@@ -1,11 +1,10 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
-import { Product } from 'src/app/models/product';
-import { CartService } from 'src/app/services/cart.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {CartService} from 'src/app/services/cart.service';
 import {AuthService} from "../../../services/auth.service";
 import {ProductService} from "../../../services/product.service";
 import {Router} from "@angular/router";
-import { MatDialog } from '@angular/material/dialog';
-import { DialogConfermaComponent } from '../../structure/dialog-conferma/dialog-conferma.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogConfermaComponent} from '../../structure/dialog-conferma/dialog-conferma.component';
 import {EditDescriptionDialogComponent} from "../../structure/edit-description-dialog/edit-description-dialog.component";
 
 @Component({
@@ -32,15 +31,14 @@ export class ProductCardComponent {
     console.log(this.product);
 
     let itemId = this.product._id;
-    let quantity = this.cartService.getQuantityByProductId(itemId);
-    this.product.cartQuantity = quantity;
+    this.product.cartQuantity = this.cartService.getQuantityByProductId(itemId);
     this.quantityToAdd = 0;
     this.isAdmin = this.authService.isAdmin();
   }
 
   // Metodo per aprire il dialogo di modifica della descrizione
   openEditDescriptionDialog(): void {
-    const dialogRef = this.dialog.open(EditDescriptionDialogComponent, {
+    this.dialog.open(EditDescriptionDialogComponent, {
       width: '400px',
       data: {
         description: this.product.description,
@@ -48,9 +46,7 @@ export class ProductCardComponent {
         message: "Confermi di voler aggiornare la descrizione del prodotto: '" + this.product.name + "'?",
         secondaryMessage: "La nuova descrizione sostituirà quella esistente."
       }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    }).afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.productService.updateProductDescription(this.product._id, result)
           .subscribe(() => {
@@ -118,7 +114,7 @@ export class ProductCardComponent {
   deleteProduct() {
     this.dialog.open(DialogConfermaComponent,{
       data: {
-        type: "strong_warning",
+        type: "confirmation",
         message: "Confermi di voler Eliminare il prodotto: '" + this.product.name + "'",
         secondaryMessage: "Verranno eliminate tutte le informazioni."
       }

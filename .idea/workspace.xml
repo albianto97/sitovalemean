@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Conferma in 2 dialag">
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Una sola dialog per la modifica">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/product/product-card/product-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/product/product-card/product-card.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/structure/dialog-conferma/dialog-conferma.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/structure/dialog-conferma/dialog-conferma.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/structure/edit-description-dialog/edit-description-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/structure/edit-description-dialog/edit-description-dialog.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +115,8 @@
       <workItem from="1720015397237" duration="9404000" />
       <workItem from="1720109889636" duration="4542000" />
       <workItem from="1720114500653" duration="133000" />
-      <workItem from="1720445786600" duration="4821000" />
+      <workItem from="1720445786600" duration="6303000" />
+      <workItem from="1720455403447" duration="1243000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
@@ -408,7 +412,21 @@
       <option name="project" value="LOCAL" />
       <updated>1720450527884</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Conferma in 2 dialag">
+      <created>1720450773086</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1720450773086</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Una sola dialog per la modifica">
+      <created>1720450909026</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1720450909026</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,7 +446,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="TODO COMMIT" />
     <MESSAGE value="Commit merge" />
     <MESSAGE value="Non dovrebbe far aggiungere 2 utenti con lo stesso nome ed email. --&gt; mostra errore in console browser" />
     <MESSAGE value="Componente creazione prodotto" />
@@ -453,7 +470,8 @@
     <MESSAGE value="Bug notifiche e merge" />
     <MESSAGE value="Notifiche bug paso" />
     <MESSAGE value="Conferma in 2 dialag" />
-    <option name="LAST_COMMIT_MESSAGE" value="Conferma in 2 dialag" />
+    <MESSAGE value="Una sola dialog per la modifica" />
+    <option name="LAST_COMMIT_MESSAGE" value="Una sola dialog per la modifica" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
