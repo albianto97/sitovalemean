@@ -17,7 +17,7 @@ export class UserInfoComponent implements OnInit {
   isAdmin: boolean = false;
   unreadNotificationsCount = '0';
   constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService){
-
+      //cartService.initCart();
   }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();

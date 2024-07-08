@@ -10,16 +10,11 @@ import { CartService } from "../../services/cart.service";
 })
 export class CartComponent {
   products: Product[] = [];
-  private cart: any;
   constructor(private productService: ProductService, private cartService: CartService) { }
 
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCart();
     this.reloadCart();
-    this.cartService.cartModify.subscribe(d =>{
-      this.cart = this.cartService.getCart();
-    })
   }
 
 
