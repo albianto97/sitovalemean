@@ -4,7 +4,7 @@ import { Notify } from "../../models/notify";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { MatPaginator } from "@angular/material/paginator";
-import { Subscription } from "rxjs";
+
 
 @Component({
   selector: 'app-notification-list',
@@ -28,7 +28,6 @@ export class NotificationListComponent {
   currentPage: number = 1;
   startIndex: number = 0;
   endIndex: number = 5;
-  private notifySubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadNotify();
@@ -38,11 +37,7 @@ export class NotificationListComponent {
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.notifySubscription) {
-      this.notifySubscription.unsubscribe();
-    }
-  }
+
 
   loadNotify() {
     const currentUser = this.authService.getUserFromToken();
