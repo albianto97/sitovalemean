@@ -1,0 +1,18 @@
+
+  <h2 mat-dialog-title class="dialog-title">Modifica Descrizione</h2>
+  <div>
+<mat-dialog-content class="dialog-content">
+    <mat-form-field appearance="outline">
+      <mat-label>Descrizione</mat-label>
+      <textarea matInput [(ngModel)]="data.description" rows="5" class="responsive-textarea"></textarea>
+    </mat-form-field>
+    <div class="confirmation-message">
+      <p class="message">{{ data.message }}</p>
+      <p class="secondary-message">{{ data.secondaryMessage }}</p>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="onCancel()">Annulla</button>
+    <button mat-button color="primary" (click)="onSave()">Conferma</button>
+</mat-dialog-actions>
+</div>

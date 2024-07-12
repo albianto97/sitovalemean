@@ -58,6 +58,7 @@ import { DialogConfermaComponent } from './components/structure/dialog-conferma/
 import { DialogWarningsSuccessesComponent } from './components/structure/dialog-warnings-successes/dialog-warnings-successes.component';
 import { ContattaClienteComponent } from './components/contatta-cliente/contatta-cliente.component';
 import { FooterComponent } from './components/structure/footer/footer.component';
+import {EditDescriptionDialogComponent} from "./components/structure/edit-description-dialog/edit-description-dialog.component";
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { FooterComponent } from './components/structure/footer/footer.component'
     DialogWarningsSuccessesComponent,
     ColumnChartComponent,
     ContattaClienteComponent,
-    FooterComponent
+    FooterComponent,
+    EditDescriptionDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

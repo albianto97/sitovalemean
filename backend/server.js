@@ -127,3 +127,5 @@ server.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
 
+// Esporta sia app che server
+module.exports = { app, server, io };
