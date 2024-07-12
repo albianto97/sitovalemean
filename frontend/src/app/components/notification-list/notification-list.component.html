@@ -1,8 +1,15 @@
 <div class="container">
   <div class="d-flex mb-3" style="padding-right: 10px; padding-left: 10px;">
     <h2 style="margin-right: 10px;">Queste sono le tue notifiche</h2>
-    <button class="icon-button" (click)="showAll()" mat-flat-button color="primary">Tutte</button>
-    <button class="icon-button" (click)="showUnread()" mat-flat-button color="warn" style="margin-left: 10px;">Non lette</button>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="filterOptions" id="allNotifications" [(ngModel)]="isAll" [value]="true" (ngModelChange)="setNotifications()">
+      <label class="form-check-label" for="allNotifications">Tutte</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="filterOptions" id="unreadNotifications" [(ngModel)]="isAll" [value]="false"  (ngModelChange)="setNotifications()">
+      <label class="form-check-label" for="unreadNotifications">Non lette</label>
+    </div>
+    
   </div>
 
 
@@ -38,8 +45,8 @@
     </tbody>
   </table>
 
-  <mat-paginator [length]="filteredNotifications.length"
-                 [pageSize]="5"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 (page)="onPageChange($event)"></mat-paginator>
+  <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+            [length]="notifications.length" [pageSize]="pageSize" [pageSizeOptions]=" pageSizeOptions"
+            [pageIndex]="pageIndex" aria-label="Select page">
+        </mat-paginator>
 </div>

@@ -5,13 +5,13 @@
                 <h4>In questa sezione sono disponibili i comandi pricipali per gestire gli ordini ricevuti</h4>
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col mb-4">
+                        <div class=" col-md-6 mb-4">
                             <button class="bottoni-custom" [routerLink]="'orders'">
                                 <fa-icon [icon]="['fas', 'igloo']"></fa-icon>
                                 <p class="btn-text">Visualizza Ordini</p>
                             </button>
                         </div>
-                        <div class="col mb-4">
+                        <div class=" col-md-6 mb-4">
                             <button class="bottoni-custom" routerLink="/statistics">
                                 <fa-icon [icon]="['fas', 'chart-simple']"></fa-icon>
                                 <p class="btn-text">Visualizza Statistiche</p>
@@ -21,7 +21,20 @@
                 </div>
             </div>
         </mat-tab>
-        <mat-tab label="Contatta cliente"> Content 2 </mat-tab>
+        <mat-tab label="Contatta cliente">
+            <div class="mt-3 container">
+                <h4>In questa sezione sono disponibili i comandi pricipali per gestire il tuo magazzino</h4>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <button class="bottoni-custom" [routerLink]="'contatta-cliente'">
+                            <fa-icon [icon]="['fas', 'comments']"></fa-icon>
+                            <p class="btn-text">Invia delle notifiche</p>
+                        </button>
+                    </div>
+                </div>
+            </div></div>
+        </mat-tab>
         <mat-tab label="Gestisci Magazzino">
             <div class="mt-3 container">
                 <h4>In questa sezione sono disponibili i comandi pricipali per gestire il tuo magazzino</h4>

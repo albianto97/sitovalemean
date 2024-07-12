@@ -10,6 +10,7 @@ import { NotifyService } from "../../../services/notify.service";
 import { Notify } from "../../../models/notify";
 import { UserService } from "../../../services/user.service";
 import { User } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class OrderDetailsComponent implements OnInit {
     public authService: AuthService,
     private socketService: SocketService,
     private notificationService: NotifyService,
-    private router: Router) { }
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
   ngOnInit(): void {
     // passo l'ordine dal router
     const state = history.state;
@@ -79,8 +81,21 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.updateOrder(this.order).subscribe(result => {
       console.log(result);
       history.state.order = result;
+      const message = 'Modifica dell\'ordine avvenuta con successo';
+
+      this._snackBar.open(message, 'Chiudi', {
+        duration: 5 * 1000,
+      });
       this.sendNotification();
-    })
+    },
+    (error: any) => {
+      const message = 'Errore durante la modifica dell\'ordine';
+
+      this._snackBar.open(message, 'Chiudi', {
+        duration: 5 * 1000,
+      });
+      console.error(message, error);
+    });
   }
 
 contattaCliente(){

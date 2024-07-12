@@ -9,6 +9,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
         <h1>Ingredienti</h1>
+        <div class=" table-responsive">
         <table class="table table-striped mb-4">
             <thead>
                 <tr>
@@ -33,6 +34,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
         <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
             [length]="allIngredients.length" [pageSize]="pageSize" [pageSizeOptions]=" pageSizeOptions"
             [pageIndex]="pageIndex" aria-label="Select page">

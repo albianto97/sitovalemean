@@ -22,29 +22,30 @@
       </div>
       <button class="btn btn-primary w-100" type="submit">Visualizza Movimenti</button>
     </form>
-
-    <table class="table table-striped mb-4">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Tipo Movimento</th>
-          <th>Ingrediente</th>
-          <th>Quantità</th>
-          <th>Misura</th>
-          <th>Prezzo (€)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stock of stocks">
-          <td>{{ stock.insertDate | date }}</td>
-          <td>{{ stock.typeMovement }}</td>
-          <td>{{ stock.ingredient.name }}</td>
-          <td>{{ stock.movementQuantity }}</td>
-          <td>{{ stock.ingredient.meauserement }}</td>
-          <td>{{ stock.price.toFixed(2) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class=" table-responsive">
+      <table class="table table-striped mb-4 ">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Tipo Movimento</th>
+            <th>Ingrediente</th>
+            <th>Quantità</th>
+            <th>Misura</th>
+            <th>Prezzo (€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td>{{ stock.insertDate | date }}</td>
+            <td>{{ stock.typeMovement }}</td>
+            <td>{{ stock.ingredient.name }}</td>
+            <td>{{ stock.movementQuantity }}</td>
+            <td>{{ stock.ingredient.meauserement }}</td>
+            <td>{{ stock.price.toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>  
     <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="allStocks.length"
       [pageSize]="pageSize" [pageSizeOptions]=" pageSizeOptions" [pageIndex]="pageIndex" aria-label="Select page">
     </mat-paginator>

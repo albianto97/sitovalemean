@@ -35,7 +35,7 @@
                 <label for="floatingTextarea">Scrivi un messaggio...</label>
             </div>
             <mat-checkbox [(ngModel)]="isReply">attendi una risposta</mat-checkbox>
-            <button class="btn btn-primary w-100" [disabled]="message.length <= 0 || username == ''" (click)="sendNotification()">
+            <button class="btn btn-primary w-100" [disabled]="message.length <= 0 || username == '' || isDisabled" (click)="sendNotification()">
                 <fa-icon [icon]="['fas', 'paper-plane']"></fa-icon>
                 Invia Notifica
             </button>

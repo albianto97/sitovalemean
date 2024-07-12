@@ -17,14 +17,14 @@
             <!-- Note dell'ordine-->
             <div>
                 <!-- Modifica dello stato dell'ordine -->
-              <div *ngIf="authService.isAdmin()">
-                <mat-form-field>
-                  <mat-label>Stato dell'ordine</mat-label>
-                  <mat-select [(ngModel)]="order.status">
-                    <mat-option *ngFor="let state of orderStates" [value]="state">{{ state }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+                <div *ngIf="authService.isAdmin()">
+                    <mat-form-field>
+                        <mat-label>Stato dell'ordine</mat-label>
+                        <mat-select [(ngModel)]="order.status">
+                            <mat-option *ngFor="let state of orderStates" [value]="state">{{ state }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
 
                 <p>Data creazione ordine: {{order.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
                 <p>Data fine ordine: {{order.closingDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
@@ -33,8 +33,9 @@
                 <h4>Note:</h4>
                 <p>{{order.note == null? 'Non ci sono note...':order.note }}</p>
                 <hr>
-                <button mat-raised-button color="accent" (click)="contattaCliente()" *ngIf="this.authService.isAdmin()">Contatta il cliente</button>
-                
+                <button mat-raised-button color="accent" (click)="contattaCliente()"
+                    *ngIf="this.authService.isAdmin()">Contatta il cliente</button>
+
                 <hr>
             </div>
         </mat-expansion-panel>
@@ -93,38 +94,41 @@
     <div class="mt-2">
         <div class="d-flex justify-content-between">
             <button mat-button routerLink="/orders">Torna alla lista</button>
-            <button mat-raised-button color="primary" (click)="updateOrder()" *ngIf="this.authService.isAdmin()">Salva Modifiche</button>
+            <button mat-raised-button color="primary" (click)="updateOrder()" *ngIf="this.authService.isAdmin()">Salva
+                Modifiche</button>
         </div>
     </div>
 </div>
 
 
 <ng-template #tableMode>
-    <table class="table table-striped table-hover table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Tipo</th>
-                <th scope="col" class="text-end">Prezzo Unitario</th>
-                <th scope="col" class="text-end">Quantità Ordinata</th>
-                <th scope="col" class="text-end">TOTALE</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of orderedProducts">
-                <td>{{product.name}}</td>
-                <td>{{product.type}}</td>
-                <td class="text-end">{{product.price.toFixed(2)}}€</td>
-                <td class="text-end">{{product.quantity}}</td>
-                <td class="text-end">{{(product.price*product.quantity).toFixed(2)}}€</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th [colSpan]="3">Riepilogo Totale:</th>
-                <th class="text-end">{{total.totQuantity}}</th>
-                <th class="text-end">{{total.totPrice.toFixed(2)}}€</th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class=" table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col" class="text-end">Prezzo Unitario</th>
+                    <th scope="col" class="text-end">Quantità Ordinata</th>
+                    <th scope="col" class="text-end">TOTALE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of orderedProducts">
+                    <td>{{product.name}}</td>
+                    <td>{{product.type}}</td>
+                    <td class="text-end">{{product.price.toFixed(2)}}€</td>
+                    <td class="text-end">{{product.quantity}}</td>
+                    <td class="text-end">{{(product.price*product.quantity).toFixed(2)}}€</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th [colSpan]="3">Riepilogo Totale:</th>
+                    <th class="text-end">{{total.totQuantity}}</th>
+                    <th class="text-end">{{total.totPrice.toFixed(2)}}€</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </ng-template>
