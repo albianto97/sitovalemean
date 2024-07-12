@@ -19,15 +19,15 @@
         <div>
             <h2>Valori Medi</h2>
             <div class="d-flex justify-content-between">
-                <div>
+                <div class="d-flex flex-column align-items-center">
                     <div class="circle" [matTooltip]="'indica il numero medio degli articoli presenti in un ordine: '+averageProductsPerOrder">{{averageProductsPerOrder}}</div>
                     <i>prodotti per ordine</i>
                 </div>
-                <div>
+                <div class="d-flex flex-column align-items-center">
                     <div class="circle" [matTooltip]="'indica il valore medio di un ordine: '+averageOrderValue+'€'">{{averageOrderValue}}</div>
                     <i>valore ordine</i>
                 </div>
-                <div>
+                <div class="d-flex flex-column align-items-center">
                     <div class="circle" [matTooltip]="'indica il numero totale degli ordini: '+totNumeroOrdini">{{totNumeroOrdini}}</div>
                     <i>totale ordini</i>
                 </div>

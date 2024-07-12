@@ -1,6 +1,6 @@
 <app-chatbox [isAdmin]="this.isAdmin" *ngIf="!isLoginPage"></app-chatbox>
 <zeus-navbar *ngIf="!isLoginPage" style=" background-color: white; width:100%;" [links]="link" [titolo]="title" [logoMobilePath]="tel" [logoDesktopPath]="des"></zeus-navbar>
-<app-user-info *ngIf="!isLoginPage" ></app-user-info>
+<app-user-info *ngIf="!isLoginPage && !this.isAdmin" ></app-user-info>
 <!-- <div>
   <mat-toolbar class="navbar navbar-expand navbar-light bg-white">
   <a href="#" class="navbar-brand">Gelateria</a>
@@ -16,7 +16,7 @@
   </mat-toolbar>
 </div> -->
 <!-- Router Outlet -->
-<div >
+<div class="mt-4">
   <router-outlet></router-outlet>
 </div>
 <app-footer *ngIf="!isLoginPage" ></app-footer>

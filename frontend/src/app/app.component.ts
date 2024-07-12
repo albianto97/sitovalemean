@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
     new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
     new MenuItem("Ingredienti", "/ingredients", true, false, { tipo: "fas", icona: "wheat-awn" }, true),
-    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true),
   ];
   linkUser: MenuItem[] = [
     new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
@@ -70,7 +69,8 @@ export class AppComponent implements OnInit {
       this.link = [...this.linkUser];
     }
     if (this.authService.isAuthenticated()) {
-      this.link.push(new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true));
+      if(!this.isAdmin)
+        this.link.push(new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true));
       this.link.push(new MenuItem("Esci", "/logout", true, false, { tipo: "fas", icona: "right-from-bracket" }, true));
     } else {
       this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true));

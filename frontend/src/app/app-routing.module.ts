@@ -42,8 +42,8 @@ const routes: Routes = [
   { path: 'profilo', component: ProfiloComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'order/detail', component: OrderDetailsComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
-  { path: 'create-product', component: ProductCreationComponent },
-  { path: 'notifications', component: NotificationListComponent },
+  { path: 'create-product', component: ProductCreationComponent, canActivate: [ AdministratorGuard]  },
+  { path: 'notifications', component: NotificationListComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'contatta-cliente', component: ContattaClienteComponent, canActivate: [ AdministratorGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
   
