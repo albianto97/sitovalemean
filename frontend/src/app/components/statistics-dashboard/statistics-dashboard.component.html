@@ -17,10 +17,21 @@
             <button class="btn btn-primary w-100" type="submit">Visualizza Statistiche</button>
         </form>
         <div>
-            <h3>Numero medio di prodotti per ordine</h3>
-            <div class="circle">{{averageProductsPerOrder}}</div>
-            <div class="circle">{{averageOrderValue}}</div>
-            <div class="circle">{{totNumeroOrdini}}</div>
+            <h2>Valori Medi</h2>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="circle" [matTooltip]="'indica il numero medio degli articoli presenti in un ordine: '+averageProductsPerOrder">{{averageProductsPerOrder}}</div>
+                    <i>prodotti per ordine</i>
+                </div>
+                <div>
+                    <div class="circle" [matTooltip]="'indica il valore medio di un ordine: '+averageOrderValue+'€'">{{averageOrderValue}}</div>
+                    <i>valore ordine</i>
+                </div>
+                <div>
+                    <div class="circle" [matTooltip]="'indica il numero totale degli ordini: '+totNumeroOrdini">{{totNumeroOrdini}}</div>
+                    <i>totale ordini</i>
+                </div>
+            </div>
         </div>
         <div class="row mt-4">
             <div class="col-md-6" *ngIf="countsArray.length > 0 && isTotalLoaded; else loader">

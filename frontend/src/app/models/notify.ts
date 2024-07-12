@@ -5,6 +5,7 @@ export class Notify {
   message: string;
   read: boolean;
   orderId: string;
+  link:string;
 
   constructor(
     username: string,
@@ -12,7 +13,8 @@ export class Notify {
     message: string,
     read: boolean,
     orderId: string,
-    id: string
+    id: string,
+    link:string
   ) {
     this._id = id;
     this.username = username;
@@ -20,5 +22,6 @@ export class Notify {
     this.read = read;
     this.message = message;
     this.orderId = orderId;
+    this.link = link;
   }
 }

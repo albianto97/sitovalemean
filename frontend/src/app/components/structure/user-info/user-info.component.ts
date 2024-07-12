@@ -13,11 +13,11 @@ import { NotifyService } from 'src/app/services/notify.service';
 export class UserInfoComponent implements OnInit {
   user: User | undefined;
   saluto: string = "";
-  cart:any;
+  cart: any;
   isAdmin: boolean = false;
   unreadNotificationsCount = '0';
-  constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService){
-      //cartService.initCart();
+  constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService) {
+    //cartService.initCart();
   }
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
@@ -27,36 +27,35 @@ export class UserInfoComponent implements OnInit {
     this.notifyService.modify.subscribe(d => {
       this.countUnreadNotifications();
     })
-    this.cartService.cartModify.subscribe(d =>{
+    this.cartService.cartModify.subscribe(d => {
       this.cart = this.cartService.getCart();
     })
   }
   calcolaSaluto() {
     const oraCorrente = new Date().getHours();
-
-    if (oraCorrente >= 5 && oraCorrente < 12) {
-      this.saluto = 'Buongiorno, ' + this.user?.username + '!';
-    } else if (oraCorrente >= 12 && oraCorrente < 18) {
-      this.saluto = 'Buon pomeriggio, ' + this.user?.username + '!';
-    } else {
-      this.saluto = 'Buonasera, ' + this.user?.username + '!';
+    if (this.user != undefined) {
+      if (oraCorrente >= 5 && oraCorrente < 12) {
+        this.saluto = 'Buongiorno, ' + this.user?.username + '!';
+      } else if (oraCorrente >= 12 && oraCorrente < 18) {
+        this.saluto = 'Buon pomeriggio, ' + this.user?.username + '!';
+      } else {
+        this.saluto = 'Buonasera, ' + this.user?.username + '!';
+      }
+    }else{
+      this.saluto = 'Ciao, ricordati di accedere';
     }
   }
   countUnreadNotifications() {
     if (this.user) {
       this.notifyService.getUserNotifications(this.user.username).subscribe(
         (notifications: any[]) => {
-          // Aggiorna il contatore
-          
           // Filtra le notifiche non lette
           this.unreadNotificationsCount = (notifications.filter(notification => !notification.read).length).toString();
-          //this.notifyService.notifyTable(); // Notifica i cambiamenti
-
         }
       );
     }
   }
-  viewCart(){
+  viewCart() {
     this.router.navigate(['/view-cart']);
   }
 

@@ -1,33 +1,46 @@
 <div *ngIf="isIngredientsAreLoad && !isInError; else loader ">
     <h2>Aggiungi Movimento</h2>
-    <form (ngSubmit)="addStock()" class="d-flex flex-column">
-      <label>
-        Ingrediente:
-        <select class="form-select" [(ngModel)]="ingredientId" name="ingredientId" required (change)="setPrice()">
-          <option *ngFor="let ingredient of ingredients" [value]="ingredient._id">{{ingredient.name}}</option>
-        </select>
-      </label>
-      <label>
-        Quantità Movimento:
-        <input class="form-control" [(ngModel)]="movementQuantity" name="movementQuantity" type="number" required (change)="setPrice()"/>
-      </label>
-      <label>
-        Tipo Movimento:
-        <select class="form-select" [(ngModel)]="typeMovement" name="typeMovement" required >
-          <option value="load">Carico</option>
-          <option value="unload">Scarico</option>
-        </select>
-      </label>
-      <label>
-        Prezzo:
-        <input class="form-control" [(ngModel)]="price" name="price" type="number"/>
-      </label>
-      <label>
-        Data Inserimento:
-        <input class="form-control" [(ngModel)]="insertDate" name="insertDate" type="date" required />
-      </label>
-      <button class="btn btn-primary" type="submit">Aggiungi Movimento</button>
+    <form (ngSubmit)="addStock()" class="row g-3">
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <select class="form-select" id="ingredientId" [(ngModel)]="ingredientId" name="ingredientId" required (change)="setPrice()">
+            <option *ngFor="let ingredient of ingredients" [value]="ingredient._id">{{ingredient.name}}</option>
+          </select>
+          <label for="ingredientId">Ingrediente</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input id="movementQuantity" class="form-control" [(ngModel)]="movementQuantity" name="movementQuantity" type="number" required (change)="setPrice()" placeholder="Quantità Movimento"/>
+          <label for="movementQuantity">Quantità Movimento</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <select class="form-select" id="typeMovement" [(ngModel)]="typeMovement" name="typeMovement" required>
+            <option value="load">Carico</option>
+            <option value="unload">Scarico</option>
+          </select>
+          <label for="typeMovement">Tipo Movimento</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input id="price" class="form-control" [(ngModel)]="price" name="price" type="number" placeholder="Prezzo"/>
+          <label for="price">Prezzo</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input id="insertDate" class="form-control" [(ngModel)]="insertDate" name="insertDate" type="date" required placeholder="Data Inserimento"/>
+          <label for="insertDate">Data Inserimento</label>
+        </div>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Aggiungi Movimento</button>
+      </div>
     </form>
+    
   </div>
   <ng-template #loader>
     <app-loader *ngIf="!isInError;else error"></app-loader>

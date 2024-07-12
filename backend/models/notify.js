@@ -13,9 +13,11 @@ const notificationSchema = new mongoose.Schema({
     read: {type: Boolean},
     orderId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order',
-        required: true
-    }
+        ref: 'Order'
+    },
+    link: {
+        type: String
+    },
 });
 
 const Notify = mongoose.model('Notify', notificationSchema);

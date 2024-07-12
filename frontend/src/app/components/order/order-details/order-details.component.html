@@ -33,8 +33,8 @@
                 <h4>Note:</h4>
                 <p>{{order.note == null? 'Non ci sono note...':order.note }}</p>
                 <hr>
-                <button mat-raised-button color="accent" routerLink="/orders" *ngIf="this.authService.isAdmin()">Contatta il cliente</button>
-                <button mat-raised-button color="accent" routerLink="/orders" *ngIf="!this.authService.isAdmin()">Contatta il negozio</button>
+                <button mat-raised-button color="accent" (click)="contattaCliente()" *ngIf="this.authService.isAdmin()">Contatta il cliente</button>
+                
                 <hr>
             </div>
         </mat-expansion-panel>

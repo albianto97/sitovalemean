@@ -6,7 +6,7 @@
           <div [innerHTML]="getStatusIcon(order.status.toString()) | statusIconHtml"></div>
         </div>
         <h5>Data ordine: <em>{{ order.creationDate | date: 'dd/MM/yyyy HH:mm:ss' }}</em></h5>
-        <h5 *ngIf="!isProfile && this.authService.isAdmin()">Utente: <em>{{ username }}</em> </h5>
+        <h5 *ngIf="!isProfile && isAdmin">Utente: <em>{{ username }}</em> </h5>
         <div>
             Totale prodotti ordinati: <strong>{{ order.products.length }}</strong>
           <!-- indirizzamento di visualizza -->
@@ -14,7 +14,7 @@
             <div class="col-md-6 mb-2">
               <button class="btn btn-primary w-100" (click)="openDetail(order)">Visualizza</button>
             </div>
-            <div class="col-md-6 mb-2" *ngIf="this.authService.isAdmin()">
+            <div class="col-md-6 mb-2" *ngIf="isAdmin">
               <button class="btn btn-primary w-100"  (click)="sendNotification(username)">Invia notifica</button>
             </div>
           </div>

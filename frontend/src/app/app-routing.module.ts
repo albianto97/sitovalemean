@@ -22,10 +22,11 @@ import { StatisticsDashboardComponent } from './components/statistics-dashboard/
 import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { StockListComponent } from './components/stock/stock-list/stock-list.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { ContattaClienteComponent } from './components/contatta-cliente/contatta-cliente.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent },
@@ -43,7 +44,9 @@ const routes: Routes = [
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent },
   { path: 'notifications', component: NotificationListComponent },
+  { path: 'contatta-cliente', component: ContattaClienteComponent, canActivate: [ AdministratorGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
+  
   // Assicurati di inserire questa rotta prima della wildcard (se presente)
   { path: '**', redirectTo: '/unauthorized' } // Reindirizza tutte le altre rotte non trovate alla pagina di errore "unauthorized"
 ];

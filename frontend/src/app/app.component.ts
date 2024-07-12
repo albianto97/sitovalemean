@@ -15,15 +15,16 @@ import { MenuItem } from 'ngx-zeus-ui';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'Gelateria';
   tel = './assets/media/logo.png';
   des = './assets/media/logo.png';
   user: any;
+  isLoginPage: boolean = false
   isAdmin: boolean = false;
   unreadNotificationsCount: number = 0;
   showChatbox: boolean = false;
-  link:MenuItem[] =[]
+  link: MenuItem[] = []
   linkAdmin: MenuItem[] = [
     new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
@@ -35,8 +36,7 @@ export class AppComponent implements OnInit{
     new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
     new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
-    new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true),
-    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true),
+    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true)
   ];
 
 
@@ -48,10 +48,8 @@ export class AppComponent implements OnInit{
     private userService: UserService) {
     this.route.events.subscribe(d => {
       if (d instanceof NavigationEnd) {
-        this.showChatbox = !this.route.url.endsWith("/login") && !this.route.url.endsWith("/sign-in");
-        this.user = authService.getUserFromToken();
-        if (this.user)
-          this.isAdmin = this.user.role == "amministratore";
+        this.isLoginPage = this.route.url.endsWith("/login") || this.route.url.endsWith("/sign-in");
+        this.calculateRoutes();
       }
     })
 
@@ -59,18 +57,23 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.calculateRoutes();
+  }
+  calculateRoutes(){
     this.user = this.authService.getUserFromToken();
+    this.link =[];
     if (this.user)
       this.isAdmin = this.user.role == "amministratore";
-    if(this.isAdmin){
-      this.link = this.linkAdmin;
-    }else{
-      this.link = this.linkUser;
+    if (this.isAdmin) {
+      this.link = [...this.linkAdmin];
+    } else {
+      this.link = [...this.linkUser];
     }
-    if(this.authService.isAuthenticated()){
-      this.link.push(new MenuItem("Esci", "/logout", true, false, { tipo: "fas", icona: "right-from-bracket" }, true))
-    }else{
-      this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true))
+    if (this.authService.isAuthenticated()) {
+      this.link.push(new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true));
+      this.link.push(new MenuItem("Esci", "/logout", true, false, { tipo: "fas", icona: "right-from-bracket" }, true));
+    } else {
+      this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true));
     }
 
   }

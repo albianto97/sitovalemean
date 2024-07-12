@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Stock } from 'src/app/models/stock';
 import { RawIngridientService } from 'src/app/services/raw-ingridient.service';
@@ -11,10 +12,16 @@ import { StockService } from 'src/app/services/stock.service';
 })
 export class StockListComponent implements OnInit {
   stocks: any[] = [];
+  allStocks: any[] = [];
   allIngredients: any[] = []
   startDate?: string;
   endDate?: string;
-
+ // per gestire il paginator
+ pageEvent: PageEvent | undefined;
+ length = 50;
+ pageSize = 10;
+ pageIndex = 0;
+ pageSizeOptions = [10, 25, 50];
   constructor(private stockService: StockService, private ingredientService: RawIngridientService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -27,6 +34,27 @@ export class StockListComponent implements OnInit {
     // Carica tutti i movimenti all'inizio
 
   }
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    
+    this.setStocksVariable();
+
+  }
+  setStocksVariable(){
+    let elementi = this.pageSize
+
+
+    if ((this.pageIndex + 1) * this.pageSize > this.allStocks.length) {
+      elementi = (this.allStocks.length - this.pageIndex * this.pageSize)
+
+    }
+    console.log(elementi, this.pageIndex * this.pageSize, elementi);
+
+    this.stocks = this.allStocks.slice(this.pageIndex * this.pageSize, (this.pageIndex * this.pageSize) + elementi)
+  }
   reciveMovimento(eseguito:boolean){
     if(eseguito)
       this.getStocks();
@@ -34,7 +62,8 @@ export class StockListComponent implements OnInit {
   getStocks(): void {
     this.stockService.getStocks(this.startDate, this.endDate).subscribe(
       data => {
-        this.stocks = data;
+        this.allStocks = data;
+        this.setStocksVariable();
         console.log(data);
         
         this.stocks.forEach((stock:any)=>{

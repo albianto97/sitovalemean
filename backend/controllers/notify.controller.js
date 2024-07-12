@@ -4,7 +4,7 @@ const Product = require("../models/product");
 // Creazione di una nuova notifica
 const createNotification = async (req, res) => {
     try {
-        const { username, date,read, message, orderId } = req.body;
+        const { username, date,read, message, orderId, link } = req.body;
         const orderStringId = orderId.toString(); // Converti l'ObjectId in una stringa
         // Controlla se notifyDate è una stringa ISO 8601 valida
         if (!isNaN(new Date(date).getTime())) {
@@ -14,7 +14,8 @@ const createNotification = async (req, res) => {
                 notifyDate: new Date(date),
                 message,
                 read,
-                orderId: orderStringId
+                orderId: orderStringId != ''? orderStringId: null,
+                link
             });
 
             await notification.save();

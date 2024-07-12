@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from 'src/app/models/order';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,6 +9,7 @@ import { SocketService } from "../../../services/socket.service";
 import { NotifyService } from "../../../services/notify.service";
 import { Notify } from "../../../models/notify";
 import { UserService } from "../../../services/user.service";
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { UserService } from "../../../services/user.service";
 
 export class OrderDetailsComponent implements OnInit {
   order: any;
+  user:any;
   orderStates: string[] = [];
   orderedProducts: any[] = [];
   isTableMode: boolean = false;
@@ -33,7 +35,8 @@ export class OrderDetailsComponent implements OnInit {
     private userService: UserService,
     public authService: AuthService,
     private socketService: SocketService,
-    private notificationService: NotifyService) { }
+    private notificationService: NotifyService,
+    private router: Router) { }
   ngOnInit(): void {
     // passo l'ordine dal router
     const state = history.state;
@@ -52,6 +55,10 @@ export class OrderDetailsComponent implements OnInit {
             this.total.totPrice += orderedProduct.quantity * orderedProduct.price;
           }
         })
+        this.userService.getSingleUserById(this.order.user).subscribe(
+          (userData: any) => {
+            this.user = userData;
+          });
       })
 
     }
@@ -76,7 +83,9 @@ export class OrderDetailsComponent implements OnInit {
     })
   }
 
-
+contattaCliente(){
+  this.router.navigate(['/contatta-cliente'], { state: { username: this.user.username, orderId: this.order._id } });
+}
 
 
 
@@ -97,10 +106,10 @@ export class OrderDetailsComponent implements OnInit {
         if (userData) {
           const username = userData.username;
           // Invia la notifica utilizzando il nome utente recuperato
-          const message = "Il prodotto è nel seguente stato: " + this.order.status;
+          const message = "l'ordine " + this.order._id + " è nel seguente stato: " + this.order.status;
           this.socketService.sendNotification({ username: username, message: message });
           // Chiamata al metodo saveEvaso del servizio NotifyService
-          this.notificationService.saveEvaso(username, notifyDate.toISOString(), this.order._id, false, message).subscribe(
+          this.notificationService.createNotify(username, notifyDate.toISOString(), this.order._id, false, message, "").subscribe(
             (notification: Notify) => {
               console.log("Notifica salvata con successo:", notification);
               // Gestisci la notifica salvata come preferisci

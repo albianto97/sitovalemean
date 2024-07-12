@@ -56,6 +56,8 @@ import { ColumnChartComponent } from './components/statistics-dashboard/column-c
 import { NgxZeusUiModule } from 'ngx-zeus-ui';
 import { DialogConfermaComponent } from './components/structure/dialog-conferma/dialog-conferma.component';
 import { DialogWarningsSuccessesComponent } from './components/structure/dialog-warnings-successes/dialog-warnings-successes.component';
+import { ContattaClienteComponent } from './components/contatta-cliente/contatta-cliente.component';
+import { FooterComponent } from './components/structure/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +97,9 @@ import { DialogWarningsSuccessesComponent } from './components/structure/dialog-
     DialogStrutturaComponent,
     DialogConfermaComponent,
     DialogWarningsSuccessesComponent,
-    ColumnChartComponent
+    ColumnChartComponent,
+    ContattaClienteComponent,
+    FooterComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,62 +1,100 @@
 <div class="container mt-4">
-
-    <h1>Ingredienti</h1>
-    <ul class="list-group mb-4">
-        <li class="list-group-item" *ngFor="let ingredient of ingredients">
-            <div class="d-flex justify-content-between">
-
-                {{ ingredient.name }} - {{ ingredient.disponibilty.toFixed(2) }} {{ ingredient.meauserement }} - €{{ingredient.mediumPrice.toFixed(2) }}
-                <button class="btn btn-secondary">
-                    <fa-icon [icon]="['fas', 'trash']" ></fa-icon>
-                </button>
-            </div>
-        </li>
-    </ul>
-
+    <mat-expansion-panel [expanded]="true" class="mb-3">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Ingredienti
+            </mat-panel-title>
+            <mat-panel-description>
+                Apri il panel controllare gli ingredienti
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h1>Ingredienti</h1>
+        <table class="table table-striped mb-4">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Disponibilità</th>
+                    <th>Misura</th>
+                    <th>Prezzo Medio (€)</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ingredient of ingredients">
+                    <td>{{ ingredient.name }}</td>
+                    <td>{{ ingredient.disponibilty.toFixed(2) }}</td>
+                    <td>{{ ingredient.meauserement }}</td>
+                    <td>{{ ingredient.mediumPrice.toFixed(2) }}</td>
+                    <td>
+                        <button class="btn btn-secondary">
+                            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+            [length]="allIngredients.length" [pageSize]="pageSize" [pageSizeOptions]=" pageSizeOptions"
+            [pageIndex]="pageIndex" aria-label="Select page">
+        </mat-paginator>
+    </mat-expansion-panel>
     <h2>Aggiungi un nuovo ingrediente</h2>
     <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-            <label for="name" class="form-label">Nome</label>
-            <input id="name" type="text" class="form-control" formControlName="name">
-            <div *ngIf="ingredientForm.controls['name'].invalid && (ingredientForm.controls['name'].dirty || ingredientForm.controls['name'].touched)"
-                class="text-danger">
-                Nome è richiesto.
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input id="name" type="text" class="form-control" formControlName="name" placeholder="Nome">
+                    <label for="name">Nome</label>
+                    <div *ngIf="ingredientForm.controls['name'].invalid && (ingredientForm.controls['name'].dirty || ingredientForm.controls['name'].touched)"
+                        class="text-danger">
+                        Nome è richiesto.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input id="disponibilty" type="number" class="form-control" formControlName="disponibilty"
+                        placeholder="Disponibilità" [value]="0">
+                    <label for="disponibilty">Disponibilità</label>
+                    <div *ngIf="ingredientForm.controls['disponibilty'].invalid && (ingredientForm.controls['disponibilty'].dirty || ingredientForm.controls['disponibilty'].touched)"
+                        class="text-danger">
+                        Disponibilità è richiesta e deve essere un numero non negativo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <select id="meauserement" formControlName="meauserement" class="form-select" aria-label="Misura">
+                        <option value="Kg">Kg</option>
+                        <option value="Pz">Pz</option>
+                        <option value="L">L</option>
+                    </select>
+                    <label for="meauserement">Misura</label>
+                    <div *ngIf="ingredientForm.controls['meauserement'].invalid && (ingredientForm.controls['meauserement'].dirty || ingredientForm.controls['meauserement'].touched)"
+                        class="text-danger">
+                        Misura è richiesta.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating mb-3">
+                    <input id="mediumPrice" type="number" class="form-control" formControlName="mediumPrice"
+                        placeholder="Prezzo Medio">
+                    <label for="mediumPrice">Prezzo Medio</label>
+                    <div *ngIf="ingredientForm.controls['mediumPrice'].invalid && (ingredientForm.controls['mediumPrice'].dirty || ingredientForm.controls['mediumPrice'].touched)"
+                        class="text-danger">
+                        Prezzo Medio è richiesto e deve essere un numero non negativo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" [disabled]="ingredientForm.invalid">Aggiungi
+                    Ingrediente</button>
             </div>
         </div>
-
-        <div class="mb-3">
-            <label for="disponibilty" class="form-label">Disponibilità</label>
-            <input id="disponibilty" type="number" class="form-control" formControlName="disponibilty" [value]="0">
-            <div *ngIf="ingredientForm.controls['disponibilty'].invalid && (ingredientForm.controls['disponibilty'].dirty || ingredientForm.controls['disponibilty'].touched)"
-                class="text-danger">
-                Disponibilità è richiesta e deve essere un numero non negativo.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="meauserement">Misura:</label>
-            <select id="meauserement" formControlName="meauserement" class="form-select">
-              <option value="Kg">Kg</option>
-              <option value="Pz">Pz</option>
-              <option value="L">L</option>
-            </select>
-            <div *ngIf="ingredientForm.controls['meauserement'].invalid && (ingredientForm.controls['meauserement'].dirty || ingredientForm.controls['meauserement'].touched)"
-                class="text-danger">
-                Misura è richiesta.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="mediumPrice" class="form-label">Prezzo Medio</label>
-            <input id="mediumPrice" type="number" class="form-control" formControlName="mediumPrice">
-            <div *ngIf="ingredientForm.controls['mediumPrice'].invalid && (ingredientForm.controls['mediumPrice'].dirty || ingredientForm.controls['mediumPrice'].touched)"
-                class="text-danger">
-                Prezzo Medio è richiesto e deve essere un numero non negativo.
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary"  [disabled]="ingredientForm.invalid">Aggiungi Ingrediente</button>
     </form>
-
-
 </div>

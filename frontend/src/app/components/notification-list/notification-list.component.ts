@@ -5,6 +5,8 @@ import { AuthService } from "../../services/auth.service";
 import {  Router } from "@angular/router";
 import { MatPaginator } from "@angular/material/paginator";
 import {Subscription} from "rxjs";
+import { OrderService } from 'src/app/services/order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class NotificationListComponent {
 
   constructor(private notifyService: NotifyService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router, private orderService: OrderService, private _snackBar: MatSnackBar) { }
   pageSize: number = 5;
   currentPage: number = 1;
   startIndex: number = 0;
@@ -61,7 +63,21 @@ export class NotificationListComponent {
     }
   }
   openDetail(id: string) {
-    this.router.navigate(['/order/detail'], { state: { orderId: id } });
+    if(id){
+      this.orderService.getOrder(id).subscribe(orderToPass => {
+        if(orderToPass){
+          this.router.navigate(['/order/detail'], { state: { order: orderToPass } });
+        }
+      },
+      (error: any) => {
+        const message = 'Errore durante il recupero degli ingredienti';
+
+        this._snackBar.open(message, 'Chiudi', {
+          duration: 5 * 1000,
+        });
+        console.error(message, error);
+      });
+    }
   }
   deleteNotification(notificationId: string) {
     // Chiama il metodo del servizio per eliminare la notifica

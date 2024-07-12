@@ -20,7 +20,8 @@
     <tbody>
     <tr *ngFor="let notification of notificationsView">
       <td (click)="openDetail(notification.orderId)" style="cursor: pointer;">{{ notification.orderId }}</td>
-      <td>{{ notification.message }}</td>
+
+      <td [innerHTML]="notification.message"></td>
       <td>
         <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="notification.read" (change)="updateReadStatus(notification)"></mat-checkbox>
       </td>

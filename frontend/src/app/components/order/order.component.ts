@@ -15,10 +15,12 @@ export class OrderComponent implements OnInit {
   @Input() order!: Order;
   @Input() selectUsername!: string;
   @Input() isProfile: boolean = false;
+  isAdmin: boolean = false;
   username: string = "";
 
   constructor(private router: Router, private userService: UserService, private socketService: SocketService, public authService: AuthService) { }
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
     this.userService.getUserById(this.order.user).subscribe((user:User) =>{
       this.username = user.username;
     })
