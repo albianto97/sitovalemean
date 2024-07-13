@@ -1,27 +1,23 @@
-
 const mongoose = require('mongoose');
-const config = require('config');
-const db = config.get('mongoURI');
+const config = require('../config');
 const User = require('../models/user');
 
 const connectDB = async () => {
-
-    mongoose.set('strictQuery', true);
-    await mongoose.connect(db, {
-      useNewUrlParser: true,
-    }).then(() => {
-      console.log('Connected to MongoDB');
-      createAdminUser(); // Crea l'utente admin all'avvio
-    }).catch(err => console.error('Could not connect to MongoDB...', err));
+  mongoose.set('strictQuery', true);
+  await mongoose.connect(config.mongoURI, {
+    useNewUrlParser: true,
+  }).then(() => {
+    console.log('Connected to MongoDB');
+    createAdminUser();
+  }).catch(err => console.error('Could not connect to MongoDB...', err));
 };
-// Funzione per creare l'utente admin
+
 async function createAdminUser() {
-  const adminUsername = 'admin';
-  const adminPassword = '123456'; // Assicurati di utilizzare una password sicura e possibilmente di crittografarla
-  const adminEmail = 'admin@admin.it';
+  const adminUsername = config.adminUsername;
+  const adminPassword = config.adminPassword;
+  const adminEmail = config.adminEmail;
   const adminRole = 'amministratore';
 
-  // Verifica se l'utente admin esiste già
   const existingAdmin = await User.findOne({ username: adminUsername });
 
   if (!existingAdmin) {
