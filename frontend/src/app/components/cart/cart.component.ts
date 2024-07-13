@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { Product } from "../../models/product";
 import { CartService } from "../../services/cart.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +11,8 @@ import { CartService } from "../../services/cart.service";
 })
 export class CartComponent {
   products: Product[] = [];
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(private productService: ProductService, private cartService: CartService, 
+    private router: Router) { }
 
 
   ngOnInit(): void {
@@ -22,7 +24,9 @@ export class CartComponent {
     this.cartService.emptyCart();
     this.reloadCart();
   }
-
+  // createOrderFirstStep(){
+  //   this.router.navigate(['/order'], { state: { order: {} } });
+  // }
   reloadCart() {
     //this.products = this.cartService.getCart().products;
     // Verifica se 'cart' è presente nello storage locale e se contiene un valore valido
