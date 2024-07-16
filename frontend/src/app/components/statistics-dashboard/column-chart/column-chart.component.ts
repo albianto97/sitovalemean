@@ -1,23 +1,24 @@
-import { Component, Input,  OnInit,  ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartOptions } from '../area-chart/area-chart.component';
 import { ChartComponent } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-column-chart',
   templateUrl: './column-chart.component.html',
-  styleUrl: './column-chart.component.css'
+  styleUrls: ['./column-chart.component.css']
 })
-export class ColumnChartComponent implements OnInit{
+export class ColumnChartComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   @Input() dataToView: any;
   @Input() name: string = '';
-  @Input() yTitle:string = '';
+  @Input() yTitle: string = '';
 
-  constructor() {
-    
-  }
+  constructor() {}
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
+    // Inizializza le opzioni del grafico
     this.chartOptions = {
       series: [
         {
@@ -56,7 +57,7 @@ export class ColumnChartComponent implements OnInit{
       },
       tooltip: {
         y: {
-          formatter: function(val) {
+          formatter: function(val: number) {
             return val.toString();
           }
         }

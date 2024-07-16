@@ -1,12 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from "../../models/user";
 import { AuthService } from "../../services/auth.service";
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/models/product';
 import { OrderService } from "../../services/order.service";
 import { Order } from "../../models/order";
-import { SocketService } from "../../services/socket.service";
-import {MatPaginator} from "@angular/material/paginator";
+import { MatPaginator } from "@angular/material/paginator";
 
 @Component({
   selector: 'app-profile',
@@ -27,51 +26,57 @@ export class ProfiloComponent implements OnInit {
   startIndex: number = 0;
   endIndex: number = 3;
   selectedOrderStatus: string = 'inAttesa'; // Valore predefinito del filtro
- topProducts: any[] = [];
-  constructor(private authService: AuthService, private productService: ProductService, private orderService: OrderService) {
-    orderService.getOrderOfUserProduct().subscribe((response: any) => {
-      console.log(response);
-      this.bestProducts = response.bestProducts.splice(0, 3);
-    });
+  topProducts: any[] = [];
 
+  constructor(
+    private authService: AuthService,
+    private productService: ProductService,
+    private orderService: OrderService
+  ) {
+    // Recupera i prodotti migliori
+    this.orderService.getOrderOfUserProduct().subscribe(
+      (response: any) => {
+        this.bestProducts = response.bestProducts.splice(0, 3);
+      },
+      (error) => {
+        console.error('Errore nel recupero dei migliori prodotti:', error);
+      }
+    );
   }
 
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     this.user = this.authService.getUserFromToken();
-    this.username = this.authService.getUserFromToken().username;
-    this.filterData();
-  }
-  getTopProducts(){
-    this.productService.getTopProducts().subscribe((data:any) =>{
-      
-      this.topProducts =  data;
-       
-     }, error => {
-       
-       const message = "Errore nel recupero dei top Products";
-       console.error(message, error);
-       
-     })
+    if (this.user) {
+      this.username = this.user.username;
+      this.filterData();
+    }
   }
 
-  /*loadOrders(): void {
-    this.orderService.getOrdersFromUser().subscribe((oldOrders: any) => {
-      console.log(oldOrders);
-      this.myOrdersTotal = oldOrders;
-      this.myOrdersView = oldOrders.slice(this.startIndex, this.endIndex);
-    });
-  }*/
+  // Metodo per ottenere i top prodotti
+  getTopProducts() {
+    this.productService.getTopProducts().subscribe(
+      (data: any) => {
+        this.topProducts = data;
+      },
+      (error) => {
+        const message = "Errore nel recupero dei top Products";
+        console.error(message, error);
+      }
+    );
+  }
 
+  // Metodo per gestire il cambio di pagina del paginator
   onPageChange(event: any): void {
     this.startIndex = event.pageIndex * event.pageSize;
     this.endIndex = this.startIndex + event.pageSize;
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-
-    // Aggiorna myOrdersView con la porzione corretta degli ordini
     this.myOrdersView = this.myOrdersTotal.slice(this.startIndex, this.endIndex);
   }
-  filterChange(): void{
+
+  // Metodo per gestire il cambio di filtro
+  filterChange(): void {
     this.startIndex = 0;
     this.endIndex = this.pageSize;
     if (this.paginator) {
@@ -80,12 +85,16 @@ export class ProfiloComponent implements OnInit {
     this.filterData();
   }
 
+  // Metodo per filtrare i dati
   filterData(): void {
-    this.orderService.searchOrderByUsername(this.username, this.selectedOrderStatus).subscribe(orders => {
-      this.myOrdersView = orders;
-      console.log(this.myOrdersView);
-      this.myOrdersTotal = orders;
-      this.myOrdersView = orders.slice(this.startIndex, this.endIndex);
-    });
+    this.orderService.searchOrderByUsername(this.username, this.selectedOrderStatus).subscribe(
+      (orders) => {
+        this.myOrdersTotal = orders;
+        this.myOrdersView = orders.slice(this.startIndex, this.endIndex);
+      },
+      (error) => {
+        console.error('Errore nel filtrare i dati degli ordini:', error);
+      }
+    );
   }
 }

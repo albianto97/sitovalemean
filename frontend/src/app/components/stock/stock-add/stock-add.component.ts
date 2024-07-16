@@ -8,7 +8,7 @@ import { StockService } from 'src/app/services/stock.service';
 @Component({
   selector: 'app-stock-add',
   templateUrl: './stock-add.component.html',
-  styleUrl: './stock-add.component.css'
+  styleUrls: ['./stock-add.component.css']
 })
 export class StockAddComponent implements OnInit {
   @Output() sendMovimento: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -21,30 +21,33 @@ export class StockAddComponent implements OnInit {
   isIngredientsAreLoad: boolean = false;
   isInError: boolean = false;
 
-
-
-  constructor(private stockService: StockService, private ingredientService: RawIngridientService,
+  constructor(
+    private stockService: StockService,
+    private ingredientService: RawIngridientService,
     private _snackBar: MatSnackBar
   ) { }
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     this.setDateToToday();
-    this.ingredientService.getIngredients().subscribe((data: any) => {
-      this.ingredients = data;
-      this.isIngredientsAreLoad = true;
-    },
+    this.ingredientService.getIngredients().subscribe(
+      (data: any) => {
+        this.ingredients = data;
+        this.isIngredientsAreLoad = true;
+      },
       (error: any) => {
         const message = 'Errore durante il recupero degli ingredienti';
-
         this._snackBar.open(message, 'Chiudi', {
-          duration: 5 * 1000,
+          duration: 5000,
         });
         console.error(message, error);
         this.isIngredientsAreLoad = true;
         this.isInError = true;
-        // Gestisci l'errore qui, ad esempio impostando un flag per mostrare un messaggio d'errore nell'interfaccia utente
       }
     );
   }
+
+  // Metodo per impostare la data di inserimento ad oggi
   setDateToToday(): void {
     const today = new Date();
     const year = today.getFullYear();
@@ -53,14 +56,16 @@ export class StockAddComponent implements OnInit {
 
     this.insertDate = `${year}-${month}-${day}`;
   }
-  setPrice() {
+
+  // Metodo per impostare il prezzo basato sull'ingrediente selezionato e la quantità di movimento
+  setPrice(): void {
     const ingredient = this.ingredients.find(ingredient => ingredient._id === this.ingredientId);
-    console.log(ingredient);
     if (ingredient) {
       this.price = parseFloat((ingredient.mediumPrice * this.movementQuantity).toFixed(2));
     }
-
   }
+
+  // Metodo per aggiungere un movimento di magazzino
   addStock(): void {
     const newStock: Stock = {
       ingredientId: this.ingredientId,
@@ -75,7 +80,7 @@ export class StockAddComponent implements OnInit {
         console.log('Movimento aggiunto con successo');
         this.sendMovimento.emit(true);
       },
-      error => {
+      (error) => {
         this.sendMovimento.emit(false);
         console.error('Errore nell\'aggiunta del movimento:', error);
       }

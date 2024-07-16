@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-logout',
@@ -9,14 +9,19 @@ import {Router} from "@angular/router";
 })
 export class LogoutComponent {
 
-  constructor(private auth: AuthService, private router: Router){
-    //cartService.initCart();
-    this.logOut()
+  // Costruttore con iniezione delle dipendenze necessarie
+  constructor(private auth: AuthService, private router: Router) {
+    // Chiama il metodo di logout quando il componente viene istanziato
+    this.logOut();
   }
 
-  logOut(){
+  // Metodo per effettuare il logout
+  logOut() {
+    // Chiama il metodo di logout del servizio AuthService
     this.auth.logout();
+    // Ricarica la pagina
     location.reload();
-    //this.router.navigate(['/login']); //forse dopo admin è da togliere perche fa reload da solo
+    // Può essere commentato se la pagina si ricarica automaticamente dopo il logout
+    // this.router.navigate(['/login']);
   }
 }

@@ -8,7 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminHomeComponent {
   isAdmin: boolean = false;
-  constructor(private authService: AuthService){
+
+  constructor(private authService: AuthService) {
+    // Verifica se l'utente è amministratore
     this.isAdmin = authService.isAdmin();
   }
 }

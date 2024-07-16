@@ -1,56 +1,63 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Product} from "../../../models/product";
-import {Router} from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Product } from "../../../models/product";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-product-creation',
   templateUrl: './product-creation.component.html',
   styleUrls: ['./product-creation.component.css']
 })
-export class ProductCreationComponent implements OnInit{
-
+export class ProductCreationComponent implements OnInit {
+  
   productForm: FormGroup;
-  constructor(private productService: ProductService, private fb: FormBuilder, private router: Router) {
+
+  // Costruttore con iniezione delle dipendenze necessarie
+  constructor(
+    private productService: ProductService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    // Inizializza il form di creazione del prodotto con validazione
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       price: [0, Validators.required],
-      disponibilita: [0, Validators.required], // Numeric field
-      type: ['', Validators.required], // Select field for type
+      disponibilita: [0, Validators.required], // Campo numerico
+      type: ['', Validators.required], // Campo di selezione per il tipo
     });
   }
 
-
+  // Metodo chiamato al submit del form
   onSubmit() {
-    // Chiamare il servizio per creare il prodotto
+    // Verifica se il form è valido
     if (this.productForm.valid) {
-      // Puoi gestire l'invio del form qui
-      console.log('Dati inviati:', this.productForm.value);
-      var product = new Product(this.productForm.value);
+      // Crea un nuovo oggetto prodotto con i dati del form
+      const product = new Product(this.productForm.value);
 
-      this.productService.createProduct(product)
-        .subscribe((result: any) => {
-          console.log(result.result);
+      // Chiama il servizio per creare il prodotto
+      this.productService.createProduct(product).subscribe(
+        (result: any) => {
           if (result && result.result == 1) {
             alert("Prodotto già presente");
-            //this.router.navigate(['/create-product']);
           } else if (result && result.result == 2) {
-            console.log(result);
             alert("Prodotto inserito con successo");
             this.productForm.reset();
-            //this.router.navigate(['/productList']);
           } else {
             alert("Errore nella creazione");
           }
-        });
+        },
+        (error: any) => {
+          console.error('Errore durante la creazione del prodotto:', error);
+          alert("Errore nella creazione");
+        }
+      );
     }
-
   }
 
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     console.log("Creazione Componente");
   }
 }
-

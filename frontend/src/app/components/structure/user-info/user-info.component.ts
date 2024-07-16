@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,48 +16,65 @@ export class UserInfoComponent implements OnInit {
   cart: any;
   isAdmin: boolean = false;
   unreadNotificationsCount = '0';
-  constructor(private auth: AuthService, private router: Router, private cartService: CartService, private notifyService: NotifyService) {
-    //cartService.initCart();
-  }
+
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private cartService: CartService,
+    private notifyService: NotifyService
+  ) {}
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
     this.user = this.auth.getUserFromToken();
     this.isAdmin = this.auth.isAdmin();
     this.calcolaSaluto();
+    this.countUnreadNotifications();
+
+    // Sottoscrizione agli eventi di modifica delle notifiche
     this.notifyService.modify.subscribe(d => {
       this.countUnreadNotifications();
-    })
+    });
+
+    // Sottoscrizione agli eventi di modifica del carrello
     this.cartService.cartModify.subscribe(d => {
       this.cart = this.cartService.getCart();
-    })
+    });
   }
+
+  // Metodo per calcolare il saluto basato sull'ora corrente
   calcolaSaluto() {
     const oraCorrente = new Date().getHours();
-    if (this.user != undefined) {
+    if (this.user) {
       if (oraCorrente >= 5 && oraCorrente < 12) {
-        this.saluto = 'Buongiorno, ' + this.user?.username + '!';
+        this.saluto = 'Buongiorno, ' + this.user.username + '!';
       } else if (oraCorrente >= 12 && oraCorrente < 18) {
-        this.saluto = 'Buon pomeriggio, ' + this.user?.username + '!';
+        this.saluto = 'Buon pomeriggio, ' + this.user.username + '!';
       } else {
-        this.saluto = 'Buonasera, ' + this.user?.username + '!';
+        this.saluto = 'Buonasera, ' + this.user.username + '!';
       }
-    }else{
+    } else {
       this.saluto = 'Ciao, ricordati di accedere';
     }
   }
+
+  // Metodo per contare le notifiche non lette
   countUnreadNotifications() {
     if (this.user) {
       this.notifyService.getUserNotifications(this.user.username).subscribe(
         (notifications: any[]) => {
-          // Filtra le notifiche non lette
           this.unreadNotificationsCount = (notifications.filter(notification => !notification.read).length).toString();
+        },
+        (error) => {
+          console.error('Errore nel recupero delle notifiche:', error);
         }
       );
     }
   }
+
+  // Metodo per visualizzare il carrello
   viewCart() {
     this.router.navigate(['/view-cart']);
   }
-
-
 }

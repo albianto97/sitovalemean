@@ -12,10 +12,12 @@ export class EditDescriptionDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { description: string, type: string, message: string, secondaryMessage: string }
   ) {}
 
+  // Metodo chiamato quando si clicca sul pulsante "Cancel"
   onCancel(): void {
     this.dialogRef.close();
   }
 
+  // Metodo chiamato quando si clicca sul pulsante "Save"
   onSave(): void {
     this.dialogRef.close(this.data.description);
   }

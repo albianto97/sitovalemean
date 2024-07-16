@@ -7,6 +7,6 @@ import { Order } from 'src/app/models/order';
   styleUrls: ['./list-order.component.css']
 })
 export class ListOrderComponent {
+  // Input property per ricevere l'array di ordini dal componente genitore
   @Input() orders!: Order[];
-  //@Input() isProfile: boolean = false;
 }

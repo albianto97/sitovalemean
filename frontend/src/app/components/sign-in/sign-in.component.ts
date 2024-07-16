@@ -5,7 +5,6 @@ import { User } from 'src/app/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -13,10 +12,15 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   registrazioneForm: FormGroup;
-  constructor(private userService: UserService,
+
+  // Costruttore con iniezione delle dipendenze necessarie
+  constructor(
+    private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar
+  ) {
+    // Inizializza il form di registrazione con validazione
     this.registrazioneForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -24,36 +28,45 @@ export class SignInComponent implements OnInit {
     });
   }
 
-
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     console.log("Creazione Componente Registrazione");
   }
 
+  // Metodo chiamato al submit del form
   onSubmit() {
     if (this.registrazioneForm.valid) {
-      var newUser = new User(this.registrazioneForm.value.email, this.registrazioneForm.value.username,
-        this.registrazioneForm.value.password);
-      // disabilito la form così da evitare invii di richieste multiple
-      this.registrazioneForm.disable();
-      this.userService.createUser(newUser).subscribe((response: any) => {
-        // l'utente è stato creato con successo
-        console.log(response);
-        this.openSnackBar(response.message);
-        this.router.navigate(['/login']);
-        
-      },
-        // gestisco l'errore generato
-        (errorResult: any) => {
-          // riattivo la form per poter far modificare i campi
-          this.registrazioneForm.enable();
+      const newUser = new User(
+        this.registrazioneForm.value.email,
+        this.registrazioneForm.value.username,
+        this.registrazioneForm.value.password
+      );
 
-          var error = errorResult.error;
+      // Disabilita il form per evitare invii di richieste multiple
+      this.registrazioneForm.disable();
+
+      // Chiama il servizio per creare un nuovo utente
+      this.userService.createUser(newUser).subscribe(
+        (response: any) => {
+          // L'utente è stato creato con successo
+          console.log(response);
+          this.openSnackBar(response.message);
+          this.router.navigate(['/login']);
+        },
+        // Gestione dell'errore
+        (errorResult: any) => {
+          // Riattiva il form per poter modificare i campi
+          this.registrazioneForm.enable();
+          const error = errorResult.error;
           console.error(error.message);
-          this.openSnackBar(error.message)
-        });
+          this.openSnackBar(error.message);
+        }
+      );
     }
   }
+
+  // Metodo per aprire lo snackbar con un messaggio
   openSnackBar(message: string, action: string = 'OK') {
-    this.snackBar.open(message, action, {duration: 5000});
+    this.snackBar.open(message, action, { duration: 5000 });
   }
 }

@@ -3,14 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private endPoint = "http://localhost:3000/api/user"; // URL del tuo server Express.js
+  private endPoint = environment.apiUrl + "/user"; // URL del server Express.js
   private token: string | null = null;
+
   constructor(private http: HttpClient) { }
+
+  // Metodo per effettuare il login
   login(user: User): Observable<any> {
     return this.http.post(this.endPoint + '/login', user).pipe(
       tap((response: any) => {
@@ -19,19 +23,21 @@ export class AuthService {
       })
     );
   }
+
+  // Metodo per effettuare il logout
   logout() {
     this.token = null;
     this.removeTokenFromLocalStorage();
     // Effettua altre operazioni di logout se necessario
   }
 
+  // Metodo per verificare se l'utente è autenticato
   isAuthenticated(): boolean {
-    // Implementa la logica per verificare se l'utente è autenticato
-    var user = this.getUserFromToken();
-    console.log(user);
+    const user = this.getUserFromToken();
     return !!user;
   }
 
+  // Metodo per ottenere l'utente dal token
   getUserFromToken(): any {
     this.token = this.getTokenFromLocalStorage();
     if (this.token) {
@@ -40,23 +46,28 @@ export class AuthService {
     return null;
   }
 
+  // Metodo per salvare il token nel localStorage
   saveTokenToLocalStorage(token: string): void {
     localStorage.setItem('authToken', token);
   }
 
+  // Metodo per ottenere il token dal localStorage
   getTokenFromLocalStorage(): string | null {
     return localStorage.getItem('authToken');
   }
 
+  // Metodo per rimuovere il token dal localStorage
   removeTokenFromLocalStorage(): void {
     localStorage.removeItem('authToken');
   }
-  isAdmin() {
-    var user = this.getUserFromToken();
+
+  // Metodo per verificare se l'utente è un amministratore
+  isAdmin(): boolean {
+    const user = this.getUserFromToken();
     if (user) {
-      //console.log(user.role);
-      return user.role == "amministratore";
-    }else
+      return user.role === "amministratore";
+    } else {
       return false;
+    }
   }
 }

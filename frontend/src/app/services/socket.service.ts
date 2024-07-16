@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Observable} from "rxjs";
-import {AuthService} from "./auth.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { AuthService } from "./auth.service";
 import { NotifyService } from './notify.service';
+import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,53 +11,65 @@ import { NotifyService } from './notify.service';
 export class SocketService {
   private socket: any;
 
-  constructor(private snackBar: MatSnackBar, private authService: AuthService, private notificationService: NotifyService) {
-    this.connect();
+  constructor(
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    private notificationService: NotifyService
+  ) {
+    this.connect(); // Connetti al server Socket.IO all'inizializzazione del servizio
   }
-  connect(){
-    // Connetti al server Socket.IO
-    if(this.socket && this.socket.isConnected){
+
+  // Metodo per connettersi al server Socket.IO
+  connect() {
+    // Se esiste una connessione socket precedente, disconnetti
+    if (this.socket && this.socket.isConnected) {
       this.socket.disconnect();
     }
-    this.socket = io('http://localhost:3000', {
-      extraHeaders: {Authorization: "Bearer " + this.authService.getTokenFromLocalStorage()}
+
+    // Inizializza una nuova connessione socket
+    this.socket = io(environment.socket, {
+      extraHeaders: { Authorization: "Bearer " + this.authService.getTokenFromLocalStorage() }
     });
     console.log("socket connected");
-    //console.log(this.socket);
+
+    // Registra gli handler per gli eventi socket
     this.registerHandlers();
   }
 
-  registerChatHandlers(callback: any){
-    /*this.socket.on('newMessage', (data: any) => {
-      callback('newMessage', data);
-    });*/
-    this.socket.onAny((eventName : any, data : any) => callback(eventName, data));
+  // Metodo per registrare gli handler per i messaggi di chat
+  registerChatHandlers(callback: any) {
+    this.socket.onAny((eventName: any, data: any) => callback(eventName, data));
   }
 
-  //in ascolto da backend
-  registerHandlers(){
+  // Metodo per registrare gli handler per gli eventi socket
+  registerHandlers() {
+    // Handler per le notifiche
     this.socket.on('notification', (data: any) => {
       console.log('Notifica ricevuta:', data);
       this.notificationService.notifySubscribers();
-    // Emetti l'evento tramite un Observable
-      this.snackBarMessage(data);
-    });
-    this.socket.on('update', (data: any) => {
-      console.log('Notifica ricevuta:', data);
-      // Emetti l'evento tramite un Observable
-      this.snackBarMessage(data);
-    });
-    this.socket.on("welcome", (data: any) =>{
-      console.log("messaggio: " + data);
-    });
-    this.socket.on('productAvailable', (data: any) => {
-      console.log('Notifica ricevuta:', data);
-      // Emetti l'evento tramite un Observable
       this.snackBarMessage(data);
     });
 
+    // Handler per gli aggiornamenti
+    this.socket.on('update', (data: any) => {
+      console.log('Notifica ricevuta:', data);
+      this.snackBarMessage(data);
+    });
+
+    // Handler per il messaggio di benvenuto
+    this.socket.on("welcome", (data: any) => {
+      console.log("messaggio: " + data);
+    });
+
+    // Handler per la notifica di disponibilità del prodotto
+    this.socket.on('productAvailable', (data: any) => {
+      console.log('Notifica ricevuta:', data);
+      this.snackBarMessage(data);
+    });
   }
-  snackBarMessage(data: any){
+
+  // Metodo per mostrare un messaggio di snackbar
+  snackBarMessage(data: any) {
     this.snackBar.open(data.message, 'Chiudi', {
       duration: 3000
     });
@@ -68,14 +80,13 @@ export class SocketService {
     this.socket.emit('sendNotification', notification);
   }
 
-  sendMessage(message: any){
-    this.socket.emit('messageSent', message)
+  // Metodo per inviare un messaggio di chat
+  sendMessage(message: any) {
+    this.socket.emit('messageSent', message);
   }
 
-  notifyChatDisplayed(currentUser: string, remoteUser: string){
-    this.socket.emit('chatDisplayed', {currentUser: currentUser, remoteUser: remoteUser});
-
+  // Metodo per notificare che la chat è stata visualizzata
+  notifyChatDisplayed(currentUser: string, remoteUser: string) {
+    this.socket.emit('chatDisplayed', { currentUser: currentUser, remoteUser: remoteUser });
   }
-
-
 }

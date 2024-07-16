@@ -1,93 +1,102 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GeneralService } from './-general.service';
-import {Observable} from "rxjs";
-import {Order} from "../models/order";
-
-
+import { Observable } from 'rxjs';
+import { Order } from "../models/order";
+import { environment } from 'src/enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  endPoint = "http://localhost:3000/api/order";
+  endPoint = environment.apiUrl + "/order"; // URL del server API per gli ordini
 
   constructor(private http: HttpClient, private generalService: GeneralService) { }
+
+  // Metodo per ottenere gli ordini di un utente
   getOrdersFromUser(): Observable<Order[]> {
-    const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Order[]>(this.endPoint+'/getOrdersFromUser', { headers });
+    const headers = this.generalService.createHeadersForAuthorization(); // Crea le intestazioni per l'autorizzazione
+    return this.http.get<Order[]>(`${this.endPoint}/getOrdersFromUser`, { headers });
   }
-  getAverageProductsPerOrder(startDate?: string, endDate?: string) {
+
+  // Metodo per ottenere il numero medio di prodotti per ordine in un intervallo di date
+  getAverageProductsPerOrder(startDate?: string, endDate?: string): Observable<any> {
     let queryParams = '';
 
     if (startDate && endDate) {
       queryParams = `?startDate=${startDate}&endDate=${endDate}`;
     }
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get(`${this.endPoint}/getAverageProductsPerOrder${queryParams}`, {headers});
+    return this.http.get(`${this.endPoint}/getAverageProductsPerOrder${queryParams}`, { headers });
   }
-  getAverageOrderValue(startDate?: string, endDate?: string) {
+
+  // Metodo per ottenere il valore medio degli ordini in un intervallo di date
+  getAverageOrderValue(startDate?: string, endDate?: string): Observable<any> {
     let queryParams = '';
 
     if (startDate && endDate) {
       queryParams = `?startDate=${startDate}&endDate=${endDate}`;
     }
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get(`${this.endPoint}/getAverageOrderValue${queryParams}`, {headers});
+    return this.http.get(`${this.endPoint}/getAverageOrderValue${queryParams}`, { headers });
   }
-  /*getOrdersFromUser(user: any) {
-    return this.http.get(this.endPoint+'/getOrdersFromUser',  user );
-  }*/
-  getOrderOfUserProduct() {
+
+  // Metodo per ottenere gli ordini dei prodotti di un utente
+  getOrderOfUserProduct(): Observable<any> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get(this.endPoint+'/getOrderOfUserProduct', { headers });
-
+    return this.http.get(`${this.endPoint}/getOrderOfUserProduct`, { headers });
   }
 
-  createOrder(order: any) {
+  // Metodo per creare un nuovo ordine
+  createOrder(order: any): Observable<any> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.post(this.endPoint + '/create-order', order, {headers});
+    return this.http.post(`${this.endPoint}/create-order`, order, { headers });
   }
 
-
-  public getAllOrders(): Observable<Order[]> {
+  // Metodo per ottenere tutti gli ordini
+  getAllOrders(): Observable<Order[]> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Order[]>(this.endPoint+'/getAllOrders', {headers});
+    return this.http.get<Order[]>(`${this.endPoint}/getAllOrders`, { headers });
   }
 
-  searchOrderByUsername(username : string, status: string): Observable<Order[]> {
+  // Metodo per cercare ordini per nome utente e stato
+  searchOrderByUsername(username: string, status: string): Observable<Order[]> {
     const headers = this.generalService.createHeadersForAuthorization();
     let s = status ? status : "";
-    return this.http.get<Order[]>(this.endPoint+'/searchOrdersByUsername?username='+username+"&status="+s, {headers});
+    return this.http.get<Order[]>(`${this.endPoint}/searchOrdersByUsername?username=${username}&status=${s}`, { headers });
   }
 
-  getOrder(orderId: string): Observable<Order>{
+  // Metodo per ottenere un ordine specifico per ID
+  getOrder(orderId: string): Observable<Order> {
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Order>(this.endPoint+'/'+ orderId, {headers});
+    return this.http.get<Order>(`${this.endPoint}/${orderId}`, { headers });
   }
-  getOrdersForDate(startDate?: string, endDate?: string){
+
+  // Metodo per ottenere gli ordini in un intervallo di date
+  getOrdersForDate(startDate?: string, endDate?: string): Observable<any> {
     let queryParams = '';
 
     if (startDate && endDate) {
       queryParams = `?startDate=${startDate}&endDate=${endDate}`;
     }
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Order>(this.endPoint+'/getOrdersForDate'+queryParams, {headers});
+    return this.http.get<Order>(`${this.endPoint}/getOrdersForDate${queryParams}`, { headers });
   }
-  getTotalEarnings(startDate?: string, endDate?: string){
+
+  // Metodo per ottenere i guadagni totali in un intervallo di date
+  getTotalEarnings(startDate?: string, endDate?: string): Observable<any> {
     let queryParams = '';
 
     if (startDate && endDate) {
       queryParams = `?startDate=${startDate}&endDate=${endDate}`;
     }
     const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.get<Order>(this.endPoint+'/getTotalEarnings'+queryParams, {headers});
-  }
-  updateOrder(order:Order){
-    console.log(order);
-    
-    const headers = this.generalService.createHeadersForAuthorization();
-    return this.http.put(this.endPoint + '/update', order, {headers});
+    return this.http.get<Order>(`${this.endPoint}/getTotalEarnings${queryParams}`, { headers });
   }
 
+  // Metodo per aggiornare un ordine
+  updateOrder(order: Order): Observable<any> {
+    const headers = this.generalService.createHeadersForAuthorization();
+    return this.http.put(`${this.endPoint}/update`, order, { headers });
+  }
 }

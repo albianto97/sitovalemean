@@ -1,7 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
-
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import {
-  ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
   ApexFill,
@@ -18,8 +16,8 @@ export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
-  markers: any; //ApexMarkers;
-  stroke: any; //ApexStroke;
+  markers: any; // ApexMarkers;
+  stroke: any; // ApexStroke;
   yaxis: ApexYAxis | ApexYAxis[];
   plotOptions: ApexPlotOptions;
   dataLabels: ApexDataLabels;
@@ -38,18 +36,15 @@ declare global {
   }
 }
 
-
-
-
 @Component({
   selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
-  styleUrl: './area-chart.component.css'
+  styleUrls: ['./area-chart.component.css']
 })
-export class  AreaChartComponent implements OnInit, OnChanges {
+export class AreaChartComponent implements OnInit, OnChanges {
   @Input() total: number = 0;
   @Input() data!: number[];
-  @Input() label: string ='';
+  @Input() label: string = '';
   public chartOptions: Partial<ChartOptions> | undefined;
   public chartAreaSparkline1Options: Partial<ChartOptions> | undefined;
 
@@ -71,6 +66,7 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       min: 0
     }
   };
+
   public commonLineSparklineOptions: Partial<ChartOptions> = {
     chart: {
       type: "line",
@@ -89,7 +85,7 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       },
       y: {
         title: {
-          formatter: function(seriesName) {
+          formatter: function() {
             return "";
           }
         }
@@ -99,6 +95,7 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       }
     }
   };
+
   public commonBarSparklineOptions: Partial<ChartOptions> = {
     chart: {
       type: "bar",
@@ -122,7 +119,7 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       },
       y: {
         title: {
-          formatter: function(seriesName) {
+          formatter: function() {
             return "";
           }
         }
@@ -132,22 +129,23 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       }
     }
   };
-  constructor() {
-    
-    
-  }
+
+  constructor() {}
+
+  // Metodo chiamato quando i valori di input cambiano
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes[this.total]){
+    if (changes['total']) {
       this.initializeGraph();
     }
   }
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
-    console.log(this.data);
-    
-    // setting global apex options which are applied on all charts on the page
-    this.initializeGraph()
+    this.initializeGraph();
   }
-  initializeGraph(){
+
+  // Metodo per inizializzare il grafico
+  initializeGraph(): void {
     window.Apex = {
       stroke: {
         width: 3
@@ -171,7 +169,7 @@ export class  AreaChartComponent implements OnInit, OnChanges {
       ],
       colors: ["#DCE6EC"],
       title: {
-        text: "€"+this.total.toFixed(2),
+        text: "€" + this.total.toFixed(2),
         offsetX: 0,
         style: {
           fontSize: "24px"
@@ -187,23 +185,4 @@ export class  AreaChartComponent implements OnInit, OnChanges {
     };
   }
 
-  public randomizeArray(arg:any): number[] {
-    var array = arg.slice();
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  }
-
-  
 }

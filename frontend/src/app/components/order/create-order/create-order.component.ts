@@ -18,7 +18,7 @@ export class CreateOrderComponent implements OnInit {
   productsInCart: any[] = [];
   productsNotDispo: Product[] = [];
   user: any | undefined;
-  order: any; // Initialize with an empty object
+  order: any = {}; // Inizializza con un oggetto vuoto
   isOrderLoaded = false;
   orderTypes = Object.entries(OrderType).map(([key, value]) => ({ key, value }));
   selectedOrderType: string = 'ritiro';
@@ -33,23 +33,30 @@ export class CreateOrderComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     this.initializeComponent();
   }
 
+  // Metodo per inizializzare il componente
   async initializeComponent(): Promise<void> {
-    this.user = await this.authService.getUserFromToken();
-    if (!this.user) {
-      this.router.navigate(['login']);
-      return;
-    }
+    try {
+      this.user = await this.authService.getUserFromToken();
+      if (!this.user) {
+        this.router.navigate(['login']);
+        return;
+      }
 
-    this.productsInCart = this.cartService.getCart().products;
-    this.createOrderObject();
-    this.isOrderLoaded = true;
-    await this.checkDispoProducts();
+      this.productsInCart = this.cartService.getCart().products;
+      this.createOrderObject();
+      this.isOrderLoaded = true;
+      await this.checkDispoProducts();
+    } catch (error) {
+      console.error('Errore durante l\'inizializzazione del componente:', error);
+    }
   }
 
+  // Metodo per creare l'oggetto ordine
   createOrderObject(): void {
     this.order = {
       creationDate: null,
@@ -61,9 +68,9 @@ export class CreateOrderComponent implements OnInit {
       products: this.productsInCart,
       user: this.user._id
     };
-    console.log(this.order);
   }
 
+  // Metodo per aprire il dialog di conferma ordine
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAlertComponent, {
       data: {
@@ -81,11 +88,13 @@ export class CreateOrderComponent implements OnInit {
     });
   }
 
+  // Metodo per gestire l'input della textarea
   handleInputTextArea(ev: any): void {
     this.note = ev.target.value;
     this.createOrderObject();
   }
 
+  // Metodo per verificare la disponibilità dei prodotti
   async checkDispoProducts(): Promise<void> {
     this.productsNotDispo = [];
     try {
@@ -96,10 +105,11 @@ export class CreateOrderComponent implements OnInit {
         }
       }
     } catch (error) {
-      console.error('Errore:', error);
+      console.error('Errore durante la verifica della disponibilità dei prodotti:', error);
     }
   }
 
+  // Metodo per creare l'ordine
   creaOrdine(): void {
     if (this.productsInCart.length === 0) {
       console.log("Impossibile creare un ordine perché il carrello è vuoto.");
@@ -112,20 +122,25 @@ export class CreateOrderComponent implements OnInit {
         creationDate: new Date()
       };
 
-      this.orderService.createOrder(order).subscribe((result: any) => {
-        console.log(result, order);
-        if (result.result === 1) {
-          this.handleUnavailableProducts(result.products);
-        } else {
-          this.cartService.emptyCart();
-          this.router.navigate(['/profilo']);
+      this.orderService.createOrder(order).subscribe(
+        (result: any) => {
+          if (result.result === 1) {
+            this.handleUnavailableProducts(result.products);
+          } else {
+            this.cartService.emptyCart();
+            this.router.navigate(['/profilo']);
+          }
+        },
+        (error: any) => {
+          console.error('Errore durante la creazione dell\'ordine:', error);
         }
-      });
+      );
     } else {
-      // Deve effettuare il login per poter effettuare l'ordine
+      console.log("Deve effettuare il login per poter effettuare l'ordine");
     }
   }
 
+  // Metodo per gestire i prodotti non disponibili
   handleUnavailableProducts(products: Product[]): void {
     let productString = products.map((p: Product) => p.name).join(", ");
     alert("Impossibile, prodotti non disponibili: " + productString + "\nVerranno rimossi dal carrello!");

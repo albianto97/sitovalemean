@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,74 +8,78 @@ export class CartService {
   cartModify: Observable<any>;
   cartModifySubscribers: any[] = [];
 
-  constructor() { 
+  constructor() {
+    // Inizializza l'osservabile cartModify che notifica i sottoscrittori sulle modifiche del carrello
     this.cartModify = new Observable<any>(subscriber => {
-    console.log("CART: " + subscriber);
-    this.cartModifySubscribers.push(subscriber);
-  } ) }
+      console.log("CART: " + subscriber);
+      this.cartModifySubscribers.push(subscriber);
+    });
+  }
 
-  // Aggiungere un prodotto al carrello: ho ipotizzato di passare solamente id del prodotto e qta richiesta
+  // Metodo per aggiungere un prodotto al carrello
   addToCart(productId: any, quantity: any) {
-    // Recuperare il carrello dal Local Storage
+    // Recupera il carrello dal Local Storage
     var cart = this.getCart();
     console.log(cart);
 
-    // Verificare se il prodotto è già nel carrello
+    // Verifica se il prodotto è già nel carrello
     var productExist = cart.products.find((p: { productId: any; }) => p.productId === productId);
 
     if (productExist) {
-      // Se il prodotto esiste già, aggiornare la quantità
+      // Se il prodotto esiste già, aggiorna la quantità
       productExist.quantity += quantity;
     } else {
-      // Se il prodotto non esiste, aggiungerlo al carrello
+      // Se il prodotto non esiste, aggiungilo al carrello
       cart.products.push({ productId: productId, quantity: quantity });
     }
 
-    // Salvare il carrello nel Local Storage
+    // Salva il carrello nel Local Storage
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.notifySubscribers();
+    this.notifySubscribers(); // Notifica i sottoscrittori delle modifiche
   }
 
-  // Rimuovere un prodotto dal carrello
+  // Metodo per rimuovere un prodotto dal carrello
   removeProduct(productId: any) {
-    // Recuperare il carrello dal Local Storage
+    // Recupera il carrello dal Local Storage
     var cart = this.getCart();
 
-    // Rimuovere il prodotto dal carrello
+    // Rimuove il prodotto dal carrello
     cart.products = cart.products.filter((p: { productId: any; }) => p.productId !== productId);
 
-    // Salvare il carrello nel Local Storage
+    // Salva il carrello nel Local Storage
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.notifySubscribers();
+    this.notifySubscribers(); // Notifica i sottoscrittori delle modifiche
   }
 
-  // Svuotare il carrello
+  // Metodo per svuotare il carrello
   emptyCart() {
-    // Salvare il carrello vuoto nel Local Storage
-    localStorage.setItem('cart', JSON.stringify({products : []}));
-    this.notifySubscribers();
+    // Salva il carrello vuoto nel Local Storage
+    localStorage.setItem('cart', JSON.stringify({ products: [] }));
+    this.notifySubscribers(); // Notifica i sottoscrittori delle modifiche
   }
 
-  // Recuperare il carrello dal Local Storage
+  // Metodo per recuperare il carrello dal Local Storage
   getCart() {
     var cart = localStorage.getItem('cart');
-    if(!cart){
+    if (!cart) {
       cart = JSON.stringify({ products: [] });
     }
     return cart ? JSON.parse(cart) : { products: [] };
   }
 
-  getQuantityByProductId(productId: any){
+  // Metodo per ottenere la quantità di un prodotto specifico nel carrello
+  getQuantityByProductId(productId: any) {
     let cart = this.getCart();
     let product = cart.products.filter((p: any) => p.productId == productId);
-    if(product.length > 0){
+    if (product.length > 0) {
       return product[0].quantity;
     }
     return 0;
   }
 
-  notifySubscribers(){
-    for(let i = 0; i< this.cartModifySubscribers.length; i++){
+  // Metodo per notificare i sottoscrittori delle modifiche del carrello
+  notifySubscribers() {
+    for (let i = 0; i < this.cartModifySubscribers.length; i++) {
       let s = this.cartModifySubscribers[i];
       s.next();
     }

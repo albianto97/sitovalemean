@@ -8,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-contatta-cliente',
   templateUrl: './contatta-cliente.component.html',
-  styleUrl: './contatta-cliente.component.css'
+  styleUrls: ['./contatta-cliente.component.css']
 })
 export class ContattaClienteComponent implements OnInit {
 
@@ -20,9 +20,15 @@ export class ContattaClienteComponent implements OnInit {
   isReply = true;
   isAutoset = false;
   isDisabled = false;
-  constructor(private userService: UserService, private notifyService: NotifyService,
+
+  constructor(
+    private userService: UserService, 
+    private notifyService: NotifyService,
     private socketService: SocketService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar
+  ) { }
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
     const state = history.state;
     if (state && state.username && state.orderId) {
@@ -31,34 +37,36 @@ export class ContattaClienteComponent implements OnInit {
       this.orderId = state.orderId;
     }
 
-    this.userService.getUsers().subscribe((users: any) => {
-      users.forEach((user: any) => {
-        if (user.ruolo != "amministratore") {
-          this.utentiEmail.push({ key: user.username, value: user.email });
-          this.utentiUsername.push({ key: user.username, value: user.username });
-        }
-      });
-    })
+    this.userService.getUsers().subscribe(
+      (users: any) => {
+        users.forEach((user: any) => {
+          if (user.ruolo != "amministratore") {
+            this.utentiEmail.push({ key: user.username, value: user.email });
+            this.utentiUsername.push({ key: user.username, value: user.username });
+          }
+        });
+      },
+      (error: any) => {
+        console.error('Errore nel recupero degli utenti:', error);
+      }
+    );
   }
 
+  // Metodo per inviare una notifica
   sendNotification() {
     this.isDisabled = true;
-    // Recupera l'utente dall'ID
-    const notifyDate = new Date(); // Ottieni la data corrente
+    const notifyDate = new Date();
+
     if (this.username) {
-      // Invia la notifica utilizzando il nome utente recuperato      
       this.socketService.sendNotification({ username: this.username, message: this.message });
-      var replyMessage = '';
-      if (this.isReply)
-        replyMessage = " <br> <i>Per rispondere a questo messaggio contattare l'amministrazione tramite<br> la <strong>chat in basso a destra</strong>.</i>"
-      // Chiamata al metodo saveEvaso del servizio NotifyService
+      let replyMessage = '';
+      if (this.isReply) {
+        replyMessage = " <br> <i>Per rispondere a questo messaggio contattare l'amministrazione tramite<br> la <strong>chat in basso a destra</strong>.</i>";
+      }
+
       this.notifyService.createNotify(this.username, notifyDate.toISOString(), this.orderId, false, this.message + replyMessage, "").subscribe(
         (notification: Notify) => {
-          console.log("Notifica salvata con successo:", notification);
-          // Gestisci la notifica salvata come preferisci
-          this.notifyService.notifySubscribers();
           const message = 'La Notifica è stata inviata con successo!!!';
-
           this._snackBar.open(message, 'Chiudi', {
             duration: 5 * 1000,
           });
@@ -66,19 +74,21 @@ export class ContattaClienteComponent implements OnInit {
         },
         (error: any) => {
           const message = 'Errore nell\'invio della notifica';
-
           this._snackBar.open(message, 'Chiudi', {
             duration: 5 * 1000,
           });
           console.error(message, error);
           this.isDisabled = false;
-        });
+        }
+      );
     }
   }
 
+  // Metodo per ripristinare i campi del form
   ripristina(): void {
-    if (!this.isAutoset)
-      this.username = '';  // Clear the user selection
+    if (!this.isAutoset) {
+      this.username = '';
+    }
     this.message = '';
   }
 }

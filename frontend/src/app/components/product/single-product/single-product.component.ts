@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
-import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-single-product',
@@ -14,22 +13,29 @@ export class SingleProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService,
+    private productService: ProductService
   ) { }
 
+  // Metodo eseguito all'inizializzazione del componente
   async ngOnInit(): Promise<void> {
     // Recupera l'ID del prodotto dalla route
     const productId = this.route.snapshot.paramMap.get('productId');
-    console.log(productId);
 
     // Chiamata al servizio per ottenere il singolo prodotto
     if (productId) {
-        this.product = await new Promise((resolve) => {
+      try {
+        this.product = await new Promise<Product>((resolve, reject) => {
           this.productService.getSingleProduct(productId).subscribe(
             (data) => resolve(data),
+            (error) => {
+              console.error('Errore durante il recupero del prodotto:', error);
+              reject(error);
+            }
           );
-        }) as Product;
+        });
+      } catch (error) {
+        console.error('Errore durante l\'inizializzazione del componente:', error);
+      }
     }
   }
-
 }

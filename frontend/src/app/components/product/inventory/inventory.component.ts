@@ -21,13 +21,20 @@ export class InventoryComponent implements OnInit {
 
   constructor(private productService: ProductService, public authService: AuthService) { }
 
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      this.updateFilteredProducts();
-    });
+    this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data;
+        this.updateFilteredProducts();
+      },
+      (error) => {
+        console.error('Errore durante il recupero dei prodotti:', error);
+      }
+    );
   }
 
+  // Metodo per filtrare i prodotti in base al tipo
   filterProducts(type: string): void {
     this.selectedType = type;
     if (this.paginator) {
@@ -36,6 +43,7 @@ export class InventoryComponent implements OnInit {
     this.updateFilteredProducts();
   }
 
+  // Metodo per gestire il cambio di pagina
   onPageChange(event: any): void {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
@@ -46,10 +54,10 @@ export class InventoryComponent implements OnInit {
       const filteredProducts = this.products.filter((product) => product.type === this.selectedType);
       this.filteredProducts = filteredProducts.slice(startIndex, endIndex);
     }
-    this.pageSize = endIndex - startIndex;
-    //oppure this.pageSize = endIndex --> non ho capito la differenza
+    this.pageSize = event.pageSize;
   }
 
+  // Metodo per aggiornare i prodotti filtrati
   private updateFilteredProducts(): void {
     if (this.selectedType === '' || this.selectedType === null) {
       this.filteredProducts = this.products.slice(0, this.pageSize);

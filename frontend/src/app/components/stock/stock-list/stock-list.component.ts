@@ -8,76 +8,89 @@ import { StockService } from 'src/app/services/stock.service';
 @Component({
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
-  styleUrl: './stock-list.component.css'
+  styleUrls: ['./stock-list.component.css']
 })
 export class StockListComponent implements OnInit {
   stocks: any[] = [];
   allStocks: any[] = [];
-  allIngredients: any[] = []
+  allIngredients: any[] = [];
   startDate?: string;
   endDate?: string;
- // per gestire il paginator
- pageEvent: PageEvent | undefined;
- length = 50;
- pageSize = 10;
- pageIndex = 0;
- pageSizeOptions = [10, 25, 50];
-  constructor(private stockService: StockService, private ingredientService: RawIngridientService, private _snackBar: MatSnackBar) { }
 
+  // Variabili per gestire il paginator
+  pageEvent: PageEvent | undefined;
+  length = 50;
+  pageSize = 10;
+  pageIndex = 0;
+  pageSizeOptions = [10, 25, 50];
+
+  constructor(
+    private stockService: StockService,
+    private ingredientService: RawIngridientService,
+    private _snackBar: MatSnackBar
+  ) {}
+
+  // Metodo eseguito all'inizializzazione del componente
   ngOnInit(): void {
-    
-    
-    this.ingredientService.getIngredients().subscribe((ingredients: any) => {
-      this.allIngredients = ingredients;
-      this.getStocks();
-    })
-    // Carica tutti i movimenti all'inizio
-
+    this.ingredientService.getIngredients().subscribe(
+      (ingredients: any) => {
+        this.allIngredients = ingredients;
+        this.getStocks();
+      },
+      (error:any) => {
+        const message = 'Errore nel recupero degli ingredienti';
+        console.error(message, error);
+        this._snackBar.open(message, 'Chiudi', {
+          duration: 5000,
+        });
+      }
+    );
   }
-  handlePageEvent(e: PageEvent) {
+
+  // Metodo per gestire gli eventi del paginator
+  handlePageEvent(e: PageEvent): void {
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    
     this.setStocksVariable();
-
   }
-  setStocksVariable(){
-    let elementi = this.pageSize
 
+  // Metodo per impostare le variabili dei movimenti di magazzino per il paginator
+  setStocksVariable(): void {
+    let elementi = this.pageSize;
 
     if ((this.pageIndex + 1) * this.pageSize > this.allStocks.length) {
-      elementi = (this.allStocks.length - this.pageIndex * this.pageSize)
-
+      elementi = (this.allStocks.length - this.pageIndex * this.pageSize);
     }
-    console.log(elementi, this.pageIndex * this.pageSize, elementi);
 
-    this.stocks = this.allStocks.slice(this.pageIndex * this.pageSize, (this.pageIndex * this.pageSize) + elementi)
+    this.stocks = this.allStocks.slice(this.pageIndex * this.pageSize, (this.pageIndex * this.pageSize) + elementi);
   }
-  reciveMovimento(eseguito:boolean){
-    if(eseguito)
+
+  // Metodo per ricevere il risultato dell'operazione di aggiunta del movimento
+  reciveMovimento(eseguito: boolean): void {
+    if (eseguito) {
       this.getStocks();
+    }
   }
+
+  // Metodo per ottenere tutti i movimenti di magazzino
   getStocks(): void {
     this.stockService.getStocks(this.startDate, this.endDate).subscribe(
-      data => {
+      (data) => {
         this.allStocks = data;
         this.setStocksVariable();
-        console.log(data);
-        
-        this.stocks.forEach((stock:any)=>{
+
+        this.stocks.forEach((stock: any) => {
           const ingredient = this.allIngredients.find(ingredient => ingredient._id === stock.ingredientId);
           stock.ingredient = ingredient;
-        })
-        console.log(this.stocks);
-        
+        });
       },
-      error => {
+      (error) => {
         const message = 'Errore nel recupero dei movimenti';
         console.error(message, error);
         this._snackBar.open(message, 'Chiudi', {
-          duration: 5 * 1000,
+          duration: 5000,
         });
       }
     );
