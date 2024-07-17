@@ -7,9 +7,6 @@ module.exports = {
         '**/?(*.)+(spec|test).js'    // Test in file con estensione .spec.js o .test.js
     ],
 
-    // Setup da eseguire prima dei test
-    setupFilesAfterEnv: ['./jest.setup.js'],
-
     // Trasformazione dei file con Babel per supportare ES6/ES7
     transform: {
         '^.+\\.js$': 'babel-jest', // Trasforma i file .js con babel-jest

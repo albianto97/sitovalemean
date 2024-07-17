@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Leggera pulizia codice">
-      <change afterPath="$PROJECT_DIR$/backend/config/jest.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/config/test.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/test/userController.test.js" afterDir="false" />
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Jest test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/default.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/default.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config/test.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test/userController.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/userController.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,11 +59,25 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/backend/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\Acer\Desktop\Unibo\AppWeb\Gelateria\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="Jest.POST /api/user/login">
+    <configuration name="POST /api/user/login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/backend/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/backend/test/userController.test.js" />
+      <test-names>
+        <test-name value="POST /api/user/login" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="run" />
@@ -89,8 +100,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.POST /api/user/login" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.start" />
@@ -136,6 +147,7 @@
       <workItem from="1720552743928" duration="655000" />
       <workItem from="1720557497285" duration="1364000" />
       <workItem from="1720623233038" duration="2464000" />
+      <workItem from="1721222549132" duration="721000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>

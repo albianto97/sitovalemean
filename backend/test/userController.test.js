@@ -1,12 +1,12 @@
 const request = require('supertest');
-const { app, server } = require('../server'); // Assicurati che server sia correttamente esportato
-
-const jwt = require('jsonwebtoken'); // Importa jwt per la verifica del token
+const { app, server, io } = require('../server'); // Assicurati che server sia correttamente esportato
+const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 describe('POST /api/user/login', () => {
     it('should login an existing user', async () => {
         const credentials = {
-            email: 'user@user.it',
+            email: 'admin@admin.it',
             password: '123456'
         };
 
@@ -22,7 +22,7 @@ describe('POST /api/user/login', () => {
 
         // Verifica che il token sia valido decodificandolo
         const decodedToken = jwt.verify(res.body.token, 'chiaveSegreta');
-        expect(decodedToken.username).toBe('user');
+        expect(decodedToken.username).toBe('admin');
     });
 
     it('should return 400 if user is not found', async () => {
@@ -43,7 +43,7 @@ describe('POST /api/user/login', () => {
 
     it('should return 400 if password is incorrect', async () => {
         const credentials = {
-            email: 'user@user.it',
+            email: 'admin@admin.it',
             password: 'wrongpassword'
         };
 
@@ -56,9 +56,21 @@ describe('POST /api/user/login', () => {
         expect(res.body.isValid).toBe(false);
         expect(res.body.message).toBe('Incorrect password');
     });
-});
 
-// Chiudi il server dopo che i test sono completati
-afterAll(() => {
-    server.close();
+    afterAll(async () => {
+        await new Promise(resolve => {
+            server.close(() => {
+                console.log('Server closed');
+                resolve();
+            });
+        });
+
+        // Chiudi tutte le connessioni socket
+        for (const socket of Object.values(io.sockets.sockets)) {
+            socket.disconnect(true);
+        }
+
+        // Chiudi la connessione a MongoDB
+        await mongoose.connection.close();
+    });
 });
