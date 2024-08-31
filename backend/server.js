@@ -13,7 +13,9 @@ const notificationRoutes = require('./routes/notify.route');
 const chatRoute = require('./routes/chat.routes');
 const rawIngredentsRoutes = require('./routes/rawIngredients.route');
 const stockRoutes = require('./routes/stock.route');
-const User = require('./models/user');
+const { createChat } = require("./controllers/chat.controllers");
+const { getUserByUsername } = require("./controllers/user.controller");
+const User = require("./models/user");
 
 const app = express();
 const server = http.createServer(app);
