@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { ChatMessage } from "../models/chatMessage";
 import { GeneralService } from "./-general.service";
 import { ChatUser } from "../models/chatUser";
-import { environment } from 'src/enviroments/enviroment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
