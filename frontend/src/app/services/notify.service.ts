@@ -4,7 +4,7 @@ import { Notify } from "../models/notify";
 import { Injectable } from "@angular/core";
 import { GeneralService } from "./-general.service";
 import { AuthService } from "./auth.service";
-import { environment } from "src/enviroments/enviroment";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
