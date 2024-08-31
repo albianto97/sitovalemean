@@ -17,7 +17,6 @@
                     <th>Disponibilità</th>
                     <th>Misura</th>
                     <th>Prezzo Medio (€)</th>
-                    <th>Azione</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +25,6 @@
                     <td>{{ ingredient.disponibilty.toFixed(2) }}</td>
                     <td>{{ ingredient.meauserement }}</td>
                     <td>{{ ingredient.mediumPrice.toFixed(2) }}</td>
-                    <td>
-                        <button class="btn btn-secondary">
-                            <fa-icon [icon]="['fas', 'trash']"></fa-icon>
-                        </button>
-                    </td>
                 </tr>
             </tbody>
         </table>

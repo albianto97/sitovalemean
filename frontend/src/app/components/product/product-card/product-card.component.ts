@@ -137,7 +137,7 @@ export class ProductCardComponent {
   deleteProduct() {
     this.dialog.open(DialogConfermaComponent, {
       data: {
-        type: "confirmation",
+        type: "strong_warning",
         message: "Confermi di voler eliminare il prodotto: '" + this.product.name + "'",
         secondaryMessage: "Verranno eliminate tutte le informazioni."
       }
