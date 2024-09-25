@@ -14,7 +14,7 @@ import { MenuItem } from 'ngx-zeus-ui';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Gelateria';
+  title = 'sitovalemean';
   tel = './assets/media/logo.png'; // Percorso all'immagine del logo
   des = './assets/media/logo.png'; // Percorso all'immagine del logo
   user: any;

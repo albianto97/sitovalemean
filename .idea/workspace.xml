@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Jest test" />
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Jest test">
+      <change beforePath="$PROJECT_DIR$/.idea/Gelateria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sitovalemean.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,11 +56,11 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/backend/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Users\Acer\Desktop\Unibo\AppWeb\Gelateria\frontend\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\Acer\Desktop\Gelateria\frontend\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Jest.Product Routes">
@@ -154,6 +160,8 @@
       <workItem from="1720557497285" duration="1364000" />
       <workItem from="1720623233038" duration="2464000" />
       <workItem from="1721222549132" duration="1021000" />
+      <workItem from="1727294827044" duration="342000" />
+      <workItem from="1727295188173" duration="788000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
