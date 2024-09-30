@@ -18,15 +18,12 @@ export class AppComponent implements OnInit {
   user: any;
   isLoginPage: boolean = false;
   isAdmin: boolean = false;
-  unreadNotificationsCount: number = 0;
   link: MenuItem[] = []; // Menu items per il navbar
   linkAdmin: MenuItem[] = [
-    new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
     new MenuItem("Crea", "/create-product", true, false, { tipo: "fas", icona: "box" }, true),
   ];
   linkUser: MenuItem[] = [
-    new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
     new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
   ];

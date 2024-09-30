@@ -7,7 +7,6 @@ import { UserListComponent } from "./components/user-list/user-list.component";
 import { ProfiloComponent } from "./components/profile/profile.component";
 import { ProductCreationComponent } from "./components/product/product-creation/product-creation.component";
 import { SingleProductComponent } from "./components/product/single-product/single-product.component";
-import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CartComponent } from './components/cart/cart.component';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
@@ -21,7 +20,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', redirectTo: '/productList', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent },

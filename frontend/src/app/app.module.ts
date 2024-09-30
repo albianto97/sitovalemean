@@ -25,7 +25,6 @@ import { ProductCreationComponent } from './components/product/product-creation/
 import { SingleProductComponent } from './components/product/single-product/single-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateOrderComponent } from './components/order/create-order/create-order.component';
-import { HomeComponent } from './components/home/home.component';
 import { UserInfoComponent } from './components/structure/user-info/user-info.component';
 import { CartComponent } from './components/cart/cart.component';
 import { OrdersComponent } from './components/order/orders/orders.component';
@@ -34,7 +33,6 @@ import { ProductCardComponent } from './components/product/product-card/product-
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { InventoryComponent } from './components/product/inventory/inventory.component';
 import { DialogAlertComponent } from './components/dialogs/dialog-alert/dialog-alert.component';
-import { AdminHomeComponent } from './components/home/admin-home/admin-home.component';
 import { OrderComponent } from './components/order/order.component';
 import { ListOrderComponent } from './components/order/list-order/list-order.component';
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
@@ -61,7 +59,6 @@ import {EditDescriptionDialogComponent} from "./components/structure/edit-descri
     ProductCreationComponent,
     SingleProductComponent,
     CreateOrderComponent,
-    HomeComponent,
     UserInfoComponent,
     CartComponent,
     OrdersComponent,
@@ -70,7 +67,6 @@ import {EditDescriptionDialogComponent} from "./components/structure/edit-descri
     UnauthorizedComponent,
     InventoryComponent,
     DialogAlertComponent,
-    AdminHomeComponent,
     OrderComponent,
     ListOrderComponent,
     OrderDetailsComponent,
