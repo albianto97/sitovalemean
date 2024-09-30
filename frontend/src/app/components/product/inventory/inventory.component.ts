@@ -34,14 +34,6 @@ export class InventoryComponent implements OnInit {
     );
   }
 
-  // Metodo per filtrare i prodotti in base al tipo
-  filterProducts(type: string): void {
-    this.selectedType = type;
-    if (this.paginator) {
-      this.paginator.firstPage();
-    }
-    this.updateFilteredProducts();
-  }
 
   // Metodo per gestire il cambio di pagina
   onPageChange(event: any): void {
@@ -50,9 +42,6 @@ export class InventoryComponent implements OnInit {
     this.currentPage = event.pageIndex;
     if (this.selectedType === '' || this.selectedType === null) {
       this.filteredProducts = this.products.slice(startIndex, endIndex);
-    } else {
-      const filteredProducts = this.products.filter((product) => product.type === this.selectedType);
-      this.filteredProducts = filteredProducts.slice(startIndex, endIndex);
     }
     this.pageSize = event.pageSize;
   }
@@ -62,10 +51,6 @@ export class InventoryComponent implements OnInit {
     if (this.selectedType === '' || this.selectedType === null) {
       this.filteredProducts = this.products.slice(0, this.pageSize);
       this.totalFilteredProducts = this.products.length;
-    } else {
-      const filteredProducts = this.products.filter((product) => product.type === this.selectedType);
-      this.filteredProducts = filteredProducts.slice(0, this.pageSize);
-      this.totalFilteredProducts = filteredProducts.length;
     }
   }
 }
