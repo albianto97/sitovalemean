@@ -8,8 +8,9 @@ export class Product {
   count? : number;
   quantity? : number;
   cartQuantity?: number;
+  link?: string
 
-  constructor({_id,name,description,price,disponibilita,type, count, quantity}: {
+  constructor({_id,name,description,price,disponibilita,type, count, quantity, link}: {
     _id?: string;
     name: string;
     description: string;
@@ -19,6 +20,7 @@ export class Product {
     count?: number;
     quantity?: number;
     cartQuantity?: number;
+    link?: string;
   }) {
     this._id = _id;
     this.name = name;
@@ -28,6 +30,7 @@ export class Product {
     this.type = type;
     this.count = count;
     this.quantity = quantity;
+    this.link = link;
 
   }
 }

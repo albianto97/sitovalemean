@@ -24,7 +24,7 @@
 
         <!-- Bottone Modifica -->
         <button *ngIf="isAdmin && !singleP" style="margin:10px 0; margin-right: 10px" [routerLink]="['/single-product', product._id]"  mat-raised-button>MODIFICA</button>
-
+        <button *ngIf="product.link" (click)="openProductLink(product.link)" mat-raised-button>Apri sito</button>
         <button *ngIf="showDeleteButton && isAdmin" class="btn btn-danger" (click)="deleteProduct()">Elimina prodotto</button>
 
         <button mat-raised-button color="warn" *ngIf="isViewCarrello" (click)="removeProduct()">Rimuovi prodotto</button>

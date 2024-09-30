@@ -133,6 +133,11 @@ export class ProductCardComponent {
     });
   }
 
+  openProductLink(link: string | URL | undefined) {
+    // Apri il link del prodotto in una nuova finestra
+    window.open(link, "_blank");
+  }
+
   // Metodo per eliminare un prodotto
   deleteProduct() {
     this.dialog.open(DialogConfermaComponent, {

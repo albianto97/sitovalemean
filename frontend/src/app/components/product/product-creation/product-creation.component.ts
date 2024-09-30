@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./product-creation.component.css']
 })
 export class ProductCreationComponent implements OnInit {
-  
+
   productForm: FormGroup;
 
   // Costruttore con iniezione delle dipendenze necessarie
@@ -25,7 +25,7 @@ export class ProductCreationComponent implements OnInit {
       description: ['', Validators.required],
       price: [0, Validators.required],
       disponibilita: [0, Validators.required], // Campo numerico
-      type: ['', Validators.required], // Campo di selezione per il tipo
+      link: [''], // Campo di selezione per il tipo
     });
   }
 

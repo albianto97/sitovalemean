@@ -108,10 +108,9 @@ const getSingleProduct = async (req, res) => {
 const createProduct = async (req, res) => {
     try {
         const productName = req.body.name;
-        const productType = req.body.type;
 
         // Verifica se esiste già un prodotto con lo stesso nome
-        const existingProduct = await Product.findOne({ name: productName, type: productType });
+        const existingProduct = await Product.findOne({ name: productName });
 
 
         if (existingProduct) {
@@ -129,7 +128,6 @@ const createProduct = async (req, res) => {
 }
 const incrementProductQuantity = async (req, res) => {
     const productId = req.params.productId;
-    const socket = req.socketServer;
     let quantityToAdd = 1; // Default value
 
     if (req.body.quantityToAdd) {

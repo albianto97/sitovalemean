@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     disponibilita: { type: Number, default: 0 },
-    type: { type: String, enum: [ProductTypeEnum.TORTA, ProductTypeEnum.GELATO], required: true },
+    link: { type: String },
 });
 
 const Product = mongoose.model('products', productSchema);
