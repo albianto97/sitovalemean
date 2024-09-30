@@ -102,7 +102,7 @@ export class ProductCardComponent {
   // Metodo per rimuovere una unità dalla quantità
   removeOneFromQuantity(productId: string) {
     this.productService.removeOneFromProductQuantity(productId).subscribe(
-      (response) => {
+      () => {
         if (this.product.disponibilita) this.product.disponibilita--;
       },
       (error) => {
@@ -122,7 +122,7 @@ export class ProductCardComponent {
     }).afterClosed().subscribe((res) => {
       if (res) {
         this.productService.quantity0(productId).subscribe(
-          (response) => {
+          () => {
             if (this.product.disponibilita) this.product.disponibilita = 0;
           },
           (error) => {

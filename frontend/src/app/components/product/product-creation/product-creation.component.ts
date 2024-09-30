@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Product } from "../../../models/product";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-product-creation',
@@ -17,7 +16,6 @@ export class ProductCreationComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
-    private router: Router
   ) {
     // Inizializza il form di creazione del prodotto con validazione
     this.productForm = this.fb.group({
