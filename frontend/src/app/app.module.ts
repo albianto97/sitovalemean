@@ -39,24 +39,14 @@ import { OrderComponent } from './components/order/order.component';
 import { ListOrderComponent } from './components/order/list-order/list-order.component';
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { ChatboxComponent } from './components/chatbox/chatbox.component';
-import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
-import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
-import { AreaChartComponent } from "./components/statistics-dashboard/area-chart/area-chart.component";
-import { StockListComponent } from './components/stock/stock-list/stock-list.component';
-import { NgApexchartsModule } from 'ng-apexcharts'
-import { StockAddComponent } from './components/stock/stock-add/stock-add.component';
-import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
 import { LoaderComponent } from './components/structure/loader/loader.component';
 import { DialogStrutturaComponent } from './components/structure/dialog-struttura/dialog-struttura.component';
-import { ColumnChartComponent } from './components/statistics-dashboard/column-chart/column-chart.component';
 import { NgxZeusUiModule } from 'ngx-zeus-ui';
 import { DialogConfermaComponent } from './components/structure/dialog-conferma/dialog-conferma.component';
 import { DialogWarningsSuccessesComponent } from './components/structure/dialog-warnings-successes/dialog-warnings-successes.component';
-import { ContattaClienteComponent } from './components/contatta-cliente/contatta-cliente.component';
 import { FooterComponent } from './components/structure/footer/footer.component';
 import {EditDescriptionDialogComponent} from "./components/structure/edit-description-dialog/edit-description-dialog.component";
 
@@ -85,21 +75,12 @@ import {EditDescriptionDialogComponent} from "./components/structure/edit-descri
     ListOrderComponent,
     OrderDetailsComponent,
     LogoutComponent,
-    ChatboxComponent,
     OrderedProductComponent,
-    StatisticsDashboardComponent,
-    AreaChartComponent,
-    StockListComponent,
-    StockAddComponent,
-    IngredientsComponent,
     LoaderComponent,
-    NotificationListComponent,
     AdminDialogComponent,
     DialogStrutturaComponent,
     DialogConfermaComponent,
     DialogWarningsSuccessesComponent,
-    ColumnChartComponent,
-    ContattaClienteComponent,
     FooterComponent,
     EditDescriptionDialogComponent
   ],
@@ -120,7 +101,6 @@ import {EditDescriptionDialogComponent} from "./components/structure/edit-descri
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    NgApexchartsModule,
     NgxZeusUiModule
   ]
 })

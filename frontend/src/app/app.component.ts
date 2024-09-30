@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { NavigationEnd, Router } from "@angular/router";
-import { SocketService } from "./services/socket.service";
-import { NotifyService } from "./services/notify.service";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "./services/user.service";
@@ -21,26 +19,21 @@ export class AppComponent implements OnInit {
   isLoginPage: boolean = false;
   isAdmin: boolean = false;
   unreadNotificationsCount: number = 0;
-  showChatbox: boolean = false;
   link: MenuItem[] = []; // Menu items per il navbar
   linkAdmin: MenuItem[] = [
     new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
-    new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
-    new MenuItem("Ingredienti", "/ingredients", true, false, { tipo: "fas", icona: "wheat-awn" }, true),
+    new MenuItem("Crea", "/create-product", true, false, { tipo: "fas", icona: "box" }, true),
   ];
   linkUser: MenuItem[] = [
     new MenuItem("Home", "/", true, false, { tipo: "fas", icona: "igloo" }, true),
     new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
     new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
-    new MenuItem("Messaggi", "/notifications", true, false, { tipo: "fas", icona: "comments" }, true)
   ];
 
   constructor(
     private authService: AuthService,
     private route: Router,
-    private socket: SocketService,
-    private notifyService: NotifyService,
     private dialog: MatDialog,
     private userService: UserService
   ) {

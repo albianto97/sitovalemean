@@ -17,12 +17,7 @@ import { InventoryComponent } from './components/product/inventory/inventory.com
 import { AdministratorGuard } from './guards/administrator.guard';
 import {NonAdministratorGuard} from "./guards/non-administrator.guard";
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
-import {NotificationListComponent} from "./components/notification-list/notification-list.component";
-import { StatisticsDashboardComponent } from './components/statistics-dashboard/statistics-dashboard.component';
-import { IngredientsComponent } from './components/stock/ingredients/ingredients.component';
-import { StockListComponent } from './components/stock/stock-list/stock-list.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { ContattaClienteComponent } from './components/contatta-cliente/contatta-cliente.component';
 
 
 const routes: Routes = [
@@ -31,11 +26,8 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent },
   { path: 'view-cart', component: CartComponent},
-  { path: 'ingredients', component: IngredientsComponent, canActivate: [ AdministratorGuard]},
-  { path: 'orders-ingredients', component: StockListComponent, canActivate: [ AdministratorGuard]},
   { path: 'order', component: CreateOrderComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
   { path: 'orders', component: OrdersComponent, canActivate: [ AuthGuard] },
-  { path: 'statistics', component: StatisticsDashboardComponent, canActivate: [ AdministratorGuard] },
   { path: 'userList', component: UserListComponent, canActivate: [ AdministratorGuard]},
   { path: 'orders/:orderId', component: OrderDetailsComponent, canActivate: [AuthGuard]},
   { path: 'productList', component: InventoryComponent },
@@ -43,10 +35,8 @@ const routes: Routes = [
   { path: 'order/detail', component: OrderDetailsComponent },
   { path: 'single-product/:productId', component: SingleProductComponent },
   { path: 'create-product', component: ProductCreationComponent, canActivate: [ AdministratorGuard]  },
-  { path: 'notifications', component: NotificationListComponent, canActivate: [AuthGuard, NonAdministratorGuard] },
-  { path: 'contatta-cliente', component: ContattaClienteComponent, canActivate: [ AdministratorGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
-  
+
   // Assicurati di inserire questa rotta prima della wildcard (se presente)
   { path: '**', redirectTo: '/unauthorized' } // Reindirizza tutte le altre rotte non trovate alla pagina di errore "unauthorized"
 ];

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { NotifyService } from 'src/app/services/notify.service';
 
 @Component({
   selector: 'app-user-info',
@@ -21,7 +20,6 @@ export class UserInfoComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private cartService: CartService,
-    private notifyService: NotifyService
   ) {}
 
   // Metodo eseguito all'inizializzazione del componente
@@ -30,12 +28,8 @@ export class UserInfoComponent implements OnInit {
     this.user = this.auth.getUserFromToken();
     this.isAdmin = this.auth.isAdmin();
     this.calcolaSaluto();
-    this.countUnreadNotifications();
 
     // Sottoscrizione agli eventi di modifica delle notifiche
-    this.notifyService.modify.subscribe(d => {
-      this.countUnreadNotifications();
-    });
 
     // Sottoscrizione agli eventi di modifica del carrello
     this.cartService.cartModify.subscribe(d => {
@@ -59,19 +53,6 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
-  // Metodo per contare le notifiche non lette
-  countUnreadNotifications() {
-    if (this.user) {
-      this.notifyService.getUserNotifications(this.user.username).subscribe(
-        (notifications: any[]) => {
-          this.unreadNotificationsCount = (notifications.filter(notification => !notification.read).length).toString();
-        },
-        (error) => {
-          console.error('Errore nel recupero delle notifiche:', error);
-        }
-      );
-    }
-  }
 
   // Metodo per visualizzare il carrello
   viewCart() {

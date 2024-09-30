@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, Status } from 'src/app/models/order';
-import { SocketService } from "../../services/socket.service";
 import { AuthService } from "../../services/auth.service";
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -21,7 +20,6 @@ export class OrderComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private socketService: SocketService,
     public authService: AuthService
   ) { }
 
@@ -49,12 +47,5 @@ export class OrderComponent implements OnInit {
     this.router.navigate(['/order/detail'], { state: { order: orderPass } });
   }
 
-  // Metodo per inviare una notifica
-  sendNotification(username: string | undefined) {
-    if (username) {
-      this.socketService.sendNotification({ username: username, message: "Ordine evaso" });
-    } else {
-      console.error('Username non fornito per la notifica');
-    }
-  }
+
 }

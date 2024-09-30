@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { SocketService } from "../../services/socket.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private socketService: SocketService,
     private _matSnackbar: MatSnackBar
   ) {
     // Inizializza il form di login con validazione per email e password
@@ -41,12 +39,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       // Crea un nuovo oggetto utente con i dati del form
       const newUser = new User(this.loginForm.value.email, "username", this.loginForm.value.password);
-      
+
       // Chiama il metodo di login del servizio AuthService
       this.authService.login(newUser).subscribe(
         (response: any) => {
           // Connette il servizio socket
-          this.socketService.connect();
           // Naviga alla pagina principale
           this.router.navigate(['']);
         },

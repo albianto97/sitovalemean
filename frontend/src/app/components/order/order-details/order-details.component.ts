@@ -5,10 +5,7 @@ import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
-import { SocketService } from 'src/app/services/socket.service';
-import { NotifyService } from 'src/app/services/notify.service';
 import { UserService } from 'src/app/services/user.service';
-import { Notify } from 'src/app/models/notify';
 import { User } from 'src/app/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -35,8 +32,6 @@ export class OrderDetailsComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     public authService: AuthService,
-    private socketService: SocketService,
-    private notificationService: NotifyService,
     private router: Router,
     private _snackBar: MatSnackBar
   ) {}
@@ -97,7 +92,6 @@ export class OrderDetailsComponent implements OnInit {
         history.state.order = result;
         const message = 'Modifica dell\'ordine avvenuta con successo';
         this._snackBar.open(message, 'Chiudi', { duration: 5000 });
-        this.sendNotification();
       },
       error => {
         const message = 'Errore durante la modifica dell\'ordine';
@@ -117,30 +111,5 @@ export class OrderDetailsComponent implements OnInit {
   // Metodo per gestire il cambio di stato dell'ordine
   onStateChange(event: any): void {
     this.selectedOrderState = event.value;
-  }
-
-  // Metodo per inviare una notifica
-  sendNotification(): void {
-    const notifyDate = new Date();
-    this.userService.getSingleUserById(this.order.user).subscribe(
-      (userData: any) => {
-        if (userData) {
-          const username = userData.username;
-          const message = "L'ordine " + this.order._id + " è nel seguente stato: " + this.order.status;
-          this.socketService.sendNotification({ username, message });
-          this.notificationService.createNotify(username, notifyDate.toISOString(), this.order._id, false, message, "").subscribe(
-            (notification: Notify) => {
-              this.notificationService.notifySubscribers();
-            },
-            (error: any) => {
-              console.error('Errore durante la creazione della notifica:', error);
-            }
-          );
-        }
-      },
-      (error: any) => {
-        console.error('Errore durante il recupero dei dati dell\'utente:', error);
-      }
-    );
   }
 }
