@@ -12,6 +12,11 @@ const orderRoutes = require('./routes/order.route');
 const { getUserByUsername } = require("./controllers/user.controller");
 const User = require("./models/user");
 
+
+const path = require('path');
+
+
+
 const app = express();
 const server = http.createServer(app);
 
@@ -21,6 +26,14 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
+});
+
+// Servire i file statici Angular dalla cartella 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route fallback per Angular
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.use(bodyParser.json());
