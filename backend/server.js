@@ -28,12 +28,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Servire i file statici Angular dalla cartella 'public'
-app.use(express.static(path.join(__dirname, 'public')));
+// Servire i file statici di Angular dalla cartella 'dist/frontend'
+app.use(express.static(path.join(__dirname, 'dist', 'frontend')));
 
 // Route fallback per Angular
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'frontend', 'index.html'));
 });
 
 app.use(bodyParser.json());
