@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Nuova home che punta diretto su prodotti" />
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Package">
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -203,7 +205,7 @@
       <workItem from="1727882978071" duration="3039000" />
       <workItem from="1728127820251" duration="458000" />
       <workItem from="1728310091397" duration="717000" />
-      <workItem from="1728310868483" duration="794000" />
+      <workItem from="1728310868483" duration="1149000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
@@ -548,7 +550,7 @@
       <option name="project" value="LOCAL" />
       <updated>1727296775160</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +569,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="delete commento" />
     <MESSAGE value="Non funziona il passaggio di iD" />
     <MESSAGE value="Commit files" />
     <MESSAGE value="Single product" />
@@ -592,6 +593,7 @@
     <MESSAGE value="creazione prodotti con link" />
     <MESSAGE value="Tolto filtered product  e una cosa dei messaggi" />
     <MESSAGE value="Nuova home che punta diretto su prodotti" />
-    <option name="LAST_COMMIT_MESSAGE" value="Nuova home che punta diretto su prodotti" />
+    <MESSAGE value="Package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Package" />
   </component>
 </project>
