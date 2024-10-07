@@ -4,7 +4,6 @@ import { NavigationEnd, Router } from "@angular/router";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "./services/user.service";
-import { MenuItem } from 'ngx-zeus-ui';
 
 @Component({
   selector: 'app-root',
@@ -18,19 +17,10 @@ export class AppComponent implements OnInit {
   user: any;
   isLoginPage: boolean = false;
   isAdmin: boolean = false;
-  link: MenuItem[] = []; // Menu items per il navbar
-  linkAdmin: MenuItem[] = [
-    new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
-    new MenuItem("Crea", "/create-product", true, false, { tipo: "fas", icona: "box" }, true),
-  ];
-  linkUser: MenuItem[] = [
-    new MenuItem("Prodotti", "/productList", true, false, { tipo: "fas", icona: "ice-cream" }, true),
-    new MenuItem("Ordini", "/orders", true, false, { tipo: "fas", icona: "box" }, true),
-  ];
 
   constructor(
     private authService: AuthService,
-    private route: Router,
+    protected route: Router,
     private dialog: MatDialog,
     private userService: UserService
   ) {
@@ -50,21 +40,7 @@ export class AppComponent implements OnInit {
   // Metodo per calcolare i percorsi di navigazione in base al ruolo dell'utente
   calculateRoutes() {
     this.user = this.authService.getUserFromToken();
-    this.link = [];
-    if (this.user)
-      this.isAdmin = this.user.role == "amministratore";
-    if (this.isAdmin) {
-      this.link = [...this.linkAdmin];
-    } else {
-      this.link = [...this.linkUser];
-    }
-    if (this.authService.isAuthenticated()) {
-      if (!this.isAdmin)
-        this.link.push(new MenuItem("Profilo", "/profilo", true, false, { tipo: "fas", icona: "user" }, true));
-      this.link.push(new MenuItem("Esci", "/logout", true, false, { tipo: "fas", icona: "right-from-bracket" }, true));
-    } else {
-      this.link.push(new MenuItem("Accedi", "/login", true, false, { tipo: "fas", icona: "user" }, true));
-    }
+    this.isAdmin = this.user ? this.user.role === "amministratore" : false;
   }
 
   // Metodo per aprire il dialogo dell'amministratore

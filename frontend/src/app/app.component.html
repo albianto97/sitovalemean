@@ -1,6 +1,31 @@
-<zeus-navbar *ngIf="!isLoginPage" style=" background-color: white; width:100%;" [links]="link" [titolo]="title" [logoMobilePath]="tel" [logoDesktopPath]="des"></zeus-navbar>
-<app-user-info *ngIf="!isLoginPage && !this.isAdmin" ></app-user-info>
+<div cdkMenuBar>
+  <button cdkMenuItem [cdkMenuTriggerFor]="menuProducts">Prodotti</button>
+  <button *ngIf="isAdmin" cdkMenuItem [cdkMenuTriggerFor]="menuAdmin">Amministratore</button>
+  <button *ngIf="!isLoginPage" cdkMenuItem [cdkMenuTriggerFor]="menuUser">Profilo</button>
+</div>
+
+<ng-template cdkMenuPanel #menuProducts="cdkMenuPanel">
+  <div cdkMenu>
+    <button cdkMenuItem (click)="route.navigate(['/productList'])">Lista Prodotti</button>
+    <button *ngIf="isAdmin" cdkMenuItem (click)="route.navigate(['/create-product'])">Crea Prodotto</button>
+  </div>
+</ng-template>
+
+<ng-template cdkMenuPanel #menuAdmin="cdkMenuPanel">
+  <div cdkMenu>
+    <button cdkMenuItem (click)="openAdminDialog()">Gestione Admin</button>
+  </div>
+</ng-template>
+
+<ng-template cdkMenuPanel #menuUser="cdkMenuPanel">
+  <div cdkMenu>
+    <button cdkMenuItem (click)="route.navigate(['/profilo'])">Profilo</button>
+    <button cdkMenuItem (click)="route.navigate(['/logout'])">Esci</button>
+  </div>
+</ng-template>
+
+<app-user-info *ngIf="!isLoginPage && !isAdmin"></app-user-info>
 <div>
   <router-outlet></router-outlet>
 </div>
-<app-footer *ngIf="!isLoginPage" ></app-footer>
+<app-footer *ngIf="!isLoginPage"></app-footer>
