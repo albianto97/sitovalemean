@@ -1,31 +1,35 @@
-<div cdkMenuBar>
-  <button cdkMenuItem [cdkMenuTriggerFor]="menuProducts">Prodotti</button>
-  <button *ngIf="isAdmin" cdkMenuItem [cdkMenuTriggerFor]="menuAdmin">Amministratore</button>
-  <button *ngIf="!isLoginPage" cdkMenuItem [cdkMenuTriggerFor]="menuUser">Profilo</button>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">{{ title }}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<ng-template cdkMenuPanel #menuProducts="cdkMenuPanel">
-  <div cdkMenu>
-    <button cdkMenuItem (click)="route.navigate(['/productList'])">Lista Prodotti</button>
-    <button *ngIf="isAdmin" cdkMenuItem (click)="route.navigate(['/create-product'])">Crea Prodotto</button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <!-- Link Home -->
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/productList">Lista Prodotti</a>
+      <li class="nav-item" *ngIf="!isLoginPage">
+        <a class="nav-link" href="javascript:void(0)" (click)="logout()">Esci</a>
+
+      <!-- Link per gli amministratori -->
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/create-product">Crea Prodotto</a>
+      </li>
+
+      <!-- Link per gli utenti loggati -->
+      <li class="nav-item" *ngIf="!isAdmin && !isLoginPage">
+        <a class="nav-link" routerLink="/profilo">Profilo</a>
+      </li>
+
+      <!-- Link per il login se non autenticato -->
+      <li class="nav-item" *ngIf="isLoginPage">
+        <a class="nav-link" routerLink="/login">Accedi</a>
+      </li>
+    </ul>
   </div>
-</ng-template>
+</nav>
 
-<ng-template cdkMenuPanel #menuAdmin="cdkMenuPanel">
-  <div cdkMenu>
-    <button cdkMenuItem (click)="openAdminDialog()">Gestione Admin</button>
-  </div>
-</ng-template>
-
-<ng-template cdkMenuPanel #menuUser="cdkMenuPanel">
-  <div cdkMenu>
-    <button cdkMenuItem (click)="route.navigate(['/profilo'])">Profilo</button>
-    <button cdkMenuItem (click)="route.navigate(['/logout'])">Esci</button>
-  </div>
-</ng-template>
-
-<app-user-info *ngIf="!isLoginPage && !isAdmin"></app-user-info>
-<div>
-  <router-outlet></router-outlet>
-</div>
+<!-- Altri componenti -->
+<router-outlet></router-outlet>
 <app-footer *ngIf="!isLoginPage"></app-footer>

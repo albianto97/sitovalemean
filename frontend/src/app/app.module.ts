@@ -5,6 +5,10 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CdkMenuModule } from '@angular/cdk/menu';  // Assicurati di averlo importato
+
+
+
 import { LoginComponent } from './components/login/login.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +46,6 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { OrderedProductComponent } from './components/product/ordered-product/ordered-product.component';
 import { LoaderComponent } from './components/structure/loader/loader.component';
 import { DialogStrutturaComponent } from './components/structure/dialog-struttura/dialog-struttura.component';
-import { NgxZeusUiModule } from 'ngx-zeus-ui';
 import { DialogConfermaComponent } from './components/structure/dialog-conferma/dialog-conferma.component';
 import { DialogWarningsSuccessesComponent } from './components/structure/dialog-warnings-successes/dialog-warnings-successes.component';
 import { FooterComponent } from './components/structure/footer/footer.component';
@@ -91,13 +94,13 @@ import {EditDescriptionDialogComponent} from "./components/structure/edit-descri
     BrowserAnimationsModule,
     MaterialModule,
     MatIconModule,
+    CdkMenuModule,
     FontAwesomeModule,
     CommonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    NgxZeusUiModule
+    MatButtonModule
   ]
 })
 export class AppModule {
