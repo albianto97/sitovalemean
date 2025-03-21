@@ -1,4 +1,3 @@
-<app-user-info></app-user-info>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">{{ title }}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,9 +8,13 @@
     <ul class="navbar-nav">
       <!-- Link Home -->
       <li class="nav-item">
-        <a class="nav-link" routerLink="/productList">Lista Prodotti</a>
+        <a class="nav-link" routerLink="/home">Home</a>
       </li>
+
       <!-- Link per gli amministratori -->
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLink="/productList">Prodotti</a>
+      </li>
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/create-product">Crea Prodotto</a>
       </li>
@@ -20,13 +23,13 @@
       <li class="nav-item" *ngIf="!isAdmin && !isLoginPage">
         <a class="nav-link" routerLink="/profilo">Profilo</a>
       </li>
+      <li class="nav-item" *ngIf="!isLoginPage">
+        <a class="nav-link" href="javascript:void(0)" (click)="logout()">Esci</a>
+      </li>
 
       <!-- Link per il login se non autenticato -->
       <li class="nav-item" *ngIf="isLoginPage">
         <a class="nav-link" routerLink="/login">Accedi</a>
-      </li>
-      <li class="nav-item" *ngIf="!isLoginPage">
-        <a class="nav-link" href="javascript:void(0)" (click)="logout()">Esci</a>
       </li>
     </ul>
   </div>
