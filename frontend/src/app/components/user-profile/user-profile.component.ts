@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
+  user = { username: 'Mario Rossi', email: 'mario@example.com' };
 
 }

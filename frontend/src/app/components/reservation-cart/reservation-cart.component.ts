@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './reservation-cart.component.css'
 })
 export class ReservationCartComponent {
-
+  reservations = ['Regalo 1', 'Regalo 2'];
 }
