@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Base">
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="File base">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/interceptors/token.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/services/product.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/services/reservation.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/pages/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/pages/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +242,7 @@
       <workItem from="1760204836516" duration="2511000" />
       <workItem from="1760383660760" duration="4126000" />
       <workItem from="1760387854682" duration="39000" />
-      <workItem from="1760388014451" duration="1548000" />
+      <workItem from="1760388014451" duration="2178000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
@@ -588,7 +587,7 @@
       <option name="project" value="LOCAL" />
       <updated>1727296775160</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +633,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Remove files create order" />
     <MESSAGE value="TODO file" />
     <MESSAGE value="Utente in ordini non visualizzato" />
     <MESSAGE value="Quantita a 0 e tasto ripristina nel menu ricarca ordini e utenti" />
@@ -659,6 +657,7 @@
     <MESSAGE value="BACKEND" />
     <MESSAGE value="dice che è standalone" />
     <MESSAGE value="Base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base" />
+    <MESSAGE value="File base" />
+    <option name="LAST_COMMIT_MESSAGE" value="File base" />
   </component>
 </project>
