@@ -9,16 +9,48 @@ import {Router} from "@angular/router";
   styleUrl: './login-register.component.css'
 })
 export class LoginRegisterComponent {
+  isLoginMode = true; // ✅ Alterna tra login e registrazione
+
+  username = '';
   email = '';
   password = '';
 
-  constructor(private auth: AuthService, private router: Router) {
+  loading = false;
+
+  constructor(private auth: AuthService, private router: Router) {}
+
+  toggleMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
 
-  onLogin() {
-    this.auth.login({email: this.email, password: this.password}).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
-      error: err => alert(err.error.message || 'Errore di login')
-    });
+  onSubmit() {
+    this.loading = true;
+
+    if (this.isLoginMode) {
+      // 🔐 LOGIN
+      this.auth.login({ email: this.email, password: this.password }).subscribe({
+        next: () => {
+          this.loading = false;
+          this.router.navigate(['/dashboard']);
+        },
+        error: err => {
+          this.loading = false;
+          alert(err.error?.message || 'Errore di login.');
+        }
+      });
+    } else {
+      // 🆕 REGISTRAZIONE
+      this.auth.register({ username: this.username, email: this.email, password: this.password }).subscribe({
+        next: () => {
+          this.loading = false;
+          alert('Registrazione completata! Ora puoi accedere.');
+          this.isLoginMode = true;
+        },
+        error: err => {
+          this.loading = false;
+          alert(err.error?.message || 'Errore di registrazione.');
+        }
+      });
+    }
   }
 }

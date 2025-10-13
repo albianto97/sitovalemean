@@ -1,14 +1,66 @@
-<div class="max-w-md mx-auto mt-10 p-4 border rounded shadow">
-  <h2 class="text-2xl font-bold mb-4 text-center">Login / Registrazione</h2>
-  <form>
-    <div class="mb-3">
-      <label>Email</label>
-      <input type="email" class="w-full border p-2 rounded" />
+<div class="container mt-5" style="max-width: 420px;">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="text-center mb-4">
+        {{ isLoginMode ? 'Accedi' : 'Registrati' }}
+      </h3>
+
+      <form (ngSubmit)="onSubmit()">
+        <!-- Username solo in modalità registrazione -->
+        <div *ngIf="!isLoginMode" class="mb-3">
+          <label for="username" class="form-label">Nome utente</label>
+          <input
+            id="username"
+            [(ngModel)]="username"
+            name="username"
+            type="text"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <!-- Bottone -->
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Attendere...' : (isLoginMode ? 'Accedi' : 'Registrati') }}
+        </button>
+      </form>
+
+      <!-- Toggle -->
+      <div class="text-center mt-3">
+        <a href="#" (click)="toggleMode(); $event.preventDefault()">
+          {{ isLoginMode ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi' }}
+        </a>
+      </div>
     </div>
-    <div class="mb-3">
-      <label>Password</label>
-      <input type="password" class="w-full border p-2 rounded" />
-    </div>
-    <button class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">Accedi</button>
-  </form>
+  </div>
 </div>
