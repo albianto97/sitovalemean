@@ -1,25 +1,45 @@
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/userModel.js';
+import User from '../models/userModel.js';
+
+
 
 const signToken = (user) =>
     jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN || '7d'
     });
-
-export const register = async (req, res) => {
+export const registerUser = async (req, res) => {
     try {
-        const { username, email, password, role } = req.body;
-        if (!username || !email || !password) {
-            return res.status(400).json({ message: 'Dati mancanti' });
-        }
-        const exists = await User.findOne({ email });
-        if (exists) return res.status(409).json({ message: 'Email già registrata' });
+        const { username, email, password } = req.body;
 
-        const user = await User.create({ username, email, password, role: role === 'admin' ? 'admin' : 'user' });
-        const token = signToken(user);
-        res.status(201).json({ token, user: { id: user._id, username, email, role: user.role } });
+        if (!username || !email || !password) {
+            return res.status(400).json({ message: 'Tutti i campi sono obbligatori.' });
+        }
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email già registrata.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = await User.create({
+            username,
+            email,
+            password: hashedPassword,
+        });
+
+        res.status(201).json({
+            message: 'Utente registrato con successo',
+            user: {
+                id: newUser._id,
+                username: newUser.username,
+                email: newUser.email,
+            },
+        });
     } catch (err) {
-        res.status(500).json({ message: 'Errore registrazione', error: err.message });
+        console.error('Errore nella registrazione:', err);
+        res.status(500).json({ message: 'Errore durante la registrazione.' });
     }
 };
 

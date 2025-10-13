@@ -1,7 +1,27 @@
-<div class="text-center mt-10">
-  <h1 class="text-3xl font-bold mb-4">Benvenuto nella Lista Regali 🎁</h1>
-  <p class="text-lg text-gray-600">Accedi o registrati per iniziare a prenotare i tuoi regali.</p>
-  <a routerLink="/dashboard" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-    Vai ai prodotti
-  </a>
+<div class="text-center mt-5">
+  <div class="p-5 bg-light border rounded shadow-sm mx-auto" style="max-width: 600px;">
+    <h1 class="fw-bold mb-3 text-primary">
+      🎁 Benvenuto nella Lista Regali
+    </h1>
+    <p class="lead text-muted">
+      Accedi o registrati per iniziare a prenotare i tuoi regali.
+    </p>
+
+    <div class="mt-4 d-flex justify-content-center gap-3">
+      <a
+        routerLink="/login"
+        class="btn btn-outline-primary btn-lg px-4"
+      >
+        <i class="bi bi-box-arrow-in-right me-2"></i> Accedi
+      </a>
+
+      <a
+        routerLink="/dashboard"
+        class="btn btn-success btn-lg px-4"
+      >
+        <i class="bi bi-gift-fill me-2"></i> Vai ai prodotti
+      </a>
+    </div>
+  </div>
 </div>
+

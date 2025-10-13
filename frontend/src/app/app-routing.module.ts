@@ -14,7 +14,7 @@ import { AdminProductFormComponent } from './components/admin-product-form/admin
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginRegisterComponent },
-  { path: 'dashboard', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: ProductListComponent },
   { path: 'cart', component: ReservationCartComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
