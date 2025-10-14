@@ -11,6 +11,7 @@ export class AuthService {
   // 🔁 Stato reattivo
   private loggedIn$ = new BehaviorSubject<boolean>(this.hasToken());
   private role$ = new BehaviorSubject<string | null>(this.getRoleFromToken());
+  private currentUser = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -41,6 +42,9 @@ export class AuthService {
         return res;
       })
     );
+  }
+  updateProfile(data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update`, data);
   }
 
   // 🆕 REGISTRAZIONE
@@ -76,5 +80,27 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this.role$.value === 'admin';
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+  getUser$() {
+    return this.currentUser.asObservable();
+  }
+
+  setUser(user: any) {
+    this.currentUser.next(user);
+  }
+  getUser() {
+    return this.currentUser.value;
+  }
+
+  refreshUserState(): void {
+    const token = this.getToken();
+    if (token) {
+      this.loggedIn$.next(true);
+      this.role$.next(this.getRoleFromToken());
+    }
   }
 }

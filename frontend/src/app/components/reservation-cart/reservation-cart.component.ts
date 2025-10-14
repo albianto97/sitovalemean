@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ReservationService} from '../../core/services/reservation.service';
 
 @Component({
   selector: 'app-reservation-cart',

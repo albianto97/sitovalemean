@@ -30,7 +30,7 @@ app.use('/api/reservations', reservationRoutes);
 app.use((req, res) => res.status(404).json({ message: 'Not Found' }));
 
 // Avvio
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`API in ascolto su http://localhost:${PORT}`);
 });

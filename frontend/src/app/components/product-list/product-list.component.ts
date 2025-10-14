@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { ToastService } from '../../core/services/toast.service';
+import {Product, ProductService} from '../../core/services/product.service';
+import {ReservationService} from '../../core/services/reservation.service';
+
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +18,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,7 @@ export class ProductListComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
+        this.toast.show('Errore nella prenotazione', true);
         this.error = err.error?.message || 'Errore nel caricamento prodotti.';
         this.loading = false;
       }
@@ -49,6 +55,11 @@ export class ProductListComponent implements OnInit {
     return this.reservedIds.includes(productId || '');
   }
 
+  openLink(url: string): void {
+    window.open(url, '_blank');
+  }
+
+
   toggleReservation(product: Product): void {
     if (this.isReserved(product._id)) {
       this.reservationService.removeProduct(product._id!).subscribe({
@@ -66,9 +77,10 @@ export class ProductListComponent implements OnInit {
       this.reservationService.addProduct(product._id!).subscribe({
         next: () => {
           product.quantity--;
+          this.toast.show('Prodotto prenotato con successo!');
           this.reservedIds.push(product._id!);
         },
-        error: () => alert('Errore nella prenotazione.')
+        error: () => this.toast.show('Errore nella prenotazione', true)
       });
     }
   }
