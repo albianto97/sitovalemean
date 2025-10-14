@@ -77,4 +77,8 @@ export class AuthService {
   isAdmin(): boolean {
     return this.role$.value === 'admin';
   }
+
+getMyReservations(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/my`);
+}
 }
