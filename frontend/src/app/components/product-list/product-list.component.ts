@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastService } from '../../core/services/toast.service';
+
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +16,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -73,7 +76,8 @@ export class ProductListComponent implements OnInit {
           product.quantity--;
           this.reservedIds.push(product._id!);
         },
-        error: () => alert('Errore nella prenotazione.')
+        next: () => this.toast.show('Prodotto prenotato con successo!'),
+        error: () => this.toast.show('Errore nella prenotazione', true)
       });
     }
   }
