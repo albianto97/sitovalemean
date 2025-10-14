@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="Si vede qualcosa">
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="leggera bootstrap">
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/guards/admin.guard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/guards/auth.guard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +21,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="CSS File" />
+        <option value="package.json" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -82,47 +83,37 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#1 on TEST",
+    "git-widget-placeholder": "ripartenza",
     "ignore.virus.scanning.warn.message": "true",
     "javascript.nodejs.core.library.configured.version": "20.16.0",
     "javascript.nodejs.core.library.typings.version": "20.16.10",
-    "last_opened_file_path": "C:/Users/Acer/WebstormProjects/sitovalemean/backend",
+    "last_opened_file_path": "C:/Users/Acer/WebstormProjects/MovimentiSpesa",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
+    "npm.dev.executor": "Run",
     "npm.start (1).executor": "Run",
+    "npm.start.executor": "Run",
     "ts.external.directory.path": "C:\\Users\\Acer\\WebstormProjects\\sitovalemean\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.start (1)">
-    <configuration name="POST /api/user/login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/backend/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/backend" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/backend/test/userController.test.js" />
-      <test-names>
-        <test-name value="POST /api/user/login" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Product Routes" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/backend/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/backend" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/backend/test/productController.test.js" />
-      <test-names>
-        <test-name value="Product Routes" />
-      </test-names>
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\backend" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\frontend" />
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean" />
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\frontend\src\app\components\reservation-cart" />
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\frontend\src\app\components\product-list" />
+      <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\frontend\src\app\components\login-register" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="run" />
@@ -133,8 +124,28 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="run" />
       <scripts>
         <script value="start" />
@@ -155,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
-        <item itemvalue="npm.start (1)" />
-        <item itemvalue="Jest.Product Routes" />
-        <item itemvalue="Jest.POST /api/user/login" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
+        <item itemvalue="npm.start (1)" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -227,6 +238,10 @@
       <workItem from="1731359992373" duration="5000" />
       <workItem from="1731360021485" duration="8000" />
       <workItem from="1742568678594" duration="4032000" />
+      <workItem from="1760204836516" duration="2511000" />
+      <workItem from="1760383660760" duration="4126000" />
+      <workItem from="1760387854682" duration="39000" />
+      <workItem from="1760388014451" duration="2896000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
@@ -571,7 +586,7 @@
       <option name="project" value="LOCAL" />
       <updated>1727296775160</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,11 +632,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Errori" />
-    <MESSAGE value="user controller update" />
-    <MESSAGE value="Remove files" />
-    <MESSAGE value="Remove files create order" />
-    <MESSAGE value="TODO file" />
     <MESSAGE value="Utente in ordini non visualizzato" />
     <MESSAGE value="Quantita a 0 e tasto ripristina nel menu ricarca ordini e utenti" />
     <MESSAGE value="stato dell'ordine per l'utente nella sua visualizzazione" />
@@ -642,6 +652,11 @@
     <MESSAGE value="provo a eliminare .trz" />
     <MESSAGE value="VARI ERRORI DI ESECUZIONE" />
     <MESSAGE value="Si vede qualcosa" />
-    <option name="LAST_COMMIT_MESSAGE" value="Si vede qualcosa" />
+    <MESSAGE value="BACKEND" />
+    <MESSAGE value="dice che è standalone" />
+    <MESSAGE value="Base" />
+    <MESSAGE value="File base" />
+    <MESSAGE value="leggera bootstrap" />
+    <option name="LAST_COMMIT_MESSAGE" value="leggera bootstrap" />
   </component>
 </project>

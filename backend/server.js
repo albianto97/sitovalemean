@@ -1,55 +1,36 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const http = require('http');
-const socketIo = require('socket.io');
-const connectDB = require('./config/db');
-const config = require('./config');
-const { verifyToken, getUsernameFromJWT } = require('./middlewares/token');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
-const userRoutes = require('./routes/user.route');
-const productRoutes = require('./routes/product.route');
-const orderRoutes = require('./routes/order.route');
-const { getUserByUsername } = require("./controllers/user.controller");
-const User = require("./models/user");
-
-
-const path = require('path');
-
-
+import { connectDB } from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import reservationRoutes from './routes/reservationRoutes.js';
 
 const app = express();
-const server = http.createServer(app);
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', config.corsOrigin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
+// Middleware base
+app.use(helmet());
+app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') || '*', credentials: true }));
+app.use(express.json());
+app.use(morgan('dev'));
+
+// Connessione DB
+await connectDB();
+
+// Rotte
+app.get('/api/health', (_, res) => res.json({ ok: true, time: new Date().toISOString() }));
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/reservations', reservationRoutes);
+
+// Gestione 404
+app.use((req, res) => res.status(404).json({ message: 'Not Found' }));
+
+// Avvio
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`API in ascolto su http://localhost:${PORT}`);
 });
-
-// Servire i file statici di Angular dalla cartella 'dist/frontend'
-/*app.use(express.static(path.join(__dirname, 'dist', 'frontend')));
-
-// Route fallback per Angular
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'frontend', 'index.html'));
-});*/
-
-app.use(bodyParser.json());
-
-
-connectDB();
-
-app.use('/api/user', userRoutes);
-app.use('/api/product', productRoutes);
-app.use('/api/order', orderRoutes);
-
-app.use(verifyToken);  // Usa il middleware qui
-
-
-server.listen(config.port, () => {
-  console.log(`Server is running at http://localhost:${config.port}`);
-});
-
-module.exports = { app, server };
