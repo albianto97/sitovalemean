@@ -1,9 +1,10 @@
 .navbar-brand {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
 }
 
 .nav-link.active {
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: underline;
 }
 
