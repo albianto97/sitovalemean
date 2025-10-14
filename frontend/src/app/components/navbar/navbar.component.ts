@@ -7,15 +7,13 @@ import {Router} from "@angular/router";
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
-  constructor(private router: Router) {}
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
+  export class NavbarComponent {
+  constructor(public auth: AuthService, private router: Router) {}
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }
+
+
