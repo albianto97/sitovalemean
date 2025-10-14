@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-  export class NavbarComponent {
+export class NavbarComponent {
   constructor(public auth: AuthService, private router: Router) {}
 
   logout() {
