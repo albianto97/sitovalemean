@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Product, ProductService} from '../../core/services/product.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin-product-form',
@@ -33,6 +35,9 @@ export class AdminProductFormComponent implements OnInit {
         }
       });
     }
+  }
+  goBack(): void {
+    this.router.navigate(['/admin']);
   }
 
   onSubmit() {

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
+import {AuthService} from '../../core/services/auth.service';
+import {ReservationService} from '../../core/services/reservation.service';
 
 
 @Component({
@@ -43,7 +45,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
   updateProfile() {
-    this.userService.updateProfile(this.user).subscribe({
+    this.authService.updateProfile(this.user).subscribe({
       next: () => this.toast.show('Profilo aggiornato con successo!'),
       error: () => this.toast.show('Errore durante l’aggiornamento', true)
     });

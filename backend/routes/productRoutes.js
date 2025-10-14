@@ -3,7 +3,7 @@ import {
     createProduct,
     deleteProduct,
     getProduct,
-    listProducts,
+    listProduct,
     updateProduct,
     updateQuantity
 } from '../controllers/productController.js';

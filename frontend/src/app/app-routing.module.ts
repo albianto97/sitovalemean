@@ -10,10 +10,11 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
+import {NoAuthGuard} from './core/guards/noauth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginRegisterComponent },
+  { path: '', component: HomeComponent, canActivate: [NoAuthGuard]},
+  { path: 'login', component: LoginRegisterComponent, canActivate: [NoAuthGuard] },
   { path: 'dashboard', component: ProductListComponent },
   { path: 'cart', component: ReservationCartComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },

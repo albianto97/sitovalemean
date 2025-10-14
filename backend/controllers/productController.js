@@ -2,9 +2,9 @@ import { Product } from '../models/productModel.js';
 
 export const getProduct = async (req, res) => {
     const prod = await Product.findById(req.params.id);
-    if (!prod) return res.status(404).json({ message: 'Prodotto non trovato' });
+    if (!prod) return res.status(404).json({message: 'Prodotto non trovato'});
     res.json(prod);
-
+}
 // ✅ Lista prodotti
 export const listProduct = async (req, res) => {
   try {
