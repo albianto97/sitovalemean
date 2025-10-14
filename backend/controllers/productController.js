@@ -5,10 +5,38 @@ export const listProducts = async (_req, res) => {
     res.json(products);
 };
 
-export const getProduct = async (req, res) => {
-    const prod = await Product.findById(req.params.id);
-    if (!prod) return res.status(404).json({ message: 'Prodotto non trovato' });
-    res.json(prod);
+// ✅ Lista prodotti
+export const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+
+    // Se è loggato come utente "normale", mostra quantità rimanente
+    if (req.user && req.user.role === 'user') {
+      const reservations = await Reservation.find();
+
+      const updated = products.map((p) => {
+        const totalReserved = reservations.reduce((count, r) => {
+          const item = r.products.find(
+            (pr) => pr.productId.toString() === p._id.toString()
+          );
+          return count + (item ? item.quantity : 0);
+        }, 0);
+
+        return {
+          ...p.toObject(),
+          quantity: Math.max(0, p.quantity - totalReserved)
+        };
+      });
+
+      return res.json(updated);
+    }
+
+    // Se è admin o utente non loggato → restituisci quantità reale
+    res.json(products);
+  } catch (error) {
+    console.error('Errore getProducts:', error);
+    res.status(500).json({ message: 'Errore nel recupero prodotti' });
+  }
 };
 
 export const createProduct = async (req, res) => {
