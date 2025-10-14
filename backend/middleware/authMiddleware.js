@@ -14,3 +14,18 @@ export const authMiddleware = (req, res, next) => {
         return res.status(401).json({ message: 'Token non valido' });
     }
 };
+
+
+// ✅ Middleware opzionale (non obbliga a essere loggato)
+export const authOptional = async (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return next(); // nessun token → continua senza user
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findById(decoded.id).select('-password');
+  } catch {
+    req.user = null;
+  }
+  next();
+};
