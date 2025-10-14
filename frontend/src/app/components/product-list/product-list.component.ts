@@ -48,6 +48,11 @@ export class ProductListComponent implements OnInit {
   isReserved(productId: string | undefined): boolean {
     return this.reservedIds.includes(productId || '');
   }
+  
+  openLink(url: string): void {
+    window.open(url, '_blank');
+  }
+
 
   toggleReservation(product: Product): void {
     if (this.isReserved(product._id)) {
