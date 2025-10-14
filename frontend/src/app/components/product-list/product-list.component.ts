@@ -28,11 +28,13 @@ export class ProductListComponent implements OnInit {
   loadProducts(): void {
     this.loading = true;
     this.productService.getProducts().subscribe({
+      next: (products) => (this.products = products),
       next: (res) => {
         this.products = res;
         this.loading = false;
       },
       error: (err) => {
+        error: () => this.toast.show('Errore nel caricamento prodotti', true)
         this.error = err.error?.message || 'Errore nel caricamento prodotti.';
         this.loading = false;
       }
