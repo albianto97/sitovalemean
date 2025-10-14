@@ -1,12 +1,8 @@
 import { Product } from '../models/productModel.js';
 
-export const listProducts = async (_req, res) => {
-    const products = await Product.find().sort({ createdAt: -1 });
-    res.json(products);
-};
 
 // ✅ Lista prodotti
-export const getProducts = async (req, res) => {
+export const listProduct = async (req, res) => {
   try {
     const products = await Product.find();
 
