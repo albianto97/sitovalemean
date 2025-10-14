@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  standalone: false,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
@@ -14,14 +14,13 @@ export class NavbarComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.auth.isLoggedIn$().subscribe(status => this.isLoggedIn = status);
-    this.auth.isAdmin$().subscribe(admin => this.isAdmin = admin);
+    // 🔁 Reactivity: si aggiorna in tempo reale
+    this.auth.isLoggedIn$().subscribe((status) => (this.isLoggedIn = status));
+    this.auth.isAdmin$().subscribe((admin) => (this.isAdmin = admin));
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 }
-
-
