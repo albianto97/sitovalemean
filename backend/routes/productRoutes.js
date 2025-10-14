@@ -9,10 +9,13 @@ import {
 } from '../controllers/productController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 import { adminMiddleware } from '../middleware/adminMiddleware.js';
+import { authOptional } from '../middleware/authMiddleware.js';
+
 
 const router = Router();
 
-router.get('/', listProducts);
+// ✅ Middleware opzionale: se c'è token lo decodifica, altrimenti continua
+router.get('/', authOptional, listProduct);
 router.get('/:id', getProduct);
 
 router.post('/', authMiddleware, adminMiddleware, createProduct);
