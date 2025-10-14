@@ -23,7 +23,7 @@
           <a class="nav-link" routerLink="/">Home</a>
         </li>
         <li class="nav-item" *ngIf="auth.isLoggedIn()">
-          <a class="nav-link" routerLink="/dashboard">Prodotti</a>
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Prodotti</a>
         </li>
         <li class="nav-item" *ngIf="auth.isLoggedIn()">
           <a class="nav-link" routerLink="/cart">Prenotazioni</a>
