@@ -1,0 +1,54 @@
+OPZIONE 1 PERFETTA SE FUNZIONA
+---
+
+## 💸 OPZIONE 1 – **Tutto Gratis (con limiti)**
+
+| Servizio             | Scopo                    | Costo                     | Note                                             |
+| -------------------- | ------------------------ | ------------------------- | ------------------------------------------------ |
+| **Render**           | Hosting backend Node.js  | ✅ Gratis (750 ore/mese)   | Si “addormenta” dopo inattività (sleep mode)     |
+| **MongoDB Atlas**    | Database cloud           | ✅ Gratis (Shared Cluster) | Fino a 512 MB, ottimo per dev                    |
+| **Vercel / Netlify** | Hosting frontend Angular | ✅ Gratis                  | Build automatici da GitHub, perfetti per Angular |
+
+> 🔧 Costo totale: **0€/mese**
+> ✅ Ideale per: test, portfolio personale, progetti senza traffico elevato
+
+---
+
+## 💼 OPZIONE 2 – **Server VPS Economico (Tutto in uno)**
+
+### Server economici dove puoi installare tutto (Mongo, Node, Angular):
+
+| Provider         | Piano base    | Costo stimato | Note                                   |
+| ---------------- | ------------- | ------------- | -------------------------------------- |
+| **Hetzner**      | VPS CX11      | 3,49 €/mese   | 1 vCPU, 2 GB RAM, SSD, molto stabile   |
+| **Contabo**      | VPS S         | 4,49 €/mese   | Spazio enorme, meno RAM inizialmente   |
+| **DigitalOcean** | Droplet base  | 5 €/mese      | 1 vCPU, 1 GB RAM, ottimo per iniziare  |
+| **OVHcloud**     | VPS Essential | 5 €/mese      | Provider europeo, supporto in italiano |
+
+> 🔧 Costo totale: **\~5€/mese**
+> ✅ Ideale per: siti con traffico costante o uso pro
+
+---
+
+## 🧩 OPZIONE 3 – **Soluzione ibrida (economica ma stabile)**
+
+| Servizio          | Scopo                | Costo        |
+| ----------------- | -------------------- | ------------ |
+| **Vercel**        | Frontend Angular     | ✅ Gratis     |
+| **Render (Paid)** | Backend Node/Express | 🟡 \~7€/mese |
+| **MongoDB Atlas** | Database cloud       | ✅ Gratis     |
+
+> 🔧 Costo totale: **\~7€/mese**
+> ✅ Ideale per: app live, responsive e sempre online
+
+---
+
+## 📌 Riepilogo
+
+| Tipo hosting                                       | Costo mensile | Pro                                     | Contro                        |
+| -------------------------------------------------- | ------------- | --------------------------------------- | ----------------------------- |
+| **Tutto gratis (Render + Vercel + MongoDB Atlas)** | 0 €           | Nessuna spesa, perfetto per test        | Sleep mode se inattivo        |
+| **VPS economico (Hetzner, DO, Contabo)**           | \~5 €         | Sempre attivo, controlli tutto          | Devi configurare tutto a mano |
+| **Soluzione ibrida (Render+Vercel con tier Pro)**  | \~7 €         | Comodo, stabile, diviso in microservizi | Più configurazioni da gestire |
+
+---
