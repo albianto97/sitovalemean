@@ -28,7 +28,7 @@
               [ngClass]="isReserved(product._id) ? 'btn-outline-danger' : 'btn-outline-primary'"
               (click)="toggleReservation(product)"
             >
-              <i class="bi" [ngClass]="isReserved(product._id) ? 'bi-x-circle' : 'bi-bookmark-heart'"></i>
+              <i class="bi" *ngIf="!auth.isAdmin()" [ngClass]="isReserved(product._id) ? 'bi-x-circle' : 'bi-bookmark-heart'"></i>
               {{ isReserved(product._id) ? 'Rilascia' : 'Prenota' }}
             </button>
 

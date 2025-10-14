@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
 import {Product, ProductService} from '../../core/services/product.service';
 import {ReservationService} from '../../core/services/reservation.service';
+import {AuthService} from '../../core/services/auth.service';
 
 
 @Component({
@@ -19,7 +20,9 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private reservationService: ReservationService,
-    private toast: ToastService
+    private toast: ToastService,
+    public auth: AuthService // 👈 public, per usare in HTML
+
   ) {}
 
   ngOnInit(): void {
