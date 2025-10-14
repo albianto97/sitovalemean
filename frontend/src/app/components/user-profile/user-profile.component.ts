@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastService } from '../../core/services/toast.service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -13,7 +15,8 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,12 @@ export class UserProfileComponent implements OnInit {
       error: () => {
         this.loading = false;
       }
+    });
+  }
+  updateProfile() {
+    this.userService.updateProfile(this.user).subscribe({
+      next: () => this.toast.show('Profilo aggiornato con successo!'),
+      error: () => this.toast.show('Errore durante l’aggiornamento', true)
     });
   }
 }
