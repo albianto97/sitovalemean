@@ -1,0 +1,12 @@
+.navbar-brand {
+  font-size: 1.4rem;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.dropdown-menu {
+  min-width: 180px;
+}
