@@ -1,61 +1,80 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
 
-interface User {
-  _id?: string;
-  username: string;
-  email: string;
-  role?: string;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  // 🔁 Stato reattivo
+  private loggedIn$ = new BehaviorSubject<boolean>(this.hasToken());
+  private role$ = new BehaviorSubject<string | null>(this.getRoleFromToken());
+
+  constructor(private http: HttpClient) {}
+
+  // ✅ Controlla se esiste il token
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  // ✅ Estrae il ruolo dal token JWT
+  private getRoleFromToken(): string | null {
     const token = localStorage.getItem('token');
-    if (token) this.getUserProfile().subscribe();
+    if (!token) return null;
+    try {
+      const payload: any = jwtDecode(token);
+      return payload.role || null;
+    } catch {
+      return null;
+    }
   }
 
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
-  }
-
-  login(credentials: any): Observable<any> {
+  // 🧠 LOGIN
+  login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((res: any) => {
         localStorage.setItem('token', res.token);
-        this.getUserProfile().subscribe();
+        this.loggedIn$.next(true);
+        this.role$.next(this.getRoleFromToken());
         return res;
       })
     );
   }
 
-  getUserProfile(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/me`).pipe(
-      map(user => {
-        this.currentUserSubject.next(user);
-        return user;
-      })
-    );
+  // 🆕 REGISTRAZIONE
+  register(data: { username: string; email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  logout() {
+  // 👤 Profilo utente
+  getUserProfile(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/me`);
+  }
+
+  // 🚪 LOGOUT
+  logout(): void {
     localStorage.removeItem('token');
-    this.currentUserSubject.next(null);
+    this.loggedIn$.next(false);
+    this.role$.next(null);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  // 🧭 Observable per componenti reattivi
+  isLoggedIn$(): Observable<boolean> {
+    return this.loggedIn$.asObservable();
   }
 
+  isAdmin$(): Observable<boolean> {
+    return this.role$.asObservable().pipe(map((role) => role === 'admin'));
+  }
+
+  // ✅ versioni “sincrone” (per chiamate dirette)
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.loggedIn$.value;
+  }
+
+  isAdmin(): boolean {
+    return this.role$.value === 'admin';
   }
 }
