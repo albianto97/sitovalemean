@@ -38,7 +38,12 @@
               target="_blank"
               class="btn btn-link mt-2 w-100 text-decoration-none"
             >
-              <i class="bi bi-box-arrow-up-right"></i> Apri link
+              <button
+                *ngIf="p.link"
+                class="btn btn-outline-primary"
+                (click)="openLink(p.link)">
+                <i class="bi bi-box-arrow-up-right"></i> Vedi Link
+              </button>
             </a>
           </div>
         </div>
