@@ -15,7 +15,8 @@ import { authOptional } from '../middleware/authMiddleware.js';
 const router = Router();
 
 // ✅ Middleware opzionale: se c'è token lo decodifica, altrimenti continua
-router.get('/', authOptional, getProducts);router.get('/:id', getProduct);
+router.get('/', authOptional, listProduct);
+router.get('/:id', getProduct);
 
 router.post('/', authMiddleware, adminMiddleware, createProduct);
 router.put('/:id', authMiddleware, adminMiddleware, updateProduct);
