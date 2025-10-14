@@ -23,3 +23,17 @@ logout(): void {
 
 
 ------------------------------------------------
+🧠 4️⃣ Servizi coinvolti
+
+Assicurati che il tuo AuthService abbia questo metodo:
+
+getUserProfile(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/me`);
+}
+
+
+e che nel ReservationService ci sia:
+
+getMyReservations(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/my`);
+}
