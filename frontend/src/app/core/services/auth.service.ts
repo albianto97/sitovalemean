@@ -42,6 +42,9 @@ export class AuthService {
       })
     );
   }
+  updateProfile(data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update`, data);
+  }
 
   // 🆕 REGISTRAZIONE
   register(data: { username: string; email: string; password: string }): Observable<any> {
