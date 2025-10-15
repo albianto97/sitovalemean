@@ -15,14 +15,26 @@
           <h5 class="card-title fw-bold text-dark">{{ product.name }}</h5>
           <p class="card-text text-muted">{{ product.description }}</p>
 
-          <p>
+          <!-- 👤 Utente normale vede quantità disponibile -->
+          <p *ngIf="!isAdmin">
             Disponibilità:
-            <span class="badge bg-{{ product.quantity > 0 ? 'success' : 'danger' }}">
-              {{ product.quantity }}
+            <span
+              class="badge"
+              [ngClass]="(product.stock - product.reserved) > 0 ? 'bg-success' : 'bg-danger'">
+              {{ product.stock - product.reserved }}
             </span>
           </p>
 
+          <!-- 🧑‍💼 Admin vede stock totale -->
+          <p *ngIf="isAdmin">
+            Quantità totale:
+            <span class="badge bg-primary">{{ product.stock }}</span>
+            <br />
+            Prenotate: <span class="badge bg-warning">{{ product.reserved }}</span>
+          </p>
+
           <div class="mt-auto">
+            <!-- pulsante prenota solo per utente -->
             <button
               *ngIf="!isAdmin"
               class="btn w-100 mt-2"
@@ -33,19 +45,12 @@
               {{ isReserved(product._id) ? 'Rilascia' : 'Prenota' }}
             </button>
 
-            <a
+            <button
               *ngIf="product.link"
-              [href]="product.link"
-              target="_blank"
-              class="btn btn-link mt-2 w-100 text-decoration-none"
-            ></a>
-              <button
-                *ngIf="product.link"
-                class="btn btn-outline-primary"
-                (click)="openLink(product.link)">
-                <i class="bi bi-box-arrow-up-right"></i> Vedi Link
-              </button>
-
+              class="btn btn-outline-primary mt-2 w-100"
+              (click)="openLink(product.link)">
+              <i class="bi bi-box-arrow-up-right"></i> Vedi Link
+            </button>
           </div>
         </div>
       </div>

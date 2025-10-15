@@ -6,8 +6,9 @@ export interface Product {
   _id?: string;
   name: string;
   description: string;
-  quantity: number;
+  stock: number;   // ✅ invece di quantity
   link?: string;
+  reserved: number;
 }
 
 @Injectable({
@@ -39,6 +40,6 @@ export class ProductService {
   }
 
   updateQuantity(id: string, newQuantity: number): Observable<Product> {
-    return this.http.patch<Product>(`${this.apiUrl}/${id}/quantity`, { quantity: newQuantity });
+    return this.http.patch<Product>(`${this.apiUrl}/${id}/quantity`, { stock: newQuantity });
   }
 }

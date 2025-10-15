@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrl: './admin-product-form.component.css'
 })
 export class AdminProductFormComponent implements OnInit {
-  product: Product = { name: '', description: '', quantity: 0, link: '' };
+  product: Product = { name: '', description: '', stock: 0, reserved: 0, link: '' };
   editMode = false;
   loading = false;
 

@@ -39,7 +39,13 @@ export const createProduct = async (req, res) => {
         const product = await Product.create({ name, description, stock, reserved: 0, link });
         res.status(201).json(product);
     } catch (err) {
-        res.status(400).json({ message: 'Errore creazione prodotto', error: err.message });
+        console.error('Errore creazione prodotto:', err);
+        res.status(400).json({
+            message: 'Errore creazione prodotto',
+            error: err.message,
+            details: err.errors || null
+        });
+        //res.status(400).json({ message: 'Errore creazione prodotto', error: err.message });
     }
 };
 
