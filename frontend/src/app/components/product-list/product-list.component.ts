@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
   loading = true;
   error = '';
   reservedIds: string[] = [];
+  isAdmin = false;
 
   constructor(
     private productService: ProductService,
@@ -27,6 +28,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+    this.auth.isAdmin$().subscribe(val => this.isAdmin = val);
     this.loadMyReservations();
   }
 
@@ -64,6 +66,12 @@ export class ProductListComponent implements OnInit {
 
 
   toggleReservation(product: Product): void {
+    // 👇 Se non loggato → mostra messaggio e interrompi
+    if (!this.auth.isLoggedIn()) {
+      this.toast.show('Devi accedere per prenotare.', true);
+      return;
+    }
+
     if (this.isReserved(product._id)) {
       this.reservationService.removeProduct(product._id!).subscribe({
         next: () => {
