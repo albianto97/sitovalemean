@@ -17,8 +17,6 @@ export const getMyReservations = async (req, res) => {
 export const addProduct = async (req, res) => {
     try {
         const userId = req.user.id;
-
-        // prendi da params o body
         const productId = req.params.productId || req.params.id || req.body.productId;
 
         if (!productId) {
@@ -28,34 +26,35 @@ export const addProduct = async (req, res) => {
             return res.status(400).json({ message: 'productId non valido' });
         }
 
-        // opzionale: verifica che il prodotto esista e che ci sia stock
         const prod = await Product.findById(productId);
         if (!prod) return res.status(404).json({ message: 'Prodotto non trovato' });
-        if (prod.reserved <= 0) {
+
+        // 🔹 Controlla disponibilità
+        if (prod.reserved >= prod.stock) {
             return res.status(409).json({ message: 'Prodotto esaurito' });
         }
 
-        // cerca/crea la reservation per l’utente
+        // 🔹 Aggiorna o crea la prenotazione utente
         let reservation = await Reservation.findOne({ userId });
         if (!reservation) {
             reservation = await Reservation.create({
                 userId,
-                products: [{ productId, reserved: 1 }]
+                products: [{ productId, quantity: 1 }]
             });
         } else {
             const existing = reservation.products.find(
                 (p) => p.productId.toString() === productId
             );
             if (existing) {
-                existing.reserved += 1;
+                existing.quantity += 1;
             } else {
-                reservation.products.push({ productId, reseved: 1 });
+                reservation.products.push({ productId, quantity: 1 });
             }
             await reservation.save();
         }
 
-        // decrementa lo stock
-        await Product.findByIdAndUpdate(productId, { $inc: { reserved: -1 } }, { new: true });
+        // 🔹 Incrementa i prenotati del prodotto
+        await Product.findByIdAndUpdate(productId, { $inc: { reserved: 1 } }, { new: true });
 
         res.status(200).json({ message: 'Prodotto prenotato con successo', reservation });
     } catch (error) {
@@ -65,7 +64,6 @@ export const addProduct = async (req, res) => {
 };
 
 
-
 /**
  * Rimuove 1 unità del prodotto dalla prenotazione (o interamente se quantity va a 0)
  * Incrementa quantità prodotto
@@ -73,21 +71,20 @@ export const addProduct = async (req, res) => {
 export const removeProduct = async (req, res) => {
     const { productId } = req.params;
 
-    // Trova prenotazione
     const reservation = await Reservation.findOne({ userId: req.user.id });
     if (!reservation) return res.status(404).json({ message: 'Prenotazione non trovata' });
 
     const item = reservation.products.find(p => String(p.productId) === String(productId));
     if (!item) return res.status(404).json({ message: 'Prodotto non presente in prenotazione' });
 
-    // Incrementa stock
-    await Product.findByIdAndUpdate(productId, { $inc: { reserved: 1 } });
+    // 🔹 Decrementa i prenotati nel prodotto
+    await Product.findByIdAndUpdate(productId, { $inc: { reserved: -1 } });
 
-    // Decrementa quantità in prenotazione o rimuovi item
-    if (item.reserved > 1) {
+    // 🔹 Aggiorna la reservation utente
+    if (item.quantity > 1) {
         await Reservation.updateOne(
             { userId: req.user.id, 'products.productId': productId },
-            { $inc: { 'products.$.reserved': -1 } }
+            { $inc: { 'products.$.quantity': -1 } }
         );
     } else {
         await Reservation.updateOne(
@@ -100,6 +97,7 @@ export const removeProduct = async (req, res) => {
     res.json(updated || { userId: req.user.id, products: [] });
 };
 
+
 /**
  * Svuota la prenotazione, ripristinando le quantità dei prodotti
  */
@@ -107,12 +105,13 @@ export const clearReservations = async (req, res) => {
     const reservation = await Reservation.findOne({ userId: req.user.id });
     if (!reservation) return res.json({ message: 'Nulla da svuotare' });
 
-    // Ripristina stock per ciascun item
+    // 🔹 Riduci i prenotati per ciascun prodotto
     const ops = reservation.products.map(p =>
-        Product.findByIdAndUpdate(p.productId, { $inc: { reserved: p.reserved } })
+        Product.findByIdAndUpdate(p.productId, { $inc: { reserved: -p.quantity } })
     );
     await Promise.all(ops);
 
     await Reservation.deleteOne({ userId: req.user.id });
     res.json({ message: 'Prenotazioni svuotate' });
 };
+
