@@ -51,6 +51,12 @@
           </a>
         </li>
 
+        <li class="nav-item ms-3">
+          <button class="btn btn-sm btn-outline-light" (click)="toggleTheme()">
+          <i class="bi" [ngClass]="theme.isDark() ? 'bi-sun' : 'bi-moon'"></i>
+          </button>
+        </li>
+
         <!-- Loggato -->
         <li class="nav-item dropdown" *ngIf="isLoggedIn">
           <a
