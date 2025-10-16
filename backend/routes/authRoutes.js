@@ -9,7 +9,5 @@ router.post('/login', login);
 router.get('/me', authMiddleware, me);
 router.put('/update', authMiddleware, updateUser);
 router.post('/forgot-password', forgotPassword);
-router.post('/reset-password/:token', resetPassword);
-
 
 export default router;
