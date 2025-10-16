@@ -147,6 +147,39 @@ export const forgotPassword = async (req, res) => {
     res.status(500).json({ message: 'Errore invio email di recupero.' });
   }
 };
+export const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) return res.status(404).json({ message: 'Utente non trovato' });
+
+    // Verifica password attuale
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch)
+      return res.status(400).json({ message: 'Password attuale errata' });
+
+    user.password = newPassword;
+    await user.save();
+
+    // ✉️ invia email di conferma (usa il tuo servizio Nodemailer)
+    await sendEmail(
+      user.email,
+      'Password aggiornata con successo 🔒',
+      `
+        Ciao <b>${user.username}</b>,<br>
+        La tua password è stata modificata con successo.<br>
+        Se non sei stato tu, contatta immediatamente l’amministratore.
+      `
+    );
+
+    res.json({ message: 'Password aggiornata con successo.' });
+  } catch (err) {
+    console.error('Errore cambio password:', err);
+    res.status(500).json({ message: 'Errore durante il cambio password' });
+  }
+};
+
 
 export const resetPassword = async (req, res) => {
   try {
