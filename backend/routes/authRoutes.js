@@ -1,5 +1,13 @@
 import { Router } from 'express';
-import {login, me, registerUser, updateUser, changePassword} from '../controllers/authController.js';
+import {
+    login,
+    me,
+    registerUser,
+    updateUser,
+    changePassword,
+    forgotPassword,
+    resetPassword
+} from '../controllers/authController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = Router();

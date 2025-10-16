@@ -15,6 +15,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
 import {TokenInterceptor} from "./core/interceptors/token.interceptor";
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
+import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import {TokenInterceptor} from "./core/interceptors/token.interceptor";
     LoginRegisterComponent,
     ProductListComponent,
     ReservationCartComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
     UserProfileComponent,
     AdminPanelComponent,
     AdminProductFormComponent

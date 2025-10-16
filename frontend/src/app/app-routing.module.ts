@@ -12,6 +12,8 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { AdminProductFormComponent } from './components/admin-product-form/admin-product-form.component';
 import {NoAuthGuard} from './core/guards/noauth.guard';
 import {NoadminGuard} from './core/guards/noadmin.guard';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [NoAuthGuard]},
