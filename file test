@@ -1,0 +1,78 @@
+### 🧠 Spiegazione chiara
+
+#### 🧩 Backend → test **API**
+
+* Testano le **rotte Express** (`/api/auth`, `/api/products`, `/api/reservations`)
+
+* Usano **Jest + Supertest + mongodb-memory-server**
+
+* Eseguono vere chiamate HTTP “simulate” verso la tua app (es. `POST /api/products`)
+
+* **Cartella consigliata:**
+
+  ```
+  backend/
+  ├── app.js
+  ├── server.js
+  ├── models/
+  ├── routes/
+  ├── tests/       ✅ ← qui dentro i file di test
+  │   ├── setupTestDB.js
+  │   ├── authRoutes.test.js
+  │   ├── productRoutes.test.js
+  │   └── reservationRoutes.test.js
+  ```
+
+* Li lanci con:
+
+  ```bash
+  cd backend
+  npm test
+  ```
+
+---
+
+#### 💻 Frontend → test **componenti Angular**
+
+* Qui i test sono **diversi**: usano **Jasmine + Karma** (già inclusi in Angular).
+* Servono a testare componenti, servizi, pipe, ecc.
+  (es. testare che `ProductListComponent` mostri “Prodotto esaurito!” se quantity = 0)
+* Angular crea già la cartella `src/app/**/*.spec.ts`.
+
+Esempio:
+
+```
+frontend/
+└── src/
+    └── app/
+        ├── core/
+        │   └── services/
+        │       └── auth.service.spec.ts
+        ├── components/
+        │   └── product-list/
+        │       └── product-list.component.spec.ts
+```
+
+Li lanci con:
+
+```bash
+cd frontend
+ng test
+```
+
+---
+
+### 🔍 In breve
+
+| Tipo            | Libreria                  | Comando    | Cartella                         |
+| --------------- | ------------------------- | ---------- | -------------------------------- |
+| 🧱 **Backend**  | Jest + Supertest          | `npm test` | `backend/tests/`                 |
+| 🎨 **Frontend** | Jasmine + Karma (Angular) | `ng test`  | `frontend/src/app/.../*.spec.ts` |
+
+---
+
+👉 Quindi:
+
+* **I file `*.test.js`** (come `productRoutes.test.js`) vanno **nel backend**.
+* **I file `*.spec.ts`** (Angular) vanno **nel frontend**.
+
