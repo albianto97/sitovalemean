@@ -22,6 +22,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard] },
   { path: 'admin/product/new', component: AdminProductFormComponent, canActivate: [AdminGuard] },
   { path: 'admin/product/:id/edit', component: AdminProductFormComponent, canActivate: [AdminGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: '**', redirectTo: '' }
 ];
 
