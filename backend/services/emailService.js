@@ -1,13 +1,15 @@
 import nodemailer from 'nodemailer';
 
+
+// ✉️ Configura il trasporto email (SMTP)
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: process.env.SMTP_PORT || 587,
-  secure: false, // true se usi 465
+  host: process.env.EMAIL_HOST,      // es: smtp.gmail.com oppure sandbox.smtp.mailtrap.io
+  port: process.env.EMAIL_PORT || 587,
+  secure: false,                     // true solo se usi porta 465
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
 // Template HTML base con dark/light mode
@@ -26,15 +28,15 @@ export const generateEmailTemplate = (subject, message) => `
       --primary: #007bff;
     }
     body {
-      background-color: var(--bg-light);
-      color: var(--text-light);
+      background-color: cadetblue;
+      color: black;
       font-family: 'Segoe UI', sans-serif;
       padding: 2rem;
     }
     @media (prefers-color-scheme: dark) {
       body {
-        background-color: var(--bg-dark);
-        color: var(--text-dark);
+        background-color: yellow;
+        color: red
       }
     }
     .card {
