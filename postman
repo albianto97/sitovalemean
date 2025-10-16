@@ -1,0 +1,82 @@
+🔹 STEP 1 — Fai prima il login e ottieni il token
+
+Apri Postman.
+
+Crea una nuova richiesta:
+
+POST http://localhost:3000/api/auth/login
+
+
+Nella tab Body → raw → JSON, metti:
+
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+
+
+Premi Send.
+
+Se il login è corretto, nel risultato vedrai qualcosa tipo:
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": { "_id": "...", "username": "admin", "role": "admin" }
+}
+
+
+👉 Copia tutto il valore di "token".
+
+🔹 STEP 2 — Inserisci il token in Postman
+
+Ora vai sulla tua chiamata protetta (es. POST /api/products o GET /api/reservations).
+
+Metodo 1 (più usato):
+
+Nella tab Headers, aggiungi una nuova riga:
+
+KEY	VALUE
+Authorization	Bearer eyJhbGciOiJI...
+
+⚠️ Importante: deve esserci la parola Bearer seguita da uno spazio e poi il token.
+
+Esempio:
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+
+Metodo 2 (comodo se fai molti test)
+
+Puoi salvare il token in una variabile Postman:
+
+Dopo il login, nella scheda “Tests” della richiesta login incolla:
+
+const jsonData = pm.response.json();
+pm.environment.set("token", jsonData.token);
+
+
+Poi nelle altre richieste usa:
+
+Authorization: Bearer {{token}}
+
+
+✅ Così Postman userà sempre automaticamente il token aggiornato.
+
+🔹 STEP 3 — Fai la POST di test
+
+Esempio per creare un prodotto:
+
+POST http://localhost:3000/api/products
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+Body (raw JSON):
+{
+  "name": "Lampada LED",
+  "description": "Lampada da scrivania con luce calda",
+  "stock": 5,
+  "reserved": 0,
+  "link": "https://example.com/lampada"
+}
+
+
+Premi Send → dovresti ricevere 201 Created con l’oggetto del prodotto appena salvato 🎉
