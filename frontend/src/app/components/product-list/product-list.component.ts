@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
-import {Product, ProductService} from '../../core/services/product.service';
-import {ReservationService} from '../../core/services/reservation.service';
-
+import { Product, ProductService } from '../../core/services/product.service';
+import { ReservationService } from '../../core/services/reservation.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-product-list',
-  standalone:false,
+  standalone: false,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
@@ -15,14 +15,17 @@ export class ProductListComponent implements OnInit {
   loading = true;
   error = '';
   reservedIds: string[] = [];
+  isAdmin = false;
 
   constructor(
     private productService: ProductService,
     private reservationService: ReservationService,
-    private toast: ToastService
+    private toast: ToastService,
+    public auth: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.auth.isAdmin$().subscribe(val => (this.isAdmin = val));
     this.loadProducts();
     this.loadMyReservations();
   }
@@ -35,7 +38,7 @@ export class ProductListComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.toast.show('Errore nella prenotazione', true);
+        this.toast.show('Errore nel caricamento prodotti', true);
         this.error = err.error?.message || 'Errore nel caricamento prodotti.';
         this.loading = false;
       }
@@ -59,24 +62,32 @@ export class ProductListComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-
   toggleReservation(product: Product): void {
+    if (!this.auth.isLoggedIn()) {
+      this.toast.show('Devi accedere per prenotare.', true);
+      return;
+    }
+
+    const available = product.stock - product.reserved;
+
     if (this.isReserved(product._id)) {
+      // Rilascio
       this.reservationService.removeProduct(product._id!).subscribe({
         next: () => {
-          product.quantity++;
+          product.reserved--; // meno prenotati
           this.reservedIds = this.reservedIds.filter(id => id !== product._id);
         },
-        error: () => alert('Errore nel rilascio del prodotto.')
+        error: () => this.toast.show('Errore nel rilascio del prodotto.', true)
       });
     } else {
-      if (product.quantity <= 0) {
-        alert('Prodotto esaurito!');
+      // Prenotazione
+      if (available <= 0) {
+        this.toast.show('Prodotto esaurito!', true);
         return;
       }
       this.reservationService.addProduct(product._id!).subscribe({
         next: () => {
-          product.quantity--;
+          product.reserved++; // più prenotati
           this.toast.show('Prodotto prenotato con successo!');
           this.reservedIds.push(product._id!);
         },

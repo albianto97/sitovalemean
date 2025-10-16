@@ -101,6 +101,15 @@ export class AuthService {
     if (token) {
       this.loggedIn$.next(true);
       this.role$.next(this.getRoleFromToken());
+
+      // 🔄 Ricarica i dati utente dal server se non già presenti
+      if (!this.currentUser.value) {
+        this.getUserProfile().subscribe({
+          next: (user) => this.setUser(user),
+          error: () => this.setUser(null)
+        });
+      }
     }
   }
+
 }

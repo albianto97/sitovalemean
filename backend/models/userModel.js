@@ -3,13 +3,21 @@ import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema(
     {
-        username: { type: String, required: true, trim: true },
+        username: { type: String, required: true, unique: true,trim: true, lowercase: true  },
         email: { type: String, required: true, unique: true, lowercase: true, trim: true },
         password: { type: String, required: true },
         role: { type: String, enum: ['user', 'admin'], default: 'user' }
     },
     { timestamps: true }
 );
+
+// 👇 Middleware per assicurarsi che l'email sia in lowercase anche se inviata in maiuscolo
+userSchema.pre('save', function (next) {
+    if (this.email) {
+        this.email = this.email.toLowerCase();
+    }
+    next();
+});
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();

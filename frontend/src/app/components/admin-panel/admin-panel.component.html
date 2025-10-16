@@ -28,8 +28,8 @@
         <td class="fw-semibold">{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>
-          <span class="badge bg-{{ product.quantity > 0 ? 'success' : 'danger' }}">
-            {{ product.quantity }}
+          <span class="badge bg-{{ product.stock > 0 ? 'success' : 'danger' }}">
+            {{ product.stock }}
           </span>
         </td>
         <td>

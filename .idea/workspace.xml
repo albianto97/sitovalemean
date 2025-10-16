@@ -4,32 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="errore bycript">
-      <change afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/core/guards/noauth.guard.ts" afterDir="false" />
+    <list default="true" id="24f53d11-2461-48f0-a4a4-50cbe942ecba" name="Changes" comment="errore nella creazione prodotto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/authController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/productController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/productController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/userModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/authRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/productRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/productRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/admin-panel/admin-panel.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/admin-panel/admin-panel.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/productModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/productModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/admin-panel/admin-panel.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/admin-panel/admin-panel.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/admin-product-form/admin-product-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/admin-product-form/admin-product-form.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/admin-product-form/admin-product-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/admin-product-form/admin-product-form.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/login-register/login-register.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/navbar/navbar.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/product-list/product-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/reservation-cart/reservation-cart.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/reservation-cart/reservation-cart.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/user-profile/user-profile.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/guards/admin.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/guards/admin.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/guards/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/guards/auth.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/product.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,28 +82,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "ripartenza",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "20.16.0",
-    "javascript.nodejs.core.library.typings.version": "20.16.10",
-    "last_opened_file_path": "C:/Users/Acer/WebstormProjects/MovimentiSpesa",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.build.executor": "Run",
-    "npm.dev.executor": "Run",
-    "npm.start (1).executor": "Run",
-    "npm.start (2).executor": "Run",
-    "npm.start.executor": "Run",
-    "ts.external.directory.path": "C:\\Users\\Acer\\WebstormProjects\\sitovalemean\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ripartenza&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.16.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.16.10&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Acer/WebstormProjects/MovimentiSpesa&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.build.executor&quot;: &quot;Run&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.start (2).executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Acer\\WebstormProjects\\sitovalemean\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Acer\WebstormProjects\sitovalemean\backend" />
@@ -201,6 +185,7 @@
       <workItem from="1760387854682" duration="39000" />
       <workItem from="1760388014451" duration="4760000" />
       <workItem from="1760466246353" duration="6369000" />
+      <workItem from="1760557224473" duration="5605000" />
     </task>
     <task id="LOCAL-00001" summary="GetSingle User">
       <created>1699475738481</created>
@@ -545,7 +530,7 @@
       <option name="project" value="LOCAL" />
       <updated>1727296775160</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,9 +581,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="stato dell'ordine per l'utente nella sua visualizzazione" />
-    <MESSAGE value="Bug notifiche e merge" />
-    <MESSAGE value="Notifiche bug paso" />
     <MESSAGE value="Conferma in 2 dialag" />
     <MESSAGE value="Una sola dialog per la modifica" />
     <MESSAGE value="Non riesco a modificare il css" />
@@ -621,6 +603,9 @@
     <MESSAGE value="leggera bootstrap" />
     <MESSAGE value="Errore registrazione" />
     <MESSAGE value="errore bycript" />
-    <option name="LAST_COMMIT_MESSAGE" value="errore bycript" />
+    <MESSAGE value="navbar.component.html -&gt; solo con alcuni profili" />
+    <MESSAGE value="prova a modificare il fatto che admin non veda prenotati" />
+    <MESSAGE value="errore nella creazione prodotto" />
+    <option name="LAST_COMMIT_MESSAGE" value="errore nella creazione prodotto" />
   </component>
 </project>

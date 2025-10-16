@@ -15,35 +15,54 @@ export const getMyReservations = async (req, res) => {
  * Decrementa quantità prodotto se disponibile
  */
 export const addProduct = async (req, res) => {
-    const { productId } = req.params;
+    try {
+        const userId = req.user.id;
+        const productId = req.params.productId || req.params.id || req.body.productId;
 
-    // Decremento atomico se quantity > 0
-    const updated = await Product.findOneAndUpdate(
-        { _id: productId, quantity: { $gt: 0 } },
-        { $inc: { quantity: -1 } },
-        { new: true }
-    );
-    if (!updated) return res.status(400).json({ message: 'Prodotto esaurito o inesistente' });
+        if (!productId) {
+            return res.status(400).json({ message: 'productId mancante (params o body)' });
+        }
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).json({ message: 'productId non valido' });
+        }
 
-    // Upsert prenotazione
-    const reservation = await Reservation.findOneAndUpdate(
-        { userId: req.user.id, 'products.productId': { $ne: productId } },
-        { $push: { products: { productId: new mongoose.Types.ObjectId(productId), quantity: 1 } } },
-        { new: true }
-    );
+        const prod = await Product.findById(productId);
+        if (!prod) return res.status(404).json({ message: 'Prodotto non trovato' });
 
-    if (!reservation) {
-        // Se esiste già l'item, incrementa quantity
-        const incRes = await Reservation.findOneAndUpdate(
-            { userId: req.user.id, 'products.productId': productId },
-            { $inc: { 'products.$.quantity': 1 } },
-            { new: true, upsert: true, setDefaultsOnInsert: true }
-        );
-        return res.json(await incRes.populate('products.productId'));
+        // 🔹 Controlla disponibilità
+        if (prod.reserved >= prod.stock) {
+            return res.status(409).json({ message: 'Prodotto esaurito' });
+        }
+
+        // 🔹 Aggiorna o crea la prenotazione utente
+        let reservation = await Reservation.findOne({ userId });
+        if (!reservation) {
+            reservation = await Reservation.create({
+                userId,
+                products: [{ productId, quantity: 1 }]
+            });
+        } else {
+            const existing = reservation.products.find(
+                (p) => p.productId.toString() === productId
+            );
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                reservation.products.push({ productId, quantity: 1 });
+            }
+            await reservation.save();
+        }
+
+        // 🔹 Incrementa i prenotati del prodotto
+        await Product.findByIdAndUpdate(productId, { $inc: { reserved: 1 } }, { new: true });
+
+        res.status(200).json({ message: 'Prodotto prenotato con successo', reservation });
+    } catch (error) {
+        console.error('Errore durante la prenotazione:', error);
+        res.status(500).json({ message: 'Errore durante la prenotazione', error });
     }
-
-    res.json(await reservation.populate('products.productId'));
 };
+
 
 /**
  * Rimuove 1 unità del prodotto dalla prenotazione (o interamente se quantity va a 0)
@@ -52,17 +71,16 @@ export const addProduct = async (req, res) => {
 export const removeProduct = async (req, res) => {
     const { productId } = req.params;
 
-    // Trova prenotazione
     const reservation = await Reservation.findOne({ userId: req.user.id });
     if (!reservation) return res.status(404).json({ message: 'Prenotazione non trovata' });
 
     const item = reservation.products.find(p => String(p.productId) === String(productId));
     if (!item) return res.status(404).json({ message: 'Prodotto non presente in prenotazione' });
 
-    // Incrementa stock
-    await Product.findByIdAndUpdate(productId, { $inc: { quantity: 1 } });
+    // 🔹 Decrementa i prenotati nel prodotto
+    await Product.findByIdAndUpdate(productId, { $inc: { reserved: -1 } });
 
-    // Decrementa quantità in prenotazione o rimuovi item
+    // 🔹 Aggiorna la reservation utente
     if (item.quantity > 1) {
         await Reservation.updateOne(
             { userId: req.user.id, 'products.productId': productId },
@@ -79,6 +97,7 @@ export const removeProduct = async (req, res) => {
     res.json(updated || { userId: req.user.id, products: [] });
 };
 
+
 /**
  * Svuota la prenotazione, ripristinando le quantità dei prodotti
  */
@@ -86,12 +105,13 @@ export const clearReservations = async (req, res) => {
     const reservation = await Reservation.findOne({ userId: req.user.id });
     if (!reservation) return res.json({ message: 'Nulla da svuotare' });
 
-    // Ripristina stock per ciascun item
+    // 🔹 Riduci i prenotati per ciascun prodotto
     const ops = reservation.products.map(p =>
-        Product.findByIdAndUpdate(p.productId, { $inc: { quantity: p.quantity } })
+        Product.findByIdAndUpdate(p.productId, { $inc: { reserved: -p.quantity } })
     );
     await Promise.all(ops);
 
     await Reservation.deleteOne({ userId: req.user.id });
     res.json({ message: 'Prenotazioni svuotate' });
 };
+
