@@ -72,6 +72,60 @@
         required
       />
     </div>
+    <button
+  type="button"
+  class="btn btn-outline-secondary ms-2"
+  (click)="togglePasswordForm()"
+>
+  <i class="bi bi-key"></i> Cambia password
+</button>
+    <div *ngIf="showPasswordForm" class="card mt-3 p-3 shadow-sm">
+  <h6 class="fw-bold mb-3">🔑 Cambia la tua password</h6>
+
+  <div class="mb-3">
+    <label for="currentPassword" class="form-label">Password attuale</label>
+    <input
+      type="password"
+      class="form-control"
+      id="currentPassword"
+      [(ngModel)]="currentPassword"
+      name="currentPassword"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="newPassword" class="form-label">Nuova password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="newPassword"
+      [(ngModel)]="newPassword"
+      name="newPassword"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="confirmPassword" class="form-label">Conferma nuova password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="confirmPassword"
+      [(ngModel)]="confirmPassword"
+      name="confirmPassword"
+      required
+    />
+  </div>
+
+  <button
+    class="btn btn-primary w-100"
+    (click)="resetPassword()"
+  >
+    <i class="bi bi-check-circle"></i> Aggiorna password
+  </button>
+</div>
+
 
     <button class="btn btn-primary" [disabled]="!profileForm.form.valid">
       <i class="bi bi-save"></i> Salva modifiche
