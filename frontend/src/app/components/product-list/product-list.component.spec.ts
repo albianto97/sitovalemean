@@ -1,50 +1,46 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ProductService, Product } from './product.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { ProductListComponent } from './product-list.component';
+import { ProductService } from '../../core/services/product.service';
+import { ReservationService } from '../../core/services/reservation.service';
+import { ToastService } from '../../core/services/toast.service';
 
-describe('ProductService', () => {
-  let service: ProductService;
-  let httpMock: HttpTestingController;
-  const apiUrl = 'http://localhost:3000/api/products';
+describe('ProductListComponent', () => {
+  let component: ProductListComponent;
+  let fixture: ComponentFixture<ProductListComponent>;
+  let productServiceSpy: jasmine.SpyObj<ProductService>;
+  let reservationServiceSpy: jasmine.SpyObj<ReservationService>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ProductService]
-    });
-    service = TestBed.inject(ProductService);
-    httpMock = TestBed.inject(HttpTestingController);
+  beforeEach(async () => {
+    const prodSpy = jasmine.createSpyObj('ProductService', ['getProducts']);
+    const resSpy = jasmine.createSpyObj('ReservationService', ['getMyReservations']);
+
+    await TestBed.configureTestingModule({
+      declarations: [ProductListComponent],
+      providers: [
+        ToastService,
+        { provide: ProductService, useValue: prodSpy },
+        { provide: ReservationService, useValue: resSpy }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ProductListComponent);
+    component = fixture.componentInstance;
+    productServiceSpy = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    reservationServiceSpy = TestBed.inject(ReservationService) as jasmine.SpyObj<ReservationService>;
   });
 
-  afterEach(() => {
-    httpMock.verify();
-  });
-
-  it('should fetch product list', () => {
-    const dummyProducts: Product[] = [
-      { _id: '1', name: 'Tazza', description: 'Ceramica', stock: 5 },
-      { _id: '2', name: 'Lampada', description: 'LED', stock: 3 }
+  it('should load products on init', () => {
+    const mockProducts = [
+      { _id: '1', name: 'Tazza', description: 'Test', stock: 2, reserved: 0 }
     ];
+    productServiceSpy.getProducts.and.returnValue(of(mockProducts));
+    reservationServiceSpy.getMyReservations.and.returnValue(of({ products: [] }));
 
-    service.getProducts().subscribe((res) => {
-      expect(res.length).toBe(2);
-      expect(res[0].name).toBe('Tazza');
-    });
+    component.ngOnInit();
 
-    const req = httpMock.expectOne(apiUrl);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyProducts);
-  });
-
-  it('should create product', () => {
-    const newProduct: Product = { name: 'Libro', description: 'Romanzo', stock: 10 };
-
-    service.createProduct(newProduct).subscribe((res) => {
-      expect(res.name).toBe('Libro');
-    });
-
-    const req = httpMock.expectOne(apiUrl);
-    expect(req.request.method).toBe('POST');
-    req.flush({ ...newProduct, _id: '123' });
+    expect(productServiceSpy.getProducts).toHaveBeenCalled();
+    expect(component.products.length).toBe(1);
+    expect(component.products[0].name).toBe('Tazza');
   });
 });
