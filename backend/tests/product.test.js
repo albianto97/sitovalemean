@@ -1,3 +1,4 @@
+//npm install --save-dev jest supertest
 import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../app.js';
