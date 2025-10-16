@@ -14,6 +14,10 @@ export class UserProfileComponent implements OnInit {
   user: any = null;
   reservations: any[] = [];
   loading = true;
+  showPasswordForm = false;
+currentPassword = '';
+newPassword = '';
+confirmPassword = '';
 
   constructor(
     private authService: AuthService,
@@ -50,4 +54,28 @@ export class UserProfileComponent implements OnInit {
       error: () => this.toast.show('Errore durante l’aggiornamento', true)
     });
   }
+  togglePasswordForm() {
+  this.showPasswordForm = !this.showPasswordForm;
+}
+
+resetPassword() {
+  if (this.newPassword !== this.confirmPassword) {
+    this.toast.show('Le password non coincidono', true);
+    return;
+  }
+
+  this.authService.changePassword(this.currentPassword, this.newPassword).subscribe({
+    next: () => {
+      this.toast.show('Password aggiornata con successo!');
+      this.showPasswordForm = false;
+      this.currentPassword = '';
+      this.newPassword = '';
+      this.confirmPassword = '';
+    },
+    error: (err) => {
+      this.toast.show(err.error?.message || 'Errore durante il cambio password', true);
+    }
+  });
+}
+
 }
