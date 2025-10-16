@@ -95,6 +95,10 @@ export class AuthService {
   getUser() {
     return this.currentUser.value;
   }
+  resetPassword(token: string, newPassword: string) {
+    return this.http.post(`${this.apiUrl}/reset-password/${token}`, { newPassword });
+  }
+
 
   refreshUserState(): void {
     const token = this.getToken();
