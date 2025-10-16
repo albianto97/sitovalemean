@@ -31,4 +31,7 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+  toggleTheme() {
+    this.theme.toggleTheme();
+  }
 }
