@@ -44,6 +44,9 @@ export class AuthService {
     );
   }
 
+  changePassword(currentPassword: string, newPassword: string) {
+    return this.http.post(`${this.apiUrl}/change-password`, { currentPassword, newPassword });
+  }
   forgotPassword(email: string) {
     return this.http.post(`${this.apiUrl}/forgot-password`, { email });
   }
