@@ -61,6 +61,11 @@
           {{ isLoginMode ? 'Non hai un account? Registrati' : 'Hai già un account? Accedi' }}
         </a>
       </div>
+      <div *ngIf="isLoginMode" class="text-center mt-3">
+        <a routerLink="/forgot-password" class="text-decoration-none text-primary">
+            Hai dimenticato la password?
+        </a>
+      </div>
     </div>
   </div>
 </div>
