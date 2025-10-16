@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { ThemeService } from '../../core/services/theme.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +15,7 @@ export class NavbarComponent implements OnInit {
   user: any = null;
   isAdmin = false;
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router, public theme: ThemeService) {}
 
   ngOnInit() {
     // inizializza da stato salvato
